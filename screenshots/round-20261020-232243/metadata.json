@@ -1,0 +1,86 @@
+{
+  "round": "20261020-232243",
+  "publishedAt": "2026-10-20T23:22:43.754998+08:00",
+  "summary": "8e167b4布局修复及共享Switch/Segmented材质窄范围复核：新双库截图、1024深色两模式及实际状态驱动动画帧。",
+  "status": "实际QML候选4c0f08b，当前新截图为深色Segmented页；补充同候选lightSwitch及darkSegmented含disabled/Material图。已检查宿主拒绝时Switch保持checked、Segmented超时回滚，确认后更新，sampling=true有记录。焦点保留。下一步NavBar独立材质及完整键鼠回归，当前窄范围复核不代表整库或整App验收。",
+  "source": {
+    "revision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "2b2fef55c95a36a26b40df13ef14916bd95f1fc9",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M tools/publish-progress.py"
+      ],
+      "trackedDiffSha256": "4472c77b11d998ccc756f62ebf4e7760e80e9c19cf697874a2324c8866f8c5a4"
+    },
+    "gallery": {
+      "revision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2321-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "ada5fd83f2c7f6c4bb1e5a8237ae0bb76fa7320817cccbc89fba63c5aa2999b2",
+      "capturedAt": "2026-10-20T23:21:44.771813+08:00"
+    },
+    {
+      "file": "gallery-switch-light.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": {
+        "componentRevision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+        "environment": "live existing Gallery, in-window client captures, DPR2",
+        "trigger": "shared control state entry, not synthetic pointer/keyboard events"
+      },
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "a857c777a599fd2c0841eede2241e08ddf0964ce28d0b56ce38cf31fb5586cd5",
+      "capturedAt": "2026-10-20T23:19:10.971874+08:00"
+    },
+    {
+      "file": "gallery-segmented-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": {
+        "componentRevision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+        "environment": "live existing Gallery, in-window client captures, DPR2",
+        "trigger": "shared control state entry, not synthetic pointer/keyboard events"
+      },
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "ada5fd83f2c7f6c4bb1e5a8237ae0bb76fa7320817cccbc89fba63c5aa2999b2",
+      "capturedAt": "2026-10-20T23:19:14.759858+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
