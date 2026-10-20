@@ -1,0 +1,53 @@
+{
+  "round": "20261020-235941",
+  "publishedAt": "2026-10-20T23:59:41.411785+08:00",
+  "reviewedData": [],
+  "summary": "23:55轮新双库原图：侧栏合成验证已发现Qt与KWin真实坐标不同，守卫正在修正，尚未宣称blur通过。",
+  "status": "新深色Nav页原图，控件ae9d83e及demo清焦点复核已完成，普通/展开、浅深、Material/disabled与焦点开关窄材质检查通过。当前库没有新控件变更，继续维持实际运行回归；完整键鼠事件链仍待验收。源码SHA及dirty/环境/尺寸见metadata。",
+  "source": {
+    "revision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "e1d4f1510b33544f36a278f9a3c7584109b26b44",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2355-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "819164a08674401d61195f56a52c0da069ca46e711a447f352c2b9b30f679183",
+      "capturedAt": "2026-10-20T23:56:40.297130+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
