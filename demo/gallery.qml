@@ -72,11 +72,12 @@ ShellRoot {
             }
             // Controlled state-path sampling; this does not replace pointer/keyboard QA.
             function controlState(name: string, action: string, value: string): string {
-                if (name !== "reviewSwitch" && name !== "reviewSegmented")
+                if (name !== "reviewSwitch" && name !== "reviewSegmented" && name !== "reviewNav")
                     return JSON.stringify({ok: false, error: "Unknown review control"})
                 const allowed = ["beginReviewPress", "endReviewPress", "cancelReviewPress",
                     "focusReviewControl", "resetReview", "setReviewConfirmation", "previewState"]
                 if (action === "setReviewHovered" && name === "reviewSwitch") allowed.push(action)
+                if (action === "startReviewSequence" && name === "reviewNav") allowed.push(action)
                 if (allowed.indexOf(action) < 0)
                     return JSON.stringify({ok: false, error: "Unknown review action"})
                 const pending = [reviewSurface]
@@ -84,7 +85,8 @@ ShellRoot {
                     const item = pending.pop()
                     if (item.objectName === name && typeof item[action] === "function") {
                         if (action === "previewState") return item.previewState()
-                        if (action === "beginReviewPress" || action === "endReviewPress")
+                        if (action === "startReviewSequence") item.startReviewSequence(value)
+                        else if (action === "beginReviewPress" || action === "endReviewPress")
                             item[action](Number(value) || 0)
                         else if (action === "setReviewConfirmation" || action === "setReviewHovered")
                             item[action](value === "true")
