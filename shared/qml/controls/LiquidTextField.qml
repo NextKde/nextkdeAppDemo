@@ -14,9 +14,9 @@ TextField {
     property color glassColor: Qt.rgba(1, 1, 1, 0.10)
     property real cornerRadius: height
     property color outlineColor: Qt.rgba(1, 1, 1, 0.08)
-    property color focusedOutlineColor: Qt.rgba(1, 1, 1, 0.24)
-    property color textColor: "#f5f5f7"
-    property color mutedTextColor: "#98989d"
+    property color focusedOutlineColor: Foundation.AppTheme.focusRing
+    property color textColor: Foundation.AppTheme.text
+    property color mutedTextColor: Foundation.AppTheme.mutedText
     property bool materialForm: ControlForm.materialForm
     property bool liquidFinish: false
     property real liquidStrength: 1
@@ -37,6 +37,8 @@ TextField {
 
     color: textColor
     placeholderTextColor: mutedTextColor
+    selectionColor: Foundation.AppTheme.accent
+    selectedTextColor: Foundation.AppTheme.accentText
     scale: activeFocus && !materialForm && !reduceMotion ? 1.02 : 1
     Behavior on scale {
         NumberAnimation {
@@ -72,8 +74,17 @@ TextField {
             refractionStrength: root.refractionStrength * Math.max(0, Math.min(1, root.liquidStrength))
             magnification: 1 + (root.magnification - 1) * Math.max(0, Math.min(1, root.liquidStrength))
             edgeWidth: Math.min(12, height / 2)
-            reflectionStrength: root.liquidStrength
-            rimColor: root.activeFocus ? root.focusedOutlineColor : root.outlineColor
+            reflectionStrength: root.liquidStrength * (root.activeFocus ? .60 : hover.hovered ? .52 : .38)
+            rimColor: root.outlineColor
+        }
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: -1
+            radius: root.cornerRadius
+            color: "transparent"
+            visible: root._liquid && root.activeFocus
+            border.width: 2
+            border.color: root.focusedOutlineColor
         }
         Rectangle {
             anchors.fill: parent

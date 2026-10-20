@@ -63,6 +63,10 @@ qt_add_qml_module(kos_ui
         controls/LiquidSegmentedControl.qml
         controls/SelectionHighlight.qml
     RESOURCES
+        controls/shaders/liquid_reflection.vert
+        controls/shaders/liquid_reflection.vert.qsb
+        controls/shaders/liquid_reflection.frag
+        controls/shaders/liquid_reflection.frag.qsb
         controls/shaders/liquid_surface.vert
         controls/shaders/liquid_surface.vert.qsb
         controls/shaders/liquid_surface.frag

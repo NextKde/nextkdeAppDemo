@@ -133,3 +133,27 @@ host chrome. Defaults (18px circles, 22×32 buttons, 10px spacing) are unchanged
 with zero horizontal label padding and centered, unelided glyph content. Supply
 an `Accessible.name` when the text is only a symbol. Disabled icons retain the
 existing opacity treatment. The Gallery shows enabled and disabled examples.
+
+### Directional reflections and text input
+
+`LiquidSurface` draws a positive, directional reflection using the rounded-shape
+normal. It no longer adds two closed perimeter borders or a fixed top-to-bottom
+bevel. `reflectionStrength` and `rimColor` remain supported; they now control the
+soft arc/sheens rather than a continuous outline. A separate, texture-independent
+shader keeps reflection behaviour consistent with or without a sampled backdrop.
+Software rendering uses a restrained directional canvas arc without sampled optics.
+
+`LiquidActionButton.backdrop` allows an explicit eligible sibling texture provider.
+Its normal state is subdued, with small hover/pressed reflection changes respecting
+reduced motion. `LiquidTextField` defaults follow AppTheme text/muted/selection
+colours; explicit colour overrides remain supported. The liquid input's actual
+focus indicator is drawn separately from decorative reflection.
+
+The Button example includes a real coloured/striped source texture, enabled and
+disabled buttons and a typed field. Interact with hover/press/tab/selection in both
+appearances; a source export or shader bake is not visual acceptance.
+
+Independent legacy optics still need separate review: LiquidSelect (closed field
+and popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
+LiquidSegmentedControl. Their Material branches and focus indicators must remain
+intact. This surface change does not claim to finish those controls.

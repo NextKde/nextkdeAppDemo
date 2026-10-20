@@ -79,25 +79,56 @@ Item {
         property real magnification: root.magnification
         property real edgeWidth: root.edgeWidth
     }
-    Rectangle {
+    // One directional reflection pass, independent of backdrop sampling.
+    // Light follows the shape normal; no full-perimeter rim or inner bevel.
+    ShaderEffect {
         anchors.fill: parent
-        radius: root.radius
-        opacity: Math.max(0, Math.min(1, root.reflectionStrength))
-        gradient: Gradient {
-            GradientStop { position: 0; color: Qt.rgba(1, 1, 1, 0.18) }
-            GradientStop { position: 0.2; color: Qt.rgba(1, 1, 1, 0.035) }
-            GradientStop { position: 0.7; color: "transparent" }
-            GradientStop { position: 1; color: Qt.rgba(1, 1, 1, 0.07) }
-        }
-        border.width: 1
-        border.color: root.rimColor
+        visible: GraphicsInfo.api !== GraphicsInfo.Software
+        vertexShader: Qt.resolvedUrl("shaders/liquid_reflection.vert.qsb")
+        fragmentShader: Qt.resolvedUrl("shaders/liquid_reflection.frag.qsb")
+        property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
+        property real radius: root.radius
+        property real reflectionStrength: root.reflectionStrength
+        property color rimColor: root.rimColor
     }
-    Rectangle {
+    // Software rendering cannot run ShaderEffect. Keep a restrained, open
+    // directional arc instead of restoring the former all-around outline.
+    Canvas {
+        id: softReflection
         anchors.fill: parent
-        anchors.margins: 1
-        radius: Math.max(0, root.radius - 1)
-        color: "transparent"
-        border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.05 * Math.max(0, Math.min(1, root.reflectionStrength)))
+        visible: GraphicsInfo.api === GraphicsInfo.Software
+        onWidthChanged: requestPaint()
+        onHeightChanged: requestPaint()
+        Connections {
+            target: root
+            function onRadiusChanged() { softReflection.requestPaint() }
+            function onReflectionStrengthChanged() { softReflection.requestPaint() }
+            function onRimColorChanged() { softReflection.requestPaint() }
+        }
+        onPaint: {
+            const ctx = getContext("2d")
+            ctx.reset()
+            if (width < 2 || height < 2) return
+            const r = Math.min(root.radius, width / 2, height / 2)
+            const strength = Math.max(0, Math.min(2, root.reflectionStrength))
+            const fade = ctx.createLinearGradient(0, 0, width * .72, height)
+            fade.addColorStop(0, Qt.rgba(1, 1, 1, .065 * strength))
+            fade.addColorStop(.45, Qt.rgba(1, 1, 1, .022 * strength))
+            fade.addColorStop(.75, "transparent")
+            fade.addColorStop(1, "transparent")
+            ctx.beginPath()
+            ctx.moveTo(r, 2)
+            ctx.lineTo(width - r, 2)
+            ctx.arcTo(width - 2, 2, width - 2, r, r)
+            ctx.lineTo(width - 2, height - r)
+            ctx.arcTo(width - 2, height - 2, width - r, height - 2, r)
+            ctx.lineTo(r, height - 2)
+            ctx.arcTo(2, height - 2, 2, height - r, r)
+            ctx.lineTo(2, r)
+            ctx.arcTo(2, 2, r, 2, r)
+            ctx.strokeStyle = fade
+            ctx.lineWidth = 3
+            ctx.stroke()
+        }
     }
 }

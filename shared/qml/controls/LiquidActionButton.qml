@@ -1,9 +1,11 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Window
 import "../foundation" as Foundation
 
 Button {
     id: root
+    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
@@ -26,6 +28,9 @@ Button {
     }
     background: LiquidSurface {
         radius: height / 2
+        backdrop: root.backdrop
+        reflectionStrength: root.down ? .75 : root.hovered ? .60 : .42
+        Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         tintColor: root.highlighted || root.checked ? Foundation.AppTheme.accent
             : Foundation.AppTheme.dark ? "#17223b" : "#ffffff"
         tintStrength: root.highlighted || root.checked ? 0.24 : root.down ? 0.18

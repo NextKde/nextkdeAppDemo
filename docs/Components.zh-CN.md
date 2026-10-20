@@ -121,3 +121,16 @@ GLSL 及匹配的两个 QSB 一起提交。脚本使用 Qt 6 变体及 QSB 格�
 `LiquidActionButton.iconOnly` 默认 false。设为 true 后，使用36px紧凑宽度，
 取消文字按钮的左右内边距，图标居中且不省略。纯符号应提供 `Accessible.name`。
 禁用态保留原透明度处理；Gallery 同时展示启用与禁用示例。
+
+### 方向性反光与输入文字
+
+LiquidSurface 使用圆角形状法线产生方向性的正光，移除了全周双描边与固定上下浮雕渐变。
+reflectionStrength/rimColor 属性保留，控制柔光弧与弱面内反射；独立无纹理shader保证有无
+backdrop时反光一致。软件路径为克制的方向性Canvas光弧，不声称采样光学。
+按钮新增可选显式backdrop，普通态收敛、悬停/按下轻增并尊重减少动态。
+输入框默认文字/占位/选中文字使用AppTheme语义色，显式覆盖仍有效；液态焦点环独立绘制。
+Gallery按钮页包含真实彩色条纹纹理及启用/禁用按钮、中英文输入，可实际悬停/按下/Tab/选择。
+编译和shader bake不等于视觉验收。
+
+独立旧材质仍待逐项审查：LiquidSelect闭合场与弹层、LiquidGlassSwitch轨道/拇指、
+LiquidNavBar、LiquidSegmentedControl。必须保留Material分支及焦点指示；本轮未宣称全库完成。
