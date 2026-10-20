@@ -1,0 +1,50 @@
+{
+  "round": "20261020-225212",
+  "publishedAt": "2026-10-20T22:52:12.731860+08:00",
+  "summary": "选择器材质候选本机静态复核；按钮/输入框共享材质持续回归，未完成整体验收。",
+  "status": "运行Gallery QML组件候选72e344c，当前源码68294d2包含review IPC修复。完成：共享button/input方向性柔和反光、选择器材质替换；本轮新图为浅色按钮页，条纹场景裁切已修正。在做：Switch/Segmented/Nav独立材质审查。截图仅QML场景，不包含Overlay弹出层。",
+  "source": {
+    "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "eff27cd828dbe9f7c821596a5e9c78eda2a56588",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2248-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "f750cb0c316cb5b7a1258352f9b36822aeea6431f05308c8ae400a35032cdb25",
+      "capturedAt": "2026-10-20T22:51:57.432259+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
