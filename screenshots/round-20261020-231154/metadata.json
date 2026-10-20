@@ -1,0 +1,50 @@
+{
+  "round": "20261020-231154",
+  "publishedAt": "2026-10-20T23:11:54.135085+08:00",
+  "summary": "23:10轮新图：App仍运行996c30e，Gallery已热加载共享Switch/Segmented候选4c0f08b；新App正在构建。",
+  "status": "截图实际QML热加载候选4c0f08b（包含review IPC c6d2005），静止组件总览页1180x780 DPR2浅色。共享Switch/Segmented去旧整圈高光已提交，动态候选待协调者看连续帧；此静图不等于动画交互验收。NavBar仍pending。源码状态及diff指纹见metadata。",
+  "source": {
+    "revision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "a5cfb9a7fb0b3759a914c77edb928d2eca8a3238",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "4c0f08bd4e05c77055644cb09d8d7501449f69e0",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2310-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "4eae635817568bdf2bd490a2f06c71ce9596e54e7928fda2c57da04a9baff99f",
+      "capturedAt": "2026-10-20T23:10:29.758263+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
