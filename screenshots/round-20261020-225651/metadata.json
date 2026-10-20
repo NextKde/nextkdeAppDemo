@@ -1,0 +1,55 @@
+{
+  "round": "20261020-225651",
+  "publishedAt": "2026-10-20T22:56:51.454095+08:00",
+  "summary": "22:53轮新截图；开发者正在修复试听状态恢复，当前截图仍是已运行的选择器材质候选。",
+  "status": "实际运行Gallery QML源码68294d2，组件材质72e344c，浅色1180x780 DPR2。完成：方向性柔和反光、输入文字对比、选择器去旧浮雕材质、条纹背景裁切。待做：Switch/Segmented/Nav独立材质审查。当前截图为新捕获按钮页，仅QML场景，Overlay弹出层不在此截图内。",
+  "source": {
+    "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "eff27cd828dbe9f7c821596a5e9c78eda2a56588",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M qml/PlayerBar.qml",
+        " M src/MusicController.cpp",
+        " M src/MusicController.h",
+        " M src/main.cpp"
+      ],
+      "trackedDiffSha256": "2d5adf2709dafa77326f9c8361773dc97ea7e4e2c400d7c75ca95c50b8ebe645"
+    },
+    "gallery": {
+      "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2253-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "f750cb0c316cb5b7a1258352f9b36822aeea6431f05308c8ae400a35032cdb25",
+      "capturedAt": "2026-10-20T22:56:07.634845+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
