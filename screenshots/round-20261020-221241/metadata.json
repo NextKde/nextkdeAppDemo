@@ -1,0 +1,68 @@
+{
+  "round": "20261020-221241",
+  "publishedAt": "2026-10-20T22:12:41.862115+08:00",
+  "summary": "KMusic首版已在本机编译和启动；已完成真实Kos.Ui构建绑定。协调者亲自检查浅深色窗口截图，进入首轮UI修正，SPlayer音源正在接入。",
+  "status": "实际Gallery浅深色滑块页已看图；原始像素2360×1560。首次组件回归为紧凑图标按钮和窗控兼容性；Forma逐项还原仍在进行，shader顶点警告保留记录。",
+  "source": {
+    "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "642841d79b16a15e9311558de2375331513de8a9",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M docs/ComponentInventory.md",
+        " M docs/ComponentInventory.zh-CN.md",
+        " M qml/Main.qml",
+        " M qml/PlayerBar.qml",
+        " M qml/SongsPage.qml",
+        " M tools/publish-progress.py",
+        " M vendor/nextkdeAppDemo"
+      ],
+      "trackedDiffSha256": "7bc1c3a4e9612c37bfdea81721c5c564e3dd586f0978b61498f6f9af6e06ec0b"
+    },
+    "gallery": {
+      "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-slider-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "2636bb69220aca6dda102c0a8e3a1ca5a26718460cfb76ad3e83ff355d5a561e",
+      "capturedAt": "2026-10-20T22:10:57.815684+08:00"
+    },
+    {
+      "file": "gallery-slider-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "98167cf0a6d67aad4884341e282b66c868143ac3a105f077915949d2d6cec338",
+      "capturedAt": "2026-10-20T22:11:33.931394+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}

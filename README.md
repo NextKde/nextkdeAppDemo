@@ -1,19 +1,23 @@
 # Gallery progress
 
-Updated: 2026-10-20T22:06:55.534971+08:00
+Updated: 2026-10-20T22:12:41.862115+08:00
 
-已按确认计划启动。仓库改名 KMusic，开发者正在完成原生入口和真实 Kos.Ui 构建链接；Gallery 本机截图链路已建立。
+KMusic首版已在本机编译和启动；已完成真实Kos.Ui构建绑定。协调者亲自检查浅深色窗口截图，进入首轮UI修正，SPlayer音源正在接入。
 
-Gallery 已本机加载并由协调者亲自看图；本轮是滑块页基线，尚未完成交互和 Forma 还原验收。日志有 vertex input shader 警告。
+实际Gallery浅深色滑块页已看图；原始像素2360×1560。首次组件回归为紧凑图标按钮和窗控兼容性；Forma逐项还原仍在进行，shader顶点警告保留记录。
 
-Source: [`0b9651c277a0`](https://github.com/NextKde/nextkdeAppDemo/commit/0b9651c277a0c0f0c67764bb44a956a3d11c435e) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`598046657c7c`](https://github.com/NextKde/nextkdeAppDemo/commit/598046657c7c18f92d0a9514a42ad0a96029af75) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-slider-light.png](screenshots/round-20261020-220655/gallery-slider-light.png)
+![gallery-slider-light.png](screenshots/round-20261020-221241/gallery-slider-light.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-220655/metadata.json)
+![gallery-slider-dark.png](screenshots/round-20261020-221241/gallery-slider-dark.png)
+
+2360 × 1560 original pixels
+
+[Capture and revision metadata](screenshots/round-20261020-221241/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
