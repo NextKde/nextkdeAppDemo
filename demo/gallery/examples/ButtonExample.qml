@@ -61,6 +61,7 @@ ColumnLayout {
                 Controls.LiquidActionButton { backdrop: controlBackdrop; iconOnly: true; text: "▶"; Accessible.name: "Sampled play" }
             }
             Controls.LiquidTextField {
+                objectName: "reviewTextField"
                 Layout.fillWidth: true
                 backdrop: controlBackdrop; materialForm: false; liquidFinish: true
                 text: "Readable input · 浅色与深色"

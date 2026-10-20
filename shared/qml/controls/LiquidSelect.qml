@@ -103,6 +103,8 @@ Item {
         menu.open()
     }
 
+    function closeMenu() { menu.close() }
+
     function toggleMenu() {
         if (menu.opened) menu.close()
         else openMenu()

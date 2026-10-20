@@ -6,14 +6,15 @@ import "../../Kos/Ui/controls" as Controls
 
 ColumnLayout {
     id: example
-    objectName: "selectReviewExample"
+    objectName: "reviewSelect"
     function openReviewMenu() { selector.openMenu() }
+    function closeReviewMenu() { selector.closeMenu() }
     property int selection: 0
     readonly property var options: ["Automatic", "Light", "Dark"]
     spacing: 12
     Controls.LiquidSelect {
         id: selector
-        objectName: "reviewSelect"
+        objectName: "reviewSelectControl"
         Layout.preferredWidth: 240
         model: example.options
         currentIndex: example.selection
