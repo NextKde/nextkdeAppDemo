@@ -70,6 +70,31 @@ ShellRoot {
             function setTheme(theme: string): void {
                 if (theme === "light" || theme === "dark") gallery.themeMode = theme
             }
+            // Controlled state-path sampling; this does not replace pointer/keyboard QA.
+            function controlState(name: string, action: string, value: string): string {
+                if (name !== "reviewSwitch" && name !== "reviewSegmented")
+                    return JSON.stringify({ok: false, error: "Unknown review control"})
+                const allowed = ["beginReviewPress", "endReviewPress", "cancelReviewPress",
+                    "focusReviewControl", "resetReview", "setReviewConfirmation", "previewState"]
+                if (action === "setReviewHovered" && name === "reviewSwitch") allowed.push(action)
+                if (allowed.indexOf(action) < 0)
+                    return JSON.stringify({ok: false, error: "Unknown review action"})
+                const pending = [reviewSurface]
+                while (pending.length) {
+                    const item = pending.pop()
+                    if (item.objectName === name && typeof item[action] === "function") {
+                        if (action === "previewState") return item.previewState()
+                        if (action === "beginReviewPress" || action === "endReviewPress")
+                            item[action](Number(value) || 0)
+                        else if (action === "setReviewConfirmation" || action === "setReviewHovered")
+                            item[action](value === "true")
+                        else item[action]()
+                        return JSON.stringify({ok: true})
+                    }
+                    for (let i = 0; i < item.children.length; ++i) pending.push(item.children[i])
+                }
+                return JSON.stringify({ok: false, error: "Review example is not loaded"})
+            }
         }
     }
 }
