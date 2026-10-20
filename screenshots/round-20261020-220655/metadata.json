@@ -1,0 +1,50 @@
+{
+  "round": "20261020-220655",
+  "publishedAt": "2026-10-20T22:06:55.534971+08:00",
+  "summary": "已按确认计划启动。仓库改名 KMusic，开发者正在完成原生入口和真实 Kos.Ui 构建链接；Gallery 本机截图链路已建立。",
+  "status": "Gallery 已本机加载并由协调者亲自看图；本轮是滑块页基线，尚未完成交互和 Forma 还原验收。日志有 vertex input shader 警告。",
+  "source": {
+    "revision": "0b9651c277a0c0f0c67764bb44a956a3d11c435e",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "1b73f2fb3b5aaf9034320f1216a5248889f683d4",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "A  .gitmodules",
+        "AM vendor/nextkdeAppDemo",
+        "?? CMakeLists.txt",
+        "?? LICENSE",
+        "?? data/",
+        "?? qml/",
+        "?? src/"
+      ],
+      "trackedDiffSha256": "764f7c23acda8ada28f5339af1325dbfc283592fbfe11c5e80110ca69a9171be"
+    },
+    "gallery": {
+      "revision": "0b9651c277a0c0f0c67764bb44a956a3d11c435e",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "images": [
+    {
+      "file": "gallery-slider-light.png",
+      "width": 2360,
+      "height": 1560,
+      "sha256": "2636bb69220aca6dda102c0a8e3a1ca5a26718460cfb76ad3e83ff355d5a561e",
+      "capturedAt": "2026-10-20T22:06:43.937361+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
