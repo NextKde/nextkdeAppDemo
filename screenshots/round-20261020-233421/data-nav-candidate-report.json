@@ -1,0 +1,318 @@
+{
+  "light": {
+    "currentIndex": 2,
+    "destination": 2,
+    "requestCount": 1,
+    "pressedIndex": -1,
+    "active": false,
+    "displayX": 165.99969482421875,
+    "scaleX": 1.0100560046625862,
+    "scaleY": 0.9922913980295558,
+    "focusIndex": 2,
+    "sampling": false,
+    "sequenceFrames": [
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-000.png",
+        "scheduledMs": 0,
+        "requestedAtMs": 26,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.1463999999999999,
+          "scaleY": 1.1463999999999999,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-040.png",
+        "scheduledMs": 40,
+        "requestedAtMs": 43,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.2213568000000001,
+          "scaleY": 1.2213568000000001,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-100.png",
+        "scheduledMs": 100,
+        "requestedAtMs": 109,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.3,
+          "scaleY": 1.3,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-160.png",
+        "scheduledMs": 160,
+        "requestedAtMs": 166,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.3,
+          "scaleY": 1.3,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-240.png",
+        "scheduledMs": 240,
+        "requestedAtMs": 243,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 40.25704,
+          "scaleX": 1.3556676900000002,
+          "scaleY": 1.2628882066666667,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-300.png",
+        "scheduledMs": 300,
+        "requestedAtMs": 311,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 142.10529700726997,
+          "scaleX": 1.5443641613677306,
+          "scaleY": 1.1262468866932471,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-380.png",
+        "scheduledMs": 380,
+        "requestedAtMs": 394,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 163.93113484510909,
+          "scaleX": 1.4307475254597222,
+          "scaleY": 1.2015626745635544,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/light/nav-500.png",
+        "scheduledMs": 500,
+        "requestedAtMs": 511,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": false,
+          "displayX": 165.95148346972314,
+          "scaleX": 1.1998862345476262,
+          "scaleY": 1.1498508790632032,
+          "focusIndex": 2,
+          "sampling": false
+        }
+      }
+    ]
+  },
+  "dark": {
+    "currentIndex": 2,
+    "destination": 2,
+    "requestCount": 1,
+    "pressedIndex": -1,
+    "active": false,
+    "displayX": 165.99969482421875,
+    "scaleX": 1.0100560046625862,
+    "scaleY": 0.9922913980295558,
+    "focusIndex": 2,
+    "sampling": false,
+    "sequenceFrames": [
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-000.png",
+        "scheduledMs": 0,
+        "requestedAtMs": 18,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.1284639,
+          "scaleY": 1.1284639,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-040.png",
+        "scheduledMs": 40,
+        "requestedAtMs": 49,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.2578176,
+          "scaleY": 1.2578176,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-100.png",
+        "scheduledMs": 100,
+        "requestedAtMs": 116,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.3,
+          "scaleY": 1.3,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-160.png",
+        "scheduledMs": 160,
+        "requestedAtMs": 161,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 0,
+          "destination": 0,
+          "requestCount": 0,
+          "pressedIndex": 2,
+          "active": true,
+          "displayX": 6,
+          "scaleX": 1.3,
+          "scaleY": 1.3,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-240.png",
+        "scheduledMs": 240,
+        "requestedAtMs": 251,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 75.17980463616001,
+          "scaleX": 1.4283017265337603,
+          "scaleY": 1.21446551564416,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-300.png",
+        "scheduledMs": 300,
+        "requestedAtMs": 301,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 141.02860335713845,
+          "scaleX": 1.5422373185845017,
+          "scaleY": 1.1278235181405192,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-380.png",
+        "scheduledMs": 380,
+        "requestedAtMs": 386,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": true,
+          "displayX": 164.0253448362823,
+          "scaleX": 1.4302323738192337,
+          "scaleY": 1.2018732808113541,
+          "focusIndex": 2,
+          "sampling": true
+        }
+      },
+      {
+        "path": "/home/amao/OneDrive/nextkdeAppDemo/.task/nav-candidate/dark/nav-500.png",
+        "scheduledMs": 500,
+        "requestedAtMs": 506,
+        "saved": true,
+        "stateAtRequest": {
+          "currentIndex": 2,
+          "destination": 2,
+          "requestCount": 1,
+          "pressedIndex": -1,
+          "active": false,
+          "displayX": 165.95778016469578,
+          "scaleX": 1.1932591900762244,
+          "scaleY": 1.1441038569262472,
+          "focusIndex": 2,
+          "sampling": false
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "round": "20261020-233421",
+  "publishedAt": "2026-10-20T23:34:21.988648+08:00",
+  "reviewedData": [
+    "data-nav-candidate-report.json"
+  ],
+  "summary": "23:33轮新原图，导航动画实际状态/时间数据一并公开；focus-off与侧栏合成验证尚在进行。",
+  "status": "当前Nav QML候选ae9d83e及IPC0d0928f，新深色窗口截图已看。已有动画帧窄范围复核，附report原始实际elapsed/state数据。开发者发现先前名为no-focus的候选实际focusIndex仍2，明确作废该标签，未作为无焦点证据上传；正在通过真实focus清理补验。当前明显环为独立焦点提示。",
+  "source": {
+    "revision": "9752b8178c2d9ac95f0ed48398196794377e5b71",
+    "branch": "codex/music-fidelity",
+    "dirty": true,
+    "changedPaths": [
+      "M demo/gallery.qml"
+    ],
+    "trackedDiffSha256": "3f9f54c3d58d8847303c40adf487b8a6096b302424b0b2f5a324fe48e883ce66"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "95c7232fce7a3edb5e9d352a1227356b155add5b",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M tools/publish-progress.py"
+      ],
+      "trackedDiffSha256": "be61f1745c78abc6f6962309682345433159ce39efcc06116eb30319561cf37d"
+    },
+    "gallery": {
+      "revision": "9752b8178c2d9ac95f0ed48398196794377e5b71",
+      "branch": "codex/music-fidelity",
+      "dirty": true,
+      "changedPaths": [
+        "M demo/gallery.qml"
+      ],
+      "trackedDiffSha256": "3f9f54c3d58d8847303c40adf487b8a6096b302424b0b2f5a324fe48e883ce66"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2333-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "b5bce2413cd7b1aaca173303b361a9c1d4408d2efcc00056df6721ebbb9e8135",
+      "capturedAt": "2026-10-20T23:33:32.858591+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}

@@ -1,35 +1,21 @@
 # Gallery progress
 
-Updated: 2026-10-20T23:29:19.513833+08:00
+Updated: 2026-10-20T23:34:21.988648+08:00
 
-23:28轮导航材质候选ae9d83e：新双库原图及真实示例区域动画帧，窄范围看图复核。
+23:33轮新原图，导航动画实际状态/时间数据一并公开；focus-off与侧栏合成验证尚在进行。
 
-实际热加载NavBar候选ae9d83e与demo IPC0d0928f。新深色整窗+补充浅色整窗及navScene原始区域040/160/300帧，协调者逐图已看。真实状态路径驱动：light实际43/166/311ms，displayX6/6/142.11，旧全周彩白高光已移除；焦点圈独立可见。区域帧收齐后才PNG编码，非整窗截图、非键鼠E2E。focus-off外观和完整键盘还要继续检查。
+当前Nav QML候选ae9d83e及IPC0d0928f，新深色窗口截图已看。已有动画帧窄范围复核，附report原始实际elapsed/state数据。开发者发现先前名为no-focus的候选实际focusIndex仍2，明确作废该标签，未作为无焦点证据上传；正在通过真实focus清理补验。当前明显环为独立焦点提示。
 
-Source: [`0d0928f5813e`](https://github.com/NextKde/nextkdeAppDemo/commit/0d0928f5813ece42d35daa63d6ce726f0a6a3578) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`9752b8178c2d`](https://github.com/NextKde/nextkdeAppDemo/commit/9752b8178c2d9ac95f0ed48398196794377e5b71) · Branch: `codex/music-fidelity` · Local changes: True
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-poll-2328-dark.png](screenshots/round-20261020-232919/gallery-poll-2328-dark.png)
+![gallery-poll-2333-dark.png](screenshots/round-20261020-233421/gallery-poll-2333-dark.png)
 
 2360 × 1560 original pixels
 
-![gallery-nav-light.png](screenshots/round-20261020-232919/gallery-nav-light.png)
+[Capture and revision metadata](screenshots/round-20261020-233421/metadata.json)
 
-2360 × 1560 original pixels
-
-![nav-040.png](screenshots/round-20261020-232919/nav-040.png)
-
-1656 × 312 original pixels
-
-![nav-160.png](screenshots/round-20261020-232919/nav-160.png)
-
-1656 × 312 original pixels
-
-![nav-300.png](screenshots/round-20261020-232919/nav-300.png)
-
-1656 × 312 original pixels
-
-[Capture and revision metadata](screenshots/round-20261020-232919/metadata.json)
+[Reviewed state/timing data: data-nav-candidate-report.json](screenshots/round-20261020-233421/data-nav-candidate-report.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
