@@ -172,3 +172,21 @@ available. Popup/reflection transitions respect reduced motion.
 The Gallery select example exposes normal/disabled/preserved-Material controls.
 The Button example's coloured source clips its rotated stripes to the scene
 boundary; this does not change glass clipping or sample-mapping rules.
+
+### Switch and segmented reflection review
+
+Non-Material `LiquidGlassSwitch` track/handle and expanded lens now use
+`LiquidSurface` directional reflection. The expanded lens samples the actual
+sibling track; closed white/red/cyan strokes and fixed bevels are removed.
+The existing position, expansion and wobble durations remain; reduced motion
+suppresses those animations. Space/Enter and accessibility activation request
+`toggled` without assigning host-owned `checked`. A separate focus ring remains.
+
+`LiquidSegmentedControl` keeps its geometry, optimistic `selectionRequested`,
+owner acknowledgement and rollback deadline. Its liquid lens shares the same
+surface, accepts an optional eligible `backdrop`, and removes the old closed
+white rim, vertical bevel and lens shadow. Material fills/outlines remain.
+Gallery examples include disabled/Material controls and a real striped sampling
+scene. Review hooks use the real press/release state paths; state-driven frames
+do not establish pointer/keyboard event acceptance. Expanded/moving light/dark
+review is required. LiquidNavBar's independent older material remains pending.

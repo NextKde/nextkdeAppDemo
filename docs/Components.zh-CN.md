@@ -143,3 +143,15 @@ LiquidSelect 非Material的闭合场和选项弹层改为共享LiquidSurface，�
 确认/回滚契约不变。真实键盘焦点独立绘制，保留Tab、方向键、Enter、Escape流程，
 弹层/反光过渡尊重减少动态。Gallery增加普通/禁用/Material对照。
 按钮页的旋转条纹源现裁切在场景边界内，不改变玻璃自身裁切与采样映射。
+
+### 开关与分段控件反光审阅
+
+非Material的LiquidGlassSwitch轨道、拇指与展开透镜改用LiquidSurface方向性反光，
+展开透镜采样真实同级轨道；移除全周白/红/青描边及固定浮雕。保留位移、展开、
+回弹动画时长，减少动态时关闭动画。Space/Enter与无障碍激活只发toggled请求，
+不覆盖宿主checked绑定；真实焦点环独立保留。
+LiquidSegmentedControl保留几何、selectionRequested乐观选择、宿主确认与超时回滚。
+液态透镜共享Surface，支持有效backdrop，移除旧白圈、垂直浮雕和透镜阴影；
+Material填充/轮廓保留。Gallery含禁用/Material对照及真实条纹采样场景。
+审阅钩子调用真实按下/释放状态路径；状态驱动连续帧不能代替指针/键盘事件验收。
+仍须审阅浅深色展开和移动过程；LiquidNavBar独立旧材质留待后续。

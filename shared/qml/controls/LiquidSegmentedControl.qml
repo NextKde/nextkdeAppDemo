@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Window
 import "../foundation" as Foundation
 
 // A fixed-geometry segmented control with an optimistic liquid-glass lens.
@@ -11,7 +12,9 @@ Item {
 
     implicitWidth: 180
     implicitHeight: 34
+    opacity: enabled ? 1 : .5
 
+    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
     property var labels: []
     property int currentIndex: 0
     property color backgroundColor: Foundation.AppTheme.button
@@ -20,14 +23,16 @@ Item {
     property color mutedTextColor: Foundation.AppTheme.mutedText
     // A tonal host draws the Material 3 segmented button: a full-radius outline
     // container with a filled, shadowless selection. The liquid lens below
-    // (shadow, gradient, hairline rim) is the glass finish this form must not
-    // have, so its layers are hidden rather than blended. Follows the
+    // reflection and sampling are hidden rather than blended in that form.
+    // Follows the
     // application-wide form by default.
     property bool materialForm: ControlForm.materialForm
     property int _pressedIndex: -1
     property int _visualIndex: 0
     property int _pendingIndex: -1
 
+    readonly property real _lensPosition: lens.x
+    readonly property bool sampling: !materialForm && lensSurface.sampling
     readonly property int safeIndex: clampedIndex(currentIndex)
     readonly property real segmentWidth: labels.length > 0 ? (width - 4) / labels.length : 0
 
@@ -39,7 +44,7 @@ Item {
     }
 
     function select(index) {
-        if (index < 0 || index >= labels.length)
+        if (!enabled || index < 0 || index >= labels.length)
             return
         // Draw the result first. The owner may update its persistent state
         // through IPC, but that round trip must not consume the first click.
@@ -56,6 +61,15 @@ Item {
         if (segment)
             segment.forceActiveFocus()
     }
+
+    function _beginPress(index) {
+        if (!enabled || index < 0 || index >= labels.length) return
+        const segment = segments.itemAt(index)
+        if (segment) segment.forceActiveFocus()
+        _pressedIndex = index
+    }
+    function _endPress() { _pressedIndex = -1 }
+    onEnabledChanged: { if (!enabled) _endPress() }
 
     onCurrentIndexChanged: {
         // Read the changed source property directly. A binding that depends on
@@ -85,57 +99,48 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: root.materialForm ? height / 2 : height * 0.48
+        radius: root.materialForm ? height / 2 : height * .48
         color: root.backgroundColor
-        border.width: 1
+        border.width: root.materialForm ? 1 : 0
         border.color: Foundation.AppTheme.border
-
-        Rectangle {
+        LiquidSurface {
             anchors.fill: parent
-            radius: parent.radius
             visible: !root.materialForm
-            gradient: Gradient {
-                orientation: Gradient.Vertical
-                GradientStop { position: 0; color: Qt.rgba(1, 1, 1, 0.04) }
-                GradientStop { position: 1; color: Qt.rgba(0, 0, 0, 0.02) }
-            }
+            radius: parent.radius
+            backdrop: null
+            tintStrength: 0
+            reflectionStrength: .16
+            rimColor: Qt.rgba(1, 1, 1, .10)
         }
     }
-
-    Rectangle {
-        id: lensShadow
-        x: lens.x
-        y: lens.y + 1
-        width: lens.width
-        height: lens.height
-        radius: lens.radius
-        visible: !root.materialForm
-        color: Qt.rgba(0, 0, 0, Foundation.AppTheme.dark ? 0.24 : 0.10)
-    }
-
-    Rectangle {
+    Item {
         id: lens
         x: 4 + root._visualIndex * root.segmentWidth
         y: 2
         width: root.segmentWidth - 4
         height: root.height - 4
-        radius: root.materialForm ? height / 2 : height * 0.48
-        color: root.selectionColor
-        border.width: root.materialForm ? 0 : 1
-        border.color: Qt.rgba(1, 1, 1, 0.16)
-
+        readonly property real radius: root.materialForm ? height / 2 : height * .48
         Behavior on x { NumberAnimation { duration: Foundation.AppTheme.motionNormal; easing.type: Easing.OutQuint } }
-
         Rectangle {
             anchors.fill: parent
-            radius: parent.radius
+            visible: root.materialForm
+            radius: lens.radius
+            color: root.selectionColor
+        }
+        LiquidSurface {
+            id: lensSurface
+            anchors.fill: parent
             visible: !root.materialForm
-            gradient: Gradient {
-                orientation: Gradient.Vertical
-                GradientStop { position: 0; color: Qt.rgba(1, 1, 1, 0.09) }
-                GradientStop { position: 0.58; color: Qt.rgba(1, 1, 1, 0.025) }
-                GradientStop { position: 1; color: Qt.rgba(0, 0, 0, 0.025) }
-            }
+            radius: lens.radius
+            backdrop: root.backdrop
+            tintColor: Qt.rgba(root.selectionColor.r, root.selectionColor.g, root.selectionColor.b, 1)
+            tintStrength: root.selectionColor.a
+            blurStrength: .2
+            readability: 0
+            refractionStrength: 1.4
+            magnification: 1.02
+            reflectionStrength: root._pressedIndex === root._visualIndex ? .56 : .34
+            rimColor: Qt.rgba(1, 1, 1, .12)
         }
     }
 
@@ -204,12 +209,9 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onPressed: {
-                    segmentDelegate.forceActiveFocus()
-                    root._pressedIndex = segmentDelegate.index
-                }
-                onCanceled: root._pressedIndex = -1
-                onReleased: root._pressedIndex = -1
+                onPressed: root._beginPress(segmentDelegate.index)
+                onCanceled: root._endPress()
+                onReleased: root._endPress()
                 onClicked: root.select(segmentDelegate.index)
             }
 
@@ -220,7 +222,7 @@ Item {
                 color: "transparent"
                 border.width: 2
                 border.color: Foundation.AppTheme.accent
-                visible: segmentDelegate.activeFocus
+                visible: segmentDelegate.activeFocus && root.enabled
             }
         }
     }
