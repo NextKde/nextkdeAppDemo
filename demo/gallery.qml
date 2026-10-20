@@ -36,9 +36,34 @@ ShellRoot {
         IpcHandler {
             target: Quickshell.env("GALLERY_REVIEW") === "1" ? "galleryReview" : ""
             function capture(path: string): void {
-                reviewSurface.grabToImage(function(result) {
+                // Include same-window Popup overlays as well as the main scene.
+                reviewSurface.parent.grabToImage(function(result) {
                     console.log("Gallery review capture", path, result.saveToFile(path))
                 })
+            }
+            function openSelect(): bool {
+                const pending = [reviewSurface]
+                while (pending.length) {
+                    const item = pending.pop()
+                    if (item.objectName === "reviewSelect" && typeof item.openReviewMenu === "function") {
+                        item.openReviewMenu()
+                        return true
+                    }
+                    for (let i = 0; i < item.children.length; ++i) pending.push(item.children[i])
+                }
+                return false
+            }
+            function focusInput(): bool {
+                const pending = [reviewSurface]
+                while (pending.length) {
+                    const item = pending.pop()
+                    if (item.objectName === "reviewTextField") {
+                        item.forceActiveFocus(Qt.TabFocusReason)
+                        return true
+                    }
+                    for (let i = 0; i < item.children.length; ++i) pending.push(item.children[i])
+                }
+                return false
             }
             function showPage(page: string): void { gallery.select(page) }
             function setTheme(theme: string): void {
