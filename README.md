@@ -1,19 +1,19 @@
 # Gallery progress
 
-Updated: 2026-10-20T22:56:51.454095+08:00
+Updated: 2026-10-20T22:59:46.824633+08:00
 
-22:53轮新截图；开发者正在修复试听状态恢复，当前截图仍是已运行的选择器材质候选。
+试听恢复P1候选996c30e：真实暂停→退出→重启→重新解析→播放检查通过，协调者已看恢复前后图。
 
-实际运行Gallery QML源码68294d2，组件材质72e344c，浅色1180x780 DPR2。完成：方向性柔和反光、输入文字对比、选择器去旧浮雕材质、条纹背景裁切。待做：Switch/Segmented/Nav独立材质审查。当前截图为新捕获按钮页，仅QML场景，Overlay弹出层不在此截图内。
+当前运行QML源码68294d2，材质72e344c，1180x780 DPR2浅色。本轮新原图按钮页，方向性反光/可读文字/条纹裁切已静态复核。下轮在共享组件审查Switch/Segmented的独立旧闭合高光，当前不宣称已修。截图仅QML场景，不含Overlay。
 
 Source: [`68294d21d30d`](https://github.com/NextKde/nextkdeAppDemo/commit/68294d21d30dad4a2ede09f87c4cfcda13637e9c) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-poll-2253-light.png](screenshots/round-20261020-225651/gallery-poll-2253-light.png)
+![gallery-poll-2258-light.png](screenshots/round-20261020-225946/gallery-poll-2258-light.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-225651/metadata.json)
+[Capture and revision metadata](screenshots/round-20261020-225946/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
