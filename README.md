@@ -1,5 +1,9 @@
 # nextkdeAppDemo
 
+<!-- progress-links:start -->
+[Live Gallery progress and screenshots](https://github.com/NextKde/nextkdeAppDemo/blob/ui-evidence/README.md) · [KMusic progress](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
+<!-- progress-links:end -->
+
 [简体中文](README.zh-CN.md)
 
 Reusable Qt Quick liquid components, an interactive component Gallery, and a complete
