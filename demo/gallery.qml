@@ -36,8 +36,9 @@ ShellRoot {
         IpcHandler {
             target: Quickshell.env("GALLERY_REVIEW") === "1" ? "galleryReview" : ""
             function capture(path: string): void {
-                // Include same-window Popup overlays as well as the main scene.
-                reviewSurface.parent.grabToImage(function(result) {
+                // Quickshell's native content parent has no QML engine.
+                // Capture the owned QML scene; native popup acceptance is separate.
+                reviewSurface.grabToImage(function(result) {
                     console.log("Gallery review capture", path, result.saveToFile(path))
                 })
             }
