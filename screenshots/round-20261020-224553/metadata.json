@@ -1,0 +1,72 @@
+{
+  "round": "20261020-224553",
+  "publishedAt": "2026-10-20T22:45:53.845477+08:00",
+  "summary": "本轮浅深色材质候选已独立看图：button/input双圈描边移除、浅色文字对比修正；侧栏真实alpha及blur请求已核对。独立Select旧bevel进入下一轮。",
+  "status": "新进程浅深色按钮和中英输入样例已看图，真实条纹backdrop可见采样柔化。焦点/hover/press完整交互待验收；Select/Switch/Segmented/NavBar独立材质仍待逐项修，条纹场景自身clip已派下一小轮。",
+  "source": {
+    "revision": "72e344c5f1b2c7a128bf50b12212e60fe3e37f99",
+    "branch": "codex/music-fidelity",
+    "dirty": true,
+    "changedPaths": [
+      "M demo/gallery.qml"
+    ],
+    "trackedDiffSha256": "e31e28b5d7a784ca5cd7ce75d6af0b7152900a014867b04dd4baa19722691420"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "be8656d0a5ef8aa003523687226bf5e1415fff7a",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M docs/ComponentInventory.md",
+        " M docs/ComponentInventory.zh-CN.md",
+        " M qml/Main.qml",
+        " M qml/OnlinePage.qml",
+        " M src/main.cpp",
+        " M vendor/nextkdeAppDemo"
+      ],
+      "trackedDiffSha256": "1a31d4829211fc6f26ce0c295d937c4055ed2c643f1dc49ac3937cbf0d1719d0"
+    },
+    "gallery": {
+      "revision": "72e344c5f1b2c7a128bf50b12212e60fe3e37f99",
+      "branch": "codex/music-fidelity",
+      "dirty": true,
+      "changedPaths": [
+        "M demo/gallery.qml"
+      ],
+      "trackedDiffSha256": "e31e28b5d7a784ca5cd7ce75d6af0b7152900a014867b04dd4baa19722691420"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-material-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "c856417bcf6abca0bd275f2c75875017e62f09115368c15e98883bf6c7dc78d8",
+      "capturedAt": "2026-10-20T22:40:36.740955+08:00"
+    },
+    {
+      "file": "gallery-material-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "a51df13cd97d68853802a64d41a56a3c18efc63dd37967bc7fd68d35ed13c60b",
+      "capturedAt": "2026-10-20T22:42:32.136136+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}

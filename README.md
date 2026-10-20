@@ -1,19 +1,23 @@
 # Gallery progress
 
-Updated: 2026-10-20T22:42:43.615960+08:00
+Updated: 2026-10-20T22:45:53.845477+08:00
 
-首轮材质修正已本机构建运行并独立看图：共享按钮/input去常驻双圈描边，浅色输入可读；侧栏alpha0.80并向现有合成器提交精确blur区域。
+本轮浅深色材质候选已独立看图：button/input双圈描边移除、浅色文字对比修正；侧栏真实alpha及blur请求已核对。独立Select旧bevel进入下一轮。
 
-运行新进程，按钮和输入的整圈亮边已去，真实条纹backdrop验证了采样模糊和可读性。静态候选方向通过，完整hover/press/focus/dynamic仍待验收；Gallery保留一条既有vertex input警告。
+新进程浅深色按钮和中英输入样例已看图，真实条纹backdrop可见采样柔化。焦点/hover/press完整交互待验收；Select/Switch/Segmented/NavBar独立材质仍待逐项修，条纹场景自身clip已派下一小轮。
 
-Source: [`fd51df7302b9`](https://github.com/NextKde/nextkdeAppDemo/commit/fd51df7302b91fca409c5d6b11618304046db6f7) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`72e344c5f1b2`](https://github.com/NextKde/nextkdeAppDemo/commit/72e344c5f1b2c7a128bf50b12212e60fe3e37f99) · Branch: `codex/music-fidelity` · Local changes: True
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-material-light.png](screenshots/round-20261020-224243/gallery-material-light.png)
+![gallery-material-light.png](screenshots/round-20261020-224553/gallery-material-light.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-224243/metadata.json)
+![gallery-material-dark.png](screenshots/round-20261020-224553/gallery-material-dark.png)
+
+2360 × 1560 original pixels
+
+[Capture and revision metadata](screenshots/round-20261020-224553/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
