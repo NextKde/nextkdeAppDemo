@@ -1,19 +1,19 @@
 # Gallery progress
 
-Updated: 2026-10-20T22:27:53.274004+08:00
+Updated: 2026-10-20T22:42:43.615960+08:00
 
-新增用户反馈已进入本轮：侧栏轻微透明/模糊；按钮和input等高光去描边/浮雕。已查Apple官方实图/WWDC并定位共享双圈高光，保留本轮改前基线。
+首轮材质修正已本机构建运行并独立看图：共享按钮/input去常驻双圈描边，浅色输入可读；侧栏alpha0.80并向现有合成器提交精确blur区域。
 
-改前共享按钮实图。全周亮边/内圈/固定渐变已定位为本轮待改项，独立Select/Switch/Segmented等也将逐项审查。
+运行新进程，按钮和输入的整圈亮边已去，真实条纹backdrop验证了采样模糊和可读性。静态候选方向通过，完整hover/press/focus/dynamic仍待验收；Gallery保留一条既有vertex input警告。
 
-Source: [`598046657c7c`](https://github.com/NextKde/nextkdeAppDemo/commit/598046657c7c18f92d0a9514a42ad0a96029af75) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`fd51df7302b9`](https://github.com/NextKde/nextkdeAppDemo/commit/fd51df7302b91fca409c5d6b11618304046db6f7) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-before-material-light.png](screenshots/round-20261020-222753/gallery-before-material-light.png)
+![gallery-material-light.png](screenshots/round-20261020-224243/gallery-material-light.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-222753/metadata.json)
+[Capture and revision metadata](screenshots/round-20261020-224243/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)

@@ -1,0 +1,50 @@
+{
+  "round": "20261020-224243",
+  "publishedAt": "2026-10-20T22:42:43.615960+08:00",
+  "summary": "首轮材质修正已本机构建运行并独立看图：共享按钮/input去常驻双圈描边，浅色输入可读；侧栏alpha0.80并向现有合成器提交精确blur区域。",
+  "status": "运行新进程，按钮和输入的整圈亮边已去，真实条纹backdrop验证了采样模糊和可读性。静态候选方向通过，完整hover/press/focus/dynamic仍待验收；Gallery保留一条既有vertex input警告。",
+  "source": {
+    "revision": "fd51df7302b91fca409c5d6b11618304046db6f7",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "be8656d0a5ef8aa003523687226bf5e1415fff7a",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "fd51df7302b91fca409c5d6b11618304046db6f7",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-material-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "c856417bcf6abca0bd275f2c75875017e62f09115368c15e98883bf6c7dc78d8",
+      "capturedAt": "2026-10-20T22:40:36.740955+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
