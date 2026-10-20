@@ -1,0 +1,49 @@
+module Kos.Ui
+depends QtQuick
+singleton AppTheme 1.0 foundation/AppTheme.qml
+KosApplicationWindow 1.0 foundation/KosApplicationWindow.qml
+KosWindowControls 1.0 foundation/KosWindowControls.qml
+KosWindowResizeHandles 1.0 foundation/KosWindowResizeHandles.qml
+KosButton 1.0 foundation/KosButton.qml
+KosCard 1.0 foundation/KosCard.qml
+KosDialog 1.0 foundation/KosDialog.qml
+KosEmptyState 1.0 foundation/KosEmptyState.qml
+KosNavigationButton 1.0 foundation/KosNavigationButton.qml
+KosPageCache 1.0 foundation/KosPageCache.qml
+KosPageMotion 1.0 foundation/KosPageMotion.qml
+KosRoundButton 1.0 foundation/KosRoundButton.qml
+KosSettingsDialog 1.0 foundation/KosSettingsDialog.qml
+KosSlider 1.0 foundation/KosSlider.qml
+KosSwitch 1.0 foundation/KosSwitch.qml
+KosSurface 1.0 foundation/KosSurface.qml
+KosToolButton 1.0 foundation/KosToolButton.qml
+KosLyricLine 1.0 foundation/KosLyricLine.qml
+KosSidebar 1.0 foundation/KosSidebar.qml
+KosSidebarToggle 1.0 foundation/KosSidebarToggle.qml
+KosCheckBox 1.0 foundation/KosCheckBox.qml
+KosComboBox 1.0 foundation/KosComboBox.qml
+KosTextArea 1.0 foundation/KosTextArea.qml
+KosTextField 1.0 foundation/KosTextField.qml
+KosWorkspaceDialog 1.0 foundation/KosWorkspaceDialog.qml
+KosItemDelegate 1.0 foundation/KosItemDelegate.qml
+KosKineticScroll 1.0 foundation/KosKineticScroll.qml
+singleton LiquidStyle 1.0 controls/LiquidStyle.qml
+LiquidBackdrop 1.0 controls/LiquidBackdrop.qml
+LiquidSurface 1.0 controls/LiquidSurface.qml
+LiquidCard 1.0 controls/LiquidCard.qml
+LiquidActionButton 1.0 controls/LiquidActionButton.qml
+LiquidNavigationButton 1.0 controls/LiquidNavigationButton.qml
+LiquidCheckBox 1.0 controls/LiquidCheckBox.qml
+LiquidDialog 1.0 controls/LiquidDialog.qml
+ColorRampSlider 1.0 controls/ColorRampSlider.qml
+LiquidGlassButton 1.0 controls/LiquidGlassButton.qml
+LiquidGlassSwitch 1.0 controls/LiquidGlassSwitch.qml
+LiquidNavBar 1.0 controls/LiquidNavBar.qml
+LiquidSelect 1.0 controls/LiquidSelect.qml
+LiquidSegmentedControl 1.0 controls/LiquidSegmentedControl.qml
+LiquidSlider 1.0 controls/LiquidSlider.qml
+LiquidTextField 1.0 controls/LiquidTextField.qml
+singleton ControlForm 1.0 controls/ControlForm.qml
+VectorIcon 1.0 controls/VectorIcon.qml
+SelectionHighlight 1.0 controls/SelectionHighlight.qml
+singleton I18n 1.0 i18n/I18n.qml

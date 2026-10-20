@@ -1,0 +1,28 @@
+# Extraction provenance / 迁出来源
+
+This initial import was extracted on 2026-10-20 from
+[NextKde/NextKde](https://github.com/NextKde/NextKde), local branch
+`codex/gallery-normal-window`, based on commit
+`38f3fb88` (`docs(glass): drop archived gallery screenshots`) plus the current
+uncommitted Gallery, liquid component and sidebar-demo work.
+
+2026-10-20 从 NextKde 本地 `codex/gallery-normal-window` 分支迁出，基础提交为
+`38f3fb88`，并包含当前尚未提交的 Gallery、液态组件和侧栏 Demo 修改。
+
+- `shared/qml/foundation`, `controls` and `i18n` retain their NextKde source ownership.
+  The original root LICENSE is copied unchanged. The existing contributors and
+  component comments remain part of the source provenance.
+- `demo/gallery` comes from the active `shell/gallery` component catalogue. Native
+  Shell examples, the old fullscreen prototypes and KWin integration are excluded.
+- `demo/assets/forest.png` and `underwater.png` are the existing NextKde generated
+  cinematic backgrounds. Their original generation record is retained in
+  [demo/assets/PROVENANCE.txt](demo/assets/PROVENANCE.txt).
+- Only selected current files are imported. The parent repository's Git history,
+  archived documentation screenshots, credentials, build trees and user state are
+  not part of this repository.
+- The original NextKde working tree remains in place during this extraction. Future
+  integration and removal of duplicate ownership require a separate change there.
+
+组件保留 NextKde 原始归属及原有许可证；背景图片的生成记录随资源保留。
+这里只导入选定的当前文件，不导入主仓库历史、归档截图、凭据、构建目录或用户状态。
+本次迁出保留主项目现有工作区，后续接回共享组件和清理重复归属另行处理。

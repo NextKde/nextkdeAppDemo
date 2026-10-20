@@ -1,0 +1,100 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import "../../Kos/Ui/foundation" as Ui
+import "../../Kos/Ui/controls" as Controls
+
+ColumnLayout {
+    id: example
+    property real lensPosition: 0.45
+    property real refraction: 5
+    property bool frosted: false
+    spacing: 12
+
+    Item {
+        id: stage
+        Layout.fillWidth: true
+        Layout.preferredHeight: 224
+        clip: true
+
+        Item {
+            id: scene
+            anchors.fill: parent
+            Rectangle {
+                anchors.fill: parent
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: 0; color: "#157e9c" }
+                    GradientStop { position: 0.5; color: "#905fb9" }
+                    GradientStop { position: 1; color: "#d49c5d" }
+                }
+            }
+            Repeater {
+                model: Math.ceil(stage.width / 24)
+                Rectangle {
+                    required property int index
+                    x: index * 24
+                    width: 2
+                    height: stage.height
+                    color: Qt.rgba(1, 1, 1, 0.28)
+                }
+            }
+            Repeater {
+                model: 7
+                Rectangle {
+                    required property int index
+                    y: index * 32
+                    width: stage.width
+                    height: 2
+                    color: Qt.rgba(1, 1, 1, 0.28)
+                }
+            }
+        }
+        Controls.LiquidBackdrop {
+            id: sceneBackdrop
+            sourceItem: scene
+            registerAsDefault: false
+        }
+        Controls.LiquidSurface {
+            width: Math.min(280, Math.max(1, stage.width - 48))
+            height: 144
+            x: 24 + example.lensPosition * Math.max(0, stage.width - width - 48)
+            y: 40
+            radius: 24
+            backdrop: sceneBackdrop
+            refractionStrength: example.refraction
+            magnification: 1.12
+            blurStrength: example.frosted ? 0.65 : 0
+            readability: 0.22
+            Label {
+                anchors.centerIn: parent
+                text: "Move the lens"
+                color: Ui.AppTheme.text
+                font.pixelSize: 20
+            }
+        }
+    }
+    Label { text: "Lens position"; color: Ui.AppTheme.text }
+    Controls.LiquidSlider {
+        Layout.fillWidth: true
+        value: example.lensPosition
+        materialForm: false
+        Accessible.name: "Lens position"
+        onPreviewChanged: function(value) { example.lensPosition = value }
+        onCommitRequested: function(value) { example.lensPosition = value }
+    }
+    Label { text: "Edge refraction: " + example.refraction.toFixed(1) + " px"; color: Ui.AppTheme.text }
+    Controls.LiquidSlider {
+        Layout.fillWidth: true
+        value: example.refraction / 12
+        materialForm: false
+        Accessible.name: "Edge refraction"
+        onPreviewChanged: function(value) { example.refraction = value * 12 }
+        onCommitRequested: function(value) { example.refraction = value * 12 }
+    }
+    Controls.LiquidCheckBox {
+        text: "Frosted blur"
+        checked: example.frosted
+        onToggled: example.frosted = checked
+    }
+}
