@@ -1,0 +1,64 @@
+{
+  "round": "20261020-221823",
+  "publishedAt": "2026-10-20T22:18:23.234403+08:00",
+  "summary": "最新本机实图：共享iconOnly修复已在KMusic和Gallery静态复核，源码均已推送。SPlayer请求层已返回真实搜索、详情与试听地址，Qt播放桥接继续开发。",
+  "status": "当前按钮页展示普通/禁用iconOnly对照和原有文字按钮。协调者已亲自看本轮新图，静态截断问题解决；交互、Forma材质细节与shader警告继续回归。",
+  "source": {
+    "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "1185a6932dcd477ff1079b7461ca73efcba31cee",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M CMakeLists.txt",
+        " M qml/Main.qml",
+        " M qml/SongsPage.qml",
+        " M src/LyricsService.cpp",
+        " M src/LyricsService.h",
+        " M src/MusicController.cpp",
+        " M src/MusicController.h",
+        " M src/OnlineMusicProvider.cpp",
+        " M src/OnlineMusicProvider.h",
+        " M src/main.cpp",
+        " M tools/publish-progress.py",
+        "?? providers/",
+        "?? qml/OnlinePage.qml"
+      ],
+      "trackedDiffSha256": "58186ead67e4d2d6a5c20675332d83a1cdd75fd0a62431e2e6c3516a512c2e85"
+    },
+    "gallery": {
+      "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-icon-fix-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "ef56164f0a55f0ee9beedbd01058471de943a0936bc5b4ad462ee34c39fe6d9a",
+      "capturedAt": "2026-10-20T22:18:11.527311+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
