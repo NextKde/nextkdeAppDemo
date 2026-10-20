@@ -1,0 +1,91 @@
+{
+  "round": "20261020-234221",
+  "publishedAt": "2026-10-20T23:42:21.033809+08:00",
+  "reviewedData": [
+    "data-nav-candidate-focus-off-state.json"
+  ],
+  "summary": "23:38双库新图；导航真实无焦点状态已独立看图并核对focusIndex=-1，上一轮Gallery延迟上传现已确认成功。",
+  "status": "当前Nav控件ae9d83e，demo新增真实clearfocus9752b81与review白名单81edb0c。新深色整窗与补充light-expanded-no-focus/dark-rest-no-focus原图已亲自看；focus-off-state实际focusIndex=-1，展开sampling=true。旧高光圈已移除，焦点圈仅focus-on存在；窄材质复核通过，完整键鼠事件链未验收。JSON状态已附。",
+  "source": {
+    "revision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "91f9e67b07c7b91ad5da123b0c77a72c3ff3440b",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2338-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "819164a08674401d61195f56a52c0da069ca46e711a447f352c2b9b30f679183",
+      "capturedAt": "2026-10-20T23:38:29.733164+08:00"
+    },
+    {
+      "file": "gallery-nav-light-expanded-no-focus.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": {
+        "componentRevision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+        "controlRevision": "ae9d83e",
+        "focusIndex": -1,
+        "dirtyBeforeCapture": false,
+        "capture": "actual Gallery window client content"
+      },
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "37a0791fde237657104d53ebbf591ea42c04399b6d9dc9b18332830529121f0d",
+      "capturedAt": "2026-10-20T23:36:25.802007+08:00"
+    },
+    {
+      "file": "gallery-nav-dark-no-focus.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": {
+        "componentRevision": "81edb0c9026ae8740769f90c7c39b97659312efb",
+        "controlRevision": "ae9d83e",
+        "focusIndex": -1,
+        "dirtyBeforeCapture": false,
+        "capture": "actual Gallery window client content"
+      },
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "819164a08674401d61195f56a52c0da069ca46e711a447f352c2b9b30f679183",
+      "capturedAt": "2026-10-20T23:36:26.819128+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}

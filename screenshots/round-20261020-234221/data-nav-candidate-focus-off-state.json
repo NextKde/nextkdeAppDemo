@@ -1,0 +1,50 @@
+{
+  "light-rest": {
+    "currentIndex": 0,
+    "destination": 0,
+    "requestCount": 0,
+    "pressedIndex": -1,
+    "active": false,
+    "displayX": 6,
+    "scaleX": 1,
+    "scaleY": 1,
+    "focusIndex": -1,
+    "sampling": false
+  },
+  "light-expanded": {
+    "currentIndex": 0,
+    "destination": 0,
+    "requestCount": 0,
+    "pressedIndex": 2,
+    "active": true,
+    "displayX": 6,
+    "scaleX": 1.2999352000000002,
+    "scaleY": 1.2999352000000002,
+    "focusIndex": -1,
+    "sampling": true
+  },
+  "dark-rest": {
+    "currentIndex": 0,
+    "destination": 0,
+    "requestCount": 0,
+    "pressedIndex": -1,
+    "active": false,
+    "displayX": 6,
+    "scaleX": 1,
+    "scaleY": 1,
+    "focusIndex": -1,
+    "sampling": false
+  },
+  "dark-expanded": {
+    "currentIndex": 0,
+    "destination": 0,
+    "requestCount": 0,
+    "pressedIndex": 2,
+    "active": true,
+    "displayX": 6,
+    "scaleX": 1.3,
+    "scaleY": 1.3,
+    "focusIndex": -1,
+    "sampling": true
+  }
+}

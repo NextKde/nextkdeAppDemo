@@ -1,21 +1,29 @@
 # Gallery progress
 
-Updated: 2026-10-20T23:34:21.988648+08:00
+Updated: 2026-10-20T23:42:21.033809+08:00
 
-23:33轮新原图，导航动画实际状态/时间数据一并公开；focus-off与侧栏合成验证尚在进行。
+23:38双库新图；导航真实无焦点状态已独立看图并核对focusIndex=-1，上一轮Gallery延迟上传现已确认成功。
 
-当前Nav QML候选ae9d83e及IPC0d0928f，新深色窗口截图已看。已有动画帧窄范围复核，附report原始实际elapsed/state数据。开发者发现先前名为no-focus的候选实际focusIndex仍2，明确作废该标签，未作为无焦点证据上传；正在通过真实focus清理补验。当前明显环为独立焦点提示。
+当前Nav控件ae9d83e，demo新增真实clearfocus9752b81与review白名单81edb0c。新深色整窗与补充light-expanded-no-focus/dark-rest-no-focus原图已亲自看；focus-off-state实际focusIndex=-1，展开sampling=true。旧高光圈已移除，焦点圈仅focus-on存在；窄材质复核通过，完整键鼠事件链未验收。JSON状态已附。
 
-Source: [`9752b8178c2d`](https://github.com/NextKde/nextkdeAppDemo/commit/9752b8178c2d9ac95f0ed48398196794377e5b71) · Branch: `codex/music-fidelity` · Local changes: True
+Source: [`81edb0c9026a`](https://github.com/NextKde/nextkdeAppDemo/commit/81edb0c9026ae8740769f90c7c39b97659312efb) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-poll-2333-dark.png](screenshots/round-20261020-233421/gallery-poll-2333-dark.png)
+![gallery-poll-2338-dark.png](screenshots/round-20261020-234221/gallery-poll-2338-dark.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-233421/metadata.json)
+![gallery-nav-light-expanded-no-focus.png](screenshots/round-20261020-234221/gallery-nav-light-expanded-no-focus.png)
 
-[Reviewed state/timing data: data-nav-candidate-report.json](screenshots/round-20261020-233421/data-nav-candidate-report.json)
+2360 × 1560 original pixels
+
+![gallery-nav-dark-no-focus.png](screenshots/round-20261020-234221/gallery-nav-dark-no-focus.png)
+
+2360 × 1560 original pixels
+
+[Capture and revision metadata](screenshots/round-20261020-234221/metadata.json)
+
+[Reviewed state/timing data: data-nav-candidate-focus-off-state.json](screenshots/round-20261020-234221/data-nav-candidate-focus-off-state.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
