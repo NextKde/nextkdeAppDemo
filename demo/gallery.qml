@@ -78,6 +78,7 @@ ShellRoot {
                     "focusReviewControl", "resetReview", "setReviewConfirmation", "previewState"]
                 if (action === "setReviewHovered" && name === "reviewSwitch") allowed.push(action)
                 if (action === "startReviewSequence" && name === "reviewNav") allowed.push(action)
+                if (action === "clearReviewFocus" && name === "reviewNav") allowed.push(action)
                 if (allowed.indexOf(action) < 0)
                     return JSON.stringify({ok: false, error: "Unknown review action"})
                 const pending = [reviewSurface]
