@@ -123,3 +123,8 @@ the parent working tree; this extraction did not regenerate or run them.
 No real desktop texture is available to these shaders. Ordinary window transparency
 works through normal compositor composition. Do not claim KWin blur, desktop capture,
 GPU acceptance, or measured performance from a successful source export.
+
+`KosWindowControls` keeps fullscreen/minimize/close by default. Desktop consumers
+may set `maximizeMode: true` to use maximize/restore instead of fullscreen, and
+set `circleSize`, `buttonWidth`, `buttonHeight` plus inherited `spacing` to match
+host chrome. Defaults (18px circles, 22×32 buttons, 10px spacing) are unchanged.

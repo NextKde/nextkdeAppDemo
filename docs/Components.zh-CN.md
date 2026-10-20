@@ -113,3 +113,7 @@ GLSL 及匹配的两个 QSB 一起提交。脚本使用 Qt 6 变体及 QSB 格�
 
 这些着色器无法直接取得真实桌面纹理。普通透明窗口通过合成器常规合成显示，
 不能从成功迁出源码推断 KWin 模糊、桌面采集、GPU 验收或性能测量已完成。
+
+`KosWindowControls` 默认仍为全屏/最小化/关闭。桌面应用可设 `maximizeMode: true`
+使用最大化/还原，并通过 `circleSize`、`buttonWidth`、`buttonHeight` 与 `spacing`
+适配窗口骨架；默认18px圆点、22×32按钮和10px间距保持不变。
