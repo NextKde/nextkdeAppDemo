@@ -128,3 +128,8 @@ GPU acceptance, or measured performance from a successful source export.
 may set `maximizeMode: true` to use maximize/restore instead of fullscreen, and
 set `circleSize`, `buttonWidth`, `buttonHeight` plus inherited `spacing` to match
 host chrome. Defaults (18px circles, 22×32 buttons, 10px spacing) are unchanged.
+
+`LiquidActionButton.iconOnly` defaults to false. Opt in for a 36px compact action
+with zero horizontal label padding and centered, unelided glyph content. Supply
+an `Accessible.name` when the text is only a symbol. Disabled icons retain the
+existing opacity treatment. The Gallery shows enabled and disabled examples.

@@ -117,3 +117,7 @@ GLSL 及匹配的两个 QSB 一起提交。脚本使用 Qt 6 变体及 QSB 格�
 `KosWindowControls` 默认仍为全屏/最小化/关闭。桌面应用可设 `maximizeMode: true`
 使用最大化/还原，并通过 `circleSize`、`buttonWidth`、`buttonHeight` 与 `spacing`
 适配窗口骨架；默认18px圆点、22×32按钮和10px间距保持不变。
+
+`LiquidActionButton.iconOnly` 默认 false。设为 true 后，使用36px紧凑宽度，
+取消文字按钮的左右内边距，图标居中且不省略。纯符号应提供 `Accessible.name`。
+禁用态保留原透明度处理；Gallery 同时展示启用与禁用示例。
