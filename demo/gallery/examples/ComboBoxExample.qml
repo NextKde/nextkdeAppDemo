@@ -6,10 +6,14 @@ import "../../Kos/Ui/controls" as Controls
 
 ColumnLayout {
     id: example
+    objectName: "selectReviewExample"
+    function openReviewMenu() { selector.openMenu() }
     property int selection: 0
     readonly property var options: ["Automatic", "Light", "Dark"]
     spacing: 12
     Controls.LiquidSelect {
+        id: selector
+        objectName: "reviewSelect"
         Layout.preferredWidth: 240
         model: example.options
         currentIndex: example.selection
@@ -21,5 +25,24 @@ ColumnLayout {
         Accessible.name: "Appearance"
         onActivated: function(index) { example.selection = index }
     }
+    Controls.LiquidSelect {
+        Layout.preferredWidth: 240
+        model: example.options
+        currentIndex: example.selection
+        materialForm: false
+        appearanceMode: Ui.AppTheme.dark ? "dark" : "light"
+        enabled: false
+        Accessible.name: "Disabled appearance"
+    }
+    Controls.LiquidSelect {
+        Layout.preferredWidth: 240
+        model: example.options
+        currentIndex: example.selection
+        materialForm: true
+        appearanceMode: Ui.AppTheme.dark ? "dark" : "light"
+        Accessible.name: "Material appearance"
+        onActivated: function(index) { example.selection = index }
+    }
+    Label { text: "Liquid / disabled / preserved Material. Tab, arrows and Enter select; Escape closes."; color: Ui.AppTheme.mutedText; Layout.fillWidth: true; wrapMode: Text.WordWrap }
     Label { text: "Selected: " + example.options[example.selection]; color: Ui.AppTheme.text }
 }

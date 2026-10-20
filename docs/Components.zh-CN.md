@@ -134,3 +134,12 @@ Gallery按钮页包含真实彩色条纹纹理及启用/禁用按钮、中英文
 
 独立旧材质仍待逐项审查：LiquidSelect闭合场与弹层、LiquidGlassSwitch轨道/拇指、
 LiquidNavBar、LiquidSegmentedControl。必须保留Material分支及焦点指示；本轮未宣称全库完成。
+
+### 选择器闭合场与弹层
+
+LiquidSelect 非Material的闭合场和选项弹层改为共享LiquidSurface，移除上亮下黑的
+金属边缘与固定高光斑。可选backdrop让两者采样同一有效窗口内纹理，sheetColor仍控制
+弹层颜色/透明度。Material实心描边/填充分支保留，activated(index)、乐观选择及宿主
+确认/回滚契约不变。真实键盘焦点独立绘制，保留Tab、方向键、Enter、Escape流程，
+弹层/反光过渡尊重减少动态。Gallery增加普通/禁用/Material对照。
+按钮页的旋转条纹源现裁切在场景边界内，不改变玻璃自身裁切与采样映射。

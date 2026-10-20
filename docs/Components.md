@@ -157,3 +157,18 @@ Independent legacy optics still need separate review: LiquidSelect (closed field
 and popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
 LiquidSegmentedControl. Their Material branches and focus indicators must remain
 intact. This surface change does not claim to finish those controls.
+
+### Select field and popup
+
+`LiquidSelect` now uses `LiquidSurface` for its non-Material closed field and
+choice sheet. The former bright-top/dark-bottom perimeter and parked glint are
+removed. An optional `backdrop` property supplies the same eligible in-window
+texture to both surfaces. `sheetColor` still controls popup colour/opacity.
+The Material branch retains its solid outline/fill. `activated(index)`, optimistic
+selection and owner acknowledgement/rollback stay unchanged. Actual keyboard
+focus has a separate indicator, and Tab plus arrow/Enter/Escape navigation remain
+available. Popup/reflection transitions respect reduced motion.
+
+The Gallery select example exposes normal/disabled/preserved-Material controls.
+The Button example's coloured source clips its rotated stripes to the scene
+boundary; this does not change glass clipping or sample-mapping rules.

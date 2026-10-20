@@ -32,6 +32,7 @@ ColumnLayout {
         Item {
             id: colouredScene
             anchors.fill: parent
+            clip: true
             Rectangle {
                 anchors.fill: parent
                 gradient: Gradient {
