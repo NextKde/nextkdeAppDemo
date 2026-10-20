@@ -1,0 +1,50 @@
+{
+  "round": "20261020-222753",
+  "publishedAt": "2026-10-20T22:27:53.274004+08:00",
+  "summary": "新增用户反馈已进入本轮：侧栏轻微透明/模糊；按钮和input等高光去描边/浮雕。已查Apple官方实图/WWDC并定位共享双圈高光，保留本轮改前基线。",
+  "status": "改前共享按钮实图。全周亮边/内圈/固定渐变已定位为本轮待改项，独立Select/Switch/Segmented等也将逐项审查。",
+  "source": {
+    "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "2e00154beb6bb36422fa2cae52beb979b54ef81e",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "598046657c7c18f92d0a9514a42ad0a96029af75",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-before-material-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "ef56164f0a55f0ee9beedbd01058471de943a0936bc5b4ad462ee34c39fe6d9a",
+      "capturedAt": "2026-10-20T22:26:32.134416+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
