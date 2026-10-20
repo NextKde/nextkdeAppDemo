@@ -1,0 +1,56 @@
+{
+  "round": "20261020-230520",
+  "publishedAt": "2026-10-20T23:05:20.295222+08:00",
+  "summary": "23:04轮本机双库新图：应用继续运行试听恢复修复版，共享Switch/Segmented材质正在开发。",
+  "status": "实际Gallery为QML热加载，HEAD68294d2并含未提交Switch/Segmented改动，源码dirty与diff指纹见metadata。本轮是当前可运行组件总览页的新图，只见静止外观，未验收展开动态高光。开发中：共享方向性反光替换旧整圈边线，保留Material和交互语义。当前QML截图不含Overlay与桌面合成。",
+  "source": {
+    "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+    "branch": "codex/music-fidelity",
+    "dirty": true,
+    "changedPaths": [
+      "M shared/qml/controls/LiquidGlassSwitch.qml",
+      " M shared/qml/controls/LiquidSegmentedControl.qml"
+    ],
+    "trackedDiffSha256": "d3b823cab090fcdd58aae21ac48cc6dd2d83cc15a681ada89f717a42d93184a1"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "996c30e181e89901b4a0282d85b7207d95a77c6e",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "68294d21d30dad4a2ede09f87c4cfcda13637e9c",
+      "branch": "codex/music-fidelity",
+      "dirty": true,
+      "changedPaths": [
+        "M shared/qml/controls/LiquidGlassSwitch.qml",
+        " M shared/qml/controls/LiquidSegmentedControl.qml"
+      ],
+      "trackedDiffSha256": "d3b823cab090fcdd58aae21ac48cc6dd2d83cc15a681ada89f717a42d93184a1"
+    }
+  },
+  "appRuntime": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2304-light.png",
+      "width": 2360,
+      "height": 1560,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "4eae635817568bdf2bd490a2f06c71ce9596e54e7928fda2c57da04a9baff99f",
+      "capturedAt": "2026-10-20T23:04:31.793700+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
