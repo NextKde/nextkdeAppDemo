@@ -155,3 +155,15 @@ LiquidSegmentedControl保留几何、selectionRequested乐观选择、宿主确�
 Material填充/轮廓保留。Gallery含禁用/Material对照及真实条纹采样场景。
 审阅钩子调用真实按下/释放状态路径；状态驱动连续帧不能代替指针/键盘事件验收。
 仍须审阅浅深色展开和移动过程；LiquidNavBar独立旧材质留待后续。
+
+### 导航透镜
+
+LiquidNavBar非Material轨道、静止拇指、活动透镜共享方向性LiquidSurface，移除
+RGB/白色闭合描边、固定高光斑及垂直深度渐变。可选backdrop提供真实窗口内纹理，
+透镜保留部分透明度，使原有透镜下方的图标/文字可读。Material填充与选中文字角色
+独立保留，不引入桌面纹理或合成器访问。
+保留原有可变currentIndex/selectionChanged契约、桌面点击指针行为、16ms弹簧积分、
+100ms显示层缓动和280ms活动超时；减少动态直接定位。增加独立焦点指示及
+Tab/方向键/Home/End/Space/Enter路径，禁用时拒绝激活。真实事件/辅助技术验收仍待
+独立审阅。Gallery含裁切真实彩条、禁用/Material对照。可选状态序列记录实际elapsed，
+保留全部GPU抓帧后才压缩PNG，避免编码阻塞动画；状态入口实图不等同键鼠事件验收。

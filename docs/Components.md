@@ -190,3 +190,25 @@ Gallery examples include disabled/Material controls and a real striped sampling
 scene. Review hooks use the real press/release state paths; state-driven frames
 do not establish pointer/keyboard event acceptance. Expanded/moving light/dark
 review is required. LiquidNavBar's independent older material remains pending.
+
+### Navigation lens
+
+`LiquidNavBar` shares directional LiquidSurface for its non-Material track,
+resting pill and active lens. The old RGB/white closed strokes, fixed glint and
+vertical depth gradients are removed. An optional eligible `backdrop` supplies
+actual in-window texture. The lens retains partial opacity so the existing
+under-lens icon/label layer remains readable. Material fill and selected text
+roles stay separate. No desktop texture or compositor access is introduced.
+
+The existing mutable `currentIndex` / `selectionChanged` contract, click-only
+desktop pointer behaviour, 16ms spring integration, 100ms display easing and
+280ms active timeout remain. Reduced motion settles position without animation.
+A separate focus indicator and tab/arrow/Home/End/Space/Enter activation path
+are available; disabled navigation rejects activation. Runtime event delivery
+and assistive-technology acceptance still need independent review.
+
+Gallery's Nav example contains real clipped coloured stripes, disabled and
+Material comparisons. Its opt-in state sequence records actual elapsed time
+and retains GPU grab results until all frames are captured; PNG encoding follows
+capture so it cannot stall the observed animation. These are actual scene frames
+from shared state entry, not synthetic pointer/keyboard event verification.
