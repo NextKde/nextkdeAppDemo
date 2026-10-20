@@ -23,6 +23,15 @@ ColumnLayout {
     function endReviewPress(index) { sample._endPress(); sample.select(index) }
     function cancelReviewPress() { sample._endPress() }
     function focusReviewControl() { sample._selectAndFocus(sample.currentIndex) }
+    function clearReviewFocus() {
+        const pending = [sample]
+        while (pending.length) {
+            const item = pending.pop()
+            if (item.activeFocus) item.focus = false
+            for (let i = 0; i < item.children.length; ++i) pending.push(item.children[i])
+        }
+        example.forceActiveFocus(Qt.OtherFocusReason)
+    }
     function resetReview() { sample._endPress(); sample.currentIndex = 0; destination = 0; requestCount = 0 }
     function controlState() { return { currentIndex: sample.currentIndex, destination: destination,
         requestCount: requestCount, pressedIndex: sample._pressedIndex, active: sample._isActive,
