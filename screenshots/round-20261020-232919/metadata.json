@@ -1,0 +1,100 @@
+{
+  "round": "20261020-232919",
+  "publishedAt": "2026-10-20T23:29:19.513833+08:00",
+  "summary": "23:28轮导航材质候选ae9d83e：新双库原图及真实示例区域动画帧，窄范围看图复核。",
+  "status": "实际热加载NavBar候选ae9d83e与demo IPC0d0928f。新深色整窗+补充浅色整窗及navScene原始区域040/160/300帧，协调者逐图已看。真实状态路径驱动：light实际43/166/311ms，displayX6/6/142.11，旧全周彩白高光已移除；焦点圈独立可见。区域帧收齐后才PNG编码，非整窗截图、非键鼠E2E。focus-off外观和完整键盘还要继续检查。",
+  "source": {
+    "revision": "0d0928f5813ece42d35daa63d6ce726f0a6a3578",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "95c7232fce7a3edb5e9d352a1227356b155add5b",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "0d0928f5813ece42d35daa63d6ce726f0a6a3578",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-2328-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "b5bce2413cd7b1aaca173303b361a9c1d4408d2efcc00056df6721ebbb9e8135",
+      "capturedAt": "2026-10-20T23:28:30.065338+08:00"
+    },
+    {
+      "file": "gallery-nav-light.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "light",
+      "sha256": "4ffc1652248bd41b187aa079c7f81cd08f8fe804b454effefd8062e3ae23805e",
+      "capturedAt": "2026-10-20T23:28:12.952777+08:00"
+    },
+    {
+      "file": "nav-040.png",
+      "width": 1656,
+      "height": 312,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 828.0,
+      "logicalHeight": 156.0,
+      "theme": "unspecified",
+      "sha256": "57ef95b0e3fccffc96b29f2334727dee0e77ee05886fa36459ddde00898217af",
+      "capturedAt": "2026-10-20T23:28:12.705079+08:00"
+    },
+    {
+      "file": "nav-160.png",
+      "width": 1656,
+      "height": 312,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 828.0,
+      "logicalHeight": 156.0,
+      "theme": "unspecified",
+      "sha256": "50aeafb7e009fbabfbd0251587adccc3992a44b55e74cd554a5a9226c2165709",
+      "capturedAt": "2026-10-20T23:28:12.731048+08:00"
+    },
+    {
+      "file": "nav-300.png",
+      "width": 1656,
+      "height": 312,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 828.0,
+      "logicalHeight": 156.0,
+      "theme": "unspecified",
+      "sha256": "8c2f8386a731b546d570ea72d1a18f5e246e5ccbf0d070905a8bfce63520a8e9",
+      "capturedAt": "2026-10-20T23:28:12.757016+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}

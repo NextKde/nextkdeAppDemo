@@ -1,27 +1,35 @@
 # Gallery progress
 
-Updated: 2026-10-20T23:22:43.754998+08:00
+Updated: 2026-10-20T23:29:19.513833+08:00
 
-8e167b4布局修复及共享Switch/Segmented材质窄范围复核：新双库截图、1024深色两模式及实际状态驱动动画帧。
+23:28轮导航材质候选ae9d83e：新双库原图及真实示例区域动画帧，窄范围看图复核。
 
-实际QML候选4c0f08b，当前新截图为深色Segmented页；补充同候选lightSwitch及darkSegmented含disabled/Material图。已检查宿主拒绝时Switch保持checked、Segmented超时回滚，确认后更新，sampling=true有记录。焦点保留。下一步NavBar独立材质及完整键鼠回归，当前窄范围复核不代表整库或整App验收。
+实际热加载NavBar候选ae9d83e与demo IPC0d0928f。新深色整窗+补充浅色整窗及navScene原始区域040/160/300帧，协调者逐图已看。真实状态路径驱动：light实际43/166/311ms，displayX6/6/142.11，旧全周彩白高光已移除；焦点圈独立可见。区域帧收齐后才PNG编码，非整窗截图、非键鼠E2E。focus-off外观和完整键盘还要继续检查。
 
-Source: [`4c0f08bd4e05`](https://github.com/NextKde/nextkdeAppDemo/commit/4c0f08bd4e05c77055644cb09d8d7501449f69e0) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`0d0928f5813e`](https://github.com/NextKde/nextkdeAppDemo/commit/0d0928f5813ece42d35daa63d6ce726f0a6a3578) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-poll-2321-dark.png](screenshots/round-20261020-232243/gallery-poll-2321-dark.png)
+![gallery-poll-2328-dark.png](screenshots/round-20261020-232919/gallery-poll-2328-dark.png)
 
 2360 × 1560 original pixels
 
-![gallery-switch-light.png](screenshots/round-20261020-232243/gallery-switch-light.png)
+![gallery-nav-light.png](screenshots/round-20261020-232919/gallery-nav-light.png)
 
 2360 × 1560 original pixels
 
-![gallery-segmented-dark.png](screenshots/round-20261020-232243/gallery-segmented-dark.png)
+![nav-040.png](screenshots/round-20261020-232919/nav-040.png)
 
-2360 × 1560 original pixels
+1656 × 312 original pixels
 
-[Capture and revision metadata](screenshots/round-20261020-232243/metadata.json)
+![nav-160.png](screenshots/round-20261020-232919/nav-160.png)
+
+1656 × 312 original pixels
+
+![nav-300.png](screenshots/round-20261020-232919/nav-300.png)
+
+1656 × 312 original pixels
+
+[Capture and revision metadata](screenshots/round-20261020-232919/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
