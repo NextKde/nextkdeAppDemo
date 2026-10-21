@@ -1,0 +1,40 @@
+{
+  "round": "20261021-091327",
+  "publishedAt": "2026-10-21T09:13:27.650101+08:00",
+  "reviewedData": [],
+  "summary": "Final checkpoint then PAUSED at explicit user request to adjust direction. No further development or automatic review until user resumes.",
+  "status": "OwnedPID48688/shared9da. Final-round capture request produced no PNG by publication; no older screenshot reused. Last successful090606 remains historical. User-requested pause; no further automatic work.",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "a2925a542b395436c2cacd20e542b734e2d14582",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [],
+  "personallyReviewed": true
+}
