@@ -1,12 +1,12 @@
 # Gallery progress
 
-Updated: 2026-10-21T22:25:05.053433+08:00
+Updated: 2026-10-21T22:30:28.605706+08:00
 
 Runtime `96ff101f` · shared `96ff101` · native Qt/QML, local rendering
 
 - Shared Gallery material preserved; no new optical tuning this round.
 - Light overview captured locally. Final visual acceptance belongs to user.
 
-![Current capture](screenshots/round-20261021-2224/current.png)
+![Current capture](screenshots/round-20261021-2229/current.png)
 
-[Exact capture metadata](screenshots/round-20261021-2224/metadata.json)
+[Exact capture metadata](screenshots/round-20261021-2229/metadata.json)
