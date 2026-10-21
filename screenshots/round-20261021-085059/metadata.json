@@ -1,0 +1,40 @@
+{
+  "round": "20261021-085059",
+  "publishedAt": "2026-10-21T08:50:59.891280+08:00",
+  "reviewedData": [],
+  "summary": "Fresh capture attempts pending/not producing PNG; developer still finishing retained-layer optics. No reused screenshots.",
+  "status": "Owned PID38878/shared9da healthy; fresh capture by exact PID not yet produced PNG. Previous0841 callbacks completed late; those old files are not this round evidence. No shell/config changes.",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "11f09f2402230ed739224ad0669636223d278ae6",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [],
+  "personallyReviewed": true
+}
