@@ -1,6 +1,6 @@
 # Gallery progress
 
-Updated: 2026-10-21T21:35:39.752677+08:00
+Updated: 2026-10-21T21:40:11.413449+08:00
 
 Runtime `96ff101f` · shared `96ff101` · native Qt/QML, local rendering
 
@@ -10,6 +10,6 @@ Runtime `96ff101f` · shared `96ff101` · native Qt/QML, local rendering
 - In progress: catalogue album details and product wording; not in this runtime.
 - Design: immersive left playback/right real queue, plain content buttons, fixed liquid overlays. Final visual acceptance belongs to user.
 
-![Current capture](screenshots/round-20261021-213438/current.png)
+![Current capture](screenshots/round-20261021-213934/current.png)
 
-[Exact capture metadata](screenshots/round-20261021-213438/metadata.json)
+[Exact capture metadata](screenshots/round-20261021-213934/metadata.json)
