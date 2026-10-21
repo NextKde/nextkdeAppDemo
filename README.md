@@ -10,3 +10,5 @@ Runtime `96ff101f` · shared `96ff101` · native Qt/QML, local rendering
 ![Current capture](screenshots/round-20261021-2249/current.png)
 
 [Exact capture metadata](screenshots/round-20261021-2249/metadata.json)
+
+- Known candidate issue: saving refreshes the playlist delegate before its dialog-close callback, producing a ReferenceError and potentially leaving a modal open. Narrow lifecycle fix in progress; this candidate is not a completed delivery.

@@ -19,5 +19,5 @@
   "visualAcceptance": "pending user",
   "privacy": "original dedicated app image personally inspected; no QR or account identity",
   "captureOrigin": "fresh galleryReview capture",
-  "inProgress": "local playlist save/restart/fresh resolve delivered; authenticated login and visual acceptance remain pending"
+  "inProgress": "known save dialog lifetime ReferenceError/modal bug being fixed; candidate not final"
 }
