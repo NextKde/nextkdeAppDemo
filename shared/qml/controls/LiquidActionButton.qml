@@ -12,6 +12,12 @@ Button {
     property bool iconOnly: false
     property string iconName: ""
     property real iconSize: 16
+    property color textColor: destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+    property color iconColor: textColor
+    property color surfaceColor: Foundation.AppTheme.dark ? "#17223b" : "#ffffff"
+    property color accentColor: Foundation.AppTheme.accent
+    property color focusRingColor: Foundation.AppTheme.focusRing
+    property bool keyboardFocusOnly: false
     readonly property bool sampling: buttonGlass.sampling
     readonly property real opticalExpansion: buttonGlass.scale
     readonly property real opticalRefraction: buttonGlass.refractionStrength
@@ -34,7 +40,7 @@ Button {
             visible: !root.iconName.length
             text: root.text
             font: root.font
-            color: root.destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+            color: root.textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: root.iconOnly ? Text.ElideNone : Text.ElideRight
@@ -44,7 +50,7 @@ Button {
             visible: root.iconName.length > 0
             name: root.iconName
             size: root.iconSize
-            color: root.destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+            color: root.iconColor
         }
     }
     background: LiquidSurface {
@@ -59,8 +65,7 @@ Button {
         backdrop: root.backdrop
         reflectionStrength: root.down ? .90 : root.hovered ? .72 : .50
         Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-        tintColor: root.highlighted || root.checked ? Foundation.AppTheme.accent
-            : Foundation.AppTheme.dark ? "#17223b" : "#ffffff"
+        tintColor: root.highlighted || root.checked ? root.accentColor : root.surfaceColor
         tintStrength: root.highlighted || root.checked ? 0.24 : root.down ? 0.18
             : root.hovered ? 0.12 : root.secondary ? 0.03 : 0.05
         opacity: root.flat && !root.hovered && !root.checked && !root.activeFocus ? 0.45 : 1
@@ -70,8 +75,8 @@ Button {
             radius: height / 2
             color: "transparent"
             border.width: 2
-            border.color: Foundation.AppTheme.focusRing
-            visible: root.activeFocus
+            border.color: root.focusRingColor
+            visible: root.keyboardFocusOnly ? root.visualFocus : root.activeFocus
         }
     }
 }

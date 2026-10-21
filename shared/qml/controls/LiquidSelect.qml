@@ -28,6 +28,8 @@ Item {
     // LiquidGlassSwitch. SystemPalette.highlight would follow the desktop
     // colour scheme (often pink) instead of the app's accent.
     property color accentColor: "#0a84ff"
+    property color focusRingColor: accentColor
+    property color selectedTextColor: accentColor
     property color textColor: darkAppearance ? "#f5f5f7" : "#1d1d1f"
     property color mutedTextColor: darkAppearance ? "#98989d" : "#6e6e73"
     property color sheetColor: darkAppearance ? "#262b31" : "#f6f8fb"
@@ -146,7 +148,7 @@ Item {
             anchors.fill: parent
             visible: root.materialForm
             radius: root.fieldRadius
-            color: root.activeFocus || menu.opened ? root.accentColor : root.outlineColor
+            color: root.activeFocus || menu.opened ? root.focusRingColor : root.outlineColor
             Rectangle {
                 anchors.fill: parent
                 anchors.margins: 1
@@ -181,7 +183,7 @@ Item {
             visible: !root.materialForm && (root.activeFocus || menu.opened)
             color: "transparent"
             border.width: 2
-            border.color: root.accentColor
+            border.color: root.focusRingColor
         }
         Text {
             id: label
@@ -352,7 +354,7 @@ Item {
                             visible: choiceDelegate.activeFocus
                             color: "transparent"
                             border.width: 2
-                            border.color: root.accentColor
+                            border.color: root.focusRingColor
                         }
                         Text {
                             anchors.left: parent.left
@@ -360,7 +362,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             text: root.labelAt(parent.index)
                             color: choiceDelegate.index === root._visualIndex
-                                ? root.accentColor : root.textColor
+                                ? root.selectedTextColor : root.textColor
                             font.pixelSize: 13
                             font.weight: choiceDelegate.index === root._visualIndex
                                 ? Font.DemiBold : Font.Normal
@@ -371,7 +373,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: choiceDelegate.index === root._visualIndex
                             name: "check"
-                            color: root.accentColor
+                            color: root.selectedTextColor
                             size: 13
                         }
                         MouseArea {

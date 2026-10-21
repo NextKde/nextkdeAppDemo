@@ -67,6 +67,10 @@ qt_add_qml_module(kos_ui
         controls/shaders/liquid_reflection.vert.qsb
         controls/shaders/liquid_reflection.frag
         controls/shaders/liquid_reflection.frag.qsb
+        controls/shaders/liquid_shadow.vert
+        controls/shaders/liquid_shadow.vert.qsb
+        controls/shaders/liquid_shadow.frag
+        controls/shaders/liquid_shadow.frag.qsb
         controls/shaders/liquid_surface.vert
         controls/shaders/liquid_surface.vert.qsb
         controls/shaders/liquid_surface.frag

@@ -227,3 +227,12 @@ retains its press compression. Refraction/magnification/reflection respond to
 actual hover/down, honoring reduceMotion. Read-only sampling/opticalExpansion/
 opticalRefraction/opticalMagnification/opticalReflection expose actual animated
 values for inspection; callers still own content/actions and backdrop selection.
+
+Application palette overrides are additive: ActionButton exposes textColor,
+iconColor, surfaceColor, accentColor, focusRingColor and keyboardFocusOnly;
+NavigationButton exposes selectionColor/hoverColor/focusRingColor and keyboardFocusOnly.
+Select exposes focusRingColor/selectedTextColor independently of accentColor.
+All defaults preserve the original palette and focus behaviour.
+LiquidCard now exposes surface optics, optional shadowEnabled (false by default),
+and read-only sampling. Its host must provide a sibling backdrop excluding the
+card, especially for floating overlays over scrolling content.

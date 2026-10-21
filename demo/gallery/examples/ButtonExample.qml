@@ -17,6 +17,15 @@ ColumnLayout {
         Controls.LiquidActionButton { text: "Delete"; destructive: true; onClicked: example.result = "Deleted the example item." }
         Controls.LiquidActionButton { text: "Unavailable"; enabled: false }
     }
+    RowLayout {
+        Controls.LiquidActionButton { text: "Default selected"; checked: true }
+        Controls.LiquidActionButton {
+            text: "Neutral opt-in"; checked: true; keyboardFocusOnly: true
+            accentColor: Ui.AppTheme.dark ? "#a0a5ac" : "#707780"
+            surfaceColor: Ui.AppTheme.dark ? "#30343a" : "#ffffff"
+            focusRingColor: Ui.AppTheme.focusRing
+        }
+    }
     Label { text: "Compact icon actions · active and disabled"; color: Ui.AppTheme.mutedText }
     RowLayout {
         spacing: 12

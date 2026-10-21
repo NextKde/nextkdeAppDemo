@@ -178,3 +178,9 @@ LiquidNavigationButton的iconName/iconColor提供可选16px图标，cornerRadius
 ActionButton光学：内容保留按压压缩，背景透镜轻微展开；实际hover/down驱动
 折射/放大/反光并遵循reduceMotion。只读sampling/opticalExpansion/opticalRefraction/
 opticalMagnification/opticalReflection可查询实际动画值；动作及backdrop仍由宿主提供。
+
+新增兼容的应用配色覆盖：ActionButton的textColor/iconColor/surfaceColor/accentColor/
+focusRingColor/keyboardFocusOnly；NavigationButton的selectionColor/hoverColor/
+focusRingColor/keyboardFocusOnly；Select的focusRingColor/selectedTextColor独立于accentColor。
+默认配色与焦点行为保持原样。LiquidCard新增材质光学参数、可选shadowEnabled（默认false）
+及只读sampling；浮动消费方须提供排除自身且包含真实滚动内容的同窗sibling backdrop。

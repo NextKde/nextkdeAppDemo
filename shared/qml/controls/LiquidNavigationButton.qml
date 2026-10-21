@@ -8,6 +8,10 @@ Button {
     property string iconName: ""
     property color iconColor: Foundation.AppTheme.accent
     property real cornerRadius: 10
+    property color selectionColor: Foundation.AppTheme.accent
+    property color hoverColor: Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.07)
+    property color focusRingColor: Foundation.AppTheme.focusRing
+    property bool keyboardFocusOnly: false
     implicitHeight: 38
     leftPadding: 12
     rightPadding: 12
@@ -32,14 +36,14 @@ Button {
         LiquidSurface {
             anchors.fill: parent
             radius: root.cornerRadius
-            tintColor: Foundation.AppTheme.accent
+            tintColor: root.selectionColor
             tintStrength: root.checked ? 0.20 : 0.05
             visible: root.checked
         }
         Rectangle {
             anchors.fill: parent
             radius: root.cornerRadius
-            color: Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.07)
+            color: root.hoverColor
             visible: !root.checked && root.hovered
         }
         Rectangle {
@@ -47,8 +51,8 @@ Button {
             radius: root.cornerRadius
             color: "transparent"
             border.width: 2
-            border.color: Foundation.AppTheme.focusRing
-            visible: root.activeFocus
+            border.color: root.focusRingColor
+            visible: root.keyboardFocusOnly ? root.visualFocus : root.activeFocus
         }
     }
     opacity: enabled ? 1 : 0.38
