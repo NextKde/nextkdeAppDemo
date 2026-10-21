@@ -31,6 +31,7 @@ Item {
     property color thumbBorderColor: darkAppearance
         ? Qt.rgba(1, 1, 1, 0.45) : Qt.rgba(0, 0, 0, 0.16)
     property real trackHeight: 6
+    property bool showThumb: true
     property real thumbWidth: 32
     property real thumbHeight: 16
     property bool chromaticAberration: false
@@ -275,7 +276,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         width: root.thumbWidth
         height: root.thumbHeight
-        visible: !root.materialForm
+        visible: !root.materialForm && root.showThumb
 
         transform: Scale {
             id: thumbScale

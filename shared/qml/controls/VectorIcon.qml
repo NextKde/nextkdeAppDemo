@@ -2,6 +2,7 @@ import QtQuick
 
 Item {
     id: root
+    property bool filled: false
     property string name: "check"
     property color color: "white"
     property real size: 16
@@ -37,6 +38,11 @@ Item {
         music: "M9 18V5l11-2v13M9 9l11-2M9 18a3 3 0 1 1-3-3h3M20 16a3 3 0 1 1-3-3h3",
         album: "M4 3h16v18H4zM8 7h8M8 11h8M8 15h4",
         artist: "M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8M4 21v-2a8 8 0 0 1 16 0v2",
+        mediaPrevious: "M11 5L1 12l10 7zM23 5L13 12l10 7z",
+        mediaNext: "M1 5l10 7-10 7zM13 5l10 7-10 7z",
+        mediaPlay: "M6 3l15 9-15 9z",
+        mediaPause: "M5 3h5v18H5zM15 3h5v18h-5z",
+        queueList: "M7 5h14M7 12h14M7 19h14M2 5h.01M2 12h.01M2 19h.01",
         play: "M8 4l12 8-12 8z",
         pause: "M7 4v16M17 4v16",
         previous: "M5 4v16M19 5L8 12l11 7z",
@@ -57,10 +63,10 @@ Item {
     Image {
         anchors.fill: parent
         sourceSize: Qt.size(root.size * 2, root.size * 2)
+        readonly property string ink: 'rgb(' + Math.round(root.color.r * 255) + ',' + Math.round(root.color.g * 255) + ',' + Math.round(root.color.b * 255) + ')'
         source: "data:image/svg+xml;utf8," + encodeURIComponent(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" stroke="rgb('
-            + Math.round(root.color.r * 255) + ',' + Math.round(root.color.g * 255) + ','
-            + Math.round(root.color.b * 255) + ')" stroke-opacity="' + root.color.a
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="' + (root.filled ? ink : 'none')
+            + '" fill-opacity="' + root.color.a + '" stroke="' + (root.filled ? 'none' : ink) + '" stroke-opacity="' + root.color.a
             + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="'
             + (root.paths[root.name] || root.paths.check) + '"/></svg>')
     }

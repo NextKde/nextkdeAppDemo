@@ -26,6 +26,11 @@ ColumnLayout {
             focusRingColor: Ui.AppTheme.focusRing
         }
     }
+    RowLayout {
+        Controls.LiquidActionButton { iconOnly: true; iconName: "mediaPrevious"; iconFilled: true; Accessible.name: "Filled previous" }
+        Controls.LiquidActionButton { iconOnly: true; iconName: "mediaPause"; iconFilled: true; Accessible.name: "Filled pause" }
+        Controls.LiquidActionButton { iconOnly: true; iconName: "mediaNext"; iconFilled: true; Accessible.name: "Filled next" }
+    }
     Label { text: "Compact icon actions · active and disabled"; color: Ui.AppTheme.mutedText }
     RowLayout {
         spacing: 12

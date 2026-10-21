@@ -11,6 +11,7 @@ Button {
     // Compact glyph actions keep their content centered without label insets.
     property bool iconOnly: false
     property string iconName: ""
+    property bool iconFilled: false
     property real iconSize: 16
     property color textColor: destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
     property color iconColor: textColor
@@ -48,6 +49,7 @@ Button {
         VectorIcon {
             anchors.centerIn: parent
             visible: root.iconName.length > 0
+            filled: root.iconFilled
             name: root.iconName
             size: root.iconSize
             color: root.iconColor
