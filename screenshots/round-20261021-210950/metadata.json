@@ -1,0 +1,21 @@
+{
+  "round": "20261021-210950",
+  "at": "2026-10-21T21:10:16.169253+08:00",
+  "application": "nextkdeAppDemo",
+  "runtimeSource": "4a7fc85",
+  "componentRevision": "4a7fc85",
+  "workspaceDirty": false,
+  "captureStatus": "Fresh PNG returned; awaiting inspection before image publication.",
+  "environment": {
+    "session": "Wayland",
+    "renderer": "OpenGL (last launch)",
+    "expectedWindowLogicalSize": [
+      1180,
+      780
+    ],
+    "lastKnownDpr": 2,
+    "sizeVerifiedThisPoll": false
+  },
+  "development": "Single developer active: account controller and NetEase QR/status/logout modules in progress. Existing runnable checkpoint unchanged.",
+  "visualAcceptance": "Pending user"
+}

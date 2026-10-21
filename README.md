@@ -1,6 +1,6 @@
 # Gallery progress
 
-Updated: 2026-10-21T21:06:06.489137+08:00
+Updated: 2026-10-21T21:10:16.169253+08:00
 
 Development resumed at the user's request. Native Qt/QML, local builds and dedicated-window screenshots.
 
@@ -13,3 +13,7 @@ Source: [`4a7fc85`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-f
 - Visual acceptance: pending user. Build and source publication are not visual acceptance.
 
 [This round's metadata](screenshots/round-20261021-210606/metadata.json)
+
+Latest poll: 20261021-210950. Fresh PNG returned; awaiting inspection before image publication.
+
+[Latest metadata](screenshots/round-20261021-210950/metadata.json)
