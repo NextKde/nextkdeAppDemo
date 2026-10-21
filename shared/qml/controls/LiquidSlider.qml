@@ -232,7 +232,7 @@ Item {
     Item {
         id: trackContainer
         anchors.fill: parent
-        visible: !root.materialForm && !thumbSurface.sampling
+        visible: !root.materialForm && (!thumbSurface.sampling || !root.showThumb)
         Loader { anchors.fill: parent; sourceComponent: trackDrawing }
     }
 
@@ -240,7 +240,7 @@ Item {
     // the refracted copy and produces a second progress edge.
     Item {
         anchors.fill: parent
-        visible: !root.materialForm && thumbSurface.sampling
+        visible: !root.materialForm && thumbSurface.sampling && root.showThumb
         readonly property real lensLeft: glassThumb.x + root.thumbWidth / 2
             - root.thumbWidth * thumbScale.xScale / 2
         readonly property real lensRight: glassThumb.x + root.thumbWidth / 2
