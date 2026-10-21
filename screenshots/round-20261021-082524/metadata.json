@@ -1,0 +1,53 @@
+{
+  "round": "20261021-082524",
+  "publishedAt": "2026-10-21T08:25:24.946429+08:00",
+  "reviewedData": [],
+  "summary": "纯QML完整候选07eccb4：内容收紧、侧栏柔化、真实图标及shader输入修复；整体与液态强度继续验收。",
+  "status": "本轮深色按钮页新原图已看。实际共享QML039ceca修正liquid_surface顶点输入并重bake，App新日志无原vertex警告；Gallery这张启动后既有shader环境单独记录，不据App日志宣称整个Gallery零警告。通用图标API仍共享。",
+  "source": {
+    "revision": "039cecad2bd6fc755744109535cfdb782da6d52d",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "07eccb4bb8d82984354aadda28f11b07bf6cfc80",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "039cecad2bd6fc755744109535cfdb782da6d52d",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0820-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "c1f6b0d6361bc767c622306a0d7a5f932bc244f0328cb57282afdac4d1e7ffb2",
+      "capturedAt": "2026-10-21T08:21:44.231529+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
