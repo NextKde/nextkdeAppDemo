@@ -10,13 +10,20 @@ import "ComponentCatalog.mjs" as Catalog
 ScrollView {
     id: page
     required property var entry
+    property real toolbarScrollInset: 0
     property string language: "en"
+    property string backgroundMode: "gradient"
     property string exampleCode: ""
     property string sourceError: ""
     property bool demoEnabled: true
 
     function tr(en, zh) { return language === "zh" ? zh : en }
-    function resetExample() { preview.active = false; preview.active = true }
+    function resetExample() {
+        preview.active = false
+        preview.active = true
+        whitePreview.active = false
+        whitePreview.active = Qt.binding(function() { return whitePanel.visible })
+    }
 
     clip: true
     contentWidth: availableWidth
@@ -44,6 +51,7 @@ ScrollView {
 
     ColumnLayout {
         width: page.availableWidth
+        Item { Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
         spacing: 16
 
         Label {
@@ -79,9 +87,36 @@ ScrollView {
             }
         }
 
-        Controls.LiquidCard {
+        // Unbacked and selected-background control groups are sibling previews.
+        Pane {
+            id: whitePanel
             Layout.fillWidth: true
+            visible: page.entry !== null && ["button", "text-field", "segmented", "bottom-navigation", "navigation"].indexOf(page.entry.id) >= 0
+            padding: 20
+            implicitHeight: whitePreview.item ? whitePreview.item.implicitHeight + padding * 2 : 0
+            background: Item {}
+            contentItem: Loader {
+                id: whitePreview
+                active: whitePanel.visible
+                enabled: page.demoEnabled
+                source: whitePanel.visible ? Qt.resolvedUrl("examples/" + page.entry.example
+                    + "?revision=unbacked-controls-6") : ""
+            }
+        }
+
+        Pane {
+            Layout.fillWidth: true
+            padding: 20
+            clip: true
             implicitHeight: previewHost.implicitHeight + padding * 2
+            background: GalleryBackdrop { id: previewScene; mode: page.backgroundMode }
+            readonly property alias contentBackdrop: previewBackdrop
+            Controls.LiquidBackdrop {
+                id: previewBackdrop
+                sourceItem: previewScene
+                registerAsDefault: false
+                active: page.backgroundMode !== "desktop"
+            }
             contentItem: Item {
                 id: previewHost
                 implicitHeight: preview.item ? Math.max(160, preview.item.implicitHeight) : 160
@@ -90,7 +125,11 @@ ScrollView {
                     id: preview
                     anchors.fill: parent
                     enabled: page.demoEnabled
-                    source: page.entry ? Qt.resolvedUrl("examples/" + page.entry.example) : ""
+                    // Use a new URL for the reorganized examples so the live
+                    // QQmlEngine cannot reuse their previous compiled component.
+                    source: page.entry ? Qt.resolvedUrl("examples/" + page.entry.example
+                        + ((page.entry.id === "button" || page.entry.id === "text-field" || page.entry.id === "switch")
+                            ? "?revision=switch-jelly-7" : "")) : ""
                 }
 
                 Label {

@@ -5,28 +5,44 @@ import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
 
 ColumnLayout {
-    property string submitted: "Nothing submitted yet."
-    id: example
     spacing: 12
+
+    Label { text: "Default"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
     Controls.LiquidTextField {
-        materialForm: false
-        liquidFinish: true
-        glassColor: Qt.rgba(1, 1, 1, 0.08)
-        id: input
         Layout.fillWidth: true
-        placeholderText: "Type a name, then press Enter"
-        Accessible.name: "Name"
-        onAccepted: example.submitted = "Submitted: " + text
+        materialForm: false; liquidFinish: true
+        placeholderText: "Enter text"
+        Accessible.name: "Default input"
     }
+    Label { text: "Filled"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
+    Controls.LiquidTextField {
+        Layout.fillWidth: true
+        materialForm: false; liquidFinish: true
+        text: "Liquid glass"
+        Accessible.name: "Filled input"
+    }
+    Label { text: "Password"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
+    Controls.LiquidTextField {
+        Layout.fillWidth: true
+        materialForm: false; liquidFinish: true
+        placeholderText: "Enter password"
+        echoMode: TextInput.Password
+        Accessible.name: "Password input"
+    }
+    Label { text: "Read only"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
+    Controls.LiquidTextField {
+        Layout.fillWidth: true
+        materialForm: false; liquidFinish: true
+        text: "Read-only text"
+        readOnly: true
+        Accessible.name: "Read-only input"
+    }
+    Label { text: "Disabled"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
     Controls.LiquidTextField {
         Layout.fillWidth: true
         materialForm: false; liquidFinish: true
         placeholderText: "Disabled input"
-        text: "Disabled · 禁用文本"
         enabled: false
-        Accessible.name: "Disabled search input"
+        Accessible.name: "Disabled input"
     }
-    Label { text: "Semantic defaults; tab to focus, type, select, hover and press."; color: Ui.AppTheme.mutedText; Layout.fillWidth: true; wrapMode: Text.WordWrap }
-    Label { text: "Current input: " + input.text; color: Ui.AppTheme.text }
-    Label { text: example.submitted; color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82) }
 }

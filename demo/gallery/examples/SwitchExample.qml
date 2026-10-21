@@ -7,7 +7,7 @@ import "../../Kos/Ui/controls" as Controls
 ColumnLayout {
     id: example
     objectName: "reviewSwitch"
-    property bool notificationsEnabled: false
+    property bool notificationsEnabled: true
     property bool confirmRequests: true
     property int requestCount: 0
     spacing: 16
@@ -26,7 +26,6 @@ ColumnLayout {
         Controls.LiquidGlassSwitch {
             id: sample
             materialForm: false
-            accentColor: Ui.AppTheme.accent
             checked: example.notificationsEnabled
             Accessible.name: "Enable notifications"
             onToggled: function(checked) { example.requestCount++; if (example.confirmRequests) example.notificationsEnabled = checked }
@@ -35,8 +34,8 @@ ColumnLayout {
     RowLayout {
         spacing: 24
         Label { text: "Disabled · off / on"; color: Ui.AppTheme.mutedText; Layout.preferredWidth: 150 }
-        Controls.LiquidGlassSwitch { materialForm: false; accentColor: Ui.AppTheme.accent; enabled: false; checked: false; Accessible.name: "Disabled off switch" }
-        Controls.LiquidGlassSwitch { materialForm: false; accentColor: Ui.AppTheme.accent; enabled: false; checked: true; Accessible.name: "Disabled on switch" }
+        Controls.LiquidGlassSwitch { materialForm: false; enabled: false; checked: false; Accessible.name: "Disabled off switch" }
+        Controls.LiquidGlassSwitch { materialForm: false; enabled: false; checked: true; Accessible.name: "Disabled on switch" }
     }
     RowLayout {
         spacing: 24

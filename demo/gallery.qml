@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Window
 import Quickshell
 import Quickshell.Io
 import "Kos/Ui/foundation" as Ui
@@ -6,30 +7,28 @@ import "Kos/Ui/controls" as Controls
 import "gallery"
 
 ShellRoot {
-    FloatingWindow {
+    Window {
+        id: galleryWindow
+        flags: Qt.Window | Qt.FramelessWindowHint
+        function toggleMaximized() {
+            if (visibility === Window.Maximized) showNormal()
+            else showMaximized()
+        }
         title: "NextKde App Demo"
-        implicitWidth: 1180
-        implicitHeight: 780
-        minimumSize: Qt.size(900, 560)
+        width: 1180
+        height: 780
+        minimumWidth: 900
+        minimumHeight: 560
         visible: true
         color: "transparent"
-        onClosed: Qt.quit()
+        onClosing: Qt.quit()
 
         Item {
             id: reviewSurface
             anchors.fill: parent
 
-            GalleryBackdrop {
-                id: scene
-                anchors.fill: parent
-                mode: gallery.backgroundMode
-                visible: mode !== "desktop"
-            }
-            Controls.LiquidBackdrop {
-                sourceItem: scene
-                active: gallery.backgroundMode !== "desktop"
-            }
-            GalleryRoot { id: gallery; anchors.fill: parent }
+            GalleryRoot { id: gallery; anchors.fill: parent; targetWindow: galleryWindow }
+            Ui.KosWindowResizeHandles { targetWindow: galleryWindow }
         }
 
         // Explicit local review of the live window, without desktop capture.

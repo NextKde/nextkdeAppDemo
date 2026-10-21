@@ -15,10 +15,35 @@ AbstractButton {
     hoverEnabled: true
     Accessible.name: Catalog.title(entry, language)
 
-    background: Controls.LiquidSurface {
-        radius: 16
-        readability: 0.55
-        tintStrength: pointer.containsMouse ? 0.12 : 0.06
+    background: Item {
+        Controls.LiquidOuterShadow {
+            anchors.fill: parent
+            radius: 16
+            shadowOpacity: Ui.AppTheme.dark ? .18 : .07
+            offset: Qt.vector2d(0, 2)
+        }
+        Rectangle {
+            id: panelBase
+            anchors.fill: parent
+            radius: 16
+            color: Ui.AppTheme.dark ? "#2b2b2e" : "#f1f1f4"
+        }
+        Controls.LiquidBackdrop {
+            id: panelBackdrop
+            sourceItem: panelBase
+            registerAsDefault: false
+        }
+        Controls.LiquidSurface {
+            anchors.fill: parent
+            backdrop: panelBackdrop
+            convexLens: true
+            radius: 16
+            readability: .06
+            blurStrength: 0
+            reflectionStrength: tile.hovered ? .72 : .50
+            tintColor: Ui.AppTheme.dark ? "#353538" : "#ffffff"
+            tintStrength: tile.hovered ? .12 : .05
+        }
         Rectangle {
             anchors.fill: parent
             radius: 16

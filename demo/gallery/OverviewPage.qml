@@ -6,6 +6,7 @@ import "ComponentCatalog.mjs" as Catalog
 
 ScrollView {
     id: page
+    property real toolbarScrollInset: 0
     property string language: "en"
     signal componentSelected(string id)
     function tr(en, zh) { return language === "zh" ? zh : en }
@@ -14,6 +15,7 @@ ScrollView {
     contentWidth: availableWidth
     ColumnLayout {
         width: page.availableWidth
+        Item { Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
         spacing: 18
 
         RowLayout {

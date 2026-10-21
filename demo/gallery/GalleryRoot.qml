@@ -9,8 +9,9 @@ import "ComponentCatalog.mjs" as Catalog
 Pane {
     id: root
 
+    required property var targetWindow
     property string language: Quickshell.env("GALLERY_LANGUAGE") === "zh" ? "zh" : "en"
-    property string themeMode: Quickshell.env("GALLERY_THEME") === "light" ? "light" : "dark"
+    property string themeMode: Quickshell.env("GALLERY_THEME") === "dark" ? "dark" : "light"
     property string backgroundMode: "gradient"
     property string currentId: "overview"
     readonly property var selected: Catalog.find(currentId)
@@ -44,17 +45,22 @@ Pane {
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 16
-        spacing: 20
+        spacing: 0
 
-        Controls.LiquidCard {
+        Pane {
             Layout.preferredWidth: 224
             Layout.minimumWidth: 224
             Layout.maximumWidth: 224
             Layout.fillHeight: true
             padding: 0
-            radius: 18
-            readability: 0.62
+            background: Rectangle {
+                color: Ui.AppTheme.dark ? "#242426" : "#f2f2f4"
+                Rectangle {
+                    anchors.right: parent.right
+                    width: 1; height: parent.height
+                    color: Ui.AppTheme.dark ? "#343436" : "#dedee0"
+                }
+            }
 
             ColumnLayout {
                 anchors.fill: parent
@@ -148,17 +154,39 @@ Pane {
             }
         }
 
-        Controls.LiquidCard {
+        Pane {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            padding: 20
-            radius: 18
-            readability: 0.62
+            padding: 0
+            background: Rectangle { color: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff" }
             contentItem: ColumnLayout {
-                spacing: 18
+                spacing: 0
 
-                RowLayout {
+                GalleryWindowChrome {
                     Layout.fillWidth: true
+                    Layout.preferredHeight: 30
+                    targetWindow: root.targetWindow
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.margins: 20
+                    clip: true
+
+                Pane {
+                    id: galleryToolbar
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    z: 10
+                    padding: 0
+                    background: Rectangle {
+                        color: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff"
+                        opacity: 0.90
+                    }
+                    contentItem:
+                RowLayout {
                     Label {
                         Layout.fillWidth: true
                         text: root.selected ? Catalog.title(root.selected, root.language)
@@ -187,12 +215,13 @@ Pane {
                         onClicked: root.themeMode = root.themeMode === "dark" ? "light" : "dark"
                     }
                 }
+                }
 
                 Loader {
                     id: content
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                    anchors.fill: parent
                     sourceComponent: root.selected ? componentPage : overviewPage
+                }
                 }
             }
         }
@@ -201,12 +230,13 @@ Pane {
     Component {
         id: overviewPage
         OverviewPage {
+            toolbarScrollInset: galleryToolbar.height + 18
             language: root.language
             onComponentSelected: function(id) { root.select(id) }
         }
     }
     Component {
         id: componentPage
-        ComponentPage { entry: root.selected; language: root.language }
+        ComponentPage { entry: root.selected; language: root.language; backgroundMode: root.backgroundMode; toolbarScrollInset: galleryToolbar.height + 18 }
     }
 }
