@@ -1,0 +1,23 @@
+{
+  "round": "20261021-212941",
+  "captureAt": "2026-10-21T21:29:30.172167+08:00",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "runtimeMatchesSource": true,
+  "sourceDirty": false,
+  "inFlight": "Account expiry and failed secure-storage removal handling, not in this runtime",
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "renderer": "OpenGL",
+  "environment": "local Wayland/Qt6.12",
+  "visualAcceptance": "pending user",
+  "privacy": "original screenshots inspected; no QR/identity/credentials"
+}
