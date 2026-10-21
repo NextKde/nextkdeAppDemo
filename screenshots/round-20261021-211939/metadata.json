@@ -1,0 +1,22 @@
+{
+  "round": "20261021-211939",
+  "captureAt": "2026-10-21T21:19:30.074798+08:00",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "renderer": "OpenGL",
+  "environment": "local Wayland / Qt6.12",
+  "runtimeDirty": false,
+  "inFlightChanges": "Immersive player and single narrower player backdrop blur; not in this capture",
+  "visualAcceptance": "pending user",
+  "privacy": "Coordinator inspected original PNG; no QR/account credentials visible"
+}

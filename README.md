@@ -1,6 +1,6 @@
 # nextkdeAppDemo progress
 
-Updated: 2026-10-21T21:15:53.285640+08:00
+Updated: 2026-10-21T21:20:25.891989+08:00
 
 Source: [`96ff101f`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity) · shared96ff101 · local Qt/QML
 
@@ -10,6 +10,6 @@ Source: [`96ff101f`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-
 - UI findings: music floating player's backdrop still shows a heavy dark blur and needs follow-up; no overall visual acceptance claimed.
 - Final visual acceptance: pending user. No QR, credentials or account data published.
 
-![Current local application](screenshots/round-20261021-211553/current-light.png)
+![Current local application](screenshots/round-20261021-211939/current-light.png)
 
-[Capture metadata](screenshots/round-20261021-211553/metadata.json)
+[Capture metadata](screenshots/round-20261021-211939/metadata.json)
