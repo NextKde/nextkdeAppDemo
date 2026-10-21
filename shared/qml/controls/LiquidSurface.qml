@@ -21,7 +21,7 @@ Item {
     property real reflectionStrength: 1
     property color rimColor: Qt.rgba(1, 1, 1, 0.30)
     readonly property bool sampling: canSampleBackdrop && _mappingValid
-        && optics.status !== ShaderEffect.Error
+        && optics.item !== null && optics.item.status !== ShaderEffect.Error
     readonly property bool canSampleBackdrop: backdrop !== null && backdrop.canSample(root)
         && width > 0 && height > 0 && GraphicsInfo.api !== GraphicsInfo.Software
     property bool _mappingValid: false
@@ -73,27 +73,32 @@ Item {
         property real tintStrength: root.tintStrength
         property real diffuseStrength: root.diffuseStrength
     }
-    ShaderEffect {
+    // A hidden ShaderEffect still owns sampler bindings. Destroy the sampled
+    // pass when its provider goes away instead of feeding a live node null.
+    Loader {
         id: optics
         anchors.fill: parent
-        visible: root.canSampleBackdrop && root._mappingValid
-        vertexShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.vert.qsb" : "shaders/liquid_surface.vert.qsb")
-        fragmentShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.frag.qsb" : "shaders/liquid_surface.frag.qsb")
-        property var source: root.canSampleBackdrop ? (root.unfilteredBackdrop ? root.backdrop.rawTexture : root.backdrop.texture) : null
-        property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
-        property vector2d sampleOrigin: root._sampleOrigin
-        property vector2d sampleAxisX: root._sampleAxisX
-        property vector2d sampleAxisY: root._sampleAxisY
-        property real radius: root.radius
-        property color tintColor: root.tintColor
-        property real tintStrength: root.tintStrength
-        property real blurRadius: Math.max(0, root.blurStrength) * 8
-        property real readability: root.readability
-        property real lightAppearance: root.darkAppearance ? 0 : 1
-        property real refractionStrength: root.refractionStrength
-        property real magnification: root.magnification
-        property real edgeWidth: root.edgeWidth
-        property real diffuseStrength: root.diffuseStrength
+        active: root.canSampleBackdrop && root._mappingValid
+        sourceComponent: ShaderEffect {
+            anchors.fill: parent
+            vertexShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.vert.qsb" : "shaders/liquid_surface.vert.qsb")
+            fragmentShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.frag.qsb" : "shaders/liquid_surface.frag.qsb")
+            property var source: root.canSampleBackdrop ? (root.unfilteredBackdrop ? root.backdrop.rawTexture : root.backdrop.texture) : null
+            property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
+            property vector2d sampleOrigin: root._sampleOrigin
+            property vector2d sampleAxisX: root._sampleAxisX
+            property vector2d sampleAxisY: root._sampleAxisY
+            property real radius: root.radius
+            property color tintColor: root.tintColor
+            property real tintStrength: root.tintStrength
+            property real blurRadius: Math.max(0, root.blurStrength) * 8
+            property real readability: root.readability
+            property real lightAppearance: root.darkAppearance ? 0 : 1
+            property real refractionStrength: root.refractionStrength
+            property real magnification: root.magnification
+            property real edgeWidth: root.edgeWidth
+            property real diffuseStrength: root.diffuseStrength
+        }
     }
     // One directional reflection pass, independent of backdrop sampling.
     // Light follows the shape normal; no full-perimeter rim or inner bevel.
