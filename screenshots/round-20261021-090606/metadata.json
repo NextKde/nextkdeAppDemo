@@ -1,0 +1,53 @@
+{
+  "round": "20261021-090606",
+  "publishedAt": "2026-10-21T09:06:06.981663+08:00",
+  "reviewedData": [],
+  "summary": "Fresh dual captures of current running b5da candidate; narrow hero hard-edge correction still in progress.",
+  "status": "OwnedPID48688/shared9da fresh dark overview original PNG viewed. Static current-version regression; no dynamic acceptance claimed.",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "b5da8e9a73c00d3c84f6105278fefaa540f2d7c0",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0903-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "a90aa3a5572c0bc3096e35976f8d51dc2f73e63a65ceb8ff223a94aabeaa0134",
+      "capturedAt": "2026-10-21T09:05:14.597099+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
