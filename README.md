@@ -1,19 +1,19 @@
 # Gallery progress
 
-Updated: 2026-10-21T08:25:24.946429+08:00
+Updated: 2026-10-21T08:32:32.320764+08:00
 
-纯QML完整候选07eccb4：内容收紧、侧栏柔化、真实图标及shader输入修复；整体与液态强度继续验收。
+08:29轮Gallery新图成功；当前App截图未生成，未用旧图补位，开发继续。
 
-本轮深色按钮页新原图已看。实际共享QML039ceca修正liquid_surface顶点输入并重bake，App新日志无原vertex警告；Gallery这张启动后既有shader环境单独记录，不据App日志宣称整个Gallery零警告。通用图标API仍共享。
+本轮深色按钮页新原图已亲自看。当前进程启动482后源码热加载039及在途工作；QSB缓存未重启确认，不据HEAD宣称shader二进制运行版本。新共享候选就绪后只重启自有Gallery再回归。
 
-Source: [`039cecad2bd6`](https://github.com/NextKde/nextkdeAppDemo/commit/039cecad2bd6fc755744109535cfdb782da6d52d) · Branch: `codex/music-fidelity` · Local changes: False
+Source: [`9da2794bf70e`](https://github.com/NextKde/nextkdeAppDemo/commit/9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-![gallery-poll-0820-dark.png](screenshots/round-20261021-082524/gallery-poll-0820-dark.png)
+![gallery-poll-0829-dark.png](screenshots/round-20261021-083232/gallery-poll-0829-dark.png)
 
 2360 × 1560 original pixels
 
-[Capture and revision metadata](screenshots/round-20261021-082524/metadata.json)
+[Capture and revision metadata](screenshots/round-20261021-083232/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)

@@ -1,0 +1,65 @@
+{
+  "round": "20261021-083232",
+  "publishedAt": "2026-10-21T08:32:32.320764+08:00",
+  "reviewedData": [],
+  "summary": "08:29轮Gallery新图成功；当前App截图未生成，未用旧图补位，开发继续。",
+  "status": "本轮深色按钮页新原图已亲自看。当前进程启动482后源码热加载039及在途工作；QSB缓存未重启确认，不据HEAD宣称shader二进制运行版本。新共享候选就绪后只重启自有Gallery再回归。",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "07eccb4bb8d82984354aadda28f11b07bf6cfc80",
+      "branch": "codex/music-development",
+      "dirty": true,
+      "changedPaths": [
+        "M providers/helper.ts",
+        " M providers/netease/NOTICE.md",
+        " M qml/DiscoveryPage.qml",
+        " M qml/Main.qml",
+        " M src/MusicController.cpp",
+        " M src/MusicController.h",
+        " M src/OnlineMusicProvider.cpp",
+        " M src/OnlineMusicProvider.h",
+        " M src/main.cpp",
+        " M vendor/nextkdeAppDemo",
+        "?? providers/netease/modules/album_new.ts"
+      ],
+      "trackedDiffSha256": "4a7c7cf9f270767477222a4e9c7e9d15f83d19b346c108c58f9050ab7ca4f02c"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0829-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "c1f6b0d6361bc767c622306a0d7a5f932bc244f0328cb57282afdac4d1e7ffb2",
+      "capturedAt": "2026-10-21T08:30:23.970680+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
