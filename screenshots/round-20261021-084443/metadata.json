@@ -1,0 +1,40 @@
+{
+  "round": "20261021-084443",
+  "publishedAt": "2026-10-21T08:44:43.178640+08:00",
+  "reviewedData": [],
+  "summary": "Real first-new-album click playback log independently reviewed; this poll both new screenshot attempts did not produce files. No older image reused as this poll capture.",
+  "status": "PID38878/shared9da healthy; current poll capture request produced no PNG. No new screenshot claimed, previous083844 remains historical. Shared optical regression incomplete.",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "11f09f2402230ed739224ad0669636223d278ae6",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [],
+  "personallyReviewed": true
+}
