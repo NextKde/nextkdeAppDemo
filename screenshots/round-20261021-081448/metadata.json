@@ -1,0 +1,53 @@
+{
+  "round": "20261021-081448",
+  "publishedAt": "2026-10-21T08:14:48.799489+08:00",
+  "reviewedData": [],
+  "summary": "08:13轮：完整纯QML主界面已重写并在构建，本轮没有新App运行画面；Gallery继续新图回归。",
+  "status": "专用Gallery PID22092，当前共享482f7ce，深色按钮页本轮新原始截图已看。矢量图标API提交已上线，当前图用于既有按钮/真实背景采样与输入文字回归。新App整体外观未通过之前不继续铺其他页面；旧vertex-input警告仍未消除。",
+  "source": {
+    "revision": "482f7ce86a9fe1755ff735ca27bbcb58e5b194a9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "e783a9858319b79f22c86463cf078a4b31192803",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "482f7ce86a9fe1755ff735ca27bbcb58e5b194a9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0813-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "c1f6b0d6361bc767c622306a0d7a5f932bc244f0328cb57282afdac4d1e7ffb2",
+      "capturedAt": "2026-10-21T08:13:48.510817+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
