@@ -221,3 +221,9 @@ iconSize defaults16. Existing text/iconOnly use is preserved.
 LiquidNavigationButton.iconName/iconColor add an optional16px vector before its
 label; cornerRadius defaults to the original10px. Supply accessible action names.
 These additions support actual app navigation and playback, not font-symbol icons.
+
+Action button optics: the shared background lens expands slightly while content
+retains its press compression. Refraction/magnification/reflection respond to
+actual hover/down, honoring reduceMotion. Read-only sampling/opticalExpansion/
+opticalRefraction/opticalMagnification/opticalReflection expose actual animated
+values for inspection; callers still own content/actions and backdrop selection.

@@ -174,3 +174,7 @@ VectorIcon新增一致的原创描线音乐/播放控制图形。LiquidActionBut
 空字符串，非空时居中绘制矢量图标，iconSize默认16，原text/iconOnly用法保留。
 LiquidNavigationButton的iconName/iconColor提供可选16px图标，cornerRadius默认保持10。
 纯图标操作需无障碍名称，导航与播放不再依赖字体符号。
+
+ActionButton光学：内容保留按压压缩，背景透镜轻微展开；实际hover/down驱动
+折射/放大/反光并遵循reduceMotion。只读sampling/opticalExpansion/opticalRefraction/
+opticalMagnification/opticalReflection可查询实际动画值；动作及backdrop仍由宿主提供。

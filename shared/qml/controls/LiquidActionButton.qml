@@ -12,13 +12,18 @@ Button {
     property bool iconOnly: false
     property string iconName: ""
     property real iconSize: 16
+    readonly property bool sampling: buttonGlass.sampling
+    readonly property real opticalExpansion: buttonGlass.scale
+    readonly property real opticalRefraction: buttonGlass.refractionStrength
+    readonly property real opticalMagnification: buttonGlass.magnification
+    readonly property real opticalReflection: buttonGlass.reflectionStrength
     hoverEnabled: true
     implicitHeight: 36
     implicitWidth: iconOnly ? 36 : Math.max(76, contentItem.implicitWidth + 28)
     leftPadding: iconOnly ? 0 : 14
     rightPadding: iconOnly ? 0 : 14
     scale: down ? 0.96 : hovered ? 1.02 : 1
-    Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
+    Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
     opacity: enabled ? 1 : 0.38
     contentItem: Item {
         implicitWidth: root.iconName.length ? root.iconSize : caption.implicitWidth
@@ -43,9 +48,16 @@ Button {
         }
     }
     background: LiquidSurface {
+        id: buttonGlass
+        scale: root.down ? 1.065 : root.hovered ? 1.018 : 1
+        Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
+        refractionStrength: root.down ? 7 : root.hovered ? 4.5 : 3
+        magnification: root.down ? 1.07 : root.hovered ? 1.045 : 1.025
+        Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+        Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         radius: height / 2
         backdrop: root.backdrop
-        reflectionStrength: root.down ? .75 : root.hovered ? .60 : .42
+        reflectionStrength: root.down ? .90 : root.hovered ? .72 : .50
         Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         tintColor: root.highlighted || root.checked ? Foundation.AppTheme.accent
             : Foundation.AppTheme.dark ? "#17223b" : "#ffffff"
