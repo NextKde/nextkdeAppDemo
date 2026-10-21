@@ -1,0 +1,53 @@
+{
+  "round": "20261021-081134",
+  "publishedAt": "2026-10-21T08:11:34.448236+08:00",
+  "reviewedData": [],
+  "summary": "设计纠偏进行中：按用户五条要求重建完整主界面，原生KWin材质路线已从源码移除，当前App候选尚未运行。",
+  "status": "本轮恢复专用Gallery PID22092，深色按钮页新原始截图已亲自看。当前共享482f7ce新增矢量音乐图标和兼容iconName API，当前图为按钮既有回归；新App完整布局还在开发。Gallery启动仍有旧vertex-input警告，未声称整库无警告。",
+  "source": {
+    "revision": "482f7ce86a9fe1755ff735ca27bbcb58e5b194a9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "e3bb853c3bbc571e4a42bb0e2a9aa2f0a2c2ae68",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "482f7ce86a9fe1755ff735ca27bbcb58e5b194a9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0807-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "c1f6b0d6361bc767c622306a0d7a5f932bc244f0328cb57282afdac4d1e7ffb2",
+      "capturedAt": "2026-10-21T08:11:13.261651+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
