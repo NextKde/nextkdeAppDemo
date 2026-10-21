@@ -1,19 +1,15 @@
-# Gallery progress
+# nextkdeAppDemo progress
 
-Updated: 2026-10-21T21:10:16.169253+08:00
+Updated: 2026-10-21T21:15:53.285640+08:00
 
-Development resumed at the user's request. Native Qt/QML, local builds and dedicated-window screenshots.
+Source: [`96ff101f`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity) · shared96ff101 · local Qt/QML
 
-Source: [`4a7fc85`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity)
+- Implemented: NetEase QR login/session/status/logout with system credential storage; ordinary content actions use non-sampling material, Online search toolbar stays fixed over real scrolling content.
+- Technical checks: build succeeded; real provider returned QR key and waiting status801; logout/status verified. Actual user scan and authenticated playback remain unverified.
+- In progress: login UI checks, full playback and immersive artwork/queue page.
+- UI findings: music floating player's backdrop still shows a heavy dark blur and needs follow-up; no overall visual acceptance claimed.
+- Final visual acceptance: pending user. No QR, credentials or account data published.
 
-- Completed: checkpoint of user-tuned shared materials and music sidebar, red music icons, removal of the unwanted sidebar gradient strip.
-- In progress: QR login, secure session storage and real playback; plain content buttons, fixed glass controls over scrolling content, immersive artwork/queue layout.
-- Screenshot status: New capture request has not produced a PNG. No older image reused.
-- Runtime build: KMusic checkpoint c180098, shared component2516546; new developer source is not this runtime.
-- Visual acceptance: pending user. Build and source publication are not visual acceptance.
+![Current local application](screenshots/round-20261021-211553/current-light.png)
 
-[This round's metadata](screenshots/round-20261021-210606/metadata.json)
-
-Latest poll: 20261021-210950. Fresh PNG returned; awaiting inspection before image publication.
-
-[Latest metadata](screenshots/round-20261021-210950/metadata.json)
+[Capture metadata](screenshots/round-20261021-211553/metadata.json)

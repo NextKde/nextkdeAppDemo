@@ -1,0 +1,23 @@
+{
+  "round": "20261021-211553",
+  "publishedAt": "2026-10-21T21:15:53.285640+08:00",
+  "capturedAt": "2026-10-21T21:14:29.436825+08:00",
+  "application": "nextkdeAppDemo",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "dirty": false,
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "renderer": "OpenGL",
+  "environment": "local Arch Linux, Qt6.12, Wayland",
+  "image": "Original dedicated-window capture, visually inspected; no credentials or QR visible.",
+  "visualAcceptance": "Pending user; static screenshot is not motion or end-to-end login acceptance"
+}
