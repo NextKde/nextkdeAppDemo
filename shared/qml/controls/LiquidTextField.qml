@@ -69,7 +69,7 @@ TextField {
         LiquidSurface {
             id: liquidSurface
             convexLens: root.convexLens
-            edgeShadeStrength: .08
+            edgeShadeStrength: .10
             unfilteredBackdrop: root.unfilteredBackdrop
             anchors.fill: parent
             visible: root._liquid

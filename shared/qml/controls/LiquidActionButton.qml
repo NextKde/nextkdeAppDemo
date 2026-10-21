@@ -61,7 +61,7 @@ Button {
     background: LiquidSurface {
         id: buttonGlass
         convexLens: root.convexLens
-        edgeShadeStrength: .08
+        edgeShadeStrength: .10
         // Preserve the actual sampled texture; the bezel supplies depth.
         blurStrength: root.convexLens ? 0 : .45
         readability: 0
