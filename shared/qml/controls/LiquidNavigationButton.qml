@@ -8,6 +8,7 @@ Button {
     checkable: true
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property string iconName: ""
+    property url iconSource: ""
     property color iconColor: Foundation.AppTheme.accent
     property real cornerRadius: height / 2
     property color selectionColor: Foundation.AppTheme.accent
@@ -25,8 +26,15 @@ Button {
         implicitHeight: Math.max(caption.implicitHeight, 16)
         VectorIcon {
             anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
-            visible: root.iconName.length > 0
+            visible: root.iconName.length > 0 && !root.iconSource.toString().length
             name: root.iconName; size: 16; color: root.iconColor
+        }
+        Image {
+            anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
+            width: 16; height: 16
+            visible: root.iconSource.toString().length > 0
+            source: root.iconSource
+            sourceSize: Qt.size(32, 32)
         }
         Text {
             id: caption
