@@ -1,15 +1,15 @@
-# nextkdeAppDemo progress
+# Gallery progress
 
-Updated: 2026-10-21T21:20:25.891989+08:00
+Updated: 2026-10-21T21:26:22.816516+08:00
 
-Source: [`96ff101f`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity) · shared96ff101 · local Qt/QML
+[Source branch](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity) · Runtime `96ff101f` · shared `96ff101`
 
-- Implemented: NetEase QR login/session/status/logout with system credential storage; ordinary content actions use non-sampling material, Online search toolbar stays fixed over real scrolling content.
-- Technical checks: build succeeded; real provider returned QR key and waiting status801; logout/status verified. Actual user scan and authenticated playback remain unverified.
-- In progress: login UI checks, full playback and immersive artwork/queue page.
-- UI findings: music floating player's backdrop still shows a heavy dark blur and needs follow-up; no overall visual acceptance claimed.
-- Final visual acceptance: pending user. No QR, credentials or account data published.
+- New running milestone: immersive artwork/metadata/seek/transport at left, real remaining queue and lyrics at right; square CSD retained.
+- Local build succeeded; real online album loaded20 tracks and produced progressing playback before pause. Actual login scan still pending user.
+- Player uses one narrower continuous backdrop blur; issue remains: scrolled-under text can interfere with the central metadata. Follow-up requested; no visual acceptance claimed.
+- Ordinary content actions use non-sampling material; glass fixed/overlay controls keep actual backdrop sampling.
+- Final acceptance belongs to user; no QR/credentials published.
 
-![Current local application](screenshots/round-20261021-211939/current-light.png)
+![Current original capture](screenshots/round-20261021-212622/current.png)
 
-[Capture metadata](screenshots/round-20261021-211939/metadata.json)
+[Runtime / environment metadata](screenshots/round-20261021-212622/metadata.json)

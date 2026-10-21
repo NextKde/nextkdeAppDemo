@@ -1,0 +1,20 @@
+{
+  "round": "20261021-212622",
+  "capturedAt": "2026-10-21T21:24:30.819453+08:00",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "runtimeDirty": false,
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "environment": "local Wayland Qt6.12 OpenGL",
+  "visualAcceptance": "Pending user",
+  "privacy": "Original inspected dedicated App/Gallery PNG, no QR/account data"
+}
