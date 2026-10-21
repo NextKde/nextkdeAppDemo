@@ -1,17 +1,19 @@
 # Gallery progress
 
-Updated: 2026-10-21T08:50:59.891280+08:00
+Updated: 2026-10-21T08:55:46.220377+08:00
 
-Fresh capture attempts pending/not producing PNG; developer still finishing retained-layer optics. No reused screenshots.
+Fresh dual screenshots recovered. Parent inspected current App and restarted owned Gallery; whole UI remains under review.
 
-Owned PID38878/shared9da healthy; fresh capture by exact PID not yet produced PNG. Previous0841 callbacks completed late; those old files are not this round evidence. No shell/config changes.
+Restarted ONLY owned Gallery38878 to48688 with same9da source/QSB; fresh dark overview captured and viewed, normal buttons/input/source sampling visible. This is static overview regression, not completed liquid dynamic acceptance. No Shell/KWin config changed.
 
 Source: [`9da2794bf70e`](https://github.com/NextKde/nextkdeAppDemo/commit/9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9) · Branch: `codex/music-fidelity` · Local changes: False
 
 Captures and builds document progress; UI acceptance is recorded separately.
 
-No current application image available in this preparation round; see status above.
+![gallery-poll-0852-restarted-dark.png](screenshots/round-20261021-085546/gallery-poll-0852-restarted-dark.png)
 
-[Capture and revision metadata](screenshots/round-20261021-085059/metadata.json)
+2360 × 1560 original pixels
+
+[Capture and revision metadata](screenshots/round-20261021-085546/metadata.json)
 
 [All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
