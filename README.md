@@ -1,17 +1,15 @@
 # Gallery progress
 
-Updated: 2026-10-21T09:13:27.650101+08:00
+Updated: 2026-10-21T21:06:06.489137+08:00
 
-Final checkpoint then PAUSED at explicit user request to adjust direction. No further development or automatic review until user resumes.
+Development resumed at the user's request. Native Qt/QML, local builds and dedicated-window screenshots.
 
-OwnedPID48688/shared9da. Final-round capture request produced no PNG by publication; no older screenshot reused. Last successful090606 remains historical. User-requested pause; no further automatic work.
+Source: [`4a7fc85`](https://github.com/NextKde/nextkdeAppDemo/tree/codex/music-fidelity)
 
-Source: [`9da2794bf70e`](https://github.com/NextKde/nextkdeAppDemo/commit/9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9) · Branch: `codex/music-fidelity` · Local changes: False
+- Completed: checkpoint of user-tuned shared materials and music sidebar, red music icons, removal of the unwanted sidebar gradient strip.
+- In progress: QR login, secure session storage and real playback; plain content buttons, fixed glass controls over scrolling content, immersive artwork/queue layout.
+- Screenshot status: New capture request has not produced a PNG. No older image reused.
+- Runtime build: KMusic checkpoint c180098, shared component2516546; new developer source is not this runtime.
+- Visual acceptance: pending user. Build and source publication are not visual acceptance.
 
-Captures and builds document progress; UI acceptance is recorded separately.
-
-No current application image available in this preparation round; see status above.
-
-[Capture and revision metadata](screenshots/round-20261021-091327/metadata.json)
-
-[All rounds](./screenshots) · [Other project](https://github.com/NextKde/KMusic/blob/ui-evidence/README.md)
+[This round's metadata](screenshots/round-20261021-210606/metadata.json)

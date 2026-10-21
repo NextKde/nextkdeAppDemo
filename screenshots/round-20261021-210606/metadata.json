@@ -1,0 +1,9 @@
+{
+  "round": "20261021-210606",
+  "time": "2026-10-21T21:06:06.489137+08:00",
+  "sourceRevision": "4a7fc85",
+  "componentRevision": "2516546",
+  "captureStatus": "New capture request has not produced a PNG. No older image reused.",
+  "visualAcceptance": "Pending user",
+  "development": "In progress: QR login/session, real playback, fixed glass toolbar and immersive playback"
+}
