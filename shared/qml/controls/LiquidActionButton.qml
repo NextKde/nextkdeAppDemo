@@ -10,6 +10,8 @@ Button {
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
     property bool iconOnly: false
+    property string iconName: ""
+    property real iconSize: 16
     hoverEnabled: true
     implicitHeight: 36
     implicitWidth: iconOnly ? 36 : Math.max(76, contentItem.implicitWidth + 28)
@@ -18,13 +20,27 @@ Button {
     scale: down ? 0.96 : hovered ? 1.02 : 1
     Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
     opacity: enabled ? 1 : 0.38
-    contentItem: Label {
-        text: root.text
-        font: root.font
-        color: root.destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        elide: root.iconOnly ? Text.ElideNone : Text.ElideRight
+    contentItem: Item {
+        implicitWidth: root.iconName.length ? root.iconSize : caption.implicitWidth
+        implicitHeight: Math.max(caption.implicitHeight, root.iconName.length ? root.iconSize : 0)
+        Label {
+            id: caption
+            anchors.fill: parent
+            visible: !root.iconName.length
+            text: root.text
+            font: root.font
+            color: root.destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            elide: root.iconOnly ? Text.ElideNone : Text.ElideRight
+        }
+        VectorIcon {
+            anchors.centerIn: parent
+            visible: root.iconName.length > 0
+            name: root.iconName
+            size: root.iconSize
+            color: root.destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+        }
     }
     background: LiquidSurface {
         radius: height / 2

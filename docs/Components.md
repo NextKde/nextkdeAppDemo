@@ -212,3 +212,12 @@ Material comparisons. Its opt-in state sequence records actual elapsed time
 and retains GPU grab results until all frames are captured; PNG encoding follows
 capture so it cannot stall the observed animation. These are actual scene frames
 from shared state entry, not synthetic pointer/keyboard event verification.
+
+### Shared vector icons
+
+VectorIcon includes a consistent original stroked music/transport set.
+LiquidActionButton.iconName (default empty) selects a centered vector icon;
+iconSize defaults16. Existing text/iconOnly use is preserved.
+LiquidNavigationButton.iconName/iconColor add an optional16px vector before its
+label; cornerRadius defaults to the original10px. Supply accessible action names.
+These additions support actual app navigation and playback, not font-symbol icons.

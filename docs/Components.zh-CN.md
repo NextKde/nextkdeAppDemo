@@ -167,3 +167,10 @@ RGB/白色闭合描边、固定高光斑及垂直深度渐变。可选backdrop�
 Tab/方向键/Home/End/Space/Enter路径，禁用时拒绝激活。真实事件/辅助技术验收仍待
 独立审阅。Gallery含裁切真实彩条、禁用/Material对照。可选状态序列记录实际elapsed，
 保留全部GPU抓帧后才压缩PNG，避免编码阻塞动画；状态入口实图不等同键鼠事件验收。
+
+### 共享矢量图标
+
+VectorIcon新增一致的原创描线音乐/播放控制图形。LiquidActionButton.iconName默认
+空字符串，非空时居中绘制矢量图标，iconSize默认16，原text/iconOnly用法保留。
+LiquidNavigationButton的iconName/iconColor提供可选16px图标，cornerRadius默认保持10。
+纯图标操作需无障碍名称，导航与播放不再依赖字体符号。
