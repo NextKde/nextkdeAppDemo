@@ -1,0 +1,22 @@
+{
+  "round": "20261021-213438",
+  "capturedAt": "2026-10-21T21:34:38.476979+08:00",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "runtimeSourceCleanAtLaunch": true,
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "renderer": "OpenGL",
+  "environment": "local Wayland Qt6.12",
+  "visualAcceptance": "pending user",
+  "privacy": "original dedicated window inspected, no QR/credentials/identity",
+  "inFlight": "Catalogue album browsing and playback flow; not in this capture"
+}
