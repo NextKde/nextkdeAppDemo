@@ -5,7 +5,7 @@ import "../foundation" as Foundation
 
 Button {
     id: root
-    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.

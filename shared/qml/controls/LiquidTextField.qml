@@ -24,7 +24,7 @@ TextField {
     property bool convexLens: true
     property bool liquidFinish: false
     property real liquidStrength: 1
-    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool darkAppearance: Foundation.AppTheme.dark
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property real refractionStrength: 3
