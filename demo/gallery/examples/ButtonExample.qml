@@ -31,6 +31,10 @@ ColumnLayout {
         Controls.LiquidActionButton { iconOnly: true; iconName: "mediaPause"; iconFilled: true; Accessible.name: "Filled pause" }
         Controls.LiquidActionButton { iconOnly: true; iconName: "mediaNext"; iconFilled: true; Accessible.name: "Filled next" }
     }
+    RowLayout {
+        Controls.LiquidActionButton { backdrop: null; text: "No-source fallback" }
+        Controls.LiquidTextField { backdrop: null; materialForm: false; liquidFinish: true; placeholderText: "Fallback input"; Layout.preferredWidth: 180 }
+    }
     Label { text: "Compact icon actions · active and disabled"; color: Ui.AppTheme.mutedText }
     RowLayout {
         spacing: 12
@@ -64,6 +68,7 @@ ColumnLayout {
                     color: "#55ffffff"; rotation: 18
                 }
             }
+            Label { x: 18; y: 76; text: "Actual background text / Music 0123456789"; color: "#b8242531"; font.pixelSize: 16 }
             Label { x: 18; y: 15; text: "COLOURED SCENE / REAL TEXTURE"; color: "#ccffffff"; font.pixelSize: 10 }
         }
         Controls.LiquidBackdrop { id: controlBackdrop; sourceItem: colouredScene; registerAsDefault: false }

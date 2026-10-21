@@ -188,3 +188,10 @@ focusRingColor/keyboardFocusOnly；Select的focusRingColor/selectedTextColor独�
 LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.
 
 LiquidSurface.diffuseStrength默认0，仅影响未采样底层：连续低对比面光与静态细颗粒保持tintStrength透明度，不模糊外部像素；软件渲染保留纯色退化路径。
+
+LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell折射和薄方向高光，
+中心保持坐标连续，refractionStrength为0时不位移。共享按钮和液态输入启用此profile，
+保留focus/Material/disabled契约；Card/播放器保持原profile。LiquidBackdrop.rawTexture
+配合LiquidSurface.unfilteredBackdrop可将同一真实隐藏场景供给右侧清晰裁剪显示和另一个
+连续模糊的镜片，所有消费者必须排除在源之外。半透明折射层下不得再画原始清晰内容，
+以免漏出未折射副本形成双影。

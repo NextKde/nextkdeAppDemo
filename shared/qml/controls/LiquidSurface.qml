@@ -13,6 +13,8 @@ Item {
     property real diffuseStrength: 0
     property real blurStrength: 0.45
     property real readability: 0.47
+    property bool unfilteredBackdrop: false
+    property bool convexLens: false
     property real refractionStrength: 3
     property real magnification: 1.025
     property real edgeWidth: 12
@@ -75,9 +77,9 @@ Item {
         id: optics
         anchors.fill: parent
         visible: root.canSampleBackdrop && root._mappingValid
-        vertexShader: Qt.resolvedUrl("shaders/liquid_surface.vert.qsb")
-        fragmentShader: Qt.resolvedUrl("shaders/liquid_surface.frag.qsb")
-        property var source: root.canSampleBackdrop ? root.backdrop.texture : null
+        vertexShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.vert.qsb" : "shaders/liquid_surface.vert.qsb")
+        fragmentShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex.frag.qsb" : "shaders/liquid_surface.frag.qsb")
+        property var source: root.canSampleBackdrop ? (root.unfilteredBackdrop ? root.backdrop.rawTexture : root.backdrop.texture) : null
         property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
         property vector2d sampleOrigin: root._sampleOrigin
         property vector2d sampleAxisX: root._sampleAxisX
@@ -91,18 +93,20 @@ Item {
         property real refractionStrength: root.refractionStrength
         property real magnification: root.magnification
         property real edgeWidth: root.edgeWidth
+        property real diffuseStrength: root.diffuseStrength
     }
     // One directional reflection pass, independent of backdrop sampling.
     // Light follows the shape normal; no full-perimeter rim or inner bevel.
     ShaderEffect {
         anchors.fill: parent
         visible: GraphicsInfo.api !== GraphicsInfo.Software
-        vertexShader: Qt.resolvedUrl("shaders/liquid_reflection.vert.qsb")
-        fragmentShader: Qt.resolvedUrl("shaders/liquid_reflection.frag.qsb")
+        vertexShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex_reflection.vert.qsb" : "shaders/liquid_reflection.vert.qsb")
+        fragmentShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex_reflection.frag.qsb" : "shaders/liquid_reflection.frag.qsb")
         property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
         property real radius: root.radius
         property real reflectionStrength: root.reflectionStrength
         property color rimColor: root.rimColor
+        property real edgeWidth: root.edgeWidth
     }
     // Software rendering cannot run ShaderEffect. Keep a restrained, open
     // directional arc instead of restoring the former all-around outline.

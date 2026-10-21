@@ -26,3 +26,14 @@ uncommitted Gallery, liquid component and sidebar-demo work.
 组件保留 NextKde 原始归属及原有许可证；背景图片的生成记录随资源保留。
 这里只导入选定的当前文件，不导入主仓库历史、归档截图、凭据、构建目录或用户状态。
 本次迁出保留主项目现有工作区，后续接回共享组件和清理重复归属另行处理。
+
+The native convex-bezel profile was independently derived in QML/GLSL after
+reviewing mkj0kjay/vue-web-liquid-glass, revision
+934404c05167417945e73a36388c20cc201b5a55 (README declares MIT), specifically its
+convex-squircle/Snell model and matching specular demonstration. Reference:
+https://github.com/mkj0kjay/vue-web-liquid-glass and
+https://vue-web-liquid-glass.netlify.app/ . No Vue framework, displacement-map
+implementation, website image or other webpage asset is copied into this library.
+
+原生凸面边缘profile参考上述固定版本的凸面/Snell模型与实效后用QML/GLSL独立重推；
+未复制Vue框架、位移图实现或网页图片素材。参考项目README声明MIT许可。

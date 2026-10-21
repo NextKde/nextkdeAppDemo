@@ -19,6 +19,7 @@ layout(std140, binding = 0) uniform buf {
     float refractionStrength;
     float magnification;
     float edgeWidth;
+    float diffuseStrength;
 };
 
 float roundedDistance(vec2 p, vec2 halfSize, float r)
@@ -72,6 +73,10 @@ void main()
     // when sampling sparse content such as the slider track.
     vec4 glass = mix(sampled, tintColor, clamp(tintStrength, 0.0, 1.0));
     vec3 rgb = glass.rgb / max(glass.a, 0.0001);
+    // Continue fallback pigmentation only where the actual scene is transparent.
+    float face = .010 * cos((qt_TexCoord0.y - .18) * 3.14159) + .004 * sin(qt_TexCoord0.x * 3.14159);
+    float grain = fract(52.9829189 * fract(dot(floor(gl_FragCoord.xy), vec2(.06711056, .00583715)))) - .5;
+    rgb = clamp(rgb + vec3((face + .003 * grain) * diffuseStrength * (1.0 - sampled.a)), 0.0, 1.0);
     float luminance = dot(rgb, vec3(0.2126, 0.7152, 0.0722));
     float contrastRisk = mix(luminance, 1.0 - luminance, lightAppearance);
     float scrim = clamp(readability, 0.0, 0.85) * smoothstep(0.08, 0.92, contrastRisk);

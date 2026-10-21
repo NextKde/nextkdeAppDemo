@@ -18,6 +18,7 @@ TextField {
     property color textColor: Foundation.AppTheme.text
     property color mutedTextColor: Foundation.AppTheme.mutedText
     property bool materialForm: ControlForm.materialForm
+    property bool convexLens: true
     property bool liquidFinish: false
     property real liquidStrength: 1
     property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
@@ -62,6 +63,7 @@ TextField {
         }
         LiquidSurface {
             id: liquidSurface
+            convexLens: root.convexLens
             anchors.fill: parent
             visible: root._liquid
             radius: root.cornerRadius

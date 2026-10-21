@@ -9,6 +9,7 @@ Button {
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
+    property bool convexLens: true
     property bool iconOnly: false
     property string iconName: ""
     property bool iconFilled: false
@@ -57,6 +58,9 @@ Button {
     }
     background: LiquidSurface {
         id: buttonGlass
+        convexLens: root.convexLens
+        blurStrength: root.convexLens ? .08 : .45
+        edgeWidth: Math.min(10, height * .28)
         scale: root.down ? 1.065 : root.hovered ? 1.018 : 1
         Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
         refractionStrength: root.down ? 7 : root.hovered ? 4.5 : 3

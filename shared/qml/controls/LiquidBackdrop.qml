@@ -17,6 +17,7 @@ Item {
         && sourceExcludesCapture()
     // Optional continuous prefilter for large glass panels; default is unchanged.
     property real blur: 0
+    readonly property alias rawTexture: capture
     readonly property var texture: blur > 0 ? softened : capture
 
     function sourceExcludesCapture() {

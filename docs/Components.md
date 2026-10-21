@@ -240,3 +240,13 @@ card, especially for floating overlays over scrolling content.
 LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.
 
 LiquidSurface.diffuseStrength defaults to0 and affects only the unsampled fallback: continuous low-contrast face light and static fine grain preserve tintStrength alpha. It does not blur external pixels. Software rendering retains the flat tint fallback.
+
+`LiquidSurface.convexLens` is opt-in (false on the surface): the fourth-order
+convex bezel normal drives Snell refraction and its matching thin specular light.
+The interior stays registered; refractionStrength0 removes displacement. Shared
+action buttons and liquid text inputs enable this profile, with their usual
+focus, material and disabled contracts. Cards/player surfaces retain classic optics.
+`LiquidBackdrop.rawTexture` and `LiquidSurface.unfilteredBackdrop` allow one hidden
+real scene capture to feed an unfiltered clipped display and a separately filtered
+lens. Exclude all consumers from the source. Never overlay the clear scene beneath
+a partially transparent lens; this would leak an unrefracted duplicate.

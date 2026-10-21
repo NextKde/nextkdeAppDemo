@@ -19,6 +19,7 @@ layout(std140, binding = 0) uniform buf {
     float refractionStrength;
     float magnification;
     float edgeWidth;
+    float diffuseStrength;
 };
 
 void main()
