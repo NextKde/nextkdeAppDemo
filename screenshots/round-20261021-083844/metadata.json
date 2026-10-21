@@ -1,0 +1,53 @@
+{
+  "round": "20261021-083844",
+  "publishedAt": "2026-10-21T08:38:44.510786+08:00",
+  "reviewedData": [],
+  "summary": "08:34轮：真实匿名新碟内容已进入首页，9da共享液态候选重启Gallery回归；功能与液态连续过程尚在验证。",
+  "status": "本轮重启仅自有Gallery，PID38878，启动源码9da2794精确，已实际重新加载QML/QSB；本轮新深色按钮页原图已亲自看，启动日志无旧vertex-input警告。新版Button光学随真实hover/down联动的动态还需连续帧检查，静止图不证明运动。",
+  "source": {
+    "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+    "branch": "codex/music-fidelity",
+    "dirty": false,
+    "changedPaths": [],
+    "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relatedSources": {
+    "music": {
+      "revision": "bc20f1f872fa7843ccc22762ef040df91d8ba9c5",
+      "branch": "codex/music-development",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "gallery": {
+      "revision": "9da2794bf70e3b598baf1a0fbdc7861d93dfcaa9",
+      "branch": "codex/music-fidelity",
+      "dirty": false,
+      "changedPaths": [],
+      "trackedDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "appRuntime": null,
+  "runtimeAtPublication": null,
+  "captureMethod": "Local visible Qt Quick window item grab; no image editing",
+  "captureLimit": "Client content only; compositor chrome and separate popup windows excluded",
+  "sessionType": "wayland",
+  "system": "Linux",
+  "architecture": "x86_64",
+  "qtVersion": "6.12.0",
+  "images": [
+    {
+      "file": "gallery-poll-0834-current-dark.png",
+      "width": 2360,
+      "height": 1560,
+      "captureRuntime": null,
+      "devicePixelRatio": 2.0,
+      "logicalWidth": 1180.0,
+      "logicalHeight": 780.0,
+      "theme": "dark",
+      "sha256": "5d5a73f89fe02c9e57903c050c11fb0b1e078882a3637b9918e67d6cb0edaa0c",
+      "capturedAt": "2026-10-21T08:37:52.244242+08:00"
+    }
+  ],
+  "personallyReviewed": true
+}
