@@ -29,8 +29,8 @@ TextField {
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property real refractionStrength: 3
     property real magnification: 1.035
-    property real blurStrength: 0.2
-    property real readability: 0.15
+    property real blurStrength: convexLens ? 0 : 0.2
+    property real readability: convexLens ? .06 : .15
     property color ambientPrimary: "transparent"
     property color ambientSecondary: "transparent"
     property real ambientStrength: 0

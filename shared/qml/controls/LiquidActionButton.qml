@@ -61,7 +61,9 @@ Button {
     background: LiquidSurface {
         id: buttonGlass
         convexLens: root.convexLens
-        blurStrength: root.convexLens ? .08 : .45
+        // Preserve the actual sampled texture; the bezel supplies depth.
+        blurStrength: root.convexLens ? 0 : .45
+        readability: root.convexLens ? .06 : .47
         edgeWidth: Math.min(10, height * .28)
         scale: root.down ? 1.065 : root.hovered ? 1.018 : 1
         Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }

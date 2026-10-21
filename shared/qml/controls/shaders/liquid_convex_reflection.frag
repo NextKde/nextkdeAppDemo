@@ -37,14 +37,29 @@ void main() {
     float u = 1.0 - t;
     float slope = u * u * u / pow(max(.0001, 1.0 - u*u*u*u), .75);
     vec3 n = normalize(vec3(normal * slope, 1.0));
-    vec3 light = normalize(vec3(-.55, -.70, .80));
-    vec3 halfway = normalize(light + vec3(0.0, 0.0, 1.0));
-    float specular = pow(max(0.0, dot(n, halfway)), 42.0);
+    // A finite, elevated area emitter outside the upper-left corner. Its
+    // direction varies with surface position: a straight bezel cannot receive
+    // the same highlight across its whole length as with a directional light.
+    float lampHeight = max(24.0, min(surfaceSize.x, surfaceSize.y) * 2.0);
+    vec3 lamp = vec3(-halfSize.x - lampHeight * .45,
+                    -halfSize.y - lampHeight * .55, lampHeight);
+    vec3 position = vec3(p, pow(max(.0001, 1.0 - u*u*u*u), .25) * bezel);
+    vec3 view = vec3(0.0, 0.0, 1.0);
+    float emitterRadius = lampHeight * .08;
+    float specular = 0.0;
+    // Three taps across the finite emitter soften its glint without blurring
+    // the background or painting an unrelated gradient over the control.
+    for (int tap = -1; tap <= 1; ++tap) {
+        vec3 toLight = lamp + vec3(float(tap) * emitterRadius, 0.0, 0.0) - position;
+        vec3 light = normalize(toLight);
+        vec3 halfway = normalize(light + view);
+        float attenuation = min(1.0, lampHeight * lampHeight / max(1.0, dot(toLight, toLight)));
+        specular += pow(max(0.0, dot(n, halfway)), 96.0) * attenuation / 3.0;
+    }
     float boundary = 1.0 - smoothstep(.70, 1.0, t);
-    float fresnel = pow(1.0 - n.z, 3.0) * max(0.0, dot(n, light));
-    // A single thin positive glint follows exactly the refracting normal.
-    // No opposite dark bevel, closed white rim or unrelated gradient layer.
-    float alpha = (specular * .25 + fresnel * .035) * boundary
+    float fresnel = .04 + .96 * pow(1.0 - n.z, 5.0);
+    // Fresnel modulates the same local reflection, never a second perimeter rim.
+    float alpha = specular * (.22 + .35 * fresnel) * boundary
         * clamp(reflectionStrength, 0.0, 2.0) * coverage * qt_Opacity;
     vec3 colour = mix(vec3(1.0), rimColor.rgb / max(.0001, rimColor.a), .06);
     fragColor = vec4(colour * alpha, alpha);
