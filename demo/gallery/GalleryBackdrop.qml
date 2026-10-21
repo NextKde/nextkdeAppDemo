@@ -1,9 +1,11 @@
 import QtQuick
+import "../Kos/Ui/foundation" as Ui
 import "components"
 
 Item {
     id: root
     property string mode: "gradient"
+    property real motionPhase: 0
     clip: true
 
     Rectangle {
@@ -24,5 +26,30 @@ Item {
             }
         }
     }
-    GalleryBackdropBoard { anchors.fill: parent; visible: root.mode === "contrast" }
+    GalleryBackdropBoard {
+        anchors.fill: parent
+        visible: root.mode === "contrast" && movingPhoto.status !== Image.Ready
+    }
+    Image {
+        id: movingPhoto
+        visible: root.mode === "contrast"
+        source: "../assets/contrast-flow.jpg"
+        asynchronous: true
+        fillMode: Image.PreserveAspectCrop
+        smooth: true
+        width: root.width * 1.2
+        height: root.height * 1.2
+        // Overscan keeps every edge covered while one real image pans beneath
+        // the glass. Both sine waves meet continuously at the loop boundary.
+        x: (root.width - width) * (.5 + .5 * Math.sin(root.motionPhase))
+        y: (root.height - height) * (.5 + .5 * Math.sin(root.motionPhase * 2))
+    }
+    NumberAnimation on motionPhase {
+        from: 0
+        to: Math.PI * 2
+        duration: 30000
+        loops: Animation.Infinite
+        running: root.visible && root.mode === "contrast"
+            && movingPhoto.status === Image.Ready && !Ui.AppTheme.reduceMotion
+    }
 }
