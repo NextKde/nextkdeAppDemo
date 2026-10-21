@@ -11,7 +11,8 @@ TextField {
     verticalAlignment: TextInput.AlignVCenter
     selectByMouse: true
 
-    property color glassColor: Qt.rgba(1, 1, 1, 0.10)
+    property color glassColor: darkAppearance
+        ? Qt.rgba(32 / 255, 37 / 255, 47 / 255, .20) : Qt.rgba(1, 1, 1, .20)
     property real cornerRadius: height
     property color outlineColor: Qt.rgba(1, 1, 1, 0.08)
     property color focusedOutlineColor: Foundation.AppTheme.focusRing
@@ -27,29 +28,26 @@ TextField {
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool darkAppearance: Foundation.AppTheme.dark
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
-    property real refractionStrength: 3
-    property real magnification: 1.035
+    property real refractionStrength: _liquid && hover.hovered ? 4.5 : 3
+    property real magnification: _liquid && hover.hovered ? 1.045 : 1.025
     property real blurStrength: convexLens ? 0 : 0.2
-    property real readability: convexLens ? .06 : .15
+    property real readability: 0
     property color ambientPrimary: "transparent"
     property color ambientSecondary: "transparent"
     property real ambientStrength: 0
     readonly property bool sampling: _liquid && liquidSurface.sampling
     readonly property bool _liquid: liquidFinish && !materialForm
     readonly property color _fill: Qt.rgba(glassColor.r, glassColor.g, glassColor.b,
-        Math.min(1, glassColor.a + (activeFocus ? 0.08 : hover.hovered ? 0.035 : 0)))
+        Math.min(1, glassColor.a + (_liquid ? (hover.hovered ? .05 : 0)
+            : (hover.hovered ? .035 : 0))))
 
     color: textColor
     placeholderTextColor: mutedTextColor
     selectionColor: Foundation.AppTheme.accent
     selectedTextColor: Foundation.AppTheme.accentText
-    scale: activeFocus && !materialForm && !reduceMotion ? 1.02 : 1
+    scale: _liquid && hover.hovered ? 1.01 : 1
     Behavior on scale {
-        NumberAnimation {
-            duration: root.reduceMotion ? 0 : 300
-            easing.type: Easing.Bezier
-            easing.bezierCurve: [0.25, 0.8, 0.25, 1, 1, 1]
-        }
+        NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic }
     }
     HoverHandler { id: hover; cursorShape: Qt.IBeamCursor }
 
@@ -64,13 +62,14 @@ TextField {
             radius: root.cornerRadius
             color: root._fill
             border.width: 1
-            border.color: root.activeFocus ? root.focusedOutlineColor : root.outlineColor
+            border.color: root.outlineColor
             Behavior on color { ColorAnimation { duration: root.reduceMotion ? 0 : 150 } }
             Behavior on border.color { ColorAnimation { duration: root.reduceMotion ? 0 : 150 } }
         }
         LiquidSurface {
             id: liquidSurface
             convexLens: root.convexLens
+            edgeShadeStrength: .08
             unfilteredBackdrop: root.unfilteredBackdrop
             anchors.fill: parent
             visible: root._liquid
@@ -79,22 +78,17 @@ TextField {
             darkAppearance: root.darkAppearance
             tintColor: Qt.rgba(root._fill.r, root._fill.g, root._fill.b, 1)
             tintStrength: root._fill.a
+            Behavior on tintStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
             blurStrength: root.blurStrength
             readability: root.readability
             refractionStrength: root.refractionStrength * Math.max(0, Math.min(1, root.liquidStrength))
             magnification: 1 + (root.magnification - 1) * Math.max(0, Math.min(1, root.liquidStrength))
-            edgeWidth: Math.min(12, height / 2)
-            reflectionStrength: root.liquidStrength * (root.activeFocus ? .60 : hover.hovered ? .52 : .38)
+            edgeWidth: Math.min(10, height * .28)
+            reflectionStrength: root.liquidStrength * (hover.hovered ? .72 : .50)
+            Behavior on reflectionStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on refractionStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on magnification { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
             rimColor: root.outlineColor
-        }
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: -1
-            radius: root.cornerRadius
-            color: "transparent"
-            visible: root._liquid && root.activeFocus
-            border.width: 2
-            border.color: root.focusedOutlineColor
         }
         Rectangle {
             anchors.fill: parent

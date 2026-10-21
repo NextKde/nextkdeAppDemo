@@ -65,21 +65,39 @@ qt_add_qml_module(kos_ui
         controls/SelectionHighlight.qml
     RESOURCES
         controls/shaders/liquid_convex.vert
+        controls/shaders/liquid_highlight_tint.vert
+        controls/shaders/liquid_highlight_tint.vert.qsb
+        controls/shaders/liquid_highlight_topbottom_wider.frag
+        controls/shaders/liquid_highlight_topbottom_wider.frag.qsb
+        controls/shaders/liquid_highlight_topbottom_wider_fallback.frag
+        controls/shaders/liquid_highlight_topbottom_wider_fallback.frag.qsb
+        controls/shaders/liquid_edgetint_glint.vert
+        controls/shaders/liquid_edgetint_glint.vert.qsb
+        controls/shaders/liquid_edgetint_rollback_before_shade_removal.frag
+        controls/shaders/liquid_edgetint_rollback_before_shade_removal.frag.qsb
+        controls/shaders/liquid_edgetint_rollback_before_shade_removal_fallback.frag
+        controls/shaders/liquid_edgetint_rollback_before_shade_removal_fallback.frag.qsb
+        controls/shaders/liquid_adaptive_glint.vert
+        controls/shaders/liquid_adaptive_glint.vert.qsb
+        controls/shaders/liquid_adaptive_diagonal_light.frag
+        controls/shaders/liquid_adaptive_diagonal_light.frag.qsb
+        controls/shaders/liquid_adaptive_diagonal_light_fallback.frag
+        controls/shaders/liquid_adaptive_diagonal_light_fallback.frag.qsb
         controls/shaders/liquid_convex.vert.qsb
         controls/shaders/liquid_convex.frag
         controls/shaders/liquid_convex.frag.qsb
         controls/shaders/liquid_convex_reflection.vert
         controls/shaders/liquid_convex_reflection.vert.qsb
-        controls/shaders/liquid_convex_reflection.frag
-        controls/shaders/liquid_convex_reflection.frag.qsb
+        controls/shaders/liquid_convex_diagonal_thin.frag
+        controls/shaders/liquid_convex_diagonal_thin.frag.qsb
         controls/shaders/liquid_diffuse.vert
         controls/shaders/liquid_diffuse.vert.qsb
         controls/shaders/liquid_diffuse.frag
         controls/shaders/liquid_diffuse.frag.qsb
         controls/shaders/liquid_reflection.vert
         controls/shaders/liquid_reflection.vert.qsb
-        controls/shaders/liquid_reflection.frag
-        controls/shaders/liquid_reflection.frag.qsb
+        controls/shaders/liquid_diagonal_thin.frag
+        controls/shaders/liquid_diagonal_thin.frag.qsb
         controls/shaders/liquid_shadow.vert
         controls/shaders/liquid_shadow.vert.qsb
         controls/shaders/liquid_shadow.frag

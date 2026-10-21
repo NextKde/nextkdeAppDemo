@@ -18,6 +18,8 @@ Item {
     property real refractionStrength: 3
     property real magnification: 1.025
     property real edgeWidth: 12
+    property real highlightTintStrength: 0
+    property real edgeShadeStrength: 0
     property real reflectionStrength: 1
     property color rimColor: Qt.rgba(1, 1, 1, 0.30)
     readonly property bool sampling: canSampleBackdrop && _mappingValid
@@ -100,18 +102,49 @@ Item {
             property real diffuseStrength: root.diffuseStrength
         }
     }
-    // One directional reflection pass, independent of backdrop sampling.
-    // Light follows the shape normal; no full-perimeter rim or inner bevel.
+    // Sample the same excluded underlay as the lens; never capture the glint
+    // itself. Destroy the sampler with its provider to avoid null textures.
+    Loader {
+        anchors.fill: parent
+        active: root.sampling
+        sourceComponent: ShaderEffect {
+            anchors.fill: parent
+            vertexShader: Qt.resolvedUrl("shaders/liquid_highlight_tint.vert.qsb")
+            fragmentShader: Qt.resolvedUrl("shaders/liquid_highlight_topbottom_wider.frag.qsb")
+            property var source: root.backdrop ? (root.unfilteredBackdrop ? root.backdrop.rawTexture : root.backdrop.texture) : null
+            property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
+            property real radius: root.radius
+            property real reflectionStrength: root.reflectionStrength
+            property color rimColor: root.rimColor
+            property real edgeWidth: root.edgeWidth
+            property vector2d sampleOrigin: root._sampleOrigin
+            property vector2d sampleAxisX: root._sampleAxisX
+            property vector2d sampleAxisY: root._sampleAxisY
+            property color tintColor: root.tintColor
+            property real tintStrength: root.tintStrength
+            property color fallbackColor: root.darkAppearance ? "#1c1c1e" : "#ffffff"
+        property real edgeShadeStrength: root.edgeShadeStrength
+        property real highlightTintStrength: root.highlightTintStrength
+        }
+    }
     ShaderEffect {
         anchors.fill: parent
-        visible: GraphicsInfo.api !== GraphicsInfo.Software
-        vertexShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex_reflection.vert.qsb" : "shaders/liquid_reflection.vert.qsb")
-        fragmentShader: Qt.resolvedUrl(root.convexLens ? "shaders/liquid_convex_reflection.frag.qsb" : "shaders/liquid_reflection.frag.qsb")
+        visible: !root.sampling && GraphicsInfo.api !== GraphicsInfo.Software
+        vertexShader: Qt.resolvedUrl("shaders/liquid_highlight_tint.vert.qsb")
+        fragmentShader: Qt.resolvedUrl("shaders/liquid_highlight_topbottom_wider_fallback.frag.qsb")
         property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
         property real radius: root.radius
         property real reflectionStrength: root.reflectionStrength
         property color rimColor: root.rimColor
         property real edgeWidth: root.edgeWidth
+        property vector2d sampleOrigin: Qt.vector2d(0, 0)
+        property vector2d sampleAxisX: Qt.vector2d(1, 0)
+        property vector2d sampleAxisY: Qt.vector2d(0, 1)
+        property color tintColor: root.tintColor
+        property real tintStrength: root.tintStrength
+        property color fallbackColor: root.darkAppearance ? "#1c1c1e" : "#ffffff"
+        property real edgeShadeStrength: root.edgeShadeStrength
+        property real highlightTintStrength: root.highlightTintStrength
     }
     // Software rendering cannot run ShaderEffect. Keep a restrained, open
     // directional arc instead of restoring the former all-around outline.

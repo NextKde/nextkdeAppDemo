@@ -14,7 +14,7 @@ Item {
     implicitHeight: 34
     opacity: enabled ? 1 : .5
 
-    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property var labels: []
     property int currentIndex: 0
     property color backgroundColor: Foundation.AppTheme.button
@@ -27,6 +27,7 @@ Item {
     // Follows the
     // application-wide form by default.
     property bool materialForm: ControlForm.materialForm
+    HoverHandler { id: materialHover }
     property int _pressedIndex: -1
     property int _visualIndex: 0
     property int _pendingIndex: -1
@@ -97,20 +98,35 @@ Item {
         }
     }
 
-    Rectangle {
+    Item {
         anchors.fill: parent
-        radius: root.materialForm ? height / 2 : height * .48
-        color: root.backgroundColor
-        border.width: root.materialForm ? 1 : 0
-        border.color: Foundation.AppTheme.border
+        Rectangle {
+            anchors.fill: parent
+            visible: root.materialForm
+            radius: height / 2
+            color: root.backgroundColor
+            border.width: 1
+            border.color: Foundation.AppTheme.border
+        }
         LiquidSurface {
             anchors.fill: parent
             visible: !root.materialForm
-            radius: parent.radius
-            backdrop: null
-            tintStrength: 0
-            reflectionStrength: .16
-            rimColor: Qt.rgba(1, 1, 1, .10)
+            radius: height * .48
+            backdrop: root.backdrop
+            convexLens: true
+            edgeShadeStrength: .08
+            blurStrength: 0
+            readability: 0
+            edgeWidth: Math.min(10, height * .28)
+            refractionStrength: materialHover.hovered ? 4.5 : 3
+            magnification: materialHover.hovered ? 1.045 : 1.025
+            reflectionStrength: materialHover.hovered ? .72 : .50
+            tintColor: Foundation.AppTheme.dark ? "#20252f" : "#ffffff"
+            tintStrength: .30
+            Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         }
     }
     Item {
@@ -120,6 +136,10 @@ Item {
         width: root.segmentWidth - 4
         height: root.height - 4
         readonly property real radius: root.materialForm ? height / 2 : height * .48
+        scale: !root.materialForm && root._pressedIndex >= 0 ? 1.12 : 1
+        Behavior on scale {
+            NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutBack }
+        }
         Behavior on x { NumberAnimation { duration: Foundation.AppTheme.motionNormal; easing.type: Easing.OutQuint } }
         Rectangle {
             anchors.fill: parent
@@ -133,14 +153,20 @@ Item {
             visible: !root.materialForm
             radius: lens.radius
             backdrop: root.backdrop
-            tintColor: Qt.rgba(root.selectionColor.r, root.selectionColor.g, root.selectionColor.b, 1)
-            tintStrength: root.selectionColor.a
-            blurStrength: .2
+            convexLens: true
+            edgeShadeStrength: .08
+            blurStrength: 0
             readability: 0
-            refractionStrength: 1.4
-            magnification: 1.02
-            reflectionStrength: root._pressedIndex === root._visualIndex ? .56 : .34
-            rimColor: Qt.rgba(1, 1, 1, .12)
+            edgeWidth: Math.min(10, height * .28)
+            refractionStrength: materialHover.hovered ? 4.5 : 3
+            magnification: materialHover.hovered ? 1.045 : 1.025
+            reflectionStrength: materialHover.hovered ? .72 : .50
+            tintColor: root._pressedIndex >= 0 ? "#ffffff" : (Foundation.AppTheme.dark ? "#20252f" : "#ffffff")
+            tintStrength: root._pressedIndex >= 0 ? .06 : .80
+            Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         }
     }
 
@@ -222,7 +248,7 @@ Item {
                 color: "transparent"
                 border.width: 2
                 border.color: Foundation.AppTheme.accent
-                visible: segmentDelegate.activeFocus && root.enabled
+                visible: false
             }
         }
     }

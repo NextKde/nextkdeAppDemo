@@ -18,7 +18,7 @@ Button {
     property real iconSize: 16
     property color textColor: destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
     property color iconColor: textColor
-    property color surfaceColor: Foundation.AppTheme.dark ? "#17223b" : "#ffffff"
+    property color surfaceColor: Foundation.AppTheme.dark ? "#20252f" : "#ffffff"
     property color accentColor: Foundation.AppTheme.accent
     property color focusRingColor: Foundation.AppTheme.focusRing
     property bool keyboardFocusOnly: false
@@ -32,7 +32,7 @@ Button {
     implicitWidth: iconOnly ? 36 : Math.max(76, contentItem.implicitWidth + 28)
     leftPadding: iconOnly ? 0 : 14
     rightPadding: iconOnly ? 0 : 14
-    scale: down ? 0.96 : hovered ? 1.02 : 1
+    scale: hovered ? 1.03 : 1
     Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
     opacity: enabled ? 1 : 0.38
     contentItem: Item {
@@ -61,24 +61,26 @@ Button {
     background: LiquidSurface {
         id: buttonGlass
         convexLens: root.convexLens
+        edgeShadeStrength: .08
         // Preserve the actual sampled texture; the bezel supplies depth.
         blurStrength: root.convexLens ? 0 : .45
-        readability: root.convexLens ? .06 : .47
+        readability: 0
         edgeWidth: Math.min(10, height * .28)
-        scale: root.down ? 1.065 : root.hovered ? 1.018 : 1
-        Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
-        refractionStrength: root.down ? 7 : root.hovered ? 4.5 : 3
-        magnification: root.down ? 1.07 : root.hovered ? 1.045 : 1.025
+        refractionStrength: root.hovered ? 4.5 : 3
+        magnification: root.hovered ? 1.045 : 1.025
         Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         radius: height / 2
         backdrop: root.backdrop
-        reflectionStrength: root.down ? .90 : root.hovered ? .72 : .50
+        reflectionStrength: root.hovered ? .72 : .50
         Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         tintColor: root.highlighted || root.checked ? root.accentColor : root.surfaceColor
-        tintStrength: root.highlighted || root.checked ? 0.24 : root.down ? 0.18
-            : root.hovered ? 0.12 : root.secondary ? 0.03 : 0.05
-        opacity: root.flat && !root.hovered && !root.checked && !root.activeFocus ? 0.45 : 1
+        tintStrength: root.highlighted || root.checked ? 0.24
+            : root.hovered ? 0.25 : 0.20
+        Behavior on tintStrength {
+            NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast }
+        }
+        opacity: root.flat && !root.hovered && !root.checked && !root.visualFocus ? 0.45 : 1
         LiquidOuterShadow {
             anchors.fill: parent; z: -1; radius: parent.radius
             visible: root.shadowEnabled; shadowOpacity: root.shadowOpacity
@@ -90,7 +92,7 @@ Button {
             color: "transparent"
             border.width: 2
             border.color: root.focusRingColor
-            visible: root.keyboardFocusOnly ? root.visualFocus : root.activeFocus
+            visible: root.visualFocus
         }
     }
 }

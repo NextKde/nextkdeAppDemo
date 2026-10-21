@@ -1,6 +1,5 @@
 import QtQuick
 import "../foundation" as Foundation
-import Qt5Compat.GraphicalEffects
 
 // Liquid switch retaining its existing position/expansion/wobble motion.
 // The expanded lens samples the sibling track; reflection uses LiquidSurface.
@@ -10,7 +9,7 @@ Item {
     // Public API
     property bool checked: false
     property bool enabled: true
-    property color accentColor: "#0a84ff"
+    property color accentColor: "#43c154"
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property bool darkAppearance: Foundation.AppTheme.dark
     property color trackColor: Qt.rgba(0.5, 0.5, 0.55, 0.35)
@@ -42,16 +41,8 @@ Item {
     property bool _hovered: false
     property real _thumbX: checked ? travel : 0
 
-    // Clip expanded optics and grouped disabled opacity to the existing pill.
-    // At rest all layers already fit their own rounded geometry.
-    layer.enabled: root._expansion > 0 || root.opacity < 1
-    layer.effect: OpacityMask {
-        maskSource: Rectangle {
-            width: root.width
-            height: root.height
-            radius: height / 2
-        }
-    }
+    // The pressed lens must extend beyond the solid slot.
+    clip: false
 
     // Animation values
     property real _expansion: 0.0  // 0 = rest pill, 1 = expanded glass lens
@@ -59,9 +50,10 @@ Item {
 
     // Computed geometry
     readonly property bool sampling: !materialForm && _expansion > .001 && glassLens.sampling
-    readonly property real thumbWidth: 44
-    readonly property real thumbHeight: 26
-    readonly property real travel: width - thumbWidth - 6
+    readonly property real thumbInset: height * .05
+    readonly property real thumbWidth: Math.min(height * 1.42, width - thumbInset * 2)
+    readonly property real thumbHeight: height * .90
+    readonly property real travel: Math.max(0, width - thumbWidth - thumbInset * 2)
     readonly property real thumbRadius: thumbHeight / 2
 
     // Track color crossfade based on thumb position
@@ -115,12 +107,21 @@ Item {
     function _beginPress() {
         if (!enabled) return
         root.forceActiveFocus()
+        settleLens.stop()
         _pressed = true
         if (!materialForm) _expansion = 1
     }
     function _endPress() {
         _pressed = false
-        if (!materialForm) _expansion = 0
+        if (!materialForm) {
+            if (reduceMotion || !enabled) _expansion = 0
+            else settleLens.restart()
+        }
+    }
+    Timer {
+        id: settleLens
+        interval: 100
+        onTriggered: { if (!root._pressed) root._expansion = 0 }
     }
     function _setHovered(value) { _hovered = enabled && value }
     onEnabledChanged: { if (!enabled) { _setHovered(false); _endPress() } }
@@ -138,22 +139,20 @@ Item {
         }
     }
 
-    // Track background（Material 形态隐藏：玻璃件"hidden rather than
-    // blended"，见头注释——漏门控会让玻璃拇指从 Material 轨道下透出来）
-    Rectangle {
+    // Capture a padded sibling: the protruding lens samples transparent
+    // space outside the real slot instead of smearing its edge texel outward.
+    Item {
         id: track
         visible: !root.materialForm
-        anchors.fill: parent
-        radius: height / 2
-        color: root.currentTrackColor
-
-        LiquidSurface {
-            anchors.fill: parent
+        readonly property real capturePadding: root.height * .5
+        x: -capturePadding; y: -capturePadding
+        width: root.width + capturePadding * 2
+        height: root.height + capturePadding * 2
+        Rectangle {
+            x: track.capturePadding; y: track.capturePadding
+            width: root.width; height: root.height
             radius: height / 2
-            backdrop: null
-            tintStrength: 0
-            reflectionStrength: root._pressed ? .24 : root._hovered ? .21 : .18
-            rimColor: Qt.rgba(1, 1, 1, .10)
+            color: root.currentTrackColor
         }
     }
     LiquidBackdrop {
@@ -168,7 +167,7 @@ Item {
         id: thumbShadow
         objectName: "switch-thumb-shadow"
         // 以中心点为基准，与 glassThumb 保持一致
-        x: 3 + root._thumbX - (width - root.thumbWidth) / 2
+        x: root.thumbInset + root._thumbX - (width - root.thumbWidth) / 2
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: 2
         width: root.thumbWidth * (1 + 0.3 * root._expansion)
@@ -188,12 +187,12 @@ Item {
         objectName: "switch-glass-thumb"
         visible: !root.materialForm
         // 展开时保持中心点不变，而不是左上角
-        x: 3 + root._thumbX - (width - root.thumbWidth) / 2
+        x: root.thumbInset + root._thumbX - (width - root.thumbWidth) / 2
         anchors.verticalCenter: parent.verticalCenter
 
         // Size animates from pill to expanded lens with squash-stretch
-        width: root.thumbWidth * (1 + 0.4 * root._expansion) * (1 - 0.2 * root._stretch)
-        height: root.thumbHeight * (1 + 0.4 * root._expansion) * (1 + 0.3 * root._stretch)
+        width: root.thumbWidth * (1 + 0.42 * root._expansion) * (1 - 0.2 * root._stretch)
+        height: root.thumbHeight * (1 + 0.50 * root._expansion) * (1 + 0.3 * root._stretch)
 
         // Layer 1: Base white pill (fades out when expanding)
         Rectangle {
@@ -203,15 +202,7 @@ Item {
             color: "#ffffff"
             opacity: 1 - root._expansion
 
-            // Resting handle stays flat; the reflection never becomes a rim.
-            LiquidSurface {
-                anchors.fill: parent
-                radius: height / 2
-                backdrop: null
-                tintStrength: 0
-                reflectionStrength: .16
-                rimColor: Qt.rgba(1, 1, 1, .10)
-            }
+
         }
 
         // Expanded glass samples the actual sibling track. The former red,
@@ -219,14 +210,14 @@ Item {
         LiquidSurface {
             id: glassLens
             anchors.centerIn: parent
-            width: parent.width - 2
-            height: parent.height - 2
+            width: parent.width
+            height: parent.height
             opacity: root._expansion
             radius: height / 2
             backdrop: trackBackdrop
             darkAppearance: root.darkAppearance
             tintColor: "#ffffff"
-            tintStrength: .10 + .05 * root._expansion
+            tintStrength: .06
             blurStrength: .12
             readability: 0
             refractionStrength: 1.7
@@ -241,7 +232,7 @@ Item {
             anchors.fill: parent
             radius: height / 2
             color: root.accentColor
-            opacity: 0.10 * root._expansion
+            opacity: 0.03 * root._expansion
         }
     }
 
@@ -299,7 +290,7 @@ Item {
         color: "transparent"
         border.width: 2
         border.color: Foundation.AppTheme.focusRing
-        visible: root.activeFocus && root.enabled
+        visible: false
     }
 
     // Interaction

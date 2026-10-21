@@ -16,7 +16,7 @@ Item {
     property real value: 0.0
     property bool enabled: true
     property color accentColor: "#0a84ff"
-    property color trackColor: Qt.rgba(0.5, 0.5, 0.55, 0.35)
+    property color trackColor: darkAppearance ? "#606066" : "#bcbcc2"
     property string appearanceMode: Foundation.AppTheme.appearanceMode
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property real refractionStrength: 2.5
@@ -191,17 +191,7 @@ Item {
                 radius: height / 2
                 color: root.trackColor
 
-                // Inner shadow for depth
-                Rectangle {
-                    anchors.fill: parent
-                    radius: parent.radius
-                    gradient: Gradient {
-                        orientation: Gradient.Vertical
-                        GradientStop { position: 0; color: Qt.rgba(0, 0, 0, 0.12) }
-                        GradientStop { position: 0.5; color: Qt.rgba(0, 0, 0, 0.03) }
-                        GradientStop { position: 1; color: Qt.rgba(1, 1, 1, 0.06) }
-                    }
-                }
+
             }
 
             // Progress fill
@@ -214,17 +204,7 @@ Item {
                 radius: height / 2
                 color: root.accentColor
 
-                // Glass sheen on progress
-                Rectangle {
-                    anchors.fill: parent
-                    radius: parent.radius
-                    gradient: Gradient {
-                        orientation: Gradient.Vertical
-                        GradientStop { position: 0; color: Qt.rgba(1, 1, 1, 0.45) }
-                        GradientStop { position: 0.5; color: Qt.rgba(1, 1, 1, 0.12) }
-                        GradientStop { position: 1; color: Qt.rgba(1, 1, 1, 0.0) }
-                    }
-                }
+
             }
         }
     }
@@ -240,7 +220,7 @@ Item {
     // the refracted copy and produces a second progress edge.
     Item {
         anchors.fill: parent
-        visible: !root.materialForm && thumbSurface.sampling && root.showThumb
+        visible: !root.materialForm && root._pressed && thumbSurface.sampling && root.showThumb
         readonly property real lensLeft: glassThumb.x + root.thumbWidth / 2
             - root.thumbWidth * thumbScale.xScale / 2
         readonly property real lensRight: glassThumb.x + root.thumbWidth / 2
@@ -263,7 +243,7 @@ Item {
     LiquidBackdrop {
         id: trackBackdrop
         sourceItem: trackContainer
-        active: root.visible && !root.materialForm
+        active: root.visible && !root.materialForm && root._pressed
         registerAsDefault: false
     }
 
@@ -282,8 +262,8 @@ Item {
             id: thumbScale
             origin.x: root.thumbWidth / 2
             origin.y: root.thumbHeight / 2
-            xScale: root.reduceMotion ? 1 : (1 + (root.wobbleEnabled ? 0.35 : 0.06) * root._expansion) * (1 - (root.wobbleEnabled ? 0.2 : 0) * root._stretch)
-            yScale: root.reduceMotion ? 1 : (1 + (root.wobbleEnabled ? 0.35 : 0.06) * root._expansion) * (1 + (root.wobbleEnabled ? 0.4 : 0) * root._stretch)
+            xScale: root.reduceMotion ? 1 : (1 + (root.wobbleEnabled ? 0.45 : 0.30) * root._expansion) * (1 - (root.wobbleEnabled ? 0.2 : 0) * root._stretch)
+            yScale: root.reduceMotion ? 1 : (1 + (root.wobbleEnabled ? 0.45 : 0.30) * root._expansion) * (1 + (root.wobbleEnabled ? 0.4 : 0) * root._stretch)
         }
 
         Behavior on x {
@@ -293,18 +273,26 @@ Item {
             }
         }
 
-        Rectangle {
-            x: 0
-            y: root._pressed ? 2 : 1
-            width: parent.width
-            height: parent.height
-            radius: height / 2
-            color: Qt.rgba(0, 0, 0, root._pressed ? 0.24 : 0.14)
+        LiquidOuterShadow {
+            anchors.fill: parent
+            radius: root.thumbHeight / 2
+            shadowOpacity: root._pressed ? .14 : .18
+            softness: 4
+            spread: 12
+            offset: Qt.vector2d(0, 2)
             z: -1
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            radius: height / 2
+            color: "#ffffff"
+            visible: !root._pressed
         }
 
         LiquidSurface {
             id: thumbSurface
+            visible: root._pressed
             anchors.fill: parent
             radius: height / 2
             backdrop: trackBackdrop
@@ -324,13 +312,13 @@ Item {
             anchors.fill: parent
             radius: height / 2
             color: root.accentColor
-            opacity: root._pressed ? 0.10 : root._hovered ? 0.045 : 0
+            opacity: root._pressed ? 0.10 : 0
             Behavior on opacity { NumberAnimation { duration: root.reduceMotion ? 0 : 120 } }
         }
 
         Item {
             anchors.fill: parent
-            visible: root.chromaticAberration && (root._hovered || root._pressed)
+            visible: root.chromaticAberration && root._pressed
             Rectangle {
                 x: -0.5
                 width: parent.width
@@ -433,12 +421,9 @@ Item {
 
         property real startX: 0
 
-        // A light thumb lift on hover alone (before any press) matches
-        // macOS's slider feel; press still drives the full lens expansion.
+        // Only pressing/dragging expands the white handle into a glass lens.
         onEntered: {
             root._hovered = true
-            if (!root._pressed && !root.materialForm)
-                root._expansion = 0.40
         }
         onExited: {
             root._hovered = false
@@ -468,7 +453,7 @@ Item {
         onReleased: function() {
             if (!root._pressed) return
             root._pressed = false
-            root._expansion = (containsMouse && !root.materialForm) ? 0.40 : 0.0
+            root._expansion = 0.0
             root._dragOffset = 0
             // 提交后屏蔽 x 动画 400ms，等外部服务异步写回对齐（见 _suppressXAnimation）
             root._suppressXAnimation = true

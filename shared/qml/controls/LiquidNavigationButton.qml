@@ -1,13 +1,15 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Window
 import "../foundation" as Foundation
 
 Button {
     id: root
     checkable: true
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property string iconName: ""
     property color iconColor: Foundation.AppTheme.accent
-    property real cornerRadius: 10
+    property real cornerRadius: height / 2
     property color selectionColor: Foundation.AppTheme.accent
     property color hoverColor: Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.07)
     property color focusRingColor: Foundation.AppTheme.focusRing
@@ -35,24 +37,35 @@ Button {
     background: Item {
         LiquidSurface {
             anchors.fill: parent
+            scale: root.down ? 1.10 : 1
+            Behavior on scale {
+                NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutBack }
+            }
             radius: root.cornerRadius
-            tintColor: root.selectionColor
-            tintStrength: root.checked ? 0.20 : 0.05
-            visible: root.checked
+            backdrop: root.backdrop
+            convexLens: true
+            edgeShadeStrength: .08
+            blurStrength: 0
+            readability: 0
+            edgeWidth: Math.min(10, height * .28)
+            refractionStrength: root.hovered ? 4.5 : 3
+            magnification: root.hovered ? 1.045 : 1.025
+            reflectionStrength: root.hovered ? .72 : .50
+            tintColor: root.down ? "#ffffff" : root.checked ? root.selectionColor : (Foundation.AppTheme.dark ? "#20252f" : "#ffffff")
+            tintStrength: root.down ? .06 : root.checked ? .80 : .30
+            Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         }
-        Rectangle {
-            anchors.fill: parent
-            radius: root.cornerRadius
-            color: root.hoverColor
-            visible: !root.checked && root.hovered
-        }
+
         Rectangle {
             anchors.fill: parent
             radius: root.cornerRadius
             color: "transparent"
             border.width: 2
             border.color: root.focusRingColor
-            visible: root.keyboardFocusOnly ? root.visualFocus : root.activeFocus
+            visible: false
         }
     }
     opacity: enabled ? 1 : 0.38

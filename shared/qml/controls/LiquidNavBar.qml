@@ -33,8 +33,9 @@ Item {
     property int labelFontWeight: Font.Normal
     property bool alwaysShowGlass: false
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
-    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     readonly property bool sampling: _isActive && lensSurface.sampling
+    HoverHandler { id: materialHover }
     property int _pressedIndex: -1
     // ── Form ──────────────────────────────────────────────────────────────
     // A tonal host draws the Material 3 navigation: one flat container colour in
@@ -51,11 +52,11 @@ Item {
     // every dimension is scaled proportionally so the component adapts to any
     // height while keeping the same proportions and breathing space.
     readonly property var presets: ({
-        tiny:   { height: 34, itemWidth: 56,  thumbHeight: 24, fontSize: 7,  iconSize: 14, thumbScale: 1.3,  thumbScaleY: 1.3  },
-        small:  { height: 42, itemWidth: 60,  thumbHeight: 38, fontSize: 8,  iconSize: 16, thumbScale: 1.3,  thumbScaleY: 1.3  },
-        medium: { height: 54, itemWidth: 80,  thumbHeight: 50, fontSize: 9,  iconSize: 20, thumbScale: 1.3,  thumbScaleY: 1.3  },
-        large:  { height: 67, itemWidth: 100, thumbHeight: 62, fontSize: 11, iconSize: 24, thumbScale: 1.3,  thumbScaleY: 1.25 },
-        XL:     { height: 80, itemWidth: 120, thumbHeight: 72, fontSize: 13, iconSize: 28, thumbScale: 1.3,  thumbScaleY: 1.25 }
+        tiny:   { height: 34, itemWidth: 56,  thumbHeight: 24, fontSize: 7,  iconSize: 14, thumbScale: 1.4,  thumbScaleY: 1.4  },
+        small:  { height: 42, itemWidth: 60,  thumbHeight: 38, fontSize: 8,  iconSize: 16, thumbScale: 1.4,  thumbScaleY: 1.4  },
+        medium: { height: 54, itemWidth: 80,  thumbHeight: 50, fontSize: 9,  iconSize: 20, thumbScale: 1.4,  thumbScaleY: 1.4  },
+        large:  { height: 67, itemWidth: 100, thumbHeight: 62, fontSize: 11, iconSize: 24, thumbScale: 1.4,  thumbScaleY: 1.35 },
+        XL:     { height: 80, itemWidth: 120, thumbHeight: 72, fontSize: 13, iconSize: 28, thumbScale: 1.4,  thumbScaleY: 1.35 }
     })
 
     readonly property var dims: presets[size] ?? presets.medium
@@ -246,19 +247,34 @@ Item {
     }
 
     // Preserve the track fill; only the non-Material finish reflects light.
-    Rectangle {
+    Item {
         id: track
         anchors.fill: parent
-        radius: height / 2
-        color: root.trackColor
+        Rectangle {
+            anchors.fill: parent
+            visible: root.materialForm
+            radius: height / 2
+            color: root.trackColor
+        }
         LiquidSurface {
             anchors.fill: parent
             visible: !root.materialForm
             radius: height / 2
-            backdrop: null
-            tintStrength: 0
-            reflectionStrength: .16
-            rimColor: Qt.rgba(1, 1, 1, .10)
+            backdrop: root.backdrop
+            convexLens: true
+            edgeShadeStrength: .08
+            blurStrength: 0
+            readability: 0
+            edgeWidth: Math.min(10, height * .28)
+            refractionStrength: materialHover.hovered ? 4.5 : 3
+            magnification: materialHover.hovered ? 1.045 : 1.025
+            reflectionStrength: materialHover.hovered ? .72 : .50
+            tintColor: Foundation.AppTheme.dark ? "#20252f" : "#ffffff"
+            tintStrength: .30
+            Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         }
     }
 
@@ -325,7 +341,7 @@ Item {
         color: "transparent"
         border.width: 2
         border.color: Foundation.AppTheme.focusRing
-        visible: root._focusedIndex >= 0 && !root.disabled && root.enabled
+        visible: false
     }
 
     // ---- The glass/white thumb (z 40) ----
@@ -362,22 +378,36 @@ Item {
         ]
 
         // Layer 1: opaque white pill at rest, dissolves while the lens is active
-        Rectangle {
+        Item {
             id: thumbBase
             anchors.fill: parent
-            radius: height / 2
-            color: root.materialForm ? root.accentColor : "#ffffff"
             opacity: root._isActive ? 0 : 1
             Behavior on opacity { NumberAnimation { duration: root.reduceMotion ? 0 : 100 } }
-
+            Rectangle {
+                anchors.fill: parent
+                visible: root.materialForm
+                radius: height / 2
+                color: root.accentColor
+            }
             LiquidSurface {
                 anchors.fill: parent
                 visible: !root.materialForm
                 radius: height / 2
-                backdrop: null
-                tintStrength: 0
-                reflectionStrength: .16
-                rimColor: Qt.rgba(1, 1, 1, .10)
+                backdrop: root.backdrop
+                convexLens: true
+                edgeShadeStrength: .08
+                blurStrength: 0
+                readability: 0
+                edgeWidth: Math.min(10, height * .28)
+                refractionStrength: materialHover.hovered ? 4.5 : 3
+                magnification: materialHover.hovered ? 1.045 : 1.025
+                reflectionStrength: materialHover.hovered ? .72 : .50
+                tintColor: Foundation.AppTheme.dark ? "#20252f" : "#ffffff"
+                tintStrength: .80
+                Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
             }
         }
 
@@ -393,26 +423,23 @@ Item {
                 anchors.fill: parent
                 radius: height / 2
                 backdrop: root.backdrop
-                // Preserve readability of the existing under-lens item layer.
-                opacity: .42
-                tintColor: "#ffffff"
-                tintStrength: .12
-                blurStrength: .18
+                convexLens: true
+                edgeShadeStrength: .08
+                blurStrength: 0
                 readability: 0
-                refractionStrength: 1.6
-                magnification: 1.03
-                edgeWidth: 6
-                reflectionStrength: root._pressedIndex >= 0 ? .62 : .50
-                rimColor: Qt.rgba(1, 1, 1, .12)
+                edgeWidth: Math.min(10, height * .28)
+                refractionStrength: materialHover.hovered ? 4.5 : 3
+                magnification: materialHover.hovered ? 1.045 : 1.025
+                reflectionStrength: materialHover.hovered ? .72 : .50
+                tintColor: root._isActive ? "#ffffff" : (Foundation.AppTheme.dark ? "#20252f" : "#ffffff")
+                tintStrength: root._isActive ? .06 : .80
+                Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+                Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
             }
 
-            // Accent tint overlay (subtle color bleed when active)
-            Rectangle {
-                anchors.fill: parent
-                radius: height / 2
-                color: root.accentColor
-                opacity: 0.10
-            }
+
         }
     }
 
