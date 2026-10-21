@@ -17,6 +17,12 @@ ColumnLayout {
         Controls.LiquidActionButton { text: "Flat"; flat: true }
     }
 
+    Label { text: "Ordinary content actions · no backdrop sampling"; color: Ui.AppTheme.mutedText }
+    RowLayout {
+        Controls.LiquidActionButton { text: "Content action"; materialForm: true }
+        Controls.LiquidActionButton { text: "Primary action"; materialForm: true; highlighted: true }
+        Controls.LiquidActionButton { text: "Disabled"; materialForm: true; enabled: false }
+    }
     Label { text: "Sizes"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
     Flow {
         Layout.fillWidth: true
