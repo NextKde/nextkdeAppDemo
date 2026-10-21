@@ -1,0 +1,23 @@
+{
+  "round": "20261021-2154",
+  "capturedAt": "2026-10-21T21:54:39.844615+08:00",
+  "runtimeRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "componentRevision": "96ff101f18801594b87681a5f37e9a6131f9d144",
+  "runtimeCleanAtLaunch": true,
+  "workingTreeDirty": false,
+  "environment": "local Arch Linux, Qt 6.12 OpenGL, Wayland",
+  "pixels": [
+    2360,
+    1560
+  ],
+  "dpr": 2,
+  "logicalSize": [
+    1180.0,
+    780.0
+  ],
+  "theme": "light",
+  "visualAcceptance": "pending user",
+  "privacy": "original dedicated app image personally inspected; no QR or account identity",
+  "captureOrigin": "fresh galleryReview capture",
+  "inProgress": "album functional batch completed; final handoff in progress"
+}
