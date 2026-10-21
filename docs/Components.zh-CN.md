@@ -186,3 +186,5 @@ focusRingColor/keyboardFocusOnly；Select的focusRingColor/selectedTextColor独�
 及只读sampling；浮动消费方须提供排除自身且包含真实滚动内容的同窗sibling backdrop。
 
 LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.
+
+LiquidSurface.diffuseStrength默认0，仅影响未采样底层：连续低对比面光与静态细颗粒保持tintStrength透明度，不模糊外部像素；软件渲染保留纯色退化路径。

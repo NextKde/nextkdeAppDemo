@@ -238,3 +238,5 @@ and read-only sampling. Its host must provide a sibling backdrop excluding the
 card, especially for floating overlays over scrolling content.
 
 LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.
+
+LiquidSurface.diffuseStrength defaults to0 and affects only the unsampled fallback: continuous low-contrast face light and static fine grain preserve tintStrength alpha. It does not blur external pixels. Software rendering retains the flat tint fallback.

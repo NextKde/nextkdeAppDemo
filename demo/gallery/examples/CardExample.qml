@@ -17,6 +17,12 @@ ColumnLayout {
             Controls.LiquidActionButton { text: "Save item"; onClicked: example.saved = true }
         }
     }
+    Controls.LiquidSurface {
+        Layout.fillWidth: true; Layout.preferredHeight: 96
+        radius: 0; backdrop: null; diffuseStrength: .8; tintStrength: .95
+        tintColor: Ui.AppTheme.dark ? "#24282b" : "#eceef0"; reflectionStrength: .08
+        Label { anchors.centerIn: parent; text: "Diffuse face · static pigment, no backdrop sampling"; color: Ui.AppTheme.text }
+    }
     Label { text: "Floating card · scroll the real content behind the glass"; color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap; Layout.fillWidth: true }
     Item {
         Layout.fillWidth: true; Layout.preferredHeight: 240

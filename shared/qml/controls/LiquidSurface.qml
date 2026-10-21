@@ -9,6 +9,8 @@ Item {
     property bool darkAppearance: Foundation.AppTheme.dark
     property color tintColor: darkAppearance ? "#141c30" : "#ffffff"
     property real tintStrength: 0.08
+    // Pigmented diffuse finish for unsampled surfaces; never claims external blur.
+    property real diffuseStrength: 0
     property real blurStrength: 0.45
     property real readability: 0.47
     property real refractionStrength: 3
@@ -53,10 +55,21 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        visible: !root.sampling
+        visible: !root.sampling && (root.diffuseStrength <= 0 || GraphicsInfo.api === GraphicsInfo.Software)
         radius: root.radius
         color: root.tintColor
         opacity: Math.max(0, Math.min(1, root.tintStrength))
+    }
+    ShaderEffect {
+        anchors.fill: parent
+        visible: !root.sampling && root.diffuseStrength > 0 && GraphicsInfo.api !== GraphicsInfo.Software
+        vertexShader: Qt.resolvedUrl("shaders/liquid_diffuse.vert.qsb")
+        fragmentShader: Qt.resolvedUrl("shaders/liquid_diffuse.frag.qsb")
+        property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
+        property real radius: root.radius
+        property color tintColor: root.tintColor
+        property real tintStrength: root.tintStrength
+        property real diffuseStrength: root.diffuseStrength
     }
     ShaderEffect {
         id: optics
