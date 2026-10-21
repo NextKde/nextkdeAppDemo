@@ -184,3 +184,5 @@ focusRingColor/keyboardFocusOnly；NavigationButton的selectionColor/hoverColor/
 focusRingColor/keyboardFocusOnly；Select的focusRingColor/selectedTextColor独立于accentColor。
 默认配色与焦点行为保持原样。LiquidCard新增材质光学参数、可选shadowEnabled（默认false）
 及只读sampling；浮动消费方须提供排除自身且包含真实滚动内容的同窗sibling backdrop。
+
+LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.

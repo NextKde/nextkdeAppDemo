@@ -236,3 +236,5 @@ All defaults preserve the original palette and focus behaviour.
 LiquidCard now exposes surface optics, optional shadowEnabled (false by default),
 and read-only sampling. Its host must provide a sibling backdrop excluding the
 card, especially for floating overlays over scrolling content.
+
+LiquidBackdrop.blur (default 0) optionally prefilters the actual sibling scene with a continuous QML blur for larger panels; consumers retain local refraction and lighting.

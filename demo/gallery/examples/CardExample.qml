@@ -41,12 +41,12 @@ ColumnLayout {
                 }
             }
         }
-        Controls.LiquidBackdrop { id: sampled; sourceItem: scene; registerAsDefault: false }
+        Controls.LiquidBackdrop { id: sampled; sourceItem: scene; registerAsDefault: false; blur: .45 }
         Controls.LiquidCard {
             anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
             anchors.margins: 16; height: 76; radius: 20; padding: 14
             backdrop: sampled; shadowEnabled: true; shadowOpacity: .16
-            readability: .12; blurStrength: 1.1; refractionStrength: 5
+            readability: .12; blurStrength: .25; refractionStrength: 5
             magnification: 1.035; reflectionStrength: .55
             tintColor: Ui.AppTheme.dark ? "#282c32" : "#f8f9fa"; tintStrength: .22
             Label { anchors.centerIn: parent; text: "Sampled sibling scene · clear glass body"; color: Ui.AppTheme.text }

@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Window
+import QtQuick.Effects
 
 Item {
     id: root
@@ -14,7 +15,9 @@ Item {
         && sourceItem.Window.window === hostWindow
         && sourceItem.width > 0 && sourceItem.height > 0
         && sourceExcludesCapture()
-    readonly property alias texture: capture
+    // Optional continuous prefilter for large glass panels; default is unchanged.
+    property real blur: 0
+    readonly property var texture: blur > 0 ? softened : capture
 
     function sourceExcludesCapture() {
         for (let ancestor = root; ancestor; ancestor = ancestor.parent) {
@@ -35,6 +38,15 @@ Item {
     visible: false
     Component.onCompleted: LiquidStyle.registerBackdrop(root)
     Component.onDestruction: LiquidStyle.unregisterBackdrop(root)
+
+    MultiEffect {
+        id: softened
+        width: root.sourceItem ? root.sourceItem.width : 1
+        height: root.sourceItem ? root.sourceItem.height : 1
+        source: capture; visible: false; layer.enabled: root.blur > 0
+        blurEnabled: root.blur > 0; blurMax: 64
+        blur: Math.max(0, Math.min(1, root.blur)); autoPaddingEnabled: false
+    }
 
     ShaderEffectSource {
         id: capture
