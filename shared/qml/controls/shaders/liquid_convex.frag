@@ -80,8 +80,15 @@ void main()
     // magnification changes the edge lens only; no whole-plane translation/zoom.
     deviation *= 1.0 + max(0.0, magnification - 1.0) * 3.0;
     vec2 localUv = qt_TexCoord0 + deviation / surfaceSize;
-    vec2 dx = sampleAxisX * max(0.0, blurRadius) / surfaceSize.x;
-    vec2 dy = sampleAxisY * max(0.0, blurRadius) / surfaceSize.y;
+    // Only the curved bezel needs an antialias footprint after displacement.
+    // Cap it at one logical pixel; leave the centre and strength-zero identity
+    // untouched instead of restoring a blur across the complete input surface.
+    float footprint = length(fwidth(localUv) * surfaceSize) * .5;
+    float bezelFilter = min(1.0, footprint) * (1.0 - smoothstep(.60, 1.0, t))
+        * smoothstep(0.0, .5, strength);
+    float filterRadius = max(max(0.0, blurRadius), bezelFilter);
+    vec2 dx = sampleAxisX * filterRadius / surfaceSize.x;
+    vec2 dy = sampleAxisY * filterRadius / surfaceSize.y;
     vec4 sampled = blur9(sourceUv(localUv), dx, dy);
 
     // Both textures and QColor uniforms arrive premultiplied. Preserve alpha
