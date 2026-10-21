@@ -14,6 +14,7 @@ Button {
     property color hoverColor: Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.07)
     property color focusRingColor: Foundation.AppTheme.focusRing
     property bool keyboardFocusOnly: false
+    property bool showIdleBackground: true
     implicitHeight: 38
     leftPadding: 12
     rightPadding: 12
@@ -37,6 +38,7 @@ Button {
     background: Item {
         LiquidSurface {
             anchors.fill: parent
+            visible: root.showIdleBackground || root.checked || root.hovered || root.down
             scale: root.down ? 1.10 : 1
             Behavior on scale {
                 NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutBack }
