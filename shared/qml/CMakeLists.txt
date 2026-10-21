@@ -50,6 +50,7 @@ qt_add_qml_module(kos_ui
         controls/LiquidStyle.qml
         controls/LiquidBackdrop.qml
         controls/LiquidSurface.qml
+        controls/LiquidOuterShadow.qml
         controls/LiquidCard.qml
         controls/LiquidActionButton.qml
         controls/LiquidNavigationButton.qml

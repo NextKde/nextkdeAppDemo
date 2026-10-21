@@ -9,6 +9,8 @@ Button {
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
+    property bool shadowEnabled: false
+    property real shadowOpacity: .06
     property bool convexLens: true
     property bool iconOnly: false
     property string iconName: ""
@@ -75,6 +77,10 @@ Button {
         tintStrength: root.highlighted || root.checked ? 0.24 : root.down ? 0.18
             : root.hovered ? 0.12 : root.secondary ? 0.03 : 0.05
         opacity: root.flat && !root.hovered && !root.checked && !root.activeFocus ? 0.45 : 1
+        LiquidOuterShadow {
+            anchors.fill: parent; z: -1; radius: parent.radius
+            visible: root.shadowEnabled; shadowOpacity: root.shadowOpacity
+        }
         Rectangle {
             anchors.fill: parent
             anchors.margins: -2

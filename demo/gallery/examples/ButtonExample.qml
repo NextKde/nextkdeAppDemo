@@ -32,8 +32,8 @@ ColumnLayout {
         Controls.LiquidActionButton { iconOnly: true; iconName: "mediaNext"; iconFilled: true; Accessible.name: "Filled next" }
     }
     RowLayout {
-        Controls.LiquidActionButton { backdrop: null; text: "No-source fallback" }
-        Controls.LiquidTextField { backdrop: null; materialForm: false; liquidFinish: true; placeholderText: "Fallback input"; Layout.preferredWidth: 180 }
+        Controls.LiquidActionButton { backdrop: null; shadowEnabled: true; shadowOpacity: .06; text: "No-source fallback" }
+        Controls.LiquidTextField { backdrop: null; shadowEnabled: true; shadowOpacity: .06; materialForm: false; liquidFinish: true; placeholderText: "Fallback input"; Layout.preferredWidth: 180 }
     }
     Label { text: "Compact icon actions · active and disabled"; color: Ui.AppTheme.mutedText }
     RowLayout {

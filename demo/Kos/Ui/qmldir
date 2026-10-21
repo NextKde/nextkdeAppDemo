@@ -47,3 +47,4 @@ singleton ControlForm 1.0 controls/ControlForm.qml
 VectorIcon 1.0 controls/VectorIcon.qml
 SelectionHighlight 1.0 controls/SelectionHighlight.qml
 singleton I18n 1.0 i18n/I18n.qml
+LiquidOuterShadow 1.0 controls/LiquidOuterShadow.qml

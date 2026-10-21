@@ -18,6 +18,9 @@ TextField {
     property color textColor: Foundation.AppTheme.text
     property color mutedTextColor: Foundation.AppTheme.mutedText
     property bool materialForm: ControlForm.materialForm
+    property bool unfilteredBackdrop: false
+    property bool shadowEnabled: false
+    property real shadowOpacity: .06
     property bool convexLens: true
     property bool liquidFinish: false
     property real liquidStrength: 1
@@ -51,6 +54,10 @@ TextField {
     HoverHandler { id: hover; cursorShape: Qt.IBeamCursor }
 
     background: Item {
+        LiquidOuterShadow {
+            anchors.fill: parent; radius: root.cornerRadius
+            visible: root._liquid && root.shadowEnabled; shadowOpacity: root.shadowOpacity
+        }
         Rectangle {
             anchors.fill: parent
             visible: !root._liquid
@@ -64,6 +71,7 @@ TextField {
         LiquidSurface {
             id: liquidSurface
             convexLens: root.convexLens
+            unfilteredBackdrop: root.unfilteredBackdrop
             anchors.fill: parent
             visible: root._liquid
             radius: root.cornerRadius

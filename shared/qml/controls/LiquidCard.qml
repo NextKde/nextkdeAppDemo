@@ -20,18 +20,10 @@ Pane {
     readonly property bool sampling: cardGlass.sampling
     padding: 18
     background: Item {
-        ShaderEffect {
-            x: -18; y: -18; width: parent.width + 36; height: parent.height + 36
-            visible: root.shadowEnabled && GraphicsInfo.api !== GraphicsInfo.Software
-            vertexShader: Qt.resolvedUrl("shaders/liquid_shadow.vert.qsb")
-            fragmentShader: Qt.resolvedUrl("shaders/liquid_shadow.frag.qsb")
-            property vector2d bodySize: Qt.vector2d(root.width, root.height)
-            property vector2d shadowOffset: Qt.vector2d(0, 3)
-            property real padding: 18
-            property real radius: root.radius
-            property real softness: 6
-            property real shadowOpacity: root.shadowOpacity
-            property color shadowColor: root.shadowColor
+        LiquidOuterShadow {
+            anchors.fill: parent; radius: root.radius
+            visible: root.shadowEnabled; shadowColor: root.shadowColor
+            shadowOpacity: root.shadowOpacity; offset: Qt.vector2d(0, 3)
         }
         LiquidSurface {
             id: cardGlass
