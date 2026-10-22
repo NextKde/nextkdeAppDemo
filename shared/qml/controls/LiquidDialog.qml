@@ -24,7 +24,7 @@ Foundation.KosDialog {
         Rectangle {
             id: dialogFill
             anchors.fill: parent; radius: 24
-            color: Foundation.AppTheme.dark ? "#29292d" : "#eeeef0"
+            color: Foundation.AppTheme.dark ? "#29292d" : "#ffffff"
         }
         LiquidBackdrop { id: dialogBackdrop; sourceItem: dialogFill; registerAsDefault: false }
     }
