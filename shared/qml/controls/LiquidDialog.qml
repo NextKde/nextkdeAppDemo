@@ -12,7 +12,16 @@ Foundation.KosDialog {
         font.pixelSize: 20
         font.weight: Font.DemiBold
     }
-    background: LiquidSurface { radius: 24; readability: 0.60 }
+    Overlay.modal: Rectangle { color: "transparent" }
+    background: Item {
+        LiquidOuterShadow {
+            anchors.fill: parent; radius: 24
+            shadowColor: Foundation.AppTheme.dark ? "#606064" : "#000000"
+            shadowOpacity: .22; softness: 14; spread: 36
+            outwardOffset: 0; offset: Qt.vector2d(0, 0)
+        }
+        LiquidSurface { anchors.fill: parent; radius: 24; readability: 0.60 }
+    }
     footer: DialogButtonBox {
         standardButtons: root.standardButtons
         delegate: LiquidActionButton {
