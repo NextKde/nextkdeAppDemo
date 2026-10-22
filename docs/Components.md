@@ -250,3 +250,17 @@ focus, material and disabled contracts. Cards/player surfaces retain classic opt
 real scene capture to feed an unfiltered clipped display and a separately filtered
 lens. Exclude all consumers from the source. Never overlay the clear scene beneath
 a partially transparent lens; this would leak an unrefracted duplicate.
+
+
+## Liquid intensity (2026-10-22)
+
+LiquidActionButton and LiquidTextField accept liquidIntensity: light, medium,
+or strong. The default follows LiquidStyle.intensityLevel=medium, preserving
+existing values. Gallery sidebar search overrides strong. Profiles adjust
+refraction, magnification, reflection, local blur and inward shade; geometry,
+typography and fill alpha remain unchanged. The existing shader caps inward
+shade at .10, shared by medium/strong. Other types are not yet migrated.
+No runtime or visual acceptance is claimed.
+
+
+2026-10-22 fill revision: liquid buttons/inputs replace adaptive inward pigment with white .10-to-zero bands, 3px from top/bottom. Normal fill is an elliptical #f2f2f4-to-#c4c4c8 gradient in both themes, retaining .20/.25 alpha. Primary actions retain accent. The optical pass disables its flat tint so the shared QML fill is applied once. Diagonal highlights and intensity optics remain unchanged. No QSB changes or runtime verification.

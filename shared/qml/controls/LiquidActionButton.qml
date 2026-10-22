@@ -5,13 +5,16 @@ import "../foundation" as Foundation
 
 Button {
     id: root
+    property string liquidIntensity: LiquidStyle.intensityLevel
+    readonly property var _intensity: LiquidStyle.intensityProfile(liquidIntensity)
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool materialForm: ControlForm.materialForm
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
     property bool shadowEnabled: false
-    property real shadowOpacity: .06
+    property int shadowLevel: LiquidStyle.shadowLevel
+    property real shadowOpacity: LiquidStyle.shadowProfile(shadowLevel).opacity
     property bool convexLens: true
     property bool iconOnly: false
     property string iconName: ""
@@ -60,6 +63,16 @@ Button {
         }
     }
     background: Item {
+        // Independent sibling behind the glass, never part of its material.
+        LiquidOuterShadow {
+            anchors.fill: parent
+            z: -1
+            radius: buttonGlass.radius
+            outwardOffset: LiquidStyle.controlShadowOutset
+            shadowLevel: root.shadowLevel
+            visible: !root.materialForm && root.shadowEnabled
+            shadowOpacity: root.shadowOpacity
+        }
         Rectangle {
             anchors.fill: parent
             visible: root.materialForm
@@ -77,30 +90,33 @@ Button {
         anchors.fill: parent
         visible: !root.materialForm
         convexLens: root.convexLens
-        edgeShadeStrength: .10
+        edgeShadeStrength: 0
+        fullHighlight: true
+        gradientFill: true
+        fillCenterExtent: LiquidStyle.controlFillCenterExtent
+        fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
+        fillWhiteRimY: LiquidStyle.controlFillWhiteRimY
+        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : LiquidStyle.controlFillEdge
+        whiteEdgeDepth: 0
+        whiteEdgeAlpha: 0
         // Preserve the actual sampled texture; the bezel supplies depth.
-        blurStrength: root.convexLens ? 0 : .45
+        blurStrength: root.convexLens ? root._intensity.blur : .45
         readability: 0
         edgeWidth: Math.min(10, height * .28)
-        refractionStrength: root.hovered ? 4.5 : 3
-        magnification: root.hovered ? 1.045 : 1.025
+        refractionStrength: root.hovered ? root._intensity.hoverRefraction : root._intensity.refraction
+        magnification: root.hovered ? root._intensity.hoverMagnification : root._intensity.magnification
         Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         radius: height / 2
         backdrop: root.materialForm ? null : root.backdrop
-        reflectionStrength: root.hovered ? .72 : .50
+        reflectionStrength: root.hovered ? root._intensity.hoverReflection : root._intensity.reflection
         Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-        tintColor: root.highlighted || root.checked ? root.accentColor : root.surfaceColor
-        tintStrength: root.highlighted || root.checked ? 0.24
-            : root.hovered ? 0.25 : 0.20
+        tintColor: root.highlighted || root.checked ? root.accentColor : LiquidStyle.controlFillCenter
+        tintStrength: root.highlighted || root.checked ? 0.24 : LiquidStyle.controlFillOpacity
         Behavior on tintStrength {
             NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast }
         }
         opacity: root.flat && !root.hovered && !root.checked && !root.visualFocus ? 0.45 : 1
-        LiquidOuterShadow {
-            anchors.fill: parent; z: -1; radius: parent.radius
-            visible: root.shadowEnabled; shadowOpacity: root.shadowOpacity
-        }
         }
         Rectangle {
             anchors.fill: parent

@@ -3,9 +3,15 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
+    id: galleryExample
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     spacing: 16
+    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".1"; title: galleryExample.tr("Content card", "内容卡片") }
     Controls.LiquidCard {
         id: example
         Layout.fillWidth: true
@@ -17,13 +23,14 @@ ColumnLayout {
             Controls.LiquidActionButton { text: "Save item"; onClicked: example.saved = true }
         }
     }
+    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".2"; title: galleryExample.tr("Diffuse surface", "漫反射表面") }
     Controls.LiquidSurface {
         Layout.fillWidth: true; Layout.preferredHeight: 96
         radius: 0; backdrop: null; diffuseStrength: .8; tintStrength: .95
         tintColor: Ui.AppTheme.dark ? "#24282b" : "#eceef0"; reflectionStrength: .08
         Label { anchors.centerIn: parent; text: "Diffuse face · static pigment, no backdrop sampling"; color: Ui.AppTheme.text }
     }
-    Label { text: "Floating card · scroll the real content behind the glass"; color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap; Layout.fillWidth: true }
+    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".3"; title: galleryExample.tr("Floating card over content", "覆盖内容的悬浮卡片") }
     Item {
         Layout.fillWidth: true; Layout.preferredHeight: 240
         Item {

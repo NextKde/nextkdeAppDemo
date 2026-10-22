@@ -3,14 +3,19 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
     id: example
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     property real lensPosition: 0.45
     property real refraction: 5
     property bool frosted: false
-    spacing: 12
+    spacing: 16
 
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Material preview", "材质预览") }
     Item {
         id: stage
         Layout.fillWidth: true
@@ -74,7 +79,7 @@ ColumnLayout {
             }
         }
     }
-    Label { text: "Lens position"; color: Ui.AppTheme.text }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Lens position", "透镜位置") }
     Controls.LiquidSlider {
         Layout.fillWidth: true
         value: example.lensPosition
@@ -83,6 +88,7 @@ ColumnLayout {
         onPreviewChanged: function(value) { example.lensPosition = value }
         onCommitRequested: function(value) { example.lensPosition = value }
     }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".3"; title: example.tr("Refraction strength", "折射强度") }
     Label { text: "Edge refraction: " + example.refraction.toFixed(1) + " px"; color: Ui.AppTheme.text }
     Controls.LiquidSlider {
         Layout.fillWidth: true
@@ -92,6 +98,7 @@ ColumnLayout {
         onPreviewChanged: function(value) { example.refraction = value * 12 }
         onCommitRequested: function(value) { example.refraction = value * 12 }
     }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".4"; title: example.tr("Blur option", "模糊选项") }
     Controls.LiquidCheckBox {
         text: "Frosted blur"
         checked: example.frosted

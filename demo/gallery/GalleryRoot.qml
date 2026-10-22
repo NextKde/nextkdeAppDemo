@@ -5,6 +5,7 @@ import Quickshell
 import "../Kos/Ui/foundation" as Ui
 import "../Kos/Ui/controls" as Controls
 import "ComponentCatalog.mjs" as Catalog
+import "components"
 
 Pane {
     id: root
@@ -17,6 +18,7 @@ Pane {
     readonly property var selected: Catalog.find(currentId)
     readonly property var filteredEntries: Catalog.filter(search.text)
     padding: 0
+    MaterialSpecTokens { id: navigationTokens; dark: Ui.AppTheme.dark }
     palette.window: Ui.AppTheme.window
     palette.windowText: Ui.AppTheme.text
     palette.text: Ui.AppTheme.text
@@ -48,9 +50,9 @@ Pane {
         spacing: 0
 
         Pane {
-            Layout.preferredWidth: 224
-            Layout.minimumWidth: 224
-            Layout.maximumWidth: 224
+            Layout.preferredWidth: navigationTokens.sidebarWidth
+            Layout.minimumWidth: navigationTokens.sidebarWidth
+            Layout.maximumWidth: navigationTokens.sidebarWidth
             Layout.fillHeight: true
             padding: 0
             background: Rectangle {
@@ -64,34 +66,56 @@ Pane {
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.margins: 14
-                spacing: 12
+                anchors.margins: navigationTokens.sidebarPadding
+                spacing: navigationTokens.sidebarSpacing
 
                 Label {
                     text: "NextKde UI"
-                    color: Ui.AppTheme.text
-                    font.pixelSize: 18
+                    color: navigationTokens.labelPrimary
+                    font.pixelSize: navigationTokens.titleSize
                     font.weight: Font.DemiBold
                 }
                 Label {
                     text: root.tr("Component gallery", "组件示例库")
-                    color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
+                    color: navigationTokens.labelSecondary
+                    font.pixelSize: navigationTokens.captionSize
                 }
                 Controls.LiquidTextField {
                     materialForm: false
-                    textColor: Ui.AppTheme.text
-                    mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
-                    glassColor: Qt.rgba(1, 1, 1, 0.08)
+                    liquidFinish: true
+                    liquidIntensity: "strong"
+                    cornerRadius: height / 2
+                    textColor: navigationTokens.labelPrimary
+                    mutedTextColor: navigationTokens.labelTertiary
+                    font.pixelSize: navigationTokens.searchFontSize
+                    font.weight: Font.Normal
+                    leftPadding: navigationTokens.searchInset + navigationTokens.searchIconSize + navigationTokens.searchIconGap
+                    rightPadding: searchShortcut.visible
+                        ? searchShortcut.implicitWidth + navigationTokens.searchInset + navigationTokens.searchIconGap
+                        : navigationTokens.searchInset
                     id: search
                     Layout.fillWidth: true
-                    placeholderText: root.tr("Search · Ctrl+K", "搜索 · Ctrl+K")
+                    Layout.preferredHeight: navigationTokens.searchHeight
+                    placeholderText: root.tr("Search", "搜索")
                     Accessible.name: root.tr("Search components", "搜索组件")
-                }
-                Controls.LiquidNavigationButton {
-                    Layout.fillWidth: true
-                    text: root.tr("All components", "全部组件")
-                    checked: root.currentId === "overview"
-                    onClicked: root.select("overview")
+                    Controls.VectorIcon {
+                        x: navigationTokens.searchInset
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "search"
+                        size: navigationTokens.searchIconSize
+                        color: navigationTokens.labelSecondary
+                    }
+                    Label {
+                        id: searchShortcut
+                        anchors.right: parent.right
+                        anchors.rightMargin: navigationTokens.searchInset
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Ctrl+K"
+                        visible: search.text.length === 0 && !search.activeFocus
+                        font.pixelSize: navigationTokens.captionSize
+                        font.weight: Font.Normal
+                        color: navigationTokens.labelTertiary
+                    }
                 }
                 ListView {
                     id: navigation
@@ -111,12 +135,13 @@ Pane {
                             topPadding: 16
                             bottomPadding: 6
                             text: Catalog.groupTitle(destination.modelData.group, root.language)
-                            color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
-                            font.pixelSize: 11
+                            color: navigationTokens.labelSecondary
+                            font.pixelSize: navigationTokens.captionSize
                             font.weight: Font.DemiBold
                         }
                         Controls.LiquidNavigationButton {
                             width: parent.width
+                            specificationForm: true
                             text: Catalog.title(destination.modelData, root.language)
                             checked: root.currentId === destination.modelData.id
                             onClicked: root.select(destination.modelData.id)
@@ -128,25 +153,27 @@ Pane {
                         anchors.centerIn: parent
                         visible: root.filteredEntries.length === 0
                         text: root.tr("No matching components", "没有匹配的组件")
-                        color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
+                        color: navigationTokens.labelSecondary
+                        font.pixelSize: navigationTokens.bodySize
                     }
                 }
                 RowLayout {
                     Label {
                         Layout.fillWidth: true
                         text: root.tr("Reduce motion", "减少动态效果")
-                        color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
+                        color: navigationTokens.labelPrimary
+                        font.pixelSize: navigationTokens.bodySize
                     }
-                    Controls.LiquidGlassSwitch {
-                        materialForm: false
+                    Switch {
                         checked: Ui.AppTheme.reduceMotion
                         Accessible.name: root.tr("Reduce motion", "减少动态效果")
-                        onToggled: function(checked) { Ui.AppTheme.reduceMotion = checked }
+                        onToggled: Ui.AppTheme.reduceMotion = checked
                     }
                 }
-                Controls.LiquidActionButton {
+                Controls.LiquidNavigationButton {
                     Layout.fillWidth: true
-                    flat: true
+                    specificationForm: true
+                    checkable: false
                     text: root.tr("Developer guide", "开发接入指南")
                     onClicked: Qt.openUrlExternally("file://" + Quickshell.shellDir + "/../docs/Components"
                         + (root.language === "zh" ? ".zh-CN" : "") + ".md")
@@ -174,47 +201,79 @@ Pane {
                     Layout.margins: 20
                     clip: true
 
+                Controls.LiquidBackdrop {
+                    id: toolbarBackdrop
+                    sourceItem: content
+                    registerAsDefault: false
+                    blur: navigationTokens.toolbarBlur
+                }
                 Pane {
                     id: galleryToolbar
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
                     z: 10
-                    padding: 0
-                    background: Rectangle {
-                        color: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff"
-                        opacity: 0.90
+                    height: navigationTokens.toolbarHeight
+                    padding: navigationTokens.gap
+                    background: Controls.LiquidSurface {
+                        backdrop: toolbarBackdrop
+                        radius: 0
+                        tintColor: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff"
+                        tintStrength: .90
+                        blurStrength: 0
+                        readability: 0
+                        refractionStrength: 0
+                        magnification: 1
+                        reflectionStrength: 0
                     }
-                    contentItem:
-                RowLayout {
-                    Label {
-                        Layout.fillWidth: true
-                        text: root.selected ? Catalog.title(root.selected, root.language)
-                            : root.tr("Components", "组件")
-                        color: Ui.AppTheme.text
-                        font.pixelSize: 22
-                        font.weight: Font.DemiBold
-                        elide: Text.ElideRight
+                    contentItem: RowLayout {
+                        spacing: navigationTokens.gap
+                        Label {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
+                            text: root.selected ? Catalog.title(root.selected, root.language)
+                                : root.tr("Components", "组件")
+                            color: Ui.AppTheme.text
+                            font.pixelSize: navigationTokens.toolbarTitleSize
+                            font.weight: Font.DemiBold
+                            elide: Text.ElideRight
+                        }
+                        Controls.LiquidSelect {
+                            Layout.preferredWidth: 140
+                            Layout.preferredHeight: navigationTokens.controlHeight
+                            Layout.maximumHeight: navigationTokens.controlHeight
+                            Layout.alignment: Qt.AlignVCenter
+                            appearanceMode: root.themeMode
+                            model: root.language === "zh" ? ["渐变背景", "对比背景", "透明桌面"] : ["Gradient", "Contrast", "Desktop"]
+                            currentIndex: ["gradient", "contrast", "desktop"].indexOf(root.backgroundMode)
+                            materialForm: false
+                            textColor: Ui.AppTheme.text
+                            mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
+                            onActivated: function(index) { root.backgroundMode = ["gradient", "contrast", "desktop"][index] }
+                        }
+                        RowLayout {
+                            spacing: navigationTokens.toolbarGroupGap
+                            Layout.alignment: Qt.AlignVCenter
+                            Controls.LiquidActionButton {
+                                Layout.preferredHeight: navigationTokens.controlHeight
+                                Layout.maximumHeight: navigationTokens.controlHeight
+                                font.pixelSize: navigationTokens.searchFontSize
+                                leftPadding: navigationTokens.sidebarSpacing
+                                rightPadding: navigationTokens.sidebarSpacing
+                                text: root.language === "en" ? "中文" : "English"
+                                onClicked: root.language = root.language === "en" ? "zh" : "en"
+                            }
+                            Controls.LiquidActionButton {
+                                Layout.preferredHeight: navigationTokens.controlHeight
+                                Layout.maximumHeight: navigationTokens.controlHeight
+                                font.pixelSize: navigationTokens.searchFontSize
+                                leftPadding: navigationTokens.sidebarSpacing
+                                rightPadding: navigationTokens.sidebarSpacing
+                                text: root.themeMode === "dark" ? root.tr("Light", "浅色") : root.tr("Dark", "深色")
+                                onClicked: root.themeMode = root.themeMode === "dark" ? "light" : "dark"
+                            }
+                        }
                     }
-                    Controls.LiquidSelect {
-                        Layout.preferredWidth: 140
-                        appearanceMode: root.themeMode
-                        model: root.language === "zh" ? ["渐变背景", "对比背景", "透明桌面"] : ["Gradient", "Contrast", "Desktop"]
-                        currentIndex: ["gradient", "contrast", "desktop"].indexOf(root.backgroundMode)
-                        materialForm: false
-                        textColor: Ui.AppTheme.text
-                        mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
-                        onActivated: function(index) { root.backgroundMode = ["gradient", "contrast", "desktop"][index] }
-                    }
-                    Controls.LiquidActionButton {
-                        text: root.language === "en" ? "中文" : "English"
-                        onClicked: root.language = root.language === "en" ? "zh" : "en"
-                    }
-                    Controls.LiquidActionButton {
-                        text: root.themeMode === "dark" ? root.tr("Light", "浅色") : root.tr("Dark", "深色")
-                        onClicked: root.themeMode = root.themeMode === "dark" ? "light" : "dark"
-                    }
-                }
                 }
 
                 Loader {
@@ -230,13 +289,13 @@ Pane {
     Component {
         id: overviewPage
         OverviewPage {
-            toolbarScrollInset: galleryToolbar.height + 18
+            toolbarScrollInset: galleryToolbar.height + navigationTokens.sidebarPadding
             language: root.language
             onComponentSelected: function(id) { root.select(id) }
         }
     }
     Component {
         id: componentPage
-        ComponentPage { entry: root.selected; language: root.language; backgroundMode: root.backgroundMode; toolbarScrollInset: galleryToolbar.height + 18 }
+        ComponentPage { entry: root.selected; language: root.language; backgroundMode: root.backgroundMode; toolbarScrollInset: galleryToolbar.height + navigationTokens.sidebarPadding }
     }
 }

@@ -3,9 +3,15 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
-    spacing: 12
+    id: galleryExample
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
+    spacing: 16
+    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".1"; title: galleryExample.tr("Scrollable selection", "滚动与选择") }
     Label { text: list.currentIndex < 0 ? "Choose a row." : "Selected row: " + (list.currentIndex + 1); color: Ui.AppTheme.text }
     ListView {
         id: list

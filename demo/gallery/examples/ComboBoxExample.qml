@@ -3,15 +3,20 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
     id: example
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     objectName: "reviewSelect"
     function openReviewMenu() { selector.openMenu() }
     function closeReviewMenu() { selector.closeMenu() }
     property int selection: 0
     readonly property var options: ["Automatic", "Light", "Dark"]
-    spacing: 12
+    spacing: 16
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Selection", "常规选择") }
     Controls.LiquidSelect {
         id: selector
         objectName: "reviewSelectControl"
@@ -26,6 +31,7 @@ ColumnLayout {
         Accessible.name: "Appearance"
         onActivated: function(index) { example.selection = index }
     }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Disabled", "禁用") }
     Controls.LiquidSelect {
         Layout.preferredWidth: 240
         model: example.options
@@ -35,6 +41,7 @@ ColumnLayout {
         enabled: false
         Accessible.name: "Disabled appearance"
     }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".3"; title: example.tr("Solid variant", "实色形态") }
     Controls.LiquidSelect {
         Layout.preferredWidth: 240
         model: example.options

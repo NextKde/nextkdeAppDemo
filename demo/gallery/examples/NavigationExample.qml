@@ -3,14 +3,23 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
-RowLayout {
+ColumnLayout {
     id: example
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     property int currentPage: 0
     readonly property var destinations: ["Library", "Favorites", "Downloads"]
     implicitHeight: 220
-    spacing: 20
+    spacing: 16
 
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Sidebar and destination", "侧栏与内容联动") }
+    RowLayout {
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        spacing: 20
     Controls.LiquidCard {
         Layout.preferredWidth: 180
         Layout.fillHeight: true
@@ -46,5 +55,6 @@ RowLayout {
             wrapMode: Text.WordWrap
             color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
         }
+    }
     }
 }

@@ -2,6 +2,42 @@ pragma Singleton
 import QtQuick
 
 QtObject {
+    // Material intensity only: never changes layout, typography or fill alpha.
+    property string intensityLevel: "medium"
+    // Independent from liquid intensity: 1=dark/tight, 3=light/broad.
+    property int shadowLevel: 1
+    property real controlShadowOutset: 1
+    readonly property var shadowProfiles: ({
+        "1": { opacity: .24, softness: 2, spread: 8, offsetY: 1 },
+        "2": { opacity: .16, softness: 5, spread: 16, offsetY: 2 },
+        "3": { opacity: .10, softness: 10, spread: 32, offsetY: 3 }
+    })
+    function shadowProfile(level) {
+        return shadowProfiles[String(level)] || shadowProfiles["1"]
+    }
+    property color controlFillCenter: "#e2e2e6"
+    property real controlFillOpacity: .35
+    property color controlFillEdge: "#ffffff"
+    property real controlFillCenterExtent: .70
+    property real controlFillWhiteRimX: 0
+    property real controlFillWhiteRimY: 2
+    property real controlWhiteEdgeDepth: 3
+    property real controlWhiteEdgeAlpha: .10
+    readonly property var intensityProfiles: ({
+        "light": { refraction: 1.5, hoverRefraction: 2.25,
+            magnification: 1.012, hoverMagnification: 1.022,
+            reflection: .28, hoverReflection: .42, blur: 0, edgeShade: .04 },
+        "medium": { refraction: 3, hoverRefraction: 4.5,
+            magnification: 1.025, hoverMagnification: 1.045,
+            reflection: .50, hoverReflection: .72, blur: 0, edgeShade: .10 },
+        "strong": { refraction: 6, hoverRefraction: 8,
+            magnification: 1.05, hoverMagnification: 1.07,
+            reflection: .80, hoverReflection: 1.10, blur: .15, edgeShade: .10 }
+    })
+    function intensityProfile(level) {
+        return intensityProfiles[level] || intensityProfiles.medium
+    }
+
     property var _backdrops: []
 
     function registerBackdrop(backdrop) {

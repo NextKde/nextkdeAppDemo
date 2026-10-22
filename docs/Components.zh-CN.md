@@ -195,3 +195,11 @@ LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell�
 配合LiquidSurface.unfilteredBackdrop可将同一真实隐藏场景供给右侧清晰裁剪显示和另一个
 连续模糊的镜片，所有消费者必须排除在源之外。半透明折射层下不得再画原始清晰内容，
 以免漏出未折射副本形成双影。
+
+
+## 液态强度档位（2026-10-22）
+
+按钮 LiquidActionButton、输入 LiquidTextField 新增 liquidIntensity：light（轻）、medium（中）、strong（强）。默认跟随 LiquidStyle.intensityLevel=medium，保持现有中档参数；Gallery导航搜索单独设为strong。档位联动折射、放大、高光、局部模糊和向内染色；布局、字体、填充透明度不变。现有shader将向内染色上限限制为.10，所以中强两档此项相同，强档提高其他光学值。其他组件类型尚未接入档位。未截图、未运行验证。
+
+
+2026-10-22 填充修订：液态按钮和输入禁用原自适应向内染色，改为上下各3px白色10%→0渐隐。普通液态填充中心#f2f2f4向外椭圆渐变至#c4c4c8，两种主题使用同一灰白/灰色配色，默认20%与hover25%保持不变。主题色主操作按钮保留accent。折射shader关闭原均匀填充，由共享LiquidSurface单次绘制渐变，不重复叠加平色；对角高光与档位光学值不变。新增QML绘制无需更改或重烘焙QSB。未运行验证。

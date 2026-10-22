@@ -3,9 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
     id: example
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     objectName: "reviewSegmented"
     property int viewIndex: 0
     property bool confirmRequests: true
@@ -19,7 +23,7 @@ ColumnLayout {
     function resetReview() { sample._endPress(); confirmRequests = true; viewIndex = 0; requestCount = 0 }
     function previewState() { return JSON.stringify({ currentIndex: sample.currentIndex, visualIndex: sample._visualIndex, pendingIndex: sample._pendingIndex, pressedIndex: sample._pressedIndex, lensX: sample._lensPosition, requestCount: requestCount, confirmRequests: confirmRequests, sampling: sample.sampling }) }
 
-    Label { text: "Liquid selection · real host confirmation"; color: Ui.AppTheme.text }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Interactive selection", "交互选择") }
     Item {
         Layout.fillWidth: true
         Layout.preferredHeight: 112
@@ -53,9 +57,9 @@ ColumnLayout {
             onSelectionRequested: function(index) { example.requestCount++; if (example.confirmRequests) example.viewIndex = index }
         }
     }
-    Label { text: "Disabled"; color: Ui.AppTheme.mutedText }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Disabled", "禁用") }
     Controls.LiquidSegmentedControl { Layout.preferredWidth: 330; materialForm: false; labels: ["Day", "Week", "Month"]; currentIndex: example.viewIndex; enabled: false }
-    Label { text: "Preserved Material"; color: Ui.AppTheme.mutedText }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".3"; title: example.tr("Solid variant", "实色形态") }
     Controls.LiquidSegmentedControl { Layout.preferredWidth: 330; materialForm: true; labels: ["Day", "Week", "Month"]; currentIndex: example.viewIndex; onSelectionRequested: index => example.viewIndex = index }
     Label { text: ["Day view", "Week view", "Month view"][example.viewIndex]; color: Ui.AppTheme.text; font.pixelSize: 20 }
     Label { text: "Click or use arrow keys. The host confirms selectionRequested; unconfirmed requests roll back after the existing deadline. Review hooks sample the actual moving lens, not pointer events."; color: Ui.AppTheme.mutedText; Layout.fillWidth: true; wrapMode: Text.WordWrap }

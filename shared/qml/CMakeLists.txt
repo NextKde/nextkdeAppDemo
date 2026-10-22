@@ -64,6 +64,10 @@ qt_add_qml_module(kos_ui
         controls/LiquidSegmentedControl.qml
         controls/SelectionHighlight.qml
     RESOURCES
+        controls/shaders/liquid_highlight_full_extended.frag
+        controls/shaders/liquid_highlight_full_extended.frag.qsb
+        controls/shaders/liquid_highlight_full_extended_fallback.frag
+        controls/shaders/liquid_highlight_full_extended_fallback.frag.qsb
         controls/shaders/liquid_convex.vert
         controls/shaders/liquid_highlight_tint.vert
         controls/shaders/liquid_highlight_tint.vert.qsb

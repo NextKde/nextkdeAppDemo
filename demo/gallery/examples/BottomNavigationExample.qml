@@ -3,9 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../../Kos/Ui/foundation" as Ui
 import "../../Kos/Ui/controls" as Controls
+import "../components" as Sections
 
 ColumnLayout {
     id: example
+    property string language: "en"
+    property string sectionPrefix: "01"
+    function tr(en, zh) { return language === "zh" ? zh : en }
     objectName: "reviewNav"
     property int destination: 0
     property int requestCount: 0
@@ -82,6 +86,7 @@ ColumnLayout {
             if (example._nextFrame === example._delays.length) stop()
         }
     }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Interactive navigation", "交互导航") }
     Item {
         id: navScene
         Layout.fillWidth: true; Layout.preferredHeight: 156
@@ -115,13 +120,13 @@ ColumnLayout {
             onSelectionChanged: function(index) { example.requestCount++; example.destination = index }
         }
     }
-    Label { text: "Disabled"; color: Ui.AppTheme.mutedText }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Disabled", "禁用") }
     Controls.LiquidNavBar {
         model: example.navigationItems; disabled: true; materialForm: false
         itemColor: Ui.AppTheme.text; accentColor: Ui.AppTheme.accent
         trackColor: Ui.AppTheme.withAlpha(Ui.AppTheme.windowRaised, .5)
     }
-    Label { text: "Preserved Material"; color: Ui.AppTheme.mutedText }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".3"; title: example.tr("Solid variant", "实色形态") }
     Controls.LiquidNavBar {
         model: example.navigationItems; materialForm: true
         currentIndex: example.destination
