@@ -96,9 +96,9 @@ TextField {
             gradientFill: true
             fillCenterExtent: LiquidStyle.controlFillCenterExtent
             fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
-            fillWhiteRimY: root.darkAppearance ? LiquidStyle.controlFillWhiteRimYDark : LiquidStyle.controlFillWhiteRimY
-            fillEdgeSpanY: root.darkAppearance ? LiquidStyle.controlFillWhiteRimYDark : -1
-            fillEdgeColor: root.darkAppearance ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillEdge
+            fillWhiteRimY: root.darkAppearance ? 0 : LiquidStyle.controlFillWhiteRimY
+            fillEdgeSpanY: root.darkAppearance ? LiquidStyle.controlFillEdgeSpanDark : -1
+            fillEdgeColor: root.darkAppearance ? LiquidStyle.controlFillEdgeDark : LiquidStyle.controlFillEdge
             whiteEdgeDepth: 0
             whiteEdgeAlpha: 0
             unfilteredBackdrop: root.unfilteredBackdrop

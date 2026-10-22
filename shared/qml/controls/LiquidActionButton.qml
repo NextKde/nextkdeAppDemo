@@ -95,9 +95,9 @@ Button {
         gradientFill: true
         fillCenterExtent: LiquidStyle.controlFillCenterExtent
         fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
-        fillWhiteRimY: Foundation.AppTheme.dark ? LiquidStyle.controlFillWhiteRimYDark : LiquidStyle.controlFillWhiteRimY
-        fillEdgeSpanY: Foundation.AppTheme.dark ? LiquidStyle.controlFillWhiteRimYDark : -1
-        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillEdge
+        fillWhiteRimY: Foundation.AppTheme.dark ? 0 : LiquidStyle.controlFillWhiteRimY
+        fillEdgeSpanY: Foundation.AppTheme.dark ? LiquidStyle.controlFillEdgeSpanDark : -1
+        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillEdgeDark : LiquidStyle.controlFillEdge
         whiteEdgeDepth: 0
         whiteEdgeAlpha: 0
         // Preserve the actual sampled texture; the bezel supplies depth.

@@ -17,6 +17,8 @@ QtObject {
     }
     property color controlFillCenter: "#e2e2e6"
     property color controlFillCenterDark: "#20252f"
+    property color controlFillEdgeDark: "#77777d"
+    property real controlFillEdgeSpanDark: 4
     property real controlFillOpacity: .35
     property color controlFillEdge: "#ffffff"
     property real controlFillCenterExtent: .70
