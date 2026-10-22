@@ -4,6 +4,7 @@ import "../foundation" as Foundation
 
 Foundation.KosDialog {
     id: root
+    property alias contentBackdrop: dialogBackdrop
     padding: 20
     header: Label {
         text: root.title
@@ -17,16 +18,21 @@ Foundation.KosDialog {
         LiquidOuterShadow {
             anchors.fill: parent; radius: 24
             shadowColor: Foundation.AppTheme.dark ? "#606064" : "#000000"
-            shadowOpacity: .22; softness: 14; spread: 36
+            shadowOpacity: .32; softness: 20; spread: 52
             outwardOffset: 0; offset: Qt.vector2d(0, 0)
         }
-        LiquidSurface { anchors.fill: parent; radius: 24; readability: 0.60 }
+        Rectangle {
+            id: dialogFill
+            anchors.fill: parent; radius: 24
+            color: Foundation.AppTheme.dark ? "#29292d" : "#eeeef0"
+        }
+        LiquidBackdrop { id: dialogBackdrop; sourceItem: dialogFill; registerAsDefault: false }
     }
     footer: DialogButtonBox {
         standardButtons: root.standardButtons
         delegate: LiquidActionButton {
             materialForm: true
-            surfaceColor: Foundation.AppTheme.dark ? "#3a3a3c" : "#e8e8ed"
+            surfaceColor: Foundation.AppTheme.dark ? "#454549" : "#d2d2d7"
             textColor: Foundation.AppTheme.text
         }
         background: Item {}
