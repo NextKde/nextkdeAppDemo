@@ -13,7 +13,7 @@ Foundation.KosDialog {
         font.pixelSize: 20
         font.weight: Font.DemiBold
     }
-    Overlay.modal: Rectangle { color: "transparent" }
+    Overlay.modal: Rectangle { color: Qt.rgba(0, 0, 0, 0.25) }
     background: Item {
         LiquidOuterShadow {
             anchors.fill: parent; radius: 24
