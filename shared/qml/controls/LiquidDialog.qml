@@ -29,6 +29,7 @@ Foundation.KosDialog {
         LiquidBackdrop { id: dialogBackdrop; sourceItem: dialogFill; registerAsDefault: false }
     }
     footer: DialogButtonBox {
+        alignment: Qt.AlignHCenter
         standardButtons: root.standardButtons
         delegate: LiquidActionButton {
             materialForm: true
