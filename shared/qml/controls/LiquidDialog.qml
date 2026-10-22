@@ -15,7 +15,11 @@ Foundation.KosDialog {
     background: LiquidSurface { radius: 24; readability: 0.60 }
     footer: DialogButtonBox {
         standardButtons: root.standardButtons
-        delegate: LiquidActionButton {}
+        delegate: LiquidActionButton {
+            materialForm: true
+            surfaceColor: Foundation.AppTheme.dark ? "#3a3a3c" : "#e8e8ed"
+            textColor: Foundation.AppTheme.text
+        }
         background: Item {}
         onAccepted: root.accept()
         onRejected: root.reject()
