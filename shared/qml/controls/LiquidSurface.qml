@@ -15,6 +15,8 @@ Item {
     property real fillWhiteRim: 0
     property real fillWhiteRimX: fillWhiteRim
     property real fillWhiteRimY: fillWhiteRim
+    // Optional total vertical fill-edge width, including its transition; not the optical rim.
+    property real fillEdgeSpanY: -1
     property real whiteEdgeDepth: 0
     property real whiteEdgeAlpha: 0
     // Pigmented diffuse finish for unsampled surfaces; never claims external blur.
@@ -129,6 +131,7 @@ Item {
             function onFillWhiteRimChanged() { controlFill.requestPaint() }
             function onFillWhiteRimXChanged() { controlFill.requestPaint() }
             function onFillWhiteRimYChanged() { controlFill.requestPaint() }
+            function onFillEdgeSpanYChanged() { controlFill.requestPaint() }
             function onGradientFillChanged() { controlFill.requestPaint() }
             function onWhiteEdgeDepthChanged() { controlFill.requestPaint() }
             function onWhiteEdgeAlphaChanged() { controlFill.requestPaint() }
@@ -149,8 +152,9 @@ Item {
             if (root.gradientFill) {
                 ctx.save()
                 if (root.fillWhiteRimX === 0) {
-                    const rim = Math.min(Math.max(0, root.fillWhiteRimY), height / 2)
-                    const fade = Math.max(.01, (height / 2 - rim)
+                    const span = root.fillEdgeSpanY >= 0 ? Math.min(root.fillEdgeSpanY, height / 2) : -1
+                    const rim = Math.min(Math.max(0, root.fillWhiteRimY), span >= 0 ? span / 2 : height / 2)
+                    const fade = span >= 0 ? span - rim : Math.max(.01, (height / 2 - rim)
                         * (1 - Math.max(0, Math.min(.99, root.fillCenterExtent))))
                     const outer = rim / height
                     const inner = Math.min(.5, (rim + fade) / height)

@@ -96,8 +96,9 @@ TextField {
             gradientFill: true
             fillCenterExtent: LiquidStyle.controlFillCenterExtent
             fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
-            fillWhiteRimY: LiquidStyle.controlFillWhiteRimY
-            fillEdgeColor: LiquidStyle.controlFillEdge
+            fillWhiteRimY: root.darkAppearance ? LiquidStyle.controlFillWhiteRimYDark : LiquidStyle.controlFillWhiteRimY
+            fillEdgeSpanY: root.darkAppearance ? LiquidStyle.controlFillWhiteRimYDark : -1
+            fillEdgeColor: root.darkAppearance ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillEdge
             whiteEdgeDepth: 0
             whiteEdgeAlpha: 0
             unfilteredBackdrop: root.unfilteredBackdrop
@@ -106,7 +107,7 @@ TextField {
             radius: root.cornerRadius
             backdrop: root.backdrop
             darkAppearance: root.darkAppearance
-            tintColor: LiquidStyle.controlFillCenter
+            tintColor: root.darkAppearance ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillCenter
             tintStrength: LiquidStyle.controlFillOpacity
             Behavior on tintStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
             blurStrength: root.blurStrength

@@ -95,8 +95,9 @@ Button {
         gradientFill: true
         fillCenterExtent: LiquidStyle.controlFillCenterExtent
         fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
-        fillWhiteRimY: LiquidStyle.controlFillWhiteRimY
-        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : LiquidStyle.controlFillEdge
+        fillWhiteRimY: Foundation.AppTheme.dark ? LiquidStyle.controlFillWhiteRimYDark : LiquidStyle.controlFillWhiteRimY
+        fillEdgeSpanY: Foundation.AppTheme.dark ? LiquidStyle.controlFillWhiteRimYDark : -1
+        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillEdge
         whiteEdgeDepth: 0
         whiteEdgeAlpha: 0
         // Preserve the actual sampled texture; the bezel supplies depth.
@@ -111,7 +112,7 @@ Button {
         backdrop: root.materialForm ? null : root.backdrop
         reflectionStrength: root.hovered ? root._intensity.hoverReflection : root._intensity.reflection
         Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-        tintColor: root.highlighted || root.checked ? root.accentColor : LiquidStyle.controlFillCenter
+        tintColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillCenter
         tintStrength: root.highlighted || root.checked ? 0.24 : LiquidStyle.controlFillOpacity
         Behavior on tintStrength {
             NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast }

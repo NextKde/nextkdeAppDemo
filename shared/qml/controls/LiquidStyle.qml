@@ -16,11 +16,13 @@ QtObject {
         return shadowProfiles[String(level)] || shadowProfiles["1"]
     }
     property color controlFillCenter: "#e2e2e6"
+    property color controlFillCenterDark: "#20252f"
     property real controlFillOpacity: .35
     property color controlFillEdge: "#ffffff"
     property real controlFillCenterExtent: .70
     property real controlFillWhiteRimX: 0
     property real controlFillWhiteRimY: 2
+    property real controlFillWhiteRimYDark: 1
     property real controlWhiteEdgeDepth: 3
     property real controlWhiteEdgeAlpha: .10
     readonly property var intensityProfiles: ({
