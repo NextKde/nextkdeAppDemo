@@ -132,16 +132,20 @@ backdrop时反光一致。软件路径为克制的方向性Canvas光弧，不声
 Gallery按钮页包含真实彩色条纹纹理及启用/禁用按钮、中英文输入，可实际悬停/按下/Tab/选择。
 编译和shader bake不等于视觉验收。
 
-独立旧材质仍待逐项审查：LiquidSelect闭合场与弹层、LiquidGlassSwitch轨道/拇指、
+独立旧材质仍待逐项审查：LiquidSelect弹层、LiquidGlassSwitch轨道/拇指、
 LiquidNavBar、LiquidSegmentedControl。必须保留Material分支及焦点指示；本轮未宣称全库完成。
 
 ### 选择器闭合场与弹层
 
-LiquidSelect 非Material的闭合场和选项弹层改为共享LiquidSurface，移除上亮下黑的
-金属边缘与固定高光斑。可选backdrop让两者采样同一有效窗口内纹理，sheetColor仍控制
-弹层颜色/透明度。Material实心描边/填充分支保留，activated(index)、乐观选择及宿主
-确认/回滚契约不变。真实键盘焦点独立绘制，保留Tab、方向键、Enter、Escape流程，
-弹层/反光过渡尊重减少动态。Gallery增加普通/禁用/Material对照。
+LiquidSelect 的闭合按钮直接复用 LiquidActionButton：materialForm 为 true 时是普通
+实色下拉框，为 false 时与液态 Button 共用填充、高光、折射和悬停外观。
+liquidIntensity 共用 Button 的强度档位；shadowEnabled 默认关闭，shadowLevel 共用
+阴影档位。箭头使用矢量图标。appearanceMode 继续支持独立的深浅色外观。
+Button 新增的 darkAppearance、reduceMotion 默认跟随 AppTheme，原调用方默认效果不变。
+
+选项弹层保留实色/液态分支及 sheetColor，backdrop 提供有效窗口内纹理。
+activated(index)、乐观选择及宿主确认/回滚契约不变，保留独立焦点环和 Tab、方向键、
+Enter、Escape 操作，过渡尊重减少动态。Gallery 展示液态、禁用和普通款。
 按钮页的旋转条纹源现裁切在场景边界内，不改变玻璃自身裁切与采样映射。
 
 ### 开关与分段控件反光审阅

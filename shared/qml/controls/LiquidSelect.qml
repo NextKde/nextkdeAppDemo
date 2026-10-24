@@ -5,8 +5,8 @@ import QtQuick.Controls
 import QtQuick.Window
 import "../foundation" as Foundation
 
-// Host-owned select state with a shared liquid surface or preserved Material
-// outline. Decorative reflection is independent from actual keyboard focus.
+// Host-owned selection with the same solid/liquid trigger as LiquidActionButton.
+// Decorative reflection is independent from actual keyboard focus.
 Item {
     id: root
 
@@ -17,7 +17,7 @@ Item {
     activeFocusOnTab: true
     opacity: enabled ? 1 : .38
 
-    property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
+    property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property var model: []
     property string textRole: ""
@@ -32,11 +32,14 @@ Item {
     property color selectedTextColor: accentColor
     property color textColor: darkAppearance ? "#f5f5f7" : "#1d1d1f"
     property color mutedTextColor: darkAppearance ? "#98989d" : "#6e6e73"
-    property color sheetColor: darkAppearance ? "#262b31" : "#f6f8fb"
+    property color sheetColor: darkAppearance ? "#262b31" : "#ffffff"
     property color outlineColor: darkAppearance ? Qt.rgba(1, 1, 1, 0.16) : Qt.rgba(0, 0, 0, 0.12)
-    // Material 3 hosts draw the full-radius outlined dropdown; everything
-    // else gets the plain rounded field. Follows the application-wide form.
+    // Solid or liquid button appearance, following the application-wide form.
     property bool materialForm: ControlForm.materialForm
+
+    property string liquidIntensity: LiquidStyle.intensityLevel
+    property bool shadowEnabled: false
+    property int shadowLevel: LiquidStyle.shadowLevel
 
     readonly property real fieldRadius: height / 2
 
@@ -58,7 +61,6 @@ Item {
         return color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722 < 0.5
     }
 
-    property bool _hovered: false
     // Optimistic visual selection, confirmed or rolled back by
     // confirmationTimer once the owner's async write lands (or doesn't).
     property int _visualIndex: 0
@@ -139,98 +141,73 @@ Item {
         }
     }
 
-    Item {
+    LiquidActionButton {
         id: field
         anchors.fill: parent
+        // Root owns keyboard focus and accessibility; the trigger handles pointer input.
+        focusPolicy: Qt.NoFocus
+        Accessible.ignored: true
+        opacity: 1 // Disabled opacity is applied once by root.
+        materialForm: root.materialForm
+        backdrop: root.backdrop
+        liquidIntensity: root.liquidIntensity
+        darkAppearance: root.darkAppearance
+        reduceMotion: root.reduceMotion
+        shadowEnabled: root.shadowEnabled
+        shadowLevel: root.shadowLevel
+        textColor: root.textColor
+        accentColor: root.accentColor
+        focusRingColor: root.focusRingColor
+        surfaceColor: root.darkAppearance ? "#303640" : "#e9eaed"
+        leftPadding: 13
+        rightPadding: 12
+        topPadding: 0
+        bottomPadding: 0
+        onPressed: root.forceActiveFocus(Qt.MouseFocusReason)
+        onClicked: root.toggleMenu()
 
-        // Preserve the tonal branch's solid outline and flat inset fill.
-        Rectangle {
-            anchors.fill: parent
-            visible: root.materialForm
-            radius: root.fieldRadius
-            color: root.activeFocus || menu.opened ? root.focusRingColor : root.outlineColor
-            Rectangle {
-                anchors.fill: parent
-                anchors.margins: 1
-                radius: Math.max(0, root.fieldRadius - 1)
-                color: root.darkAppearance
-                    ? Qt.rgba(1, 1, 1, root._hovered || menu.opened ? .12 : .08)
-                    : Qt.rgba(0, 0, 0, root._hovered || menu.opened ? .08 : .05)
+        contentItem: Item {
+            implicitWidth: label.implicitWidth + 9 + chevron.implicitWidth
+            implicitHeight: Math.max(label.implicitHeight, chevron.implicitHeight)
+            Text {
+                id: label
+                width: Math.max(0, parent.width - chevron.width - 9)
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.labelAt(root._visualIndex) || root.placeholder
+                color: root.labelAt(root._visualIndex).length > 0 ? root.textColor : root.mutedTextColor
+                font.pixelSize: 13
+                font.weight: Font.Medium
+                elide: Text.ElideRight
+            }
+            VectorIcon {
+                id: chevron
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                name: "chevron"
+                size: 14
+                color: root.mutedTextColor
+                rotation: menu.opened ? 180 : 0
+                Behavior on rotation {
+                    NumberAnimation { duration: root.reduceMotion ? 0 : 150; easing.type: Easing.OutCubic }
+                }
             }
         }
-        LiquidSurface {
-            anchors.fill: parent
-            visible: !root.materialForm
-            radius: root.fieldRadius
-            backdrop: root.backdrop
-            darkAppearance: root.darkAppearance
-            tintColor: root.darkAppearance ? "#ffffff" : "#000000"
-            tintStrength: root.darkAppearance
-                ? (root._hovered || menu.opened ? .12 : .08)
-                : (root._hovered || menu.opened ? .08 : .05)
-            readability: 0
-            blurStrength: .35
-            refractionStrength: 1.5
-            magnification: 1.015
-            reflectionStrength: pointer.pressed ? .65 : root._hovered || menu.opened ? .52 : .38
-            rimColor: root.outlineColor
-            Behavior on reflectionStrength { NumberAnimation { duration: root.reduceMotion ? 0 : 150; easing.type: Easing.OutCubic } }
-        }
-        Rectangle {
-            anchors.fill: parent
-            anchors.margins: -1
-            radius: root.fieldRadius
-            visible: !root.materialForm && (root.activeFocus || menu.opened)
-            color: "transparent"
-            border.width: 2
-            border.color: root.focusRingColor
-        }
-        Text {
-            id: label
-            x: 13
-            width: Math.max(0, parent.width - x - 12 - chevron.implicitWidth - 9)
-            anchors.verticalCenter: parent.verticalCenter
-            text: root.labelAt(root._visualIndex) || root.placeholder
-            color: root.labelAt(root._visualIndex).length > 0 ? root.textColor : root.mutedTextColor
-            font.pixelSize: 13
-            font.weight: Font.Medium
-            elide: Text.ElideRight
-        }
-        Text {
-            id: chevron
-            anchors.right: parent.right
-            anchors.rightMargin: 12
-            anchors.verticalCenter: parent.verticalCenter
-            text: "↕"
-            color: root.mutedTextColor
-            font.pixelSize: 13
-        }
-    }
 
-    MouseArea {
-        id: pointer
-        anchors.fill: parent
-        hoverEnabled: true
-        enabled: root.enabled
-        cursorShape: Qt.PointingHandCursor
-        onEntered: root._hovered = true
-        onExited: root._hovered = false
-        onPressed: root.forceActiveFocus()
-        onClicked: root.toggleMenu()
     }
 
     // ── Choice sheet ─────────────────────────────────────────────────────
 
     Popup {
         id: menu
-        width: Math.max(188, root.width + 34)
-        implicitHeight: Math.min(360, choices.implicitHeight + 12)
-        padding: 6
+        width: Math.max(160, root.width)
+        implicitHeight: Math.min(360, choices.implicitHeight + 8)
+        readonly property real panelRadius: 12
+        padding: 4
         modal: false
         focus: true
         // Not CloseOnPressOutside: that closes on the pill press itself, and
         // the pill's click would then toggle straight back open. Outside
-        // presses close here; the pill toggles through its own MouseArea.
+        // presses close here; the trigger button toggles itself.
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
         onOpened: scroller.focusCurrent()
         onClosed: { if (root.enabled) root.forceActiveFocus(Qt.PopupFocusReason) }
@@ -247,7 +224,7 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 visible: root.materialForm
-                radius: 12
+                radius: menu.panelRadius
                 color: root.sheetColor
                 border.width: 1
                 border.color: root.outlineColor
@@ -255,17 +232,18 @@ Item {
             LiquidSurface {
                 anchors.fill: parent
                 visible: !root.materialForm
-                radius: 12
+                radius: menu.panelRadius
                 backdrop: root.backdrop
                 darkAppearance: root.darkAppearance
                 tintColor: Qt.rgba(root.sheetColor.r, root.sheetColor.g, root.sheetColor.b, 1)
-                tintStrength: root.sheetColor.a
+                tintStrength: 0.92
                 readability: 0
-                blurStrength: .55
-                refractionStrength: 1.5
-                magnification: 1.015
-                reflectionStrength: .35
-                rimColor: root.outlineColor
+                blurStrength: LiquidStyle.intensityProfile(root.liquidIntensity).blur
+                refractionStrength: LiquidStyle.intensityProfile(root.liquidIntensity).refraction
+                magnification: LiquidStyle.intensityProfile(root.liquidIntensity).magnification
+                reflectionStrength: LiquidStyle.intensityProfile(root.liquidIntensity).reflection
+                fullHighlight: true
+                edgeShadeStrength: 0
             }
         }
         contentItem: Flickable {
@@ -290,8 +268,8 @@ Item {
 
                         required property var modelData
                         required property int index
-                        width: menu.width - 12
-                        height: 36
+                        width: menu.width - menu.leftPadding - menu.rightPadding
+                        height: 28
                         enabled: root.enabled
                         activeFocusOnTab: false
 
@@ -324,7 +302,7 @@ Item {
                             event.accepted = true
                         }
 
-                        // Keep the highlighted row visible while navigating.
+                        // Keep the keyboard target visible while navigating.
                         onActiveFocusChanged: {
                             if (!activeFocus) return
                             const yTop = choiceDelegate.mapToItem(scroller, 0, 0).y
@@ -338,42 +316,32 @@ Item {
 
                         Rectangle {
                             anchors.fill: parent
-                            radius: 8
-                            color: choiceDelegate.index === root._visualIndex
-                                ? Qt.rgba(root.accentColor.r, root.accentColor.g,
-                                          root.accentColor.b, root.darkAppearance ? 0.22 : 0.13)
-                                : (hit.containsMouse
-                                   ? (root.darkAppearance ? Qt.rgba(1, 1, 1, 0.07) : Qt.rgba(0, 0, 0, 0.05))
-                                   : "transparent")
-                            Behavior on color { ColorAnimation { duration: 120 } }
-                        }
-                        Rectangle {
-                            anchors.fill: parent
-                            anchors.margins: 1
-                            radius: 7
-                            visible: choiceDelegate.activeFocus
-                            color: "transparent"
-                            border.width: 2
-                            border.color: root.focusRingColor
+                            radius: Math.max(0, menu.panelRadius - menu.padding)
+                            color: hit.containsMouse
+                                ? (root.darkAppearance ? "#0a84ff" : "#007aff")
+                                : "transparent"
+                            // Switch together with the label/check colours; fading only
+                            // the background briefly puts white text on a pale surface.
                         }
                         Text {
                             anchors.left: parent.left
-                            anchors.leftMargin: 14
+                            anchors.leftMargin: 28
+                            anchors.right: parent.right
+                            anchors.rightMargin: 12
                             anchors.verticalCenter: parent.verticalCenter
                             text: root.labelAt(parent.index)
-                            color: choiceDelegate.index === root._visualIndex
-                                ? root.selectedTextColor : root.textColor
+                            elide: Text.ElideRight
+                            color: hit.containsMouse ? "#ffffff" : root.textColor
                             font.pixelSize: 13
-                            font.weight: choiceDelegate.index === root._visualIndex
-                                ? Font.DemiBold : Font.Normal
+                            font.weight: Font.Normal
                         }
                         VectorIcon {
-                            anchors.right: parent.right
-                            anchors.rightMargin: 13
+                            anchors.left: parent.left
+                            anchors.leftMargin: 8
                             anchors.verticalCenter: parent.verticalCenter
                             visible: choiceDelegate.index === root._visualIndex
                             name: "check"
-                            color: root.selectedTextColor
+                            color: hit.containsMouse ? "#ffffff" : root.textColor
                             size: 13
                         }
                         MouseArea {

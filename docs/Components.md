@@ -153,23 +153,27 @@ The Button example includes a real coloured/striped source texture, enabled and
 disabled buttons and a typed field. Interact with hover/press/tab/selection in both
 appearances; a source export or shader bake is not visual acceptance.
 
-Independent legacy optics still need separate review: LiquidSelect (closed field
-and popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
+Independent legacy optics still need separate review: LiquidSelect (popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
 LiquidSegmentedControl. Their Material branches and focus indicators must remain
 intact. This surface change does not claim to finish those controls.
 
 ### Select field and popup
 
-`LiquidSelect` now uses `LiquidSurface` for its non-Material closed field and
-choice sheet. The former bright-top/dark-bottom perimeter and parked glint are
-removed. An optional `backdrop` property supplies the same eligible in-window
-texture to both surfaces. `sheetColor` still controls popup colour/opacity.
-The Material branch retains its solid outline/fill. `activated(index)`, optimistic
-selection and owner acknowledgement/rollback stay unchanged. Actual keyboard
-focus has a separate indicator, and Tab plus arrow/Enter/Escape navigation remain
-available. Popup/reflection transitions respect reduced motion.
+`LiquidSelect` reuses `LiquidActionButton` for its closed trigger: `materialForm:
+true` selects an ordinary solid fill; `false` selects the same liquid fill,
+highlight, refraction and hover treatment as Button. `liquidIntensity` shares
+Button's presets; `shadowEnabled` defaults to false and `shadowLevel` shares its
+shadow presets. The dropdown uses a vector chevron rather than a font glyph.
+`appearanceMode` continues to control light/dark appearance independently of the
+host theme. Button's new `darkAppearance` and `reduceMotion` overrides default to
+AppTheme, so existing Button users retain their defaults.
 
-The Gallery select example exposes normal/disabled/preserved-Material controls.
+The choice sheet retains its solid/liquid branches and `sheetColor`; `backdrop`
+provides eligible in-window texture. `activated(index)`, optimistic selection and
+owner acknowledgement/rollback remain unchanged. Keyboard focus has a separate
+indicator; Tab, arrows, Enter and Escape remain available. Transitions respect
+reduced motion. The Gallery shows liquid, disabled and standard variants.
+
 The Button example's coloured source clips its rotated stripes to the scene
 boundary; this does not change glass clipping or sample-mapping rules.
 

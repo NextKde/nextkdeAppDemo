@@ -47,9 +47,10 @@ export const entries = [
     },
     {
         id: "combo-box", name: "Combo box", zh: "下拉选择", group: "input", type: "LiquidSelect",
-        summary: "Pick an option from a glass dropdown; the host confirms activated(index).", summaryZh: "从玻璃下拉框选择选项，由宿主确认 activated(index)。",
+        summary: "Standard or liquid dropdown, with the same trigger surface as Button.", summaryZh: "普通或液态下拉框，触发按钮与 Button 共用外观。",
         source: "shared/qml/controls/LiquidSelect.qml", example: "ComboBoxExample.qml",
         api: [["model / textRole / currentIndex", "Options, display role and selection.", "选项、显示字段和当前选择。"],
+              ["materialForm / liquidIntensity", "Solid when materialForm is true; otherwise use Button’s liquid intensity.", "materialForm 为 true 时为普通实色，否则使用 Button 的液态强度。"],
               ["activated(int index)", "Handle a user selection.", "处理用户选择。"]]
     },
     {

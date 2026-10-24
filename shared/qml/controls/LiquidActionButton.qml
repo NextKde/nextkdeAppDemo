@@ -9,6 +9,8 @@ Button {
     readonly property var _intensity: LiquidStyle.intensityProfile(liquidIntensity)
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property bool materialForm: ControlForm.materialForm
+    property bool darkAppearance: Foundation.AppTheme.dark
+    property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property bool secondary: false
     property bool destructive: false
     // Compact glyph actions keep their content centered without label insets.
@@ -22,7 +24,7 @@ Button {
     property real iconSize: 16
     property color textColor: destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
     property color iconColor: textColor
-    property color surfaceColor: Foundation.AppTheme.dark ? "#20252f" : "#ffffff"
+    property color surfaceColor: root.darkAppearance ? "#20252f" : "#ffffff"
     property color accentColor: Foundation.AppTheme.accent
     property color focusRingColor: Foundation.AppTheme.focusRing
     property bool keyboardFocusOnly: false
@@ -37,7 +39,7 @@ Button {
     leftPadding: iconOnly ? 0 : 14
     rightPadding: iconOnly ? 0 : 14
     scale: materialForm ? (down ? .98 : 1) : hovered ? 1.03 : 1
-    Behavior on scale { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
+    Behavior on scale { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
     opacity: enabled ? 1 : 0.38
     contentItem: Item {
         implicitWidth: root.iconName.length ? root.iconSize : caption.implicitWidth
@@ -89,15 +91,16 @@ Button {
         id: buttonGlass
         anchors.fill: parent
         visible: !root.materialForm
+        darkAppearance: root.darkAppearance
         convexLens: root.convexLens
         edgeShadeStrength: 0
         fullHighlight: true
         gradientFill: true
         fillCenterExtent: LiquidStyle.controlFillCenterExtent
         fillWhiteRimX: LiquidStyle.controlFillWhiteRimX
-        fillWhiteRimY: Foundation.AppTheme.dark ? 0 : LiquidStyle.controlFillWhiteRimY
-        fillEdgeSpanY: Foundation.AppTheme.dark ? LiquidStyle.controlFillEdgeSpanDark : -1
-        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillEdgeDark : LiquidStyle.controlFillEdge
+        fillWhiteRimY: root.darkAppearance ? 0 : LiquidStyle.controlFillWhiteRimY
+        fillEdgeSpanY: root.darkAppearance ? LiquidStyle.controlFillEdgeSpanDark : -1
+        fillEdgeColor: root.highlighted || root.checked ? root.accentColor : root.darkAppearance ? LiquidStyle.controlFillEdgeDark : LiquidStyle.controlFillEdge
         whiteEdgeDepth: 0
         whiteEdgeAlpha: 0
         // Preserve the actual sampled texture; the bezel supplies depth.
@@ -106,16 +109,16 @@ Button {
         edgeWidth: Math.min(10, height * .28)
         refractionStrength: root.hovered ? root._intensity.hoverRefraction : root._intensity.refraction
         magnification: root.hovered ? root._intensity.hoverMagnification : root._intensity.magnification
-        Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-        Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+        Behavior on refractionStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+        Behavior on magnification { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
         radius: height / 2
         backdrop: root.materialForm ? null : root.backdrop
         reflectionStrength: root.hovered ? root._intensity.hoverReflection : root._intensity.reflection
-        Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-        tintColor: root.highlighted || root.checked ? root.accentColor : Foundation.AppTheme.dark ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillCenter
+        Behavior on reflectionStrength { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+        tintColor: root.highlighted || root.checked ? root.accentColor : root.darkAppearance ? LiquidStyle.controlFillCenterDark : LiquidStyle.controlFillCenter
         tintStrength: root.highlighted || root.checked ? 0.24 : LiquidStyle.controlFillOpacity
         Behavior on tintStrength {
-            NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast }
+            NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast }
         }
         opacity: root.flat && !root.hovered && !root.checked && !root.visualFocus ? 0.45 : 1
         }
