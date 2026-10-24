@@ -6,63 +6,91 @@ import "../../Kos/Ui/controls" as Controls
 import "../components" as Sections
 
 ColumnLayout {
-    id: galleryExample
+    id: example
     property string language: "en"
     property string sectionPrefix: "01"
     function tr(en, zh) { return language === "zh" ? zh : en }
     spacing: 16
-    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".1"; title: galleryExample.tr("Content card", "内容卡片") }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Ordinary content card", "普通内容卡片") }
     Controls.LiquidCard {
-        id: example
+        id: card
         Layout.fillWidth: true
+        materialForm: true; radius: 8; padding: 12
         property bool saved: false
         contentItem: ColumnLayout {
             spacing: 12
-            Label { text: "A reusable content card"; color: Ui.AppTheme.text; font.bold: true }
-            Label { Layout.fillWidth: true; text: example.saved ? "Your example item was saved." : "Default card appearance remains unchanged."; color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap }
-            Controls.LiquidActionButton { text: "Save item"; onClicked: example.saved = true }
+            Label { text: example.tr("A reusable content card", "可复用内容卡片"); color: Ui.AppTheme.text; font.bold: true }
+            Label {
+                Layout.fillWidth: true
+                text: card.saved ? example.tr("Saved.", "已保存。")
+                    : example.tr("Content uses ordinary material.", "内容表面使用普通材质。")
+                color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap
+            }
+            Controls.LiquidActionButton { materialForm: true; text: example.tr("Save item", "保存"); onClicked: card.saved = true }
         }
     }
-    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".2"; title: galleryExample.tr("Diffuse surface", "漫反射表面") }
-    Controls.LiquidSurface {
-        Layout.fillWidth: true; Layout.preferredHeight: 96
-        radius: 0; backdrop: null; diffuseStrength: .8; tintStrength: .95
-        tintColor: Ui.AppTheme.dark ? "#24282b" : "#eceef0"; reflectionStrength: .08
-        Label { anchors.centerIn: parent; text: "Diffuse face · static pigment, no backdrop sampling"; color: Ui.AppTheme.text }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Floating search panel", "浮动搜索面板") }
+    Label {
+        Layout.fillWidth: true
+        text: example.tr("One adaptive glass container; ordinary search and list inside.", "外层一层自适应玻璃，内部搜索和列表使用普通材质。")
+        color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap
     }
-    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".3"; title: galleryExample.tr("Floating card over content", "覆盖内容的悬浮卡片") }
     Item {
         Layout.fillWidth: true; Layout.preferredHeight: 240
         Item {
             id: scene
-            anchors.fill: parent; clip: true
-            Rectangle { anchors.fill: parent; color: Ui.AppTheme.dark ? "#292d33" : "#e3e5e7" }
+            anchors.fill: parent
             Flickable {
-                anchors.fill: parent; contentHeight: rows.height + 120; clip: true
+                anchors.fill: parent; contentHeight: rows.height; clip: true
                 Column {
                     id: rows
-                    width: parent.width; spacing: 8
+                    width: parent.width
                     Repeater {
-                        model: 8
+                        model: 16
                         Rectangle {
                             required property int index
-                            width: rows.width; height: 44
-                            color: index % 2 ? "#7d9da9" : "#ba9d8a"
-                            Label { anchors.centerIn: parent; text: "Real scrolling row " + (index + 1); color: "#ffffff" }
+                            width: rows.width; height: 32
+                            color: index % 2 ? Ui.AppTheme.contentSecondaryBackground : Ui.AppTheme.contentBackground
+                            Label { anchors.centerIn: parent; text: example.tr("Content row ", "内容行 ") + (index + 1); color: Ui.AppTheme.text; font.pixelSize: 13 }
                         }
                     }
                 }
             }
         }
-        Controls.LiquidBackdrop { id: sampled; sourceItem: scene; registerAsDefault: false; blur: .45 }
+        Controls.LiquidBackdrop {
+            id: sampled
+            sourceItem: scene; registerAsDefault: false; blur: .30
+            active: !Ui.AppTheme.reduceTransparency
+        }
         Controls.LiquidCard {
-            anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
-            anchors.margins: 16; height: 76; radius: 20; padding: 14
-            backdrop: sampled; shadowEnabled: true; shadowOpacity: .16
-            readability: .12; blurStrength: .25; refractionStrength: 5
-            magnification: 1.035; reflectionStrength: .55
-            tintColor: Ui.AppTheme.dark ? "#282c32" : "#f8f9fa"; tintStrength: .22
-            Label { anchors.centerIn: parent; text: "Sampled sibling scene · clear glass body"; color: Ui.AppTheme.text }
+            anchors.centerIn: parent
+            width: Math.min(360, parent.width - 32); height: 184
+            materialForm: false; adaptiveGlass: true
+            radius: 12; padding: 12
+            backdrop: sampled; shadowEnabled: true; shadowOpacity: .08
+            refractionStrength: .6; magnification: 1; reflectionStrength: .12
+            contentItem: ColumnLayout {
+                spacing: 8
+                Controls.LiquidTextField {
+                    id: query
+                    Layout.fillWidth: true
+                    specificationForm: true
+                    placeholderText: example.tr("Find an action", "查找操作")
+                    Accessible.name: placeholderText
+                }
+                ListView {
+                    Layout.fillWidth: true; Layout.fillHeight: true
+                    clip: true
+                    model: [example.tr("Open item", "打开项目"), example.tr("Save item", "保存项目"), example.tr("Share item", "共享项目")]
+                        .filter(value => value.toLowerCase().indexOf(query.text.toLowerCase()) >= 0)
+                    delegate: Controls.LiquidNavigationButton {
+                        required property string modelData
+                        width: ListView.view.width; implicitHeight: 32
+                        specificationForm: true; text: modelData
+                        onClicked: query.text = modelData
+                    }
+                }
+            }
         }
     }
 }

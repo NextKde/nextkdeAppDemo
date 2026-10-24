@@ -22,7 +22,7 @@ Button {
     readonly property QtObject specification: QtObject {
         readonly property int rowHeight: 30
         readonly property int radius: 8
-        readonly property int fontSize: 14
+        readonly property int fontSize: Foundation.AppTheme.compactDesign ? 13 : 14
         readonly property int focusWidth: 2
         readonly property int focusOffset: 2
         readonly property int pressDuration: 100
@@ -34,7 +34,7 @@ Button {
         readonly property color pressFill: Foundation.AppTheme.dark
             ? Qt.rgba(1, 1, 1, .12) : Qt.rgba(0, 0, 0, .10)
     }
-    implicitHeight: specificationForm ? specification.rowHeight : 38
+    implicitHeight: specificationForm || Foundation.AppTheme.compactDesign ? specification.rowHeight : 38
     leftPadding: 12
     rightPadding: 12
     hoverEnabled: true
@@ -43,7 +43,7 @@ Button {
         target: root
         property: "font.pixelSize"
         value: root.specification.fontSize
-        when: root.specificationForm
+        when: root.specificationForm || Foundation.AppTheme.compactDesign
         restoreMode: Binding.RestoreBindingOrValue
     }
     scale: specificationForm && down && !Foundation.AppTheme.reduceMotion ? specification.pressScale : 1

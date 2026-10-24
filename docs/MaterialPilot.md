@@ -1,5 +1,9 @@
 # Material specification pilot
 
+> Historical pilot record. The current Gallery design and implementation values are defined in [Gallery design language](GalleryDesign.md), version 2.9 (2026-10-24). Earlier geometry, strong search optics and layered shadows below are superseded.
+
+> Current composition: the original full-width rectangular floating region overlays and blurs real app content at 95% material opacity; the window is opaque and decorations retain their original coordinates, with light liquid top actions and selector. Left navigation stays ordinary except for its liquid search input.
+
 ## 2026-10-22 sidebar rows
 
 Follow-up: the navigation search opts into the shared plain text-field form

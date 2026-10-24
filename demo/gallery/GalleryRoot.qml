@@ -17,6 +17,7 @@ Pane {
     property string currentId: "overview"
     readonly property var selected: Catalog.find(currentId)
     readonly property var filteredEntries: Catalog.filter(search.text)
+    font.pixelSize: 13
     padding: 0
     MaterialSpecTokens { id: navigationTokens; dark: Ui.AppTheme.dark }
     palette.window: Ui.AppTheme.window
@@ -36,6 +37,7 @@ Pane {
 
     Binding { target: Ui.AppTheme; property: "appearanceMode"; value: root.themeMode }
     Binding { target: Ui.AppTheme; property: "modernDesign"; value: true }
+    Binding { target: Ui.AppTheme; property: "compactDesign"; value: true }
 
     Shortcut {
         sequence: "Ctrl+K"
@@ -50,18 +52,26 @@ Pane {
         spacing: 0
 
         Pane {
+            id: sidebar
             Layout.preferredWidth: navigationTokens.sidebarWidth
             Layout.minimumWidth: navigationTokens.sidebarWidth
             Layout.maximumWidth: navigationTokens.sidebarWidth
             Layout.fillHeight: true
             padding: 0
             background: Rectangle {
-                color: Ui.AppTheme.dark ? "#242426" : "#f2f2f4"
+                color: navigationTokens.secondaryFill
                 Rectangle {
                     anchors.right: parent.right
                     width: 1; height: parent.height
-                    color: Ui.AppTheme.dark ? "#343436" : "#dedee0"
+                    color: navigationTokens.separator
                 }
+            }
+
+            Controls.LiquidBackdrop {
+                id: searchBackdrop
+                sourceItem: sidebar.background
+                registerAsDefault: false
+                active: !Ui.AppTheme.reduceTransparency
             }
 
             ColumnLayout {
@@ -81,10 +91,13 @@ Pane {
                     font.pixelSize: navigationTokens.captionSize
                 }
                 Controls.LiquidTextField {
+                    specificationForm: Ui.AppTheme.reduceTransparency
                     materialForm: false
-                    liquidFinish: true
-                    liquidIntensity: "strong"
+                    liquidFinish: !Ui.AppTheme.reduceTransparency
+                    liquidIntensity: "light"
+                    backdrop: searchBackdrop
                     cornerRadius: height / 2
+                    focusedOutlineColor: navigationTokens.focusAccent
                     textColor: navigationTokens.labelPrimary
                     mutedTextColor: navigationTokens.labelTertiary
                     font.pixelSize: navigationTokens.searchFontSize
@@ -185,102 +198,157 @@ Pane {
             Layout.fillWidth: true
             Layout.fillHeight: true
             padding: 0
-            background: Rectangle { color: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff" }
-            contentItem: ColumnLayout {
-                spacing: 0
-
-                GalleryWindowChrome {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 30
-                    targetWindow: root.targetWindow
-                }
-
+            background: Rectangle { color: navigationTokens.contentFill }
+            contentItem: Item {
+                clip: true
                 Item {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.margins: 20
-                    clip: true
-
+                    id: contentScene
+                    anchors.fill: parent
+                    Rectangle { anchors.fill: parent; color: navigationTokens.contentFill }
+                    Loader {
+                        id: content
+                        anchors.fill: parent
+                        anchors.leftMargin: navigationTokens.pageInset
+                        anchors.rightMargin: navigationTokens.pageInset
+                        anchors.bottomMargin: navigationTokens.pageInset
+                        sourceComponent: root.selected ? componentPage : overviewPage
+                    }
+                }
                 Controls.LiquidBackdrop {
-                    id: toolbarBackdrop
-                    sourceItem: content
+                    id: mainBackdrop
+                    sourceItem: contentScene
                     registerAsDefault: false
-                    blur: navigationTokens.toolbarBlur
+                    active: floatingRegion.liquidActive
+                    blur: navigationTokens.mainBackdropBlur
+                }
+                Controls.LiquidBackdrop {
+                    id: toolbarControlsBackdrop
+                    sourceItem: headerMaterialLayer
+                    registerAsDefault: false
+                    active: !Ui.AppTheme.reduceTransparency
                 }
                 Pane {
-                    id: galleryToolbar
+                    id: floatingRegion
+                    // Only raise the material once actual page content passes underneath.
+                    readonly property bool raised: content.item !== null
+                        && content.item.scrollOffset > navigationTokens.sectionGap
+                    readonly property bool liquidActive: raised && !Ui.AppTheme.reduceTransparency
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.top: parent.top
                     z: 10
-                    height: navigationTokens.toolbarHeight
-                    padding: navigationTokens.gap
-                    background: Controls.LiquidSurface {
-                        backdrop: toolbarBackdrop
-                        radius: 0
-                        tintColor: Ui.AppTheme.dark ? "#1c1c1e" : "#ffffff"
-                        tintStrength: .90
-                        blurStrength: 0
-                        readability: 0
-                        refractionStrength: 0
-                        magnification: 1
-                        reflectionStrength: 0
+                    height: navigationTokens.windowChromeHeight + navigationTokens.pageInset + navigationTokens.toolbarHeight
+                    padding: 0
+                    // Original full-width rectangle: no inset, rounded island or decoration offset.
+                    background: Item {
+                        Item {
+                            id: headerMaterialLayer
+                            anchors.fill: parent
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: !floatingRegion.liquidActive
+                                color: navigationTokens.contentFill
+                            }
+                            Controls.LiquidSurface {
+                                anchors.fill: parent
+                                visible: floatingRegion.liquidActive
+                                layer.enabled: true
+                                opacity: navigationTokens.mainMaterialOpacity
+                                adaptiveGlass: true
+                                fullHighlight: true
+                                backdrop: mainBackdrop
+                                radius: 0
+                                blurStrength: 0
+                                refractionStrength: navigationTokens.toolbarOptics.refraction
+                                magnification: navigationTokens.toolbarOptics.magnification
+                                reflectionStrength: navigationTokens.toolbarOptics.reflection
+                            }
+                        }
                     }
-                    contentItem: RowLayout {
-                        spacing: navigationTokens.gap
-                        Label {
+                    contentItem: ColumnLayout {
+                        spacing: 0
+                        // Preserve the original window-control coordinates for KWin decoration coverage.
+                        GalleryWindowChrome {
                             Layout.fillWidth: true
-                            Layout.alignment: Qt.AlignVCenter
-                            text: root.selected ? Catalog.title(root.selected, root.language)
-                                : root.tr("Components", "组件")
-                            color: Ui.AppTheme.text
-                            font.pixelSize: navigationTokens.toolbarTitleSize
-                            font.weight: Font.DemiBold
-                            elide: Text.ElideRight
+                            Layout.preferredHeight: navigationTokens.windowChromeHeight
+                            targetWindow: root.targetWindow
                         }
-                        Controls.LiquidSelect {
-                            Layout.preferredWidth: 140
-                            Layout.preferredHeight: navigationTokens.controlHeight
-                            Layout.maximumHeight: navigationTokens.controlHeight
-                            Layout.alignment: Qt.AlignVCenter
-                            appearanceMode: root.themeMode
-                            model: root.language === "zh" ? ["渐变背景", "对比背景", "透明桌面"] : ["Gradient", "Contrast", "Desktop"]
-                            currentIndex: ["gradient", "contrast", "desktop"].indexOf(root.backgroundMode)
-                            materialForm: false
-                            textColor: Ui.AppTheme.text
-                            mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
-                            onActivated: function(index) { root.backgroundMode = ["gradient", "contrast", "desktop"][index] }
-                        }
-                        RowLayout {
-                            spacing: navigationTokens.toolbarGroupGap
-                            Layout.alignment: Qt.AlignVCenter
-                            Controls.LiquidActionButton {
-                                Layout.preferredHeight: navigationTokens.controlHeight
-                                Layout.maximumHeight: navigationTokens.controlHeight
-                                font.pixelSize: navigationTokens.searchFontSize
-                                leftPadding: navigationTokens.sidebarSpacing
-                                rightPadding: navigationTokens.sidebarSpacing
-                                text: root.language === "en" ? "中文" : "English"
-                                onClicked: root.language = root.language === "en" ? "zh" : "en"
-                            }
-                            Controls.LiquidActionButton {
-                                Layout.preferredHeight: navigationTokens.controlHeight
-                                Layout.maximumHeight: navigationTokens.controlHeight
-                                font.pixelSize: navigationTokens.searchFontSize
-                                leftPadding: navigationTokens.sidebarSpacing
-                                rightPadding: navigationTokens.sidebarSpacing
-                                text: root.themeMode === "dark" ? root.tr("Light", "浅色") : root.tr("Dark", "深色")
-                                onClicked: root.themeMode = root.themeMode === "dark" ? "light" : "dark"
+                        Pane {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: navigationTokens.toolbarHeight
+                            Layout.leftMargin: navigationTokens.pageInset
+                            Layout.rightMargin: navigationTokens.pageInset
+                            Layout.topMargin: navigationTokens.pageInset
+                            padding: navigationTokens.gap
+                            background: Item {}
+                            contentItem: RowLayout {
+                                spacing: navigationTokens.gap
+                                Label {
+                                    Layout.fillWidth: true
+                                    Layout.alignment: Qt.AlignVCenter
+                                    text: root.selected ? Catalog.title(root.selected, root.language)
+                                        : root.tr("Components", "组件")
+                                    color: Ui.AppTheme.text
+                                    font.pixelSize: navigationTokens.toolbarTitleSize
+                                    font.weight: Font.DemiBold
+                                    elide: Text.ElideRight
+                                }
+                                Controls.LiquidSelect {
+                                    Layout.preferredWidth: 140
+                                    Layout.preferredHeight: navigationTokens.controlHeight
+                                    Layout.maximumHeight: navigationTokens.controlHeight
+                                    Layout.alignment: Qt.AlignVCenter
+                                    appearanceMode: root.themeMode
+                                    model: root.language === "zh" ? ["示例：渐变", "示例：对比", "示例：无背景"] : ["Example: Gradient", "Example: Contrast", "Example: None"]
+                                    currentIndex: ["gradient", "contrast", "desktop"].indexOf(root.backgroundMode)
+                                    materialForm: Ui.AppTheme.reduceTransparency
+                                    liquidIntensity: "light"
+                                    backdrop: toolbarControlsBackdrop
+                                    cornerRadius: height / 2
+                                    focusRingColor: navigationTokens.focusAccent
+                                    textColor: Ui.AppTheme.text
+                                    mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
+                                    onActivated: function(index) { root.backgroundMode = ["gradient", "contrast", "desktop"][index] }
+                                }
+                                RowLayout {
+                                    spacing: navigationTokens.toolbarGroupGap
+                                    Layout.alignment: Qt.AlignVCenter
+                                    Controls.LiquidActionButton {
+                                        materialForm: Ui.AppTheme.reduceTransparency
+                                        liquidIntensity: "light"
+                                        backdrop: toolbarControlsBackdrop
+                                        scale: 1
+                                        cornerRadius: height / 2
+                                        surfaceColor: navigationTokens.plainFill
+                                        focusRingColor: navigationTokens.focusAccent
+                                        Layout.preferredHeight: navigationTokens.controlHeight
+                                        Layout.maximumHeight: navigationTokens.controlHeight
+                                        font.pixelSize: navigationTokens.searchFontSize
+                                        leftPadding: navigationTokens.sidebarSpacing
+                                        rightPadding: navigationTokens.sidebarSpacing
+                                        text: root.language === "en" ? "中文" : "English"
+                                        onClicked: root.language = root.language === "en" ? "zh" : "en"
+                                    }
+                                    Controls.LiquidActionButton {
+                                        materialForm: Ui.AppTheme.reduceTransparency
+                                        liquidIntensity: "light"
+                                        backdrop: toolbarControlsBackdrop
+                                        scale: 1
+                                        cornerRadius: height / 2
+                                        surfaceColor: navigationTokens.plainFill
+                                        focusRingColor: navigationTokens.focusAccent
+                                        Layout.preferredHeight: navigationTokens.controlHeight
+                                        Layout.maximumHeight: navigationTokens.controlHeight
+                                        font.pixelSize: navigationTokens.searchFontSize
+                                        leftPadding: navigationTokens.sidebarSpacing
+                                        rightPadding: navigationTokens.sidebarSpacing
+                                        text: root.themeMode === "dark" ? root.tr("Light", "浅色") : root.tr("Dark", "深色")
+                                        onClicked: root.themeMode = root.themeMode === "dark" ? "light" : "dark"
+                                    }
+                                }
                             }
                         }
                     }
-                }
-
-                Loader {
-                    id: content
-                    anchors.fill: parent
-                    sourceComponent: root.selected ? componentPage : overviewPage
-                }
                 }
             }
         }
@@ -289,13 +357,13 @@ Pane {
     Component {
         id: overviewPage
         OverviewPage {
-            toolbarScrollInset: galleryToolbar.height + navigationTokens.sidebarPadding
+            toolbarScrollInset: floatingRegion.height + navigationTokens.sectionGap
             language: root.language
             onComponentSelected: function(id) { root.select(id) }
         }
     }
     Component {
         id: componentPage
-        ComponentPage { entry: root.selected; language: root.language; backgroundMode: root.backgroundMode; toolbarScrollInset: galleryToolbar.height + navigationTokens.sidebarPadding }
+        ComponentPage { entry: root.selected; language: root.language; backgroundMode: root.backgroundMode; toolbarScrollInset: floatingRegion.height + navigationTokens.sectionGap }
     }
 }

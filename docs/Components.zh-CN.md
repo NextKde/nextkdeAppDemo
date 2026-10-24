@@ -1,5 +1,7 @@
 # 组件及应用接入
 
+> 当前材质分配、色族与尺寸以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 顶部四条规则为准；下方历史光学实现说明不是默认界面配方。
+
 [English](Components.md)
 
 ## 目录及状态
@@ -56,10 +58,16 @@ Window {
             anchors.centerIn: parent
             width: 320
             height: 180
-            radius: 24
+            radius: 12
             backdrop: sceneBackdrop
-            refractionStrength: 4
-            magnification: 1.06
+            adaptiveGlass: true
+            refractionStrength: .6
+            magnification: 1
+            reflectionStrength: .12
+            Button {
+                anchors.centerIn: parent
+                text: "Continue"
+            }
         }
     }
 }
@@ -81,7 +89,7 @@ Window {
 
 Alpha 透明是独立操作。透出桌面时，窗口及父容器背景必须透明，还要移除对应区域
 下方的不透明图片及采样副本。仅对材质背景设置不透明度；需要让重叠材质一起淡出时
-进行分组，文字和交互内容保持不透明。侧栏 Demo 直接实现了这条路径，默认值 0.95。
+进行分组，文字和交互内容保持不透明。Gallery 左侧导航使用不透明普通背景，不采用这条透明路径。
 
 ## 链接静态模块
 
@@ -203,7 +211,41 @@ LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell�
 
 ## 液态强度档位（2026-10-22）
 
-按钮 LiquidActionButton、输入 LiquidTextField 新增 liquidIntensity：light（轻）、medium（中）、strong（强）。默认跟随 LiquidStyle.intensityLevel=medium，保持现有中档参数；Gallery导航搜索单独设为strong。档位联动折射、放大、高光、局部模糊和向内染色；布局、字体、填充透明度不变。现有shader将向内染色上限限制为.10，所以中强两档此项相同，强档提高其他光学值。其他组件类型尚未接入档位。未截图、未运行验证。
+按钮 LiquidActionButton、输入 LiquidTextField 新增 liquidIntensity：light（轻）、medium（中）、strong（强）。默认跟随 LiquidStyle.intensityLevel=medium，保持现有中档参数；Gallery框架改用普通控件，导航搜索使用specificationForm；液态示例可显式选择强度。档位联动折射、放大、高光、局部模糊和向内染色；布局、字体、填充透明度不变。现有shader将向内染色上限限制为.10，所以中强两档此项相同，强档提高其他光学值。其他组件类型尚未接入档位。未截图、未运行验证。
 
 
 2026-10-22 填充修订：液态按钮和输入禁用原自适应向内染色，改为上下各3px白色10%→0渐隐。普通液态填充中心#f2f2f4向外椭圆渐变至#c4c4c8，两种主题使用同一灰白/灰色配色，默认20%与hover25%保持不变。主题色主操作按钮保留accent。折射shader关闭原均匀填充，由共享LiquidSurface单次绘制渐变，不重复叠加平色；对角高光与档位光学值不变。新增QML绘制无需更改或重烘焙QSB。未运行验证。
+
+
+## Gallery 紧凑组合
+
+以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 顶部四条规则为准。Gallery 启用
+`AppTheme.compactDesign`：正文 13、按钮高 28、搜索高 30、导航行高 30、列表行高 32、
+工具栏高 48。普通区域使用内容／控件语义色，Dialog 与按钮使用不同亮度的背景。
+
+紧凑模式不决定材质。`LiquidActionButton`、`LiquidSelect` 保留液态默认形态，
+紧凑普通控件圆角为 8，液态形态保留圆润轮廓。`fieldRadius` 仍为只读值。
+`LiquidCard.materialForm` 默认 false，普通容器显式设为 true；
+`LiquidTextField.specificationForm` 仍需显式启用。Gallery 保留液态示例与实色对照，
+两种材质均采用按钮高 28、输入框高 30 的紧凑尺寸。
+
+`LiquidSurface.adaptiveGlass` 与 `LiquidActionButton.adaptiveGlass` 复用已有采样 shader
+及按像素亮度处理，不使用固定 RGB 填充冒充玻璃。缺少采样、软件渲染或减少透明度
+时降级为普通材质。界面组合规则不用于删减组件目录中的液态形态。Gallery 原位整宽矩形浮动区域以 95% 材质覆盖本应用内容，不另建内缩圆角块，装饰器保持原位；顶部按钮与选择器使用轻档液态，左侧背景与导航项使用普通材质，搜索框显式使用轻档液态输入并采样独立侧栏背景。
+`LiquidCard.adaptiveGlass` 传给共享表面；其内部控件保持普通材质，不启用嵌套采样。
+
+Select 的键盘焦点由外层持有，独立焦点环跟随外层 activeFocus 与配置圆角。
+这些改动不改变宿主状态、公开信号与弹层选择回写契约。应明确要求在本机打开的
+预览已加载并热重载成功；完整交互与视觉验收尚未完成。
+
+紧凑按钮／输入框文字统一为 11px、Font.Normal（400）、垂直居中，
+上下内边距 4px、常规左右内边距 12px；紧凑下拉框文字同样使用 11px 常规字重。
+字号统一来自 AppTheme.compactControlFontSize，液态与实色形态共用规格。
+
+Gallery 仅浮动材质层设为 95% 不透明；QML MultiEffect 采样本应用真实滚动内容，
+浮动区域不绘制底部阴影。窗口与内容底色保持不透明，不透出外部窗口。
+示例背景不作为主区采样源；顶部控件采样材质，装饰器保持原位。
+
+Gallery 未滚动时顶部与正文为同底色完整平面，无独立阴影或高光；
+真实页面内容滚入顶部下方后（scrollOffset > 12px）才开启 95% 材质与模糊，不添加阴影。
+回顶恢复平面，控件与装饰器位置不变，顶部液态按钮自身材质保持不变。

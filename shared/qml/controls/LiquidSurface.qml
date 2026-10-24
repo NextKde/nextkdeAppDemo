@@ -5,6 +5,10 @@ import "../foundation" as Foundation
 Item {
     id: root
     property real radius: 22
+    // Real sampled pixels plus luminance-dependent readability; no fixed glass fill.
+    property bool adaptiveGlass: false
+    readonly property color _adaptiveTint: darkAppearance ? Foundation.AppTheme.blackSeed : Foundation.AppTheme.whiteSeed
+    readonly property real _reflection: adaptiveGlass && !sampling ? 0 : reflectionStrength
     property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.Window.window)
     property bool darkAppearance: Foundation.AppTheme.dark
     property color tintColor: darkAppearance ? "#141c30" : "#ffffff"
@@ -35,7 +39,8 @@ Item {
     property color rimColor: Qt.rgba(1, 1, 1, 0.30)
     readonly property bool sampling: canSampleBackdrop && _mappingValid
         && optics.item !== null && optics.item.status !== ShaderEffect.Error
-    readonly property bool canSampleBackdrop: backdrop !== null && backdrop.canSample(root)
+    readonly property bool canSampleBackdrop: !(adaptiveGlass && Foundation.AppTheme.reduceTransparency)
+        && backdrop !== null && backdrop.canSample(root)
         && width > 0 && height > 0 && GraphicsInfo.api !== GraphicsInfo.Software
     property bool _mappingValid: false
     property vector2d _sampleOrigin: Qt.vector2d(0, 0)
@@ -70,14 +75,14 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        visible: !root.gradientFill && !root.sampling && (root.diffuseStrength <= 0 || GraphicsInfo.api === GraphicsInfo.Software)
+        visible: !root.gradientFill && !root.sampling && (root.adaptiveGlass || root.diffuseStrength <= 0 || GraphicsInfo.api === GraphicsInfo.Software)
         radius: root.radius
-        color: root.tintColor
-        opacity: Math.max(0, Math.min(1, root.tintStrength))
+        color: root.adaptiveGlass ? Foundation.AppTheme.controlBackground : root.tintColor
+        opacity: root.adaptiveGlass ? 1 : Math.max(0, Math.min(1, root.tintStrength))
     }
     ShaderEffect {
         anchors.fill: parent
-        visible: !root.gradientFill && !root.sampling && root.diffuseStrength > 0 && GraphicsInfo.api !== GraphicsInfo.Software
+        visible: !root.adaptiveGlass && !root.gradientFill && !root.sampling && root.diffuseStrength > 0 && GraphicsInfo.api !== GraphicsInfo.Software
         vertexShader: Qt.resolvedUrl("shaders/liquid_diffuse.vert.qsb")
         fragmentShader: Qt.resolvedUrl("shaders/liquid_diffuse.frag.qsb")
         property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
@@ -102,10 +107,10 @@ Item {
             property vector2d sampleAxisX: root._sampleAxisX
             property vector2d sampleAxisY: root._sampleAxisY
             property real radius: root.radius
-            property color tintColor: root.tintColor
-            property real tintStrength: root.gradientFill ? 0 : root.tintStrength
+            property color tintColor: root.adaptiveGlass ? root._adaptiveTint : root.tintColor
+            property real tintStrength: root.adaptiveGlass ? .08 : root.gradientFill ? 0 : root.tintStrength
             property real blurRadius: Math.max(0, root.blurStrength) * 8
-            property real readability: root.readability
+            property real readability: root.adaptiveGlass ? .65 : root.readability
             property real lightAppearance: root.darkAppearance ? 0 : 1
             property real refractionStrength: root.refractionStrength
             property real magnification: root.magnification
@@ -239,14 +244,14 @@ Item {
             property var source: root.backdrop ? (root.unfilteredBackdrop ? root.backdrop.rawTexture : root.backdrop.texture) : null
             property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
             property real radius: root.radius
-            property real reflectionStrength: root.reflectionStrength
+            property real reflectionStrength: root._reflection
             property color rimColor: root.rimColor
             property real edgeWidth: root.edgeWidth
             property vector2d sampleOrigin: root._sampleOrigin
             property vector2d sampleAxisX: root._sampleAxisX
             property vector2d sampleAxisY: root._sampleAxisY
-            property color tintColor: root.tintColor
-            property real tintStrength: root.tintStrength
+            property color tintColor: root.adaptiveGlass ? root._adaptiveTint : root.tintColor
+            property real tintStrength: root.adaptiveGlass ? .08 : root.tintStrength
             property color fallbackColor: root.darkAppearance ? "#1c1c1e" : "#ffffff"
         property real edgeShadeStrength: root.edgeShadeStrength
         property real highlightTintStrength: root.highlightTintStrength
@@ -254,12 +259,12 @@ Item {
     }
     ShaderEffect {
         anchors.fill: parent
-        visible: !root.sampling && GraphicsInfo.api !== GraphicsInfo.Software
+        visible: !root.adaptiveGlass && !root.sampling && GraphicsInfo.api !== GraphicsInfo.Software
         vertexShader: Qt.resolvedUrl("shaders/liquid_highlight_tint.vert.qsb")
         fragmentShader: Qt.resolvedUrl(root.fullHighlight ? "shaders/liquid_highlight_full_extended_fallback.frag.qsb" : "shaders/liquid_highlight_topbottom_wider_fallback.frag.qsb")
         property vector2d surfaceSize: Qt.vector2d(Math.max(1, root.width), Math.max(1, root.height))
         property real radius: root.radius
-        property real reflectionStrength: root.reflectionStrength
+        property real reflectionStrength: root._reflection
         property color rimColor: root.rimColor
         property real edgeWidth: root.edgeWidth
         property vector2d sampleOrigin: Qt.vector2d(0, 0)
@@ -276,13 +281,15 @@ Item {
     Canvas {
         id: softReflection
         anchors.fill: parent
-        visible: GraphicsInfo.api === GraphicsInfo.Software
+        visible: !root.adaptiveGlass && GraphicsInfo.api === GraphicsInfo.Software
         onWidthChanged: requestPaint()
         onHeightChanged: requestPaint()
         Connections {
             target: root
             function onRadiusChanged() { softReflection.requestPaint() }
             function onReflectionStrengthChanged() { softReflection.requestPaint() }
+            function onSamplingChanged() { softReflection.requestPaint() }
+            function onAdaptiveGlassChanged() { softReflection.requestPaint() }
             function onRimColorChanged() { softReflection.requestPaint() }
         }
         onPaint: {
@@ -290,7 +297,7 @@ Item {
             ctx.reset()
             if (width < 2 || height < 2) return
             const r = Math.min(root.radius, width / 2, height / 2)
-            const strength = Math.max(0, Math.min(2, root.reflectionStrength))
+            const strength = Math.max(0, Math.min(2, root._reflection))
             const fade = ctx.createLinearGradient(0, 0, width * .72, height)
             fade.addColorStop(0, Qt.rgba(1, 1, 1, .065 * strength))
             fade.addColorStop(.45, Qt.rgba(1, 1, 1, .022 * strength))

@@ -20,7 +20,7 @@ ShellRoot {
         minimumWidth: 900
         minimumHeight: 560
         visible: true
-        color: "transparent"
+        color: Ui.AppTheme.contentBackground
         onClosing: Qt.quit()
 
         Item {

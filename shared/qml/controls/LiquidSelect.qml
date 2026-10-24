@@ -13,7 +13,7 @@ Item {
     // Width follows the content: left pad + label + gap + glyph + right pad.
     // The floor keeps a placeholder-only field from collapsing.
     implicitWidth: Math.max(72, 13 + label.implicitWidth + 9 + chevron.implicitWidth + 12)
-    implicitHeight: 36
+    implicitHeight: Foundation.AppTheme.compactDesign ? 28 : 36
     activeFocusOnTab: true
     opacity: enabled ? 1 : .38
 
@@ -32,7 +32,8 @@ Item {
     property color selectedTextColor: accentColor
     property color textColor: darkAppearance ? "#f5f5f7" : "#1d1d1f"
     property color mutedTextColor: darkAppearance ? "#98989d" : "#6e6e73"
-    property color sheetColor: darkAppearance ? "#262b31" : "#ffffff"
+    property color sheetColor: materialForm && Foundation.AppTheme.compactDesign ? Foundation.AppTheme.contentBackground
+        : darkAppearance ? "#262b31" : "#ffffff"
     property color outlineColor: darkAppearance ? Qt.rgba(1, 1, 1, 0.16) : Qt.rgba(0, 0, 0, 0.12)
     // Solid or liquid button appearance, following the application-wide form.
     property bool materialForm: ControlForm.materialForm
@@ -41,7 +42,8 @@ Item {
     property bool shadowEnabled: false
     property int shadowLevel: LiquidStyle.shadowLevel
 
-    readonly property real fieldRadius: height / 2
+    property real cornerRadius: materialForm && Foundation.AppTheme.compactDesign ? 8 : height / 2
+    readonly property real fieldRadius: cornerRadius
 
     // Fired when the user picks a row. Owners update their persistent state
     // through IPC and write currentIndex back; the visual result is drawn
@@ -149,6 +151,7 @@ Item {
         Accessible.ignored: true
         opacity: 1 // Disabled opacity is applied once by root.
         materialForm: root.materialForm
+        cornerRadius: root.cornerRadius
         backdrop: root.backdrop
         liquidIntensity: root.liquidIntensity
         darkAppearance: root.darkAppearance
@@ -158,7 +161,8 @@ Item {
         textColor: root.textColor
         accentColor: root.accentColor
         focusRingColor: root.focusRingColor
-        surfaceColor: root.darkAppearance ? "#303640" : "#e9eaed"
+        surfaceColor: Foundation.AppTheme.compactDesign ? Foundation.AppTheme.controlBackground
+            : root.darkAppearance ? "#303640" : "#e9eaed"
         leftPadding: 13
         rightPadding: 12
         topPadding: 0
@@ -175,8 +179,8 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 text: root.labelAt(root._visualIndex) || root.placeholder
                 color: root.labelAt(root._visualIndex).length > 0 ? root.textColor : root.mutedTextColor
-                font.pixelSize: 13
-                font.weight: Font.Medium
+                font.pixelSize: Foundation.AppTheme.compactDesign ? Foundation.AppTheme.compactControlFontSize : 13
+                font.weight: Foundation.AppTheme.compactDesign ? Font.Normal : Font.Medium
                 elide: Text.ElideRight
             }
             VectorIcon {
@@ -193,6 +197,17 @@ Item {
             }
         }
 
+    }
+
+    // Keyboard focus belongs to root; the pointer-only trigger cannot draw it.
+    Rectangle {
+        anchors.fill: parent
+        anchors.margins: -2
+        radius: root.fieldRadius + 2
+        color: "transparent"
+        border.width: 2
+        border.color: root.focusRingColor
+        visible: root.activeFocus && root.enabled
     }
 
     // ── Choice sheet ─────────────────────────────────────────────────────
@@ -332,7 +347,7 @@ Item {
                             text: root.labelAt(parent.index)
                             elide: Text.ElideRight
                             color: hit.containsMouse ? "#ffffff" : root.textColor
-                            font.pixelSize: 13
+                            font.pixelSize: Foundation.AppTheme.compactDesign ? Foundation.AppTheme.compactControlFontSize : 13
                             font.weight: Font.Normal
                         }
                         VectorIcon {

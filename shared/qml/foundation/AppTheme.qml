@@ -64,6 +64,13 @@ QtObject {
     // KosApplicationWindow binds these values to the shared C++ preferences
     // object. Controls can stay application-agnostic and still update live.
     property bool modernDesign: false
+    // Compact dimensions and semantic colors; material selection remains independent.
+    property bool compactDesign: false
+    readonly property int compactControlFontSize: 11
+    readonly property color contentBackground: dark ? "#1C1C1E" : "#FFFFFF"
+    readonly property color contentSecondaryBackground: dark ? "#242426" : "#F5F5F7"
+    readonly property color controlBackground: dark ? "#3A3A3C" : "#EDEDF0"
+    readonly property color dialogBackground: dark ? "#2C2C2E" : "#F7F7F9"
     property string appearanceMode: "system"
     property string materialMode: "auto"
     property real materialOpacity: 0.86
@@ -147,19 +154,19 @@ QtObject {
         ? Qt.rgba(1, 1, 1, 0.58) : Qt.rgba(0, 0, 0, 0.55)
 
     // Forced Light/Dark modes never inherit the opposite system background.
-    readonly property color window: mix(
+    readonly property color window: compactDesign ? contentBackground : mix(
         paletteWindow, dark ? darkWindowSeed : lightWindowSeed,
         followsSystemAppearance ? (dark ? 0.52 : 0.16) : 0.08)
     readonly property color windowTint: mix(window, accent, dark ? 0.07 : 0.045)
-    readonly property color windowRaised: mix(
+    readonly property color windowRaised: compactDesign ? contentBackground : mix(
         paletteBase, dark ? darkBaseSeed : lightBaseSeed,
         followsSystemAppearance ? (dark ? 0.48 : 0.16) : 0.08)
-    readonly property color sidebar: mix(
+    readonly property color sidebar: compactDesign ? contentSecondaryBackground : mix(
         window, dark ? darkSidebarSeed : lightSidebarSeed, 0.58)
-    readonly property color card: mix(windowRaised, accent, dark ? 0.035 : 0.018)
+    readonly property color card: compactDesign ? contentSecondaryBackground : mix(windowRaised, accent, dark ? 0.035 : 0.018)
     readonly property color cardHover: mix(card, accent, dark ? 0.10 : 0.065)
-    readonly property color field: mix(card, window, dark ? 0.20 : 0.34)
-    readonly property color button: mix(windowRaised, accent, dark ? 0.085 : 0.045)
+    readonly property color field: compactDesign ? controlBackground : mix(card, window, dark ? 0.20 : 0.34)
+    readonly property color button: compactDesign ? controlBackground : mix(windowRaised, accent, dark ? 0.085 : 0.045)
     readonly property color buttonHover: mix(button, accent, dark ? 0.13 : 0.09)
     readonly property color buttonPressed: mix(button, accent, dark ? 0.21 : 0.16)
 

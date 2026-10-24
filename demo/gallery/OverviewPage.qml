@@ -3,20 +3,24 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../Kos/Ui/foundation" as Ui
 import "ComponentCatalog.mjs" as Catalog
+import "components"
 
 ScrollView {
     id: page
     property real toolbarScrollInset: 0
+    readonly property real scrollOffset: contentItem && contentItem.contentY !== undefined
+        ? Math.max(0, contentItem.contentY - (contentItem.originY || 0)) : 0
     property string language: "en"
     signal componentSelected(string id)
     function tr(en, zh) { return language === "zh" ? zh : en }
+    MaterialSpecTokens { id: tokens; dark: Ui.AppTheme.dark }
 
     clip: true
     contentWidth: availableWidth
     ColumnLayout {
         width: page.availableWidth
-        Item { Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
-        spacing: 18
+        Item { visible: page.toolbarScrollInset > 0; Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
+        spacing: tokens.sectionGap
 
         RowLayout {
             Layout.fillWidth: true
@@ -37,8 +41,8 @@ ScrollView {
             id: directory
             Layout.fillWidth: true
             columns: width >= 1000 ? 3 : width >= 540 ? 2 : 1
-            columnSpacing: 16
-            rowSpacing: 16
+            columnSpacing: tokens.sectionGap
+            rowSpacing: tokens.sectionGap
             Repeater {
                 model: Catalog.entries
                 delegate: ComponentTile {

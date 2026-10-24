@@ -12,15 +12,19 @@ ScrollView {
     id: page
     required property var entry
     property real toolbarScrollInset: 0
+    readonly property real scrollOffset: contentItem && contentItem.contentY !== undefined
+        ? Math.max(0, contentItem.contentY - (contentItem.originY || 0)) : 0
     property string language: "en"
     property string backgroundMode: "gradient"
     property string exampleCode: ""
     property string sourceError: ""
     property bool demoEnabled: true
     readonly property bool isButtonPage: entry !== null && entry.id === "button"
-    readonly property int contentIndent: 16
+    readonly property int contentIndent: tokens.pageInset
     readonly property int exampleSection: whitePanel.visible ? 2 : 1
     readonly property int apiSection: isButtonPage ? 4 : exampleSection + 1
+
+    MaterialSpecTokens { id: tokens; dark: Ui.AppTheme.dark }
 
     function tr(en, zh) { return language === "zh" ? zh : en }
     function resetExample() {
@@ -36,7 +40,7 @@ ScrollView {
         exampleCode = ""
         sourceError = ""
         demoEnabled = true
-        if (contentItem) contentItem.contentY = 0
+        if (contentItem) contentItem.contentY = contentItem.originY || 0
     }
 
     property FileView exampleSource: FileView {
@@ -56,8 +60,8 @@ ScrollView {
 
     ColumnLayout {
         width: page.availableWidth
-        Item { Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
-        spacing: 16
+        Item { visible: page.toolbarScrollInset > 0; Layout.fillWidth: true; Layout.preferredHeight: Math.max(0, page.toolbarScrollInset - parent.spacing) }
+        spacing: tokens.sectionGap
 
         Label {
             Layout.fillWidth: true
@@ -80,13 +84,19 @@ ScrollView {
                 font.weight: Font.DemiBold
             }
             Label { text: page.tr("Enabled", "启用"); color: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82) }
-            Controls.LiquidGlassSwitch {
-                materialForm: false
+            Switch {
                 checked: page.demoEnabled
                 Accessible.name: page.tr("Enable example", "启用示例")
-                onToggled: function(checked) { page.demoEnabled = checked }
+                onToggled: page.demoEnabled = checked
             }
             Controls.LiquidActionButton {
+                materialForm: true
+                scale: 1
+                cornerRadius: tokens.controlRadius
+                focusRingColor: tokens.focusAccent
+                surfaceColor: tokens.plainFill
+                Layout.preferredHeight: tokens.controlHeight
+                font.pixelSize: tokens.searchFontSize
                 text: page.tr("Reset", "重置")
                 onClicked: page.resetExample()
             }
@@ -97,8 +107,8 @@ ScrollView {
             visible: whitePanel.visible
             text: page.isButtonPage ? page.tr("01 · Button catalogue", "01 · 按钮分类示例") : page.tr("01 · Component examples", "01 · 组件分类示例")
             color: Ui.AppTheme.text
-            font.pixelSize: 20; font.weight: Font.Bold
-            topPadding: 16; bottomPadding: 16
+            font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
+            topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
         }
 
         // Unbacked and selected-background control groups are sibling previews.
@@ -124,12 +134,12 @@ ScrollView {
         }
 
         Label {
-            Layout.topMargin: 16
+            Layout.topMargin: tokens.sectionGap
             text: ("0" + page.exampleSection) + " · " + (whitePanel.visible
                 ? page.tr("Background comparison", "背景对照") : page.tr("Interactive examples", "交互示例"))
             color: Ui.AppTheme.text
-            font.pixelSize: 20; font.weight: Font.Bold
-            topPadding: 16; bottomPadding: 16
+            font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
+            topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
         }
         Pane {
             Layout.fillWidth: true
@@ -179,7 +189,7 @@ ScrollView {
 
         Loader {
             Layout.fillWidth: true
-            Layout.topMargin: 16
+            Layout.topMargin: tokens.sectionGap
             active: page.entry !== null && page.entry.id === "button"
             visible: active
             enabled: page.demoEnabled
@@ -187,13 +197,13 @@ ScrollView {
         }
 
         Label {
-            Layout.topMargin: 24
+            Layout.topMargin: tokens.sectionGap
             text: "0" + page.apiSection + " · " + page.tr("API reference", "接口说明")
             color: Ui.AppTheme.text
-            font.pixelSize: 20
-            font.weight: Font.Bold
-            topPadding: 16
-            bottomPadding: 16
+            font.pixelSize: tokens.sectionTitleSize
+            font.weight: Font.DemiBold
+            topPadding: tokens.sectionPadding
+            bottomPadding: tokens.sectionPadding
         }
         Repeater {
             model: page.entry ? page.entry.api : []
@@ -202,7 +212,7 @@ ScrollView {
                 required property int index
                 Layout.fillWidth: true
                 Layout.topMargin: 8
-                Layout.bottomMargin: 16
+                Layout.bottomMargin: tokens.sectionGap
                 Layout.leftMargin: page.contentIndent
                 Layout.rightMargin: page.contentIndent
                 spacing: 8
@@ -228,8 +238,8 @@ ScrollView {
             Layout.fillWidth: true
             text: "0" + (page.apiSection + 1) + " · " + page.tr("Code example", "代码示例")
             color: Ui.AppTheme.text
-            font.pixelSize: 20; font.weight: Font.Bold
-            topPadding: 16; bottomPadding: 16
+            font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
+            topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
         }
         CodeBlock {
             Layout.fillWidth: true
@@ -252,6 +262,13 @@ ScrollView {
             wrapMode: Text.WrapAnywhere
         }
         Controls.LiquidActionButton {
+            materialForm: true
+            scale: 1
+            cornerRadius: tokens.controlRadius
+            focusRingColor: tokens.focusAccent
+            surfaceColor: tokens.plainFill
+            Layout.preferredHeight: tokens.controlHeight
+            font.pixelSize: tokens.searchFontSize
             Layout.leftMargin: page.contentIndent
             text: page.tr("Open component source", "查看组件源码")
             onClicked: Qt.openUrlExternally("file://" + Quickshell.shellDir + "/../" + page.entry.source)

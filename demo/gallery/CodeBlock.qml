@@ -3,13 +3,16 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "../Kos/Ui/foundation" as Ui
 import "../Kos/Ui/controls" as Controls
+import "components"
 
 ColumnLayout {
     id: root
     property string code: ""
     property string language: "en"
 
-    spacing: 8
+    MaterialSpecTokens { id: tokens; dark: Ui.AppTheme.dark }
+
+    spacing: tokens.gap
     RowLayout {
         Layout.fillWidth: true
         Label {
@@ -19,6 +22,13 @@ ColumnLayout {
             font.weight: Font.DemiBold
         }
         Controls.LiquidActionButton {
+            materialForm: true
+            scale: 1
+            cornerRadius: tokens.controlRadius
+            focusRingColor: tokens.focusAccent
+            surfaceColor: tokens.plainFill
+            Layout.preferredHeight: tokens.controlHeight
+            font.pixelSize: tokens.searchFontSize
             text: root.language === "zh" ? "复制代码" : "Copy code"
             enabled: root.code.length > 0
             onClicked: {
@@ -49,11 +59,16 @@ ColumnLayout {
             wrapMode: TextEdit.NoWrap
             font.family: "monospace"
             font.pixelSize: 12
-            padding: 16
+            padding: tokens.cardPadding
             color: Ui.AppTheme.text
             selectionColor: Ui.AppTheme.accent
             selectedTextColor: Ui.AppTheme.accentText
-            background: Controls.LiquidSurface { radius: 14; readability: 0.60 }
+            background: Rectangle {
+                radius: tokens.cardRadius
+                color: tokens.cardFill
+                border.width: 1
+                border.color: tokens.separator
+            }
         }
     }
     Timer { id: noticeTimer; interval: 1800; onTriggered: copyNotice.visible = false }

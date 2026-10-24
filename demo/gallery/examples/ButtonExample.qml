@@ -9,7 +9,7 @@ ColumnLayout {
     property string language: "en"
     property bool sceneOnly: false
     function tr(en, zh) { return language === "zh" ? zh : en }
-    spacing: 24
+    spacing: 16
 
     // Section furniture is plain: examples retain the shared material unchanged.
     component ExampleGroup: ColumnLayout {
@@ -64,11 +64,10 @@ ColumnLayout {
     Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Ui.AppTheme.border; visible: !example.sceneOnly }
     ExampleGroup {
         visible: !example.sceneOnly
-        heading: example.tr("01.3 · Sizes", "01.3 · 尺寸")
-        note: example.tr("28 / 34 / 44 logical pixels. Same action, different control sizes.", "28 / 34 / 44 逻辑像素。同一种操作，只比较尺寸。")
-        Controls.LiquidActionButton { text: example.tr("Small · 28", "小 · 28"); implicitHeight: 28; font.pixelSize: 13 }
-        Controls.LiquidActionButton { text: example.tr("Medium · 34", "中 · 34"); implicitHeight: 34; font.pixelSize: 14 }
-        Controls.LiquidActionButton { text: example.tr("Large · 44", "大 · 44"); implicitHeight: 44; font.pixelSize: 15 }
+        heading: example.tr("01.3 · Same size, different material", "01.3 · 同尺寸，不同材质")
+        note: example.tr("Both variants stay 28px high. Choose the material explicitly for the context.", "液态与实色按钮均高 28px，按使用位置显式选择材质。")
+        Controls.LiquidActionButton { text: example.tr("Liquid · 28", "液态 · 28"); materialForm: false; implicitHeight: 28 }
+        Controls.LiquidActionButton { text: example.tr("Solid · 28", "实色 · 28"); materialForm: true; implicitHeight: 28 }
     }
 
     Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Ui.AppTheme.border; visible: !example.sceneOnly }

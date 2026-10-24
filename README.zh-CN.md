@@ -38,14 +38,19 @@ Qt Quick GPU 后端。导出的基础组件使用 Qt 6.8 或更新版本。
 `Kos.Ui` QML 模块及 `Kos::Ui` / `Kos::UiPlugin` 目标。
 `demo/Kos/Ui` 映射到同一份源码，不是另一套实现。
 
+液态与普通实色控件均保留。下例显式选择普通材质；液态输入使用
+`specificationForm: false`、`materialForm: false`、`liquidFinish: true`。
+两种材质均可采用紧凑尺寸。
+
 ```qml
 import QtQuick
 import Kos.Ui
 
 LiquidTextField {
     width: 280
-    materialForm: false
-    liquidFinish: true
+    specificationForm: true
+    implicitHeight: 30
+    cornerRadius: 8
     placeholderText: "Search"
     textColor: AppTheme.text
     mutedTextColor: AppTheme.mutedText
@@ -75,3 +80,5 @@ cmake --build build
 仅在明确要求时执行构建、测试及图形检查，并且只在虚拟机或托管 CI 中执行。
 
 保留原有 [GPL-3.0 许可证全文](LICENSE)。
+
+Gallery 的布局、材质与紧凑尺寸以 [Gallery 设计语言](docs/GalleryDesign.zh-CN.md) 为准。

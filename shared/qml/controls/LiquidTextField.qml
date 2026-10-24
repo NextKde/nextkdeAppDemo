@@ -10,7 +10,27 @@ TextField {
     property string liquidIntensity: LiquidStyle.intensityLevel
     readonly property var _intensity: LiquidStyle.intensityProfile(liquidIntensity)
     opacity: specificationForm && !enabled ? .38 : 1
-    implicitHeight: 34
+    implicitHeight: Foundation.AppTheme.compactDesign ? 30 : 34
+    Binding {
+        target: root; property: "font.pixelSize"
+        value: Foundation.AppTheme.compactControlFontSize; when: Foundation.AppTheme.compactDesign
+        restoreMode: Binding.RestoreBindingOrValue
+    }
+    Binding {
+        target: root; property: "font.weight"
+        value: Font.Normal; when: Foundation.AppTheme.compactDesign
+        restoreMode: Binding.RestoreBindingOrValue
+    }
+    Binding {
+        target: root; property: "topPadding"
+        value: 4; when: Foundation.AppTheme.compactDesign
+        restoreMode: Binding.RestoreBindingOrValue
+    }
+    Binding {
+        target: root; property: "bottomPadding"
+        value: 4; when: Foundation.AppTheme.compactDesign
+        restoreMode: Binding.RestoreBindingOrValue
+    }
     leftPadding: 12
     rightPadding: 12
     verticalAlignment: TextInput.AlignVCenter
@@ -18,7 +38,7 @@ TextField {
 
     property color glassColor: darkAppearance
         ? Qt.rgba(32 / 255, 37 / 255, 47 / 255, .20) : Qt.rgba(1, 1, 1, .20)
-    property real cornerRadius: specificationForm ? 10 : height
+    property real cornerRadius: specificationForm ? 8 : height
     property color outlineColor: Qt.rgba(1, 1, 1, 0.08)
     property color focusedOutlineColor: Foundation.AppTheme.focusRing
     property color textColor: Foundation.AppTheme.text
@@ -44,7 +64,7 @@ TextField {
     readonly property bool sampling: _liquid && liquidSurface.sampling
     readonly property bool _liquid: liquidFinish && !materialForm && !specificationForm
     readonly property color _fill: specificationForm
-        ? (darkAppearance ? Qt.rgba(1, 1, 1, .06) : Qt.rgba(0, 0, 0, .06))
+        ? Foundation.AppTheme.controlBackground
         : Qt.rgba(glassColor.r, glassColor.g, glassColor.b,
         Math.min(1, glassColor.a + (_liquid ? (hover.hovered ? .05 : 0)
             : (hover.hovered ? .035 : 0))))
@@ -53,7 +73,7 @@ TextField {
     placeholderTextColor: mutedTextColor
     selectionColor: Foundation.AppTheme.accent
     selectedTextColor: Foundation.AppTheme.accentText
-    scale: _liquid && hover.hovered ? 1.01 : 1
+    scale: !Foundation.AppTheme.compactDesign && _liquid && hover.hovered ? 1.01 : 1
     Behavior on scale {
         NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic }
     }

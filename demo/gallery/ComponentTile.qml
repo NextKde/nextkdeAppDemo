@@ -4,59 +4,40 @@ import QtQuick.Layouts
 import "../Kos/Ui/foundation" as Ui
 import "../Kos/Ui/controls" as Controls
 import "ComponentCatalog.mjs" as Catalog
+import "components"
 
 AbstractButton {
     id: tile
     required property var entry
     property string language: "en"
     implicitWidth: 280
-    implicitHeight: 232
-    padding: 16
+    implicitHeight: tokens.cardHeight
+    padding: tokens.cardPadding
     hoverEnabled: true
     Accessible.name: Catalog.title(entry, language)
+    MaterialSpecTokens { id: tokens; dark: Ui.AppTheme.dark }
 
     background: Item {
-        Controls.LiquidOuterShadow {
-            anchors.fill: parent
-            radius: 16
-            shadowOpacity: Ui.AppTheme.dark ? .18 : .07
-            offset: Qt.vector2d(0, 2)
-        }
         Rectangle {
-            id: panelBase
             anchors.fill: parent
-            radius: 16
-            color: Ui.AppTheme.dark ? "#2b2b2e" : "#f1f1f4"
-        }
-        Controls.LiquidBackdrop {
-            id: panelBackdrop
-            sourceItem: panelBase
-            registerAsDefault: false
-        }
-        Controls.LiquidSurface {
-            anchors.fill: parent
-            backdrop: panelBackdrop
-            convexLens: true
-            radius: 16
-            readability: .06
-            blurStrength: 0
-            reflectionStrength: tile.hovered ? .72 : .50
-            tintColor: Ui.AppTheme.dark ? "#353538" : "#ffffff"
-            tintStrength: tile.hovered ? .12 : .05
+            radius: tokens.cardRadius
+            color: tile.down || pointer.pressed ? tokens.cardPressFill
+                : tile.hovered ? tokens.cardHoverFill : tokens.cardFill
+            Behavior on color { ColorAnimation { duration: Ui.AppTheme.reduceMotion ? 0 : tokens.fast } }
         }
         Rectangle {
             anchors.fill: parent
-            radius: 16
+            radius: tokens.cardRadius
             color: "transparent"
             border.width: tile.activeFocus ? 2 : 0
-            border.color: Ui.AppTheme.focusRing
+            border.color: tokens.focusAccent
         }
     }
     contentItem: ColumnLayout {
-        spacing: 10
+        spacing: tokens.gap
         Item {
             Layout.fillWidth: true
-            Layout.preferredHeight: 112
+            Layout.preferredHeight: tokens.thumbnailHeight
             clip: true
             ComponentThumbnail { anchors.fill: parent; kind: tile.entry.id }
         }

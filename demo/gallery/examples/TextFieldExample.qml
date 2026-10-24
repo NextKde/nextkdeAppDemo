@@ -50,4 +50,12 @@ ColumnLayout {
         enabled: false
         Accessible.name: "Disabled input"
     }
+    Sections.ExampleHeading { number: galleryExample.sectionPrefix + ".6"; title: galleryExample.tr("Solid variant · same size", "实色形态 · 同尺寸") }
+    Controls.LiquidTextField {
+        Layout.fillWidth: true
+        specificationForm: true; materialForm: true
+        placeholderText: galleryExample.tr("Ordinary search", "普通搜索")
+        Accessible.name: placeholderText
+    }
+
 }

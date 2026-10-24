@@ -74,13 +74,13 @@ export const entries = [
         summary: "A working sidebar: selecting a destination changes the adjacent content.",
         summaryZh: "可操作的侧栏，选择导航项会切换旁边的内容。",
         source: "shared/qml/controls/LiquidNavigationButton.qml", example: "NavigationExample.qml",
-        api: [["LiquidCard / Layout.preferredWidth", "A transparent glass sidebar container.", "透明玻璃侧栏容器。"],
+        api: [["LiquidCard / Layout.preferredWidth", "An ordinary sidebar with ordinary navigation rows.", "普通材质侧栏容器，内部使用普通导航行。"],
               ["text / checked / clicked()", "The host owns the selected destination.", "宿主维护当前页面，按钮显示选择并发出点击。"]]
     },
     {
         id: "card", name: "Card", zh: "卡片", group: "layout", type: "LiquidCard",
-        summary: "A transparent glass container with background sampling and a reflective rim.",
-        summaryZh: "透明玻璃容器，采样背景并绘制反射边缘。",
+        summary: "Ordinary content cards and a floating search panel with one adaptive glass layer.",
+        summaryZh: "普通内容卡片，以及只有外层使用自适应玻璃的悬浮搜索面板。",
         source: "shared/qml/controls/LiquidCard.qml", example: "CardExample.qml",
         api: [["padding / contentItem", "Inner spacing and content.", "内边距与内容。"],
               ["Layout.fillWidth", "Use Qt Quick Layouts for adaptive sizing.", "通过 Qt Quick Layouts 适应窗口宽度。"]]
@@ -100,7 +100,7 @@ export const entries = [
         summaryZh: "说明内容为空的原因，并提供下一步操作。",
         source: "shared/qml/foundation/KosEmptyState.qml", example: "EmptyStateExample.qml",
         api: [["title / description", "Explain the current state.", "说明当前状态。"],
-              ["LiquidActionButton.clicked()", "Connect a glass action to the host.", "将玻璃按钮接到宿主操作。"]]
+              ["LiquidActionButton.clicked()", "Connect an ordinary content action to the host.", "将普通内容按钮接到宿主操作。"]]
     },
     {
         id: "scroll", name: "Scrollable list", zh: "滚动列表", group: "layout", type: "KosKineticScroll + LiquidNavigationButton",

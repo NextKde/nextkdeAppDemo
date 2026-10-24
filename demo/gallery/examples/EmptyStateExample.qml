@@ -22,12 +22,12 @@ ColumnLayout {
         title: "No items yet"
         description: "Create your first item to get started."
     }
-    Controls.LiquidActionButton {
+    Controls.LiquidActionButton { materialForm: true;
         Layout.alignment: Qt.AlignHCenter
         visible: !example.hasItem
         text: "Create example item"
         onClicked: example.hasItem = true
     }
     Label { visible: example.hasItem; text: "Your first item is ready."; color: Ui.AppTheme.text }
-    Controls.LiquidActionButton { visible: example.hasItem; text: "Remove item"; onClicked: example.hasItem = false }
+    Controls.LiquidActionButton { materialForm: true; visible: example.hasItem; text: "Remove item"; onClicked: example.hasItem = false }
 }

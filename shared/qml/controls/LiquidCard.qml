@@ -5,7 +5,9 @@ import "../foundation" as Foundation
 
 Pane {
     id: root
-    property real radius: 22
+    property bool materialForm: false
+    property bool adaptiveGlass: false
+    property real radius: Foundation.AppTheme.compactDesign ? 8 : 22
     property real readability: 0.47
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     readonly property LiquidBackdrop contentBackdrop: cardContentBackdrop
@@ -18,26 +20,36 @@ Pane {
     property bool shadowEnabled: false
     property color shadowColor: "#000000"
     property real shadowOpacity: .16
-    readonly property bool sampling: cardGlass.sampling
-    padding: 18
+    readonly property bool sampling: !materialForm && cardGlass.sampling
+    padding: Foundation.AppTheme.compactDesign ? 12 : 18
     // A sibling source for content controls: captures only the already composed
     // material, never labels/buttons/content or their consuming lens surfaces.
     LiquidBackdrop {
         id: cardContentBackdrop
         parent: root
         sourceItem: root.background
+        active: !root.materialForm && !root.adaptiveGlass && !Foundation.AppTheme.reduceTransparency
         registerAsDefault: false
     }
     background: Item {
         LiquidOuterShadow {
             anchors.fill: parent; radius: root.radius
-            visible: root.shadowEnabled; shadowColor: root.shadowColor
+            visible: !root.materialForm && root.shadowEnabled; shadowColor: root.shadowColor
             shadowOpacity: root.shadowOpacity; offset: Qt.vector2d(0, 3)
+        }
+        Rectangle {
+            anchors.fill: parent
+            visible: root.materialForm
+            radius: root.radius
+            color: Foundation.AppTheme.contentSecondaryBackground
         }
         LiquidSurface {
             id: cardGlass
+            visible: !root.materialForm
+            adaptiveGlass: root.adaptiveGlass
             anchors.fill: parent
-            radius: root.radius; readability: root.readability; backdrop: root.backdrop
+            radius: root.radius; readability: root.readability
+            backdrop: root.materialForm ? null : root.backdrop
             tintColor: root.tintColor; tintStrength: root.tintStrength
             blurStrength: root.blurStrength; refractionStrength: root.refractionStrength
             magnification: root.magnification; reflectionStrength: root.reflectionStrength

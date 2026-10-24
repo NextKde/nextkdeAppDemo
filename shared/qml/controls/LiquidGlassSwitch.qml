@@ -12,7 +12,8 @@ Item {
     property color accentColor: "#43c154"
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property bool darkAppearance: Foundation.AppTheme.dark
-    property color trackColor: Qt.rgba(0.5, 0.5, 0.55, 0.35)
+    property color trackColor: materialForm && Foundation.AppTheme.compactDesign ? Foundation.AppTheme.controlBackground
+        : Qt.rgba(0.5, 0.5, 0.55, 0.35)
     // ── Form ──────────────────────────────────────────────────────────────
     // A tonal host draws the Material 3 switch: a pill track that takes the
     // accent when on, and a handle that is 16dp off / 24dp on. The iOS track,
@@ -255,7 +256,7 @@ Item {
             anchors.fill: parent
             radius: height / 2
             color: root.checked ? root.accentColor : root.trackColor
-            Behavior on color { ColorAnimation { duration: 150 } }
+            Behavior on color { ColorAnimation { duration: root.reduceMotion ? 0 : 150 } }
         }
 
         // State layer: 10% on hover, 16% pressed, centred on the handle.
@@ -267,7 +268,7 @@ Item {
             radius: width / 2
             color: root.accentColor
             opacity: root._pressed ? 0.16 : (root._hovered ? 0.10 : 0.0)
-            Behavior on opacity { NumberAnimation { duration: 120 } }
+            Behavior on opacity { NumberAnimation { duration: root.reduceMotion ? 0 : 120 } }
         }
 
         // Handle: a circle that grows into the "on" size, not the iOS lens.
@@ -278,8 +279,8 @@ Item {
             height: materialLayer.handleSize
             radius: width / 2
             color: root.checked ? root.handleOnColor : root.handleOffColor
-            Behavior on x { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
-            Behavior on width { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
+            Behavior on x { NumberAnimation { duration: root.reduceMotion ? 0 : 150; easing.type: Easing.OutCubic } }
+            Behavior on width { NumberAnimation { duration: root.reduceMotion ? 0 : 150; easing.type: Easing.OutCubic } }
         }
     }
 
@@ -290,7 +291,7 @@ Item {
         color: "transparent"
         border.width: 2
         border.color: Foundation.AppTheme.focusRing
-        visible: false
+        visible: root.activeFocus && root.enabled
     }
 
     // Interaction

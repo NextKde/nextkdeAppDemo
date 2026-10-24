@@ -24,6 +24,8 @@ ColumnLayout {
             id: row
             required property int index
             width: list.width
+            implicitHeight: 32
+            specificationForm: true
             text: "Example item " + (index + 1)
             checked: list.currentIndex === index
             onClicked: list.currentIndex = index

@@ -11,11 +11,11 @@ ColumnLayout {
     property string sectionPrefix: "01"
     function tr(en, zh) { return language === "zh" ? zh : en }
     property real lensPosition: 0.45
-    property real refraction: 5
+    property real refraction: .6
     property bool frosted: false
     spacing: 16
 
-    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Material preview", "材质预览") }
+    Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Floating operation layer", "悬浮操作层") }
     Item {
         id: stage
         Layout.fillWidth: true
@@ -65,17 +65,23 @@ ColumnLayout {
             height: 144
             x: 24 + example.lensPosition * Math.max(0, stage.width - width - 48)
             y: 40
-            radius: 24
+            radius: 12
+            adaptiveGlass: true
             backdrop: sceneBackdrop
             refractionStrength: example.refraction
-            magnification: 1.12
+            magnification: 1
+            reflectionStrength: .12
             blurStrength: example.frosted ? 0.65 : 0
             readability: 0.22
-            Label {
+            ColumnLayout {
                 anchors.centerIn: parent
-                text: "Move the lens"
-                color: Ui.AppTheme.text
-                font.pixelSize: 20
+                spacing: 12
+                Label { text: example.tr("Floating actions", "悬浮操作层"); color: Ui.AppTheme.text; font.pixelSize: 17 }
+                Controls.LiquidActionButton {
+                    materialForm: true
+                    text: example.tr("Center panel", "面板居中")
+                    onClicked: example.lensPosition = .5
+                }
             }
         }
     }
@@ -83,7 +89,7 @@ ColumnLayout {
     Controls.LiquidSlider {
         Layout.fillWidth: true
         value: example.lensPosition
-        materialForm: false
+        materialForm: true
         Accessible.name: "Lens position"
         onPreviewChanged: function(value) { example.lensPosition = value }
         onCommitRequested: function(value) { example.lensPosition = value }
@@ -93,7 +99,7 @@ ColumnLayout {
     Controls.LiquidSlider {
         Layout.fillWidth: true
         value: example.refraction / 12
-        materialForm: false
+        materialForm: true
         Accessible.name: "Edge refraction"
         onPreviewChanged: function(value) { example.refraction = value * 12 }
         onCommitRequested: function(value) { example.refraction = value * 12 }

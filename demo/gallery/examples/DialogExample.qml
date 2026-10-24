@@ -13,7 +13,7 @@ ColumnLayout {
     property string result: "No action yet."
     spacing: 16
     Sections.ExampleHeading { number: example.sectionPrefix + ".1"; title: example.tr("Open and respond", "打开与响应") }
-    Controls.LiquidActionButton { text: "Open dialog"; onClicked: dialog.open() }
+    Controls.LiquidActionButton { materialForm: true; text: "Open dialog"; onClicked: dialog.open() }
     Label { text: example.result; color: Ui.AppTheme.text }
 
     Controls.LiquidDialog {

@@ -10,7 +10,7 @@ Item {
     Loader {
         anchors.centerIn: parent
         width: Math.min(240, parent.width - 12)
-        height: 104
+        height: Math.min(104, parent.height)
         sourceComponent: {
             switch (root.kind) {
             case "button": return button
@@ -107,8 +107,8 @@ Item {
         id: sidebar
         Column {
             spacing: 4
-            Controls.LiquidNavigationButton { width: parent.width; text: "Library"; checked: true }
-            Controls.LiquidNavigationButton { width: parent.width; text: "Favorites" }
+            Controls.LiquidNavigationButton { specificationForm: true; width: parent.width; text: "Library"; checked: true }
+            Controls.LiquidNavigationButton { specificationForm: true; width: parent.width; text: "Favorites" }
         }
     }
     Component {
@@ -118,11 +118,12 @@ Item {
     Component {
         id: dialog
         Controls.LiquidCard {
+            materialForm: true
             radius: 14
             padding: 12
             contentItem: ColumnLayout {
                 Label { text: "Save changes?"; color: Ui.AppTheme.text; font.weight: Font.DemiBold }
-                Controls.LiquidActionButton { text: "Save"; highlighted: true; Layout.alignment: Qt.AlignRight }
+                Controls.LiquidActionButton { materialForm: true; text: "Save"; highlighted: true; Layout.alignment: Qt.AlignRight }
             }
         }
     }
@@ -133,7 +134,7 @@ Item {
                 anchors.centerIn: parent
                 width: parent.width * 0.85
                 height: 80
-                radius: 16
+                radius: 12
                 Label { anchors.centerIn: parent; text: "Liquid glass"; color: Ui.AppTheme.text }
             }
         }

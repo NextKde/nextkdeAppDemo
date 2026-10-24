@@ -1,5 +1,7 @@
 # Components and application integration
 
+> For current material placement, palette and dimensions, follow the four rules in [Gallery design language](GalleryDesign.md). Earlier optical implementation notes below are not default UI recipes.
+
 [简体中文](Components.zh-CN.md)
 
 ## Catalogue and state
@@ -57,10 +59,16 @@ Window {
             anchors.centerIn: parent
             width: 320
             height: 180
-            radius: 24
+            radius: 12
             backdrop: sceneBackdrop
-            refractionStrength: 4
-            magnification: 1.06
+            adaptiveGlass: true
+            refractionStrength: .6
+            magnification: 1
+            reflectionStrength: .12
+            Button {
+                anchors.centerIn: parent
+                text: "Continue"
+            }
         }
     }
 }
@@ -86,7 +94,7 @@ Alpha transparency is a separate operation. To reveal the desktop, keep the wind
 and ancestor containers transparent and remove every opaque image or sampled copy
 under that area. Apply opacity only to the material background, grouped where
 overlapping layers must fade together. Keep text and interactive content opaque.
-The sidebar demo implements this directly and defaults to opacity 0.95.
+Gallery's left navigation uses an opaque ordinary background; it does not use this transparency path.
 
 ## Link the static module
 
@@ -260,7 +268,7 @@ a partially transparent lens; this would leak an unrefracted duplicate.
 
 LiquidActionButton and LiquidTextField accept liquidIntensity: light, medium,
 or strong. The default follows LiquidStyle.intensityLevel=medium, preserving
-existing values. Gallery sidebar search overrides strong. Profiles adjust
+existing values. Gallery chrome uses plain controls; its sidebar search explicitly uses the light liquid finish. Liquid examples may explicitly choose an intensity. Profiles adjust
 refraction, magnification, reflection, local blur and inward shade; geometry,
 typography and fill alpha remain unchanged. The existing shader caps inward
 shade at .10, shared by medium/strong. Other types are not yet migrated.
@@ -268,3 +276,49 @@ No runtime or visual acceptance is claimed.
 
 
 2026-10-22 fill revision: liquid buttons/inputs replace adaptive inward pigment with white .10-to-zero bands, 3px from top/bottom. Normal fill is an elliptical #f2f2f4-to-#c4c4c8 gradient in both themes, retaining .20/.25 alpha. Primary actions retain accent. The optical pass disables its flat tint so the shared QML fill is applied once. Diagonal highlights and intensity optics remain unchanged. No QSB changes or runtime verification.
+
+
+## Compact Gallery composition
+
+Follow the four rules at the top of [Gallery design language](GalleryDesign.md).
+Gallery enables AppTheme.compactDesign: body 13, actions 28 high, search 30,
+navigation rows 30, list rows 32 and toolbar 48. Ordinary areas use semantic
+content/control colors; Dialog containers and buttons retain a brightness step.
+
+Compact mode does not choose a material. LiquidActionButton and LiquidSelect
+retain their liquid defaults and use 8px corners only for compact ordinary controls;
+liquid controls keep their rounded shape. Select.fieldRadius remains read-only.
+LiquidCard.materialForm defaults to false; ordinary containers explicitly choose
+true. LiquidTextField.specificationForm remains opt-in. Gallery retains liquid
+examples and solid comparisons, with 28px buttons and 30px inputs in both forms.
+
+LiquidSurface.adaptiveGlass and LiquidActionButton.adaptiveGlass reuse existing
+sampled shaders and luminance-dependent readability. They never replace sampled
+glass with a fixed RGB fill. Missing sources, software rendering and reduced
+transparency fall back to ordinary material. Composition rules apply to application
+layouts; they do not remove liquid controls from the component catalogue. Gallery’s original full-width rectangular floating region overlays actual app
+content without an inset rounded block. Window decorations retain their original coordinates;
+its top actions and selector explicitly use the light liquid finish. Left navigation rows and background remain
+ordinary; the search uses the light liquid finish with a separate sidebar backdrop.
+LiquidCard.adaptiveGlass
+forwards to the shared surface and disables nested content capture.
+
+Select owns keyboard focus at its outer item; a separate ring follows that item's
+focus and configured radius. Host-owned state, signals and selection acknowledgement
+remain intact. The explicitly requested workstation preview loaded and reloaded;
+full interaction and visual acceptance remains pending.
+
+Compact button/input typography: 11px Font.Normal (400), vertically centered,
+4px top/bottom padding and 12px standard horizontal padding. Select labels also
+use 11px Font.Normal in compact mode. AppTheme.compactControlFontSize owns this
+size; liquid and solid forms share it.
+
+Gallery uses 95% opacity on the floating material only. Its QML MultiEffect
+provider samples the actual scrolling page; the floating region has no bottom shadow.
+Window and content base stay opaque. Example backgrounds never feed this provider.
+Top controls sample the material; decorations retain their original coordinates.
+
+At scroll origin, Gallery renders the header and body as one ordinary surface.
+Only real page content scrolling beneath the header enables the 95% material and blur
+without a shadow (scrollOffset > 12px). Returning to origin restores the flat surface
+without moving controls or decorations. Top liquid buttons keep their own finish.

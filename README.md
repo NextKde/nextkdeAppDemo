@@ -44,14 +44,19 @@ Canonical sources are in [`shared/qml`](shared/qml). The optional CMake build ex
 the static `Kos.Ui` QML module and the `Kos::Ui` / `Kos::UiPlugin` targets. The demo's
 `demo/Kos/Ui` directory maps to the same sources; it is not a second implementation.
 
+Both liquid and solid controls remain available. The example below explicitly
+chooses ordinary material; for a liquid input use `specificationForm: false`,
+`materialForm: false` and `liquidFinish: true`. Compact dimensions work with either.
+
 ```qml
 import QtQuick
 import Kos.Ui
 
 LiquidTextField {
     width: 280
-    materialForm: false
-    liquidFinish: true
+    specificationForm: true
+    implicitHeight: 30
+    cornerRadius: 8
     placeholderText: "Search"
     textColor: AppTheme.text
     mutedTextColor: AppTheme.mutedText
@@ -64,7 +69,7 @@ does not blur the real desktop. An ordinary desktop compositor still performs no
 window composition.
 
 See [components and integration](docs/Components.md), [architecture and ownership](docs/Architecture.md),
-and [extraction provenance](NOTICE.md).
+[Gallery design language](docs/GalleryDesign.md), and [extraction provenance](NOTICE.md).
 
 ## Optional library build
 

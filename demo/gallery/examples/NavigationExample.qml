@@ -21,15 +21,21 @@ ColumnLayout {
         Layout.fillHeight: true
         spacing: 20
     Controls.LiquidCard {
+        materialForm: true
         Layout.preferredWidth: 180
         Layout.fillHeight: true
         padding: 0
+        background: Rectangle {
+            radius: 8
+            color: Ui.AppTheme.contentSecondaryBackground
+        }
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 10
             Repeater {
                 model: example.destinations
                 delegate: Controls.LiquidNavigationButton {
+                    specificationForm: true
                     required property string modelData
                     required property int index
                     Layout.fillWidth: true
