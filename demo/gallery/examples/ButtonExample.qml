@@ -213,8 +213,8 @@ ColumnLayout {
         }
         Label {
             Layout.fillWidth: true
-            text: example.tr("The same rules applied where the buttons actually live. Liquid in floating containers, solid inside content, capsules for actions and 6pt corners for toolbar items.",
-                             "把总则放回真实位置：浮起容器里用液态，内容里用实色；操作按钮是胶囊，工具栏项是 6 点圆角。")
+            text: example.tr("The same rules where the buttons actually live. Liquid stays a capsule everywhere; solid actions are capsules too, and only solid toolbar items take a 6pt corner.",
+                             "把总则放回真实位置：液态在任何位置都是胶囊；实色操作按钮也是胶囊；只有实色的工具栏项用 6 点圆角。")
             color: Ui.AppTheme.mutedText
             font.pixelSize: 13
             wrapMode: Text.WordWrap
@@ -236,7 +236,7 @@ ColumnLayout {
                 Row {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; anchors.leftMargin: 10
                     spacing: 8
-                    Controls.LiquidActionButton { text: example.tr("Back", "返回"); implicitHeight: 22; implicitWidth: 58; font.pixelSize: 12; cornerRadius: 6 }
+                    Controls.LiquidActionButton { text: example.tr("Back", "返回"); implicitHeight: 22; implicitWidth: 58; font.pixelSize: 12 }
                     Controls.LiquidActionButton { text: example.tr("Share", "共享"); implicitHeight: 22; implicitWidth: 58; font.pixelSize: 12; cornerRadius: 6; materialForm: true }
                 }
                 Label {

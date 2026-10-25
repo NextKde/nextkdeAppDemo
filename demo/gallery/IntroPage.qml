@@ -47,7 +47,7 @@ ScrollView {
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
                 text: page.tr("Liquid · floating layer", "液态 · 浮起层"); implicitHeight: 28 }
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
-                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12; cornerRadius: 6 }
+                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12 }
 
             Rectangle {
                 anchors.left: parent.left; anchors.right: parent.right
