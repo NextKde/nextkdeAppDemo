@@ -24,7 +24,11 @@ Button {
     property string iconName: ""
     property bool iconFilled: false
     property real iconSize: 16
-    property color textColor: destructive ? Foundation.AppTheme.destructive : Foundation.AppTheme.text
+    // 主操作（highlighted/checked）在强调色底上用白字，符合 macOS 惯例
+    property color textColor: !enabled ? Foundation.AppTheme.disabledText
+        : destructive ? Foundation.AppTheme.destructive
+        : (highlighted || checked) ? "#FFFFFF"
+        : Foundation.AppTheme.text
     property color iconColor: textColor
     property color surfaceColor: Foundation.AppTheme.compactDesign ? Foundation.AppTheme.controlBackground
         : root.darkAppearance ? "#20252f" : "#ffffff"
@@ -63,7 +67,8 @@ Button {
     rightPadding: iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
     scale: Foundation.AppTheme.compactDesign || adaptiveGlass ? 1 : materialForm ? (down ? .98 : 1) : hovered ? 1.03 : 1
     Behavior on scale { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
-    opacity: enabled ? 1 : 0.38
+    // 禁用靠文字色表达，不整块降透明度
+    opacity: 1
     contentItem: Item {
         implicitWidth: root.iconName.length ? root.iconSize : caption.implicitWidth
         implicitHeight: Math.max(caption.implicitHeight, root.iconName.length ? root.iconSize : 0)
@@ -100,7 +105,8 @@ Button {
         }
         Rectangle {
             anchors.fill: parent
-            visible: root.materialForm
+            // 主操作与实色档都走实底：强调色要真蓝，不能被液态层洗淡
+            visible: root.materialForm || root.highlighted || root.checked
             radius: root.cornerRadius
             color: root.highlighted || root.checked ? root.accentColor
                 : root.flat && !root.hovered && !root.down ? "transparent" : root.surfaceColor
@@ -113,7 +119,7 @@ Button {
         LiquidSurface {
         id: buttonGlass
         anchors.fill: parent
-        visible: !root.materialForm
+        visible: !root.materialForm && !root.highlighted && !root.checked
         darkAppearance: root.darkAppearance
         adaptiveGlass: root.adaptiveGlass
         convexLens: root.convexLens

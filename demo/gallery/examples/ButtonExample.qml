@@ -36,7 +36,7 @@ ColumnLayout {
             id: buttons
             Layout.fillWidth: true
             Layout.topMargin: 8
-            spacing: 12
+            spacing: 8
         }
     }
 
@@ -111,4 +111,121 @@ ColumnLayout {
         Controls.LiquidActionButton { text: example.tr("Primary action", "主操作"); materialForm: true; highlighted: true }
         Controls.LiquidActionButton { text: example.tr("Disabled", "已禁用"); materialForm: true; enabled: false }
     }
+
+    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Ui.AppTheme.border; visible: !example.sceneOnly }
+    ColumnLayout {
+        visible: !example.sceneOnly
+        Layout.fillWidth: true
+        spacing: 10
+
+        Label {
+            Layout.fillWidth: true
+            text: example.tr("01.7 · Placement decides size and corner", "01.7 · 位置决定尺寸和圆角")
+            color: Ui.AppTheme.text
+            font.pixelSize: 17; font.weight: Font.DemiBold
+        }
+        Label {
+            Layout.fillWidth: true
+            text: example.tr("Toolbar and content rows use macOS 15 corners (6 / 8) for both materials; dialogs and floating bars are capsules, as Apple draws them.",
+                             "工具栏与内容行的液态、实色都用 macOS 15 小圆角（6 / 8）；弹窗与浮层是胶囊，和苹果原图一致。")
+            color: Ui.AppTheme.mutedText
+            font.pixelSize: 13
+            wrapMode: Text.WordWrap
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 12
+            Label {
+                Layout.preferredWidth: 132
+                text: example.tr("Toolbar", "工具栏")
+                color: Ui.AppTheme.text
+                font.pixelSize: 13; font.weight: Font.DemiBold
+            }
+            Label {
+                Layout.preferredWidth: 140
+                text: example.tr("h 22 · r6", "高 22 · 圆角 6")
+                color: Ui.AppTheme.mutedText
+                font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Liquid", "液态"); implicitHeight: 22; font.pixelSize: 12
+                cornerRadius: 6
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Solid", "实色"); materialForm: true
+                implicitHeight: 22; cornerRadius: 6; font.pixelSize: 12
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 12
+            Label {
+                Layout.preferredWidth: 132
+                text: example.tr("Content row", "内容行")
+                color: Ui.AppTheme.text
+                font.pixelSize: 13; font.weight: Font.DemiBold
+            }
+            Label {
+                Layout.preferredWidth: 140
+                text: example.tr("h 28 · r8", "高 28 · 圆角 8")
+                color: Ui.AppTheme.mutedText
+                font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Liquid", "液态"); implicitHeight: 28; font.pixelSize: 13
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Solid", "实色"); materialForm: true
+                implicitHeight: 28; cornerRadius: 8; font.pixelSize: 13
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 12
+            Label {
+                Layout.preferredWidth: 132
+                text: example.tr("Dialog footer", "弹窗底栏")
+                color: Ui.AppTheme.text
+                font.pixelSize: 13; font.weight: Font.DemiBold
+            }
+            Label {
+                Layout.preferredWidth: 140
+                text: example.tr("h 32 · capsule", "高 32 · 胶囊")
+                color: Ui.AppTheme.mutedText
+                font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Liquid", "液态"); implicitHeight: 32; font.pixelSize: 13
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Solid", "实色"); materialForm: true
+                implicitHeight: 32; cornerRadius: 16; font.pixelSize: 13
+            }
+        }
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 12
+            Label {
+                Layout.preferredWidth: 132
+                text: example.tr("Floating bar", "浮层 / 侧栏")
+                color: Ui.AppTheme.text
+                font.pixelSize: 13; font.weight: Font.DemiBold
+            }
+            Label {
+                Layout.preferredWidth: 140
+                text: example.tr("h 28 · capsule", "高 28 · 胶囊")
+                color: Ui.AppTheme.mutedText
+                font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Liquid", "液态"); implicitHeight: 28; font.pixelSize: 13
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Solid", "实色"); materialForm: true
+                implicitHeight: 28; cornerRadius: 14; font.pixelSize: 13
+            }
+        }
+    }
+
 }

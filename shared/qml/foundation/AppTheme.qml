@@ -74,7 +74,7 @@ QtObject {
     property string appearanceMode: "system"
     property string materialMode: "auto"
     property real materialOpacity: 0.86
-    property string accentName: "system"
+    property string accentName: "blue"
     property bool reduceTransparency: false
     property bool reduceMotion: false
     property bool nativeBlurAvailable: false
@@ -91,7 +91,7 @@ QtObject {
     readonly property color darkBaseSeed: "#202733"
     readonly property color darkSidebarSeed: "#263142"
     readonly property color darkTextSeed: "#f4f7fb"
-    readonly property color defaultAccentSeed: "#3478f6"
+    readonly property color defaultAccentSeed: dark ? "#0A84FF" : "#007AFF"
     readonly property color purpleAccentSeed: "#8b5cf6"
     readonly property color greenAccentSeed: "#16875f"
     readonly property color orangeAccentSeed: "#d66a20"
@@ -219,6 +219,8 @@ QtObject {
         : Qt.rgba(0.08, 0.13, 0.22, 0.13)
     readonly property color text: paletteText
     readonly property color mutedText: mix(paletteText, window, dark ? 0.46 : 0.36)
+    // 禁用控件文字色：比 mutedText 更淡，靠颜色而不是整体透明度表达禁用
+    readonly property color disabledText: mix(paletteText, window, dark ? 0.68 : 0.62)
     readonly property bool accentUsesDarkText:
         contrastRatio(accent, blackSeed) >= contrastRatio(accent, whiteSeed)
     readonly property color accentText: accentUsesDarkText

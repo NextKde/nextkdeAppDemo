@@ -67,9 +67,10 @@ void main() {
     // Continuous full rim with opposing diagonal peaks: taper both
     // thickness and brightness away from those corners, without cutting gaps.
     float direction = pow(clamp(max(primary, secondary), 0.0, 1.0), .85);
-    float taperedSigma = mix(max(aa * .12, .13), max(aa * .28, .30), direction);
+    // 全包围：非对角边也保留可见厚度，对角维持峰值
+    float taperedSigma = mix(max(aa * .20, .22), max(aa * .34, .36), direction);
     float fullContour = exp(-.5 * pow((depth - .55) / taperedSigma, 2.0));
-    float alpha = clamp(fullContour * mix(.14, .55, direction) * strength * 1.15, 0.0, 1.0) * coverage * qt_Opacity;
+    float alpha = clamp(fullContour * mix(.34, .62, direction) * strength * 1.15, 0.0, 1.0) * coverage * qt_Opacity;
     vec2 sampleUv = sampleOrigin + sampleAxisX * uv.x + sampleAxisY * uv.y;
     vec4 sampled = texture(source, clamp(sampleUv, vec2(0.0), vec2(1.0)));
     vec3 underlay = sampled.rgb + fallbackColor.rgb * (1.0 - sampled.a);
@@ -78,6 +79,11 @@ void main() {
     float darkMode = 1.0 - smoothstep(.25, .65, dot(fallbackColor.rgb, vec3(.299, .587, .114)));
     float brightBackdrop = smoothstep(.45, .80, luminance);
     vec3 reflectionColour = mix(vec3(1.0), vec3(.60), brightBackdrop * (1.0 - darkMode));
+    // 高光颜色按外观分两套：浅色用深灰（压出轮廓），深色用压暗的白。
+    // 浅色这套再往下压一档，避免浅底上看起来像白边。
+    vec3 lightRim = vec3(0.26);
+    vec3 darkRim = vec3(0.74);
+    reflectionColour = mix(lightRim, darkRim, darkMode);
     vec3 inwardColour = reflectionColour;
     reflectionColour = mix(reflectionColour, tintColor.rgb, clamp(highlightTintStrength, 0.0, 1.0));
     // Very low-opacity pigment, fading inward; independent of the fine glint.
