@@ -212,8 +212,8 @@ ColumnLayout {
         }
         Label {
             Layout.fillWidth: true
-            text: example.tr("Toolbar and content rows use macOS 15 corners (6 / 8) for both materials; dialogs and floating bars are capsules, as Apple draws them.",
-                             "工具栏与内容行的液态、实色都用 macOS 15 小圆角（6 / 8）；弹窗与浮层是胶囊，和苹果原图一致。")
+            text: example.tr("Liquid is always a capsule. Solid follows the placement: 6 in a toolbar, 8 in a content row, capsule in dialogs.",
+                             "液态一律胶囊。实色按位置取圆角：工具栏 6、内容行 8、弹窗胶囊。")
             color: Ui.AppTheme.mutedText
             font.pixelSize: 13
             wrapMode: Text.WordWrap
@@ -230,13 +230,12 @@ ColumnLayout {
             }
             Label {
                 Layout.preferredWidth: 140
-                text: example.tr("h 22 · r6", "高 22 · 圆角 6")
+                text: example.tr("h 22 · solid r6", "高 22 · 实色 6")
                 color: Ui.AppTheme.mutedText
                 font.pixelSize: 12
             }
             Controls.LiquidActionButton {
                 text: example.tr("Liquid", "液态"); implicitHeight: 22; font.pixelSize: 12
-                cornerRadius: 6
             }
             Controls.LiquidActionButton {
                 text: example.tr("Solid", "实色"); materialForm: true
@@ -254,7 +253,7 @@ ColumnLayout {
             }
             Label {
                 Layout.preferredWidth: 140
-                text: example.tr("h 28 · r8", "高 28 · 圆角 8")
+                text: example.tr("h 28 · solid r8", "高 28 · 实色 8")
                 color: Ui.AppTheme.mutedText
                 font.pixelSize: 12
             }

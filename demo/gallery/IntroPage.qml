@@ -47,7 +47,7 @@ ScrollView {
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
                 text: page.tr("Liquid · floating layer", "液态 · 浮起层"); implicitHeight: 28 }
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
-                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12; cornerRadius: 6 }
+                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12 }
 
             Rectangle {
                 anchors.left: parent.left; anchors.right: parent.right
@@ -57,11 +57,11 @@ ScrollView {
             }
 
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 16
-                text: page.tr("Solid · content layer", "实色 · 内容层"); materialForm: true; implicitHeight: 28 }
+                text: page.tr("Solid · content layer", "实色 · 内容层"); materialForm: true; implicitHeight: 28; cornerRadius: 8 }
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 16
-                anchors.leftMargin: 190; text: page.tr("Primary", "主操作"); materialForm: true; highlighted: true; implicitHeight: 28 }
+                anchors.leftMargin: 190; text: page.tr("Primary", "主操作"); materialForm: true; highlighted: true; implicitHeight: 28; cornerRadius: 8 }
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 16
-                anchors.leftMargin: 290; text: page.tr("Delete", "删除"); materialForm: true; destructive: true; implicitHeight: 28 }
+                anchors.leftMargin: 290; text: page.tr("Delete", "删除"); materialForm: true; destructive: true; implicitHeight: 28; cornerRadius: 8 }
         }
 
         // 材质放哪里
