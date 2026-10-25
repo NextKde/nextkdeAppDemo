@@ -212,8 +212,8 @@ ColumnLayout {
         }
         Label {
             Layout.fillWidth: true
-            text: example.tr("Liquid is always a capsule. Solid follows the placement: 6 in a toolbar, 8 in a content row, capsule in dialogs.",
-                             "液态一律胶囊。实色按位置取圆角：工具栏 6、内容行 8、弹窗胶囊。")
+            text: example.tr("Action buttons are capsules at every size — 28 and 32 alike. Only toolbar items and mini buttons (22 / 18) take a 6pt corner, because they are tools, not actions.",
+                             "操作按钮在任何尺寸都是胶囊（28 与 32 一样）。只有工具栏项与极小按钮（22 / 18）用 6 点圆角——它们是工具项，不是操作按钮。")
             color: Ui.AppTheme.mutedText
             font.pixelSize: 13
             wrapMode: Text.WordWrap
@@ -230,12 +230,13 @@ ColumnLayout {
             }
             Label {
                 Layout.preferredWidth: 140
-                text: example.tr("h 22 · solid r6", "高 22 · 实色 6")
+                text: example.tr("h 22 · toolbar r6", "高 22 · 工具项 6")
                 color: Ui.AppTheme.mutedText
                 font.pixelSize: 12
             }
             Controls.LiquidActionButton {
                 text: example.tr("Liquid", "液态"); implicitHeight: 22; font.pixelSize: 12
+                cornerRadius: 6
             }
             Controls.LiquidActionButton {
                 text: example.tr("Solid", "实色"); materialForm: true
@@ -253,7 +254,7 @@ ColumnLayout {
             }
             Label {
                 Layout.preferredWidth: 140
-                text: example.tr("h 28 · solid r8", "高 28 · 实色 8")
+                text: example.tr("h 28 · capsule", "高 28 · 胶囊")
                 color: Ui.AppTheme.mutedText
                 font.pixelSize: 12
             }
@@ -262,7 +263,7 @@ ColumnLayout {
             }
             Controls.LiquidActionButton {
                 text: example.tr("Solid", "实色"); materialForm: true
-                implicitHeight: 28; cornerRadius: 8; font.pixelSize: 13
+                implicitHeight: 28; font.pixelSize: 13
             }
         }
         RowLayout {
