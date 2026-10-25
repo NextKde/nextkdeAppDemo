@@ -96,7 +96,10 @@ ScrollView {
             spacing: 8
             Label { text: page.tr("Three rules", "三条规则"); color: Ui.AppTheme.text; font.pixelSize: 17; font.weight: Font.DemiBold }
             Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
-                text: page.tr("1 · One floating material per screen — if the sidebar is glass, popovers are not.", "1 · 一屏只保留一种浮起材质：侧栏用了玻璃，浮层就不要再叠一层。") }
+                text: page.tr("1 · One liquid treatment per panel.", "1 · 一个面板只用一种液态。") }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.mutedText; font.pixelSize: 12
+                text: page.tr("A panel is one floating container: a toolbar, a sidebar, a popover, a player bar. Everything inside it shares the same tint, rim and blur; two panels may differ from each other.",
+                             "面板 = 一个独立的浮起容器（一条工具栏、一个侧栏、一个浮层、一条播放条）。同一面板内的液态元素共用同一套染色、高光与模糊；不同面板之间可以各自不同。") }
             Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
                 text: page.tr("2 · Never use liquid glass for a large area in the content layer.", "2 · 内容层不要大面积使用液态玻璃。") }
             Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
