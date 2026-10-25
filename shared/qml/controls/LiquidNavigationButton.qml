@@ -11,7 +11,10 @@ Button {
     property url iconSource: ""
     property color iconColor: Foundation.AppTheme.accent
     property real cornerRadius: height / 2
-    property color selectionColor: Foundation.AppTheme.accent
+    // 选中态用中性灰，不用强调色：苹果官方截图实测 #E7E7E7 叠在 #F2F2F2 上 ≈ 6% 黑
+    property color selectionColor: Foundation.AppTheme.dark
+        ? Qt.rgba(1, 1, 1, 0.08)
+        : Qt.rgba(0, 0, 0, 0.06)
     property color hoverColor: Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.07)
     property color focusRingColor: Foundation.AppTheme.focusRing
     property bool keyboardFocusOnly: false
