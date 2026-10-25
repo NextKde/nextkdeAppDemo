@@ -14,7 +14,7 @@ Pane {
     property string language: Quickshell.env("GALLERY_LANGUAGE") === "zh" ? "zh" : "en"
     property string themeMode: Quickshell.env("GALLERY_THEME") === "dark" ? "dark" : "light"
     property string backgroundMode: "gradient"
-    property string currentId: "overview"
+    property string currentId: "overview-intro"
     readonly property var selected: Catalog.find(currentId)
     readonly property var filteredEntries: Catalog.filter(search.text)
     font.pixelSize: 13
@@ -211,7 +211,9 @@ Pane {
                         anchors.leftMargin: navigationTokens.pageInset
                         anchors.rightMargin: navigationTokens.pageInset
                         anchors.bottomMargin: navigationTokens.pageInset
-                        sourceComponent: root.selected ? componentPage : overviewPage
+                        sourceComponent: !root.selected ? overviewPage
+                        : root.selected.id === "overview-intro" ? introPage
+                        : componentPage
                     }
                 }
                 Controls.LiquidBackdrop {
@@ -361,6 +363,10 @@ Pane {
             language: root.language
             onComponentSelected: function(id) { root.select(id) }
         }
+    }
+    Component {
+        id: introPage
+        IntroPage { language: root.language; toolbarScrollInset: floatingRegion.height + navigationTokens.sectionGap }
     }
     Component {
         id: componentPage

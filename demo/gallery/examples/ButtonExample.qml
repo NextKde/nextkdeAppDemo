@@ -40,6 +40,92 @@ ColumnLayout {
         }
     }
 
+    // 场景优先：先说“什么时候用哪种”，再谈尺寸与外观。
+    ColumnLayout {
+        visible: !example.sceneOnly
+        Layout.fillWidth: true
+        spacing: 8
+
+        Label {
+            Layout.fillWidth: true
+            text: example.tr("01.0 · Which button, and when", "01.0 · 什么时候用哪种按钮")
+            color: Ui.AppTheme.text
+            font.pixelSize: 17; font.weight: Font.DemiBold
+        }
+        Label {
+            Layout.fillWidth: true
+            text: example.tr("Two decisions, in this order: material follows the layer (floating above content → liquid, inside content → solid), colour follows priority (primary → accent, secondary → normal, destructive → red).",
+                             "按两步决定：先看层级定材质（浮在内容之上 → 液态，内容之内 → 实色），再看优先级定颜色（主操作 → 强调色，次要 → 普通，危险 → 红）。")
+            color: Ui.AppTheme.mutedText
+            font.pixelSize: 13
+            wrapMode: Text.WordWrap
+        }
+
+        GridLayout {
+            Layout.fillWidth: true
+            Layout.topMargin: 6
+            columns: 3
+            columnSpacing: 16
+            rowSpacing: 10
+
+            Label { text: example.tr("Situation", "场景"); color: Ui.AppTheme.mutedText; font.pixelSize: 12; font.weight: Font.DemiBold }
+            Label { text: example.tr("Use", "用哪种"); color: Ui.AppTheme.mutedText; font.pixelSize: 12; font.weight: Font.DemiBold }
+            Label { text: example.tr("Do not", "不要这样用"); color: Ui.AppTheme.mutedText; font.pixelSize: 12; font.weight: Font.DemiBold }
+
+            Label { Layout.preferredWidth: 300; wrapMode: Text.WordWrap
+                text: example.tr("A control strip that floats above content: toolbar, sidebar, player bar, popover", "浮在内容之上的操作条：工具栏、侧栏、播放条、浮层")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap
+                text: example.tr("Liquid button", "液态按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap
+                text: example.tr("Do not use liquid for rows of actions inside the content layer", "不要用液态做内容区里成排的操作")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12 }
+
+            Label { Layout.preferredWidth: 300; wrapMode: Text.WordWrap
+                text: example.tr("The single most important action on this screen: Save, Done, Send", "此屏唯一最重要的动作：保存、完成、发送")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap
+                text: example.tr("Accent button", "强调色按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap
+                text: example.tr("Never two accent buttons on one screen, and never for Cancel", "一屏不要两个强调色，也不要用它做“取消”")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12 }
+
+            Label { Layout.preferredWidth: 300; wrapMode: Text.WordWrap
+                text: example.tr("Parallel or secondary actions, Cancel, openings that are not the main goal", "并列动作、取消、非首要入口")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap
+                text: example.tr("Normal button", "普通按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap
+                text: example.tr("Do not use accent colour for routine or reversible actions", "日常、可撤销的动作不要用强调色")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12 }
+
+            Label { Layout.preferredWidth: 300; wrapMode: Text.WordWrap
+                text: example.tr("Deleting, overwriting, anything that cannot be undone", "删除、覆盖、任何不可撤销的动作")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap
+                text: example.tr("Destructive button", "危险按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap
+                text: example.tr("Red means consequence, not emphasis — do not use it to make a button stand out", "红色表示后果，不表示强调——不要用它让按钮更显眼")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12 }
+
+            Label { Layout.preferredWidth: 300; wrapMode: Text.WordWrap
+                text: example.tr("Tight space where a word would not fit: toolbar, list row", "空间不够放文字：工具栏、列表行")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap
+                text: example.tr("Icon button", "图标按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 13 }
+            Label { Layout.fillWidth: true; wrapMode: Text.WordWrap
+                text: example.tr("Never ship an icon button without a tooltip and an accessible name", "没有 tooltip 和可访问名称的图标按钮不要上线")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12 }
+        }
+    }
+
+    Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Ui.AppTheme.border; visible: !example.sceneOnly }
+
     ExampleGroup {
         heading: example.sceneOnly ? example.tr("02.1 · Buttons over a background", "02.1 · 背景上的按钮") : example.tr("01.1 · Action styles", "01.1 · 操作样式")
         note: example.sceneOnly

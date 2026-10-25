@@ -1,5 +1,11 @@
 export const entries = [
     {
+        id: "overview-intro", name: "Overview", zh: "总览", group: "overview", type: "",
+        summary: "Where liquid material belongs, and which macOS generation each part comes from.",
+        summaryZh: "液态材质放在哪一层，以及每一部分来自哪一代 macOS。",
+        source: "docs/Design.md", example: "", api: []
+    },
+    {
         id: "button", name: "Button", zh: "按钮", group: "input", type: "LiquidActionButton",
         summary: "Trigger an action with primary, secondary, destructive or disabled states.",
         summaryZh: "触发操作，提供主要、次要、危险操作和禁用状态。",
@@ -130,6 +136,7 @@ export function filter(query) {
 }
 export function groupTitle(group, language) {
     const titles = {
+        overview: ["Overview", "总览"],
         input: ["Input", "输入控件"], navigation: ["Navigation", "导航"],
         layout: ["Layout & content", "布局与内容"], feedback: ["Feedback", "反馈"],
     };
