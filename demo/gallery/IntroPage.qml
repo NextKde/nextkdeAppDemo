@@ -80,14 +80,14 @@ ScrollView {
             Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
                 text: page.tr("Liquid glass", "液态玻璃") }
             Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.mutedText; font.pixelSize: 12
-                text: page.tr("Toolbar, sidebar, popovers, player bar, menu bar surfaces", "工具栏、侧栏、浮层、播放条、菜单条") }
+                text: page.tr("Toolbar, sidebar container, popovers, player bar", "工具栏、侧栏容器、浮层、播放条") }
 
             Label { Layout.preferredWidth: 210; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
                 text: page.tr("Content (inside the window)", "内容（窗口之内）") }
             Label { Layout.preferredWidth: 190; wrapMode: Text.WordWrap; color: Ui.AppTheme.text; font.pixelSize: 13
                 text: page.tr("Solid fill", "实色填充") }
             Label { Layout.fillWidth: true; wrapMode: Text.WordWrap; color: Ui.AppTheme.mutedText; font.pixelSize: 12
-                text: page.tr("Lists, forms, cards, buttons in the content area", "列表、表单、卡片、内容区按钮") }
+                text: page.tr("Lists, forms, cards, buttons in the content area, sidebar rows, menu bar items", "列表、表单、卡片、内容区按钮；侧栏条目与菜单条条目") }
         }
 
         // 三条规则

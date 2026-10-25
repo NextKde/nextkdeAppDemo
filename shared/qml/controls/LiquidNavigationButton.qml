@@ -100,29 +100,18 @@ Button {
                 }
             }
         }
-        LiquidSurface {
+        // 侧栏条目不用液态玻璃：选中 / 悬停 / 按下都是实色填充。
+        Rectangle {
             anchors.fill: parent
             visible: !root.specificationForm && (root.showIdleBackground || root.checked || root.hovered || root.down)
-            scale: root.down ? 1.10 : 1
-            Behavior on scale {
-                NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutBack }
-            }
             radius: root.cornerRadius
-            backdrop: root.backdrop
-            convexLens: true
-            edgeShadeStrength: .08
-            blurStrength: 0
-            readability: 0
-            edgeWidth: Math.min(10, height * .28)
-            refractionStrength: root.hovered ? 4.5 : 3
-            magnification: root.hovered ? 1.045 : 1.025
-            reflectionStrength: root.hovered ? .72 : .50
-            tintColor: root.down ? "#ffffff" : root.checked ? root.selectionColor : (Foundation.AppTheme.dark ? "#20252f" : "#ffffff")
-            tintStrength: root.down ? .06 : root.checked ? .80 : .30
-            Behavior on refractionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-            Behavior on magnification { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-            Behavior on reflectionStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
-            Behavior on tintStrength { NumberAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast } }
+            color: root.checked ? root.selectionColor
+                : root.down ? Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.10)
+                : root.hovered ? Foundation.AppTheme.withAlpha(Foundation.AppTheme.text, 0.06)
+                : "transparent"
+            Behavior on color {
+                ColorAnimation { duration: Foundation.AppTheme.reduceMotion ? 0 : Foundation.AppTheme.motionFast }
+            }
         }
 
         Rectangle {
