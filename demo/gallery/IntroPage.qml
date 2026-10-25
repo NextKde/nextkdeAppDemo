@@ -38,7 +38,7 @@ ScrollView {
         // 示意：上面一条液态浮层，下面一行实色按钮
         Rectangle {
             Layout.fillWidth: true
-            implicitHeight: 150
+            implicitHeight: 176
             radius: 14
             color: Ui.AppTheme.dark ? "#1B1B1F" : "#F5F5F7"
             border.width: 1
@@ -49,8 +49,12 @@ ScrollView {
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
                 anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12; cornerRadius: 6 }
 
-            Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
-                anchors.margins: 16; height: 1; color: Ui.AppTheme.border }
+            Rectangle {
+                anchors.left: parent.left; anchors.right: parent.right
+                anchors.top: parent.top; anchors.topMargin: 88
+                anchors.leftMargin: 16; anchors.rightMargin: 16
+                height: 1; color: Ui.AppTheme.border
+            }
 
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.bottom: parent.bottom; anchors.margins: 16
                 text: page.tr("Solid · content layer", "实色 · 内容层"); materialForm: true; implicitHeight: 28 }
