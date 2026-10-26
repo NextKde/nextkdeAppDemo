@@ -105,7 +105,7 @@ ScrollView {
 
         Label {
             visible: whitePanel.visible
-            text: page.isButtonPage ? page.tr("01 · Button catalogue", "01 · 按钮分类示例") : page.tr("01 · Component examples", "01 · 组件分类示例")
+            text: page.isButtonPage ? page.tr("Examples", "示例") : page.tr("01 · Component examples", "01 · 组件分类示例")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
             topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
