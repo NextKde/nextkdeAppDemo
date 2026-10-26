@@ -133,8 +133,12 @@ ScrollView {
             }
         }
 
+        // 背景对照（仅白面板类组件）：同一示例在液态背景上的渲染效果。
+        // 按钮页不显示——按钮规则的验证只看实色背景下的形态。
+        // 其余组件页此块是它们的主交互示例，不受影响。
         Label {
             Layout.topMargin: tokens.sectionGap
+            visible: whitePanel.visible ? !page.isButtonPage : true
             text: ("0" + page.exampleSection) + " · " + (whitePanel.visible
                 ? page.tr("Background comparison", "背景对照") : page.tr("Interactive examples", "交互示例"))
             color: Ui.AppTheme.text
@@ -143,6 +147,7 @@ ScrollView {
         }
         Pane {
             Layout.fillWidth: true
+            visible: whitePanel.visible ? !page.isButtonPage : true
             padding: page.contentIndent
             clip: true
             implicitHeight: previewHost.implicitHeight + padding * 2
@@ -167,7 +172,6 @@ ScrollView {
                             item.language = Qt.binding(function() { return page.language })
                         if (item && "sectionPrefix" in item)
                             item.sectionPrefix = Qt.binding(function() { return "0" + page.exampleSection })
-                        if (page.isButtonPage) item.sceneOnly = true
                     }
                     // Use a new URL for the reorganized examples so the live
                     // QQmlEngine cannot reuse their previous compiled component.
