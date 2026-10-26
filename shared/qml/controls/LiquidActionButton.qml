@@ -3,6 +3,28 @@ import QtQuick.Controls
 import QtQuick.Window
 import "../foundation" as Foundation
 
+// 液态/实色通用操作按钮 —— 按钮规则的唯一权威来源（Gallery 按钮页只做演示）。
+//
+// 用法按四步取值，顺序固定：
+//   1) 材质  ：默认液态（悬浮在内容之上、采样背景折射）。
+//              嵌在内容之内的按钮设 materialForm: true 切换实色。
+//   2) 大小  ：按所在位置设 implicitHeight——
+//              工具栏 22（font.pixelSize 12）/ 内容区 28 / 弹窗 32 / 浮层 28。
+//   3) 圆角  ：液态恒为胶囊，不要设置 cornerRadius。
+//              实色 28、32 也是胶囊；实色 22、18 必须显式 cornerRadius: 6。
+//              这是唯一允许覆盖 cornerRadius 的场景。
+//   4) 颜色  ：一般不指定，组件按 AppTheme 自动取值——
+//              highlighted/checked → accent 底白字；普通 → 控件底色 + 文字色；
+//              destructive → 红字（底不变）；disabled → 淡字（底不变）。
+//              覆盖 textColor/accentColor/surfaceColor 仅用于特殊场景，需在调用处注释原因。
+//
+// 常用属性：
+//   materialForm  实色开关（见上）
+//   secondary     次级样式（弱化底色）
+//   destructive   危险操作（红字）
+//   cornerRadius  圆角，默认胶囊；仅"实色+小尺寸"允许 6
+//   iconOnly + iconName/iconFilled/iconSize  纯图标按钮（内容居中，无文字内边距）
+//   adaptiveGlass / convexLens             透镜光学开关（默认凸面透镜）
 Button {
     id: root
     property string liquidIntensity: LiquidStyle.intensityLevel

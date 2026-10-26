@@ -22,7 +22,7 @@ ScrollView {
     readonly property bool isButtonPage: entry !== null && entry.id === "button"
     readonly property int contentIndent: tokens.pageInset
     readonly property int exampleSection: whitePanel.visible ? 2 : 1
-    readonly property int apiSection: isButtonPage ? 4 : exampleSection + 1
+    readonly property int apiSection: exampleSection + 1
 
     MaterialSpecTokens { id: tokens; dark: Ui.AppTheme.dark }
 
@@ -187,17 +187,9 @@ ScrollView {
             }
         }
 
-        Loader {
-            Layout.fillWidth: true
-            Layout.topMargin: tokens.sectionGap
-            active: page.entry !== null && page.entry.id === "button"
-            visible: active
-            enabled: page.demoEnabled
-            sourceComponent: MaterialToolbarPilot { language: page.language; contentIndent: page.contentIndent }
-        }
-
         Label {
             Layout.topMargin: tokens.sectionGap
+            visible: !page.isButtonPage
             text: "0" + page.apiSection + " · " + page.tr("API reference", "接口说明")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize
@@ -210,6 +202,7 @@ ScrollView {
             delegate: ColumnLayout {
                 required property var modelData
                 required property int index
+                visible: !page.isButtonPage
                 Layout.fillWidth: true
                 Layout.topMargin: 8
                 Layout.bottomMargin: tokens.sectionGap
@@ -236,23 +229,26 @@ ScrollView {
 
         Label {
             Layout.fillWidth: true
+            visible: !page.isButtonPage
             text: "0" + (page.apiSection + 1) + " · " + page.tr("Code example", "代码示例")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
             topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
         }
         CodeBlock {
+            visible: !page.isButtonPage
             Layout.fillWidth: true
             Layout.leftMargin: page.contentIndent
             Layout.rightMargin: page.contentIndent
             code: page.exampleCode; language: page.language
         }
         Label {
-            visible: page.sourceError.length > 0
+            visible: !page.isButtonPage && page.sourceError.length > 0
             text: page.sourceError
             color: Ui.AppTheme.destructive
         }
         Label {
+            visible: !page.isButtonPage
             Layout.fillWidth: true
             Layout.leftMargin: page.contentIndent
             Layout.rightMargin: page.contentIndent
@@ -262,6 +258,7 @@ ScrollView {
             wrapMode: Text.WrapAnywhere
         }
         Controls.LiquidActionButton {
+            visible: !page.isButtonPage
             materialForm: true
             scale: 1
             cornerRadius: tokens.controlRadius
