@@ -28,8 +28,8 @@ ScrollView {
         }
         Label {
             Layout.fillWidth: true
-            text: page.tr("Liquid material from macOS 27, compact sizing from macOS 26. Material follows the layer; size follows the placement.",
-                          "液态效果取自 macOS 27，尺寸与密度取自 macOS 26 紧凑规格。材质看层级，尺寸看位置。")
+            text: page.tr("Liquid material from macOS 27, compact sizing from macOS 15. Material follows the layer; size follows the placement.",
+                          "液态效果取自 macOS 27，尺寸与密度取自 macOS 15 紧凑规格。材质看层级，尺寸看位置。")
             color: Ui.AppTheme.mutedText
             font.pixelSize: 14
             wrapMode: Text.WordWrap
@@ -47,7 +47,7 @@ ScrollView {
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
                 text: page.tr("Liquid · floating layer", "液态 · 浮起层"); implicitHeight: 28 }
             Controls.LiquidActionButton { anchors.left: parent.left; anchors.top: parent.top; anchors.margins: 16
-                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 22; font.pixelSize: 12 }
+                anchors.leftMargin: 170; text: page.tr("Toolbar", "工具栏"); implicitHeight: 26; font.pixelSize: 12 }
 
             Rectangle {
                 anchors.left: parent.left; anchors.right: parent.right

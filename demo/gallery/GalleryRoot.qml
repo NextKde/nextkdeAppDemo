@@ -11,6 +11,7 @@ Pane {
     id: root
 
     required property var targetWindow
+    readonly property alias toolTipBackdrop: helpBackdrop
     property string language: Quickshell.env("GALLERY_LANGUAGE") === "zh" ? "zh" : "en"
     property string themeMode: Quickshell.env("GALLERY_THEME") === "dark" ? "dark" : "light"
     property string backgroundMode: "gradient"
@@ -98,7 +99,9 @@ Pane {
                     backdrop: searchBackdrop
                     cornerRadius: height / 2
                     focusedOutlineColor: navigationTokens.focusAccent
-                    textColor: navigationTokens.labelPrimary
+                    textColor: Ui.AppTheme.reduceTransparency
+                        ? (Ui.AppTheme.dark ? Ui.AppTheme.text : "#000000")
+                        : (Ui.AppTheme.dark ? "#D6D6DA" : "#55555A")
                     mutedTextColor: navigationTokens.labelTertiary
                     font.pixelSize: navigationTokens.searchFontSize
                     font.weight: Font.Normal
@@ -135,7 +138,7 @@ Pane {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     clip: true
-                    spacing: 4
+                    spacing: 0
                     model: root.filteredEntries
                     delegate: Column {
                         id: destination
@@ -145,8 +148,8 @@ Pane {
                         Label {
                             width: parent.width
                             visible: destination.index === 0 || root.filteredEntries[destination.index - 1].group !== destination.modelData.group
-                            topPadding: 16
-                            bottomPadding: 6
+                            topPadding: 12
+                            bottomPadding: 4
                             text: Catalog.groupTitle(destination.modelData.group, root.language)
                             color: navigationTokens.labelSecondary
                             font.pixelSize: navigationTokens.captionSize
@@ -155,8 +158,15 @@ Pane {
                         Controls.LiquidNavigationButton {
                             width: parent.width
                             specificationForm: true
+                            specificationFontSize: 12
+                            specificationSelectedVerticalInset: 2
+                            specificationSelectedFillColor: Ui.AppTheme.accent
+                            specificationSelectedTextColor: "#ffffff"
+                            specificationHoverFillColor: Ui.AppTheme.dark ? Qt.rgba(1, 1, 1, .08) : "#dbdbdd"
+                            implicitHeight: navigationTokens.navigationHeight
                             text: Catalog.title(destination.modelData, root.language)
                             checked: root.currentId === destination.modelData.id
+                            font.weight: Font.Medium
                             onClicked: root.select(destination.modelData.id)
                         }
                     }
@@ -186,7 +196,11 @@ Pane {
                 Controls.LiquidNavigationButton {
                     Layout.fillWidth: true
                     specificationForm: true
+                    specificationFontSize: 12
+                    specificationHoverFillColor: Ui.AppTheme.dark ? Qt.rgba(1, 1, 1, .08) : "#dbdbdd"
+                    Layout.preferredHeight: navigationTokens.navigationHeight
                     checkable: false
+                    font.weight: Font.Medium
                     text: root.tr("Developer guide", "开发接入指南")
                     onClicked: Qt.openUrlExternally("file://" + Quickshell.shellDir + "/../docs/Components"
                         + (root.language === "zh" ? ".zh-CN" : "") + ".md")
@@ -222,6 +236,12 @@ Pane {
                     registerAsDefault: false
                     active: floatingRegion.liquidActive
                     blur: navigationTokens.mainBackdropBlur
+                }
+                Controls.LiquidBackdrop {
+                    id: helpBackdrop
+                    sourceItem: contentScene
+                    registerAsDefault: false
+                    active: !Ui.AppTheme.reduceTransparency
                 }
                 Controls.LiquidBackdrop {
                     id: toolbarControlsBackdrop
@@ -296,6 +316,7 @@ Pane {
                                     elide: Text.ElideRight
                                 }
                                 Controls.LiquidSelect {
+                                    visible: root.currentId !== "settings"
                                     Layout.preferredWidth: 140
                                     Layout.preferredHeight: navigationTokens.controlHeight
                                     Layout.maximumHeight: navigationTokens.controlHeight
@@ -308,7 +329,9 @@ Pane {
                                     backdrop: toolbarControlsBackdrop
                                     cornerRadius: height / 2
                                     focusRingColor: navigationTokens.focusAccent
-                                    textColor: Ui.AppTheme.text
+                                    textColor: Ui.AppTheme.reduceTransparency
+                                        ? (Ui.AppTheme.dark ? Ui.AppTheme.text : "#000000")
+                                        : (Ui.AppTheme.dark ? "#D6D6DA" : "#55555A")
                                     mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
                                     onActivated: function(index) { root.backgroundMode = ["gradient", "contrast", "desktop"][index] }
                                 }

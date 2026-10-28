@@ -6,6 +6,9 @@ KosWindowControls 1.0 foundation/KosWindowControls.qml
 KosWindowResizeHandles 1.0 foundation/KosWindowResizeHandles.qml
 KosButton 1.0 foundation/KosButton.qml
 KosCard 1.0 foundation/KosCard.qml
+SettingsGroup 1.0 foundation/SettingsGroup.qml
+SettingsItem 1.0 foundation/SettingsItem.qml
+SettingsAppearancePreview 1.0 foundation/SettingsAppearancePreview.qml
 KosDialog 1.0 foundation/KosDialog.qml
 KosEmptyState 1.0 foundation/KosEmptyState.qml
 KosNavigationButton 1.0 foundation/KosNavigationButton.qml
@@ -17,6 +20,7 @@ KosSlider 1.0 foundation/KosSlider.qml
 KosSwitch 1.0 foundation/KosSwitch.qml
 KosSurface 1.0 foundation/KosSurface.qml
 KosToolButton 1.0 foundation/KosToolButton.qml
+KosToolTip 1.0 foundation/KosToolTip.qml
 KosLyricLine 1.0 foundation/KosLyricLine.qml
 KosSidebar 1.0 foundation/KosSidebar.qml
 KosSidebarToggle 1.0 foundation/KosSidebarToggle.qml
@@ -30,8 +34,10 @@ KosKineticScroll 1.0 foundation/KosKineticScroll.qml
 singleton LiquidStyle 1.0 controls/LiquidStyle.qml
 LiquidBackdrop 1.0 controls/LiquidBackdrop.qml
 LiquidSurface 1.0 controls/LiquidSurface.qml
+LiquidGlassNumber 1.0 controls/LiquidGlassNumber.qml
 LiquidCard 1.0 controls/LiquidCard.qml
 LiquidActionButton 1.0 controls/LiquidActionButton.qml
+LiquidActionButtonGroup 1.0 controls/LiquidActionButtonGroup.qml
 LiquidNavigationButton 1.0 controls/LiquidNavigationButton.qml
 LiquidCheckBox 1.0 controls/LiquidCheckBox.qml
 LiquidDialog 1.0 controls/LiquidDialog.qml

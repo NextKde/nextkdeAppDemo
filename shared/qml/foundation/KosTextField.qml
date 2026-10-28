@@ -8,7 +8,7 @@ Controls.LiquidTextField {
     glassColor: AppTheme.fieldSurface
     outlineColor: AppTheme.border
     focusedOutlineColor: AppTheme.focusRing
-    textColor: AppTheme.text
+    textColor: AppTheme.dark ? AppTheme.text : "#000000"
     mutedTextColor: AppTheme.mutedText
     materialForm: true
     cornerRadius: AppTheme.smallRadius

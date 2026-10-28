@@ -1,8 +1,8 @@
 # Material specification pilot
 
-> Historical pilot record. The current Gallery design and implementation values are defined in [Gallery design language](GalleryDesign.md), version 2.9 (2026-10-24). Earlier geometry, strong search optics and layered shadows below are superseded.
+> Historical pilot record. The current Gallery design and implementation values are defined in [Gallery design language](GalleryDesign.md), version 2.10 (2026-10-27). Earlier geometry, strong search optics and layered shadows below are superseded.
 
-> Current composition: the original full-width rectangular floating region overlays and blurs real app content at 95% material opacity; the window is opaque and decorations retain their original coordinates, with light liquid top actions and selector. Left navigation stays ordinary except for its liquid search input.
+> Current composition: the original full-width rectangular floating region overlays and blurs real app content at 95% material opacity; the window is opaque and decorations retain their original coordinates, with light liquid top actions and selector. The revised left-navigation contract uses one ordinary panel at background opacity=.95 and QML blur of the real same-window underlay, with no floating geometry or container-level liquid optics; directory sections have no liquid effect and rows retain ordinary fills; navigation search and action buttons use light liquid. See GalleryDesign.md for implementation status.
 
 ## 2026-10-22 sidebar rows
 

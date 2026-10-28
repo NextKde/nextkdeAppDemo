@@ -65,6 +65,18 @@ ShellRoot {
                 }
                 return false
             }
+            function focusToolTip(): bool {
+                const pending = [reviewSurface]
+                while (pending.length) {
+                    const item = pending.pop()
+                    if (item.objectName === "toolTipSettingsAction") {
+                        item.forceActiveFocus(Qt.TabFocusReason)
+                        return true
+                    }
+                    for (let i = 0; i < item.children.length; ++i) pending.push(item.children[i])
+                }
+                return false
+            }
             function showPage(page: string): void { gallery.select(page) }
             function setTheme(theme: string): void {
                 if (theme === "light" || theme === "dark") gallery.themeMode = theme

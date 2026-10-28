@@ -10,9 +10,7 @@ KosToolButton {
     implicitWidth: AppTheme.controlHeight
     implicitHeight: AppTheme.controlHeight
     Accessible.name: targetWindow && targetWindow.sidebarExpanded ? qsTr("Collapse sidebar") : qsTr("Expand sidebar")
-    ToolTip.visible: hovered
-    ToolTip.text: Accessible.name
-    ToolTip.delay: 500
+    KosToolTip { target: root; text: root.Accessible.name }
     onClicked: if (targetWindow) targetWindow.sidebarExpanded = !targetWindow.sidebarExpanded
     contentItem: Item {
         Rectangle {

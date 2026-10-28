@@ -33,12 +33,20 @@ premultiplied alpha. Without an eligible source, the surface uses transparent ti
 and reflective rims. The software renderer also uses that fallback. Perspective
 transforms are outside the current mapping contract.
 
-The sidebar starts in desktop mode: the window background is transparent, the local
+The standalone SidebarDemo starts in desktop mode: the window background is transparent, the local
 image and its capture are disabled, and only the grouped material background has
 opacity 0.95. Text remains opaque. In Window scene mode, the image is drawn inside
 the same window and sampled for QML optics. Neither mode requests KWin effects or
 captures pixels from other applications. A compositor still displays normal window
 transparency. Real desktop blur/refraction would need a separate optional adapter.
+
+Gallery navigation follows the 2026-10-27 contract in GalleryDesign.md: one continuous
+ordinary panel without floating geometry or container-level liquid optics,
+background-only opacity 0.95, and QML shader /
+MultiEffect blur of actual same-window content underneath. Its window stays
+opaque; neither KWin liquid effects nor desktop capture provide this blur.
+Navigation material and controls must be excluded from its source subtree.
+This is a composition requirement; implementation status is recorded in GalleryDesign.md.
 
 Switch, select, segmented control and navigation bar retain their existing QML
 gradient/mask optics; migration of every control to sampled optics is unfinished.

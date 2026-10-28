@@ -24,9 +24,52 @@ Item {
             case "navigation": return sidebar
             case "empty-state": return empty
             case "scroll": return sidebar
+            case "liquid-number": return glassNumber
+            case "settings": return settings
+            case "tooltip": return helpTip
             case "dialog": return dialog
             default: return surface
             }
+        }
+    }
+    Component {
+        id: helpTip
+        Item {
+            Controls.LiquidActionButton {
+                id: helpAction
+                anchors.centerIn: parent
+                implicitWidth: 26; implicitHeight: 26
+                iconOnly: true; iconName: "settings"; iconSize: 16
+                Accessible.name: "Open settings"
+                Ui.KosToolTip { target: helpAction; text: helpAction.Accessible.name }
+            }
+        }
+    }
+    Component {
+        id: settings
+        Ui.SettingsGroup {
+            title: "Appearance"
+            Ui.SettingsItem {
+                title: "Material"
+                Ui.KosSwitch { checked: true }
+            }
+        }
+    }
+    Component {
+        id: glassNumber
+        Item {
+            Rectangle {
+                id: numberScene
+                anchors.fill: parent
+                gradient: Gradient {
+                    orientation: Gradient.Horizontal
+                    GradientStop { position: 0; color: "#18476a" }
+                    GradientStop { position: .55; color: "#82acba" }
+                    GradientStop { position: 1; color: "#514a7e" }
+                }
+            }
+            Controls.LiquidBackdrop { id: numberBackdrop; sourceItem: numberScene; registerAsDefault: false }
+            Controls.LiquidGlassNumber { anchors.centerIn: parent; text: "18°"; font.pixelSize: 68; thickness: 3; backdrop: numberBackdrop; fallbackColor: "white" }
         }
     }
     Component {
@@ -42,8 +85,6 @@ Item {
                 placeholderText: "Search your library"
                 materialForm: false
                 liquidFinish: true
-                textColor: Ui.AppTheme.text
-                mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
                 glassColor: Qt.rgba(1, 1, 1, 0.06)
             }
         }
@@ -69,8 +110,6 @@ Item {
                 model: ["Automatic", "Light", "Dark"]
                 materialForm: false
                 appearanceMode: Ui.AppTheme.dark ? "dark" : "light"
-                textColor: Ui.AppTheme.text
-                mutedTextColor: Ui.AppTheme.withAlpha(Ui.AppTheme.text, 0.82)
             }
         }
     }

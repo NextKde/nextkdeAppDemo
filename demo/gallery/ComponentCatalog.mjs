@@ -84,12 +84,33 @@ export const entries = [
               ["text / checked / clicked()", "The host owns the selected destination.", "宿主维护当前页面，按钮显示选择并发出点击。"]]
     },
     {
+        id: "settings", name: "Settings groups", zh: "设置分组与条目", group: "layout", type: "SettingsGroup + SettingsItem",
+        summary: "One shared settings hierarchy: a larger bold group title, compact named rows and optional smaller descriptions.",
+        summaryZh: "统一设置层级：较大加粗的分组标题、紧凑的条目名称和可选的小字说明。",
+        source: "shared/qml/foundation/SettingsGroup.qml", example: "SettingsExample.qml",
+        api: [["SettingsGroup.title / content", "One ordinary rounded group; place settings rows and an optional preview inside.", "一块普通圆角分组底板，放入设置条目及可选预览。"],
+              ["SettingsItem.title / description / controls", "One 12px normal-weight name; optional 10px lighter description; trailing controls.", "一行 12px 普通字重名称，可带 10px 浅色说明；控件放在末端。"],
+              ["minimumRowHeight / stacked / separator", "36px compact rows, automatic growth and stacking, separators only between rows.", "36px 紧凑行，按内容增高；窄窗口自动上下排列，仅在条目之间分隔。"],
+              ["State ownership", "The host confirms changes; groups and items have no settings backend or persistence.", "宿主确认控件变更；分组和条目不包含设置后端及持久化逻辑。"]]
+    },
+    {
         id: "card", name: "Card", zh: "卡片", group: "layout", type: "LiquidCard",
         summary: "Ordinary content cards and a floating search panel with one adaptive glass layer.",
         summaryZh: "普通内容卡片，以及只有外层使用自适应玻璃的悬浮搜索面板。",
         source: "shared/qml/controls/LiquidCard.qml", example: "CardExample.qml",
         api: [["padding / contentItem", "Inner spacing and content.", "内边距与内容。"],
               ["Layout.fillWidth", "Use Qt Quick Layouts for adaptive sizing.", "通过 Qt Quick Layouts 适应窗口宽度。"]]
+    },
+    {
+        id: "liquid-number", name: "Glass numbers", zh: "液态玻璃数字", group: "layout", type: "LiquidGlassNumber",
+        summary: "Sculpted glass numerals with rounded bevels, soft shadows and refraction of the real scene behind each stroke.",
+        summaryZh: "圆润倒角、柔和投影与笔画内的真实背景折射，组成有厚度的玻璃数字。",
+        source: "shared/qml/controls/LiquidGlassNumber.qml", example: "LiquidNumberExample.qml",
+        api: [["text / font", "Host-formatted digits, signs, decimals, clock separators and units.", "宿主格式化数字、正负号、小数、时钟分隔符和单位。"],
+              ["backdrop / sampling", "Eligible sibling LiquidBackdrop in the same window; no desktop capture.", "同一窗口内独立的 LiquidBackdrop；不采样桌面。"],
+              ["thickness / refractionStrength / blurRadius", "Bevel depth, displacement and background blur in logical pixels.", "倒角厚度、折射位移和背景模糊，单位为逻辑像素。"],
+              ["tintStrength / reflectionStrength / shadowOpacity", "Transmitted tint, directional sheen and soft cast shadow.", "透光染色、方向性高光与柔和投影。"],
+              ["reduceTransparency / fallbackColor", "Plain legible glyphs when transparency or sampling is unavailable.", "减少透明效果或采样不可用时，显示清晰的普通数字。"]]
     },
     {
         id: "liquid-surface", name: "Liquid surface", zh: "液态透明表面", group: "layout", type: "LiquidSurface",
@@ -115,6 +136,17 @@ export const entries = [
         source: "shared/qml/foundation/KosKineticScroll.qml", example: "ScrollExample.qml",
         api: [["target / flickable", "Attach once per view; automatic parent discovery is supported.", "每个视图挂载一个实例，支持自动查找父视图。"],
               ["AppTheme.reduceMotion", "Shared reduced-motion policy.", "共享的减少动态效果策略。"]]
+    },
+    {
+        id: "tooltip", name: "Tooltip", zh: "提示气泡", group: "feedback", type: "KosToolTip",
+        summary: "Compact floating liquid glass help with 0.7 material coverage and opaque text.",
+        summaryZh: "紧凑悬浮液态玻璃提示，背景覆盖强度 0.7，文字保持不透明。",
+        source: "shared/qml/foundation/KosToolTip.qml", example: "ToolTipExample.qml",
+        api: [["target / text", "Trigger Item and concise plain-text help.", "触发控件和简短的纯文字说明。"],
+              ["materialOpacity / cornerRadius / backdrop", "0.7 coverage, 14px corners and real same-window sampling.", "覆盖强度 0.7、圆角 14px，采样真实同窗内容。"],
+              ["delay / timeout / showOnFocus", "700ms delay, 5s timeout, keyboard support.", "默认延迟 700ms、显示 5s，支持键盘聚焦。"],
+              ["onlyWhenTruncated / truncated", "Avoid repeating a fully visible navigation label.", "仅在名称被截断时提示，避免重复完整文字。"],
+              ["maximumWidth / darkAppearance", "Wrapped, window-bounded help and shared light/dark styling.", "限制宽度并换行，避开窗口边缘，统一深浅色样式。"]]
     },
     {
         id: "dialog", name: "Dialog", zh: "对话框", group: "feedback", type: "LiquidDialog",

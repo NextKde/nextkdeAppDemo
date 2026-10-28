@@ -22,10 +22,12 @@ Button {
     // Opt-in pilot: plain rows inside a host-owned sidebar material.
     // Existing applications retain their current liquid navigation by default.
     property bool specificationForm: false
+    property int specificationFontSize: Foundation.AppTheme.compactDesign ? 13 : 14
+    property int specificationSelectedVerticalInset: 0
     readonly property QtObject specification: QtObject {
         readonly property int rowHeight: 30
         readonly property int radius: 8
-        readonly property int fontSize: Foundation.AppTheme.compactDesign ? 13 : 14
+        readonly property int fontSize: root.specificationFontSize
         readonly property int focusWidth: 2
         readonly property int focusOffset: 2
         readonly property int pressDuration: 100
@@ -37,6 +39,10 @@ Button {
         readonly property color pressFill: Foundation.AppTheme.dark
             ? Qt.rgba(1, 1, 1, .12) : Qt.rgba(0, 0, 0, .10)
     }
+    property color specificationSelectedFillColor: Foundation.AppTheme.withAlpha(selectionColor, specification.selectedAlpha)
+    property color specificationHoverFillColor: specification.hoverFill
+    property color specificationSelectedTextColor: Foundation.AppTheme.dark
+        ? Qt.rgba(1, 1, 1, .92) : Qt.rgba(0, 0, 0, .92)
     implicitHeight: specificationForm || Foundation.AppTheme.compactDesign ? specification.rowHeight : 38
     leftPadding: 12
     rightPadding: 12
@@ -77,7 +83,8 @@ Button {
             anchors.fill: parent; anchors.leftMargin: root.iconName.length ? 26 : 0
             text: root.text
             color: root.specificationForm
-                ? (Foundation.AppTheme.dark ? Qt.rgba(1, 1, 1, .92) : Qt.rgba(0, 0, 0, .92))
+                ? (root.checked ? root.specificationSelectedTextColor
+                    : Foundation.AppTheme.dark ? Qt.rgba(1, 1, 1, .92) : Qt.rgba(0, 0, 0, .92))
                 : Foundation.AppTheme.text
             font: root.font
             verticalAlignment: Text.AlignVCenter; elide: Text.ElideRight
@@ -88,12 +95,19 @@ Button {
             anchors.fill: parent
             visible: root.specificationForm
             radius: root.specification.radius
-            color: root.checked
-                ? Foundation.AppTheme.withAlpha(root.selectionColor, root.specification.selectedAlpha)
-                : "transparent"
+            color: "transparent"
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: root.specificationSelectedVerticalInset
+                anchors.bottomMargin: root.specificationSelectedVerticalInset
+                radius: Math.max(0, parent.radius - root.specificationSelectedVerticalInset)
+                visible: root.checked
+                color: root.specificationSelectedFillColor
+            }
             Rectangle {
                 anchors.fill: parent; radius: parent.radius
-                color: root.down ? root.specification.pressFill : root.hovered ? root.specification.hoverFill : "transparent"
+                color: root.down ? root.specification.pressFill
+                    : root.hovered && !root.checked ? root.specificationHoverFillColor : "transparent"
                 Behavior on color {
                     ColorAnimation {
                         duration: Foundation.AppTheme.reduceMotion ? 0 : root.specification.hoverDuration

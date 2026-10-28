@@ -9,12 +9,15 @@ import "../foundation" as Foundation
 //   1) 材质  ：默认液态（悬浮在内容之上、采样背景折射）。
 //              嵌在内容之内的按钮设 materialForm: true 切换实色。
 //   2) 大小  ：按所在位置设 implicitHeight——
-//              工具栏 22（font.pixelSize 12）/ 内容区 28 / 弹窗 32 / 浮层 28。
+//              正文文字旁行内按钮暂用 20 / 非主 Dialog 底栏 24 /
+//              工具栏 26（图标按钮）/ 内容区独立操作 28 /
+//              重要液态 Dialog 的实色底部按钮 30 / 浮层 28。
 //   3) 圆角  ：液态恒为胶囊，不要设置 cornerRadius。
-//              实色 28、32 也是胶囊；实色 22、18 必须显式 cornerRadius: 6。
+//              实色 28、30 也是胶囊；实色 26、24、20、18 必须显式 cornerRadius: 6。
 //              这是唯一允许覆盖 cornerRadius 的场景。
 //   4) 颜色  ：一般不指定，组件按 AppTheme 自动取值——
-//              highlighted/checked → accent 底白字；普通 → 控件底色 + 文字色；
+//              highlighted/checked → accent 底白字；浅色普通实色 → 纯黑字；
+//              浅色液态 → 较浅的深灰字；
 //              destructive → 红字（底不变）；disabled → 淡字（底不变）。
 //              覆盖 textColor/accentColor/surfaceColor 仅用于特殊场景，需在调用处注释原因。
 //
@@ -41,7 +44,8 @@ Button {
     property real shadowOpacity: LiquidStyle.shadowProfile(shadowLevel).opacity
     property bool adaptiveGlass: false
     property bool convexLens: !adaptiveGlass
-    property real cornerRadius: materialForm && Foundation.AppTheme.compactDesign ? 8 : height / 2
+    property real cornerRadius: materialForm && Foundation.AppTheme.compactDesign && height < 28
+        ? 6 : height / 2
     property bool iconOnly: false
     property string iconName: ""
     property bool iconFilled: false
@@ -50,7 +54,9 @@ Button {
     property color textColor: !enabled ? Foundation.AppTheme.disabledText
         : destructive ? Foundation.AppTheme.destructive
         : (highlighted || checked) ? "#FFFFFF"
-        : Foundation.AppTheme.text
+        : root.materialForm
+            ? (root.darkAppearance ? Foundation.AppTheme.text : "#000000")
+            : (root.darkAppearance ? "#D6D6DA" : "#55555A")
     property color iconColor: textColor
     property color surfaceColor: Foundation.AppTheme.compactDesign ? Foundation.AppTheme.controlBackground
         : root.darkAppearance ? "#20252f" : "#ffffff"
@@ -64,14 +70,10 @@ Button {
     readonly property real opticalReflection: buttonGlass.reflectionStrength
     hoverEnabled: true
     implicitHeight: Foundation.AppTheme.compactDesign ? 28 : 36
+    font.weight: Font.Medium
     Binding {
         target: root; property: "font.pixelSize"
         value: Foundation.AppTheme.compactControlFontSize; when: Foundation.AppTheme.compactDesign
-        restoreMode: Binding.RestoreBindingOrValue
-    }
-    Binding {
-        target: root; property: "font.weight"
-        value: Font.Normal; when: Foundation.AppTheme.compactDesign
         restoreMode: Binding.RestoreBindingOrValue
     }
     Binding {
@@ -189,7 +191,7 @@ Button {
             color: "transparent"
             border.width: 2
             border.color: root.focusRingColor
-            visible: root.visualFocus
+            visible: root.materialForm && root.visualFocus
         }
     }
 }

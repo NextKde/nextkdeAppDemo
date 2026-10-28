@@ -27,9 +27,7 @@ Row {
                     ? (root.targetWindow.visibility === Window.Maximized ? qsTr("Restore") : qsTr("Maximize"))
                     : (root.targetWindow.visibility === Window.FullScreen ? qsTr("Exit full screen") : qsTr("Full screen")))
                 : modelData === "minimize" ? qsTr("Minimize") : qsTr("Close")
-            ToolTip.visible: hovered
-            ToolTip.text: Accessible.name
-            ToolTip.delay: 700
+            KosToolTip { target: button; text: button.Accessible.name }
             onClicked: {
                 if (modelData === "fullscreen") {
                     if (root.maximizeMode) {

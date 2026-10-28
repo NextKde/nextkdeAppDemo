@@ -312,9 +312,14 @@ Item {
             enabled: !root.disabled
             cursorShape: root.disabled ? Qt.ArrowCursor : Qt.PointingHandCursor
             hoverEnabled: true
-            Controls.ToolTip.visible: containsMouse && Boolean(modelData.label)
-            Controls.ToolTip.text: String(modelData.label || "")
-            Controls.ToolTip.delay: 600
+            Foundation.KosToolTip {
+                objectName: "liquid-nav-tooltip-" + targetDelegate.index
+                target: targetDelegate
+                hovered: targetDelegate.containsMouse
+                text: String(targetDelegate.modelData.label || "")
+                onlyWhenTruncated: true
+                truncated: displayItems.itemAt(targetDelegate.index)?.labelTruncated === true
+            }
 
             onPressed: root._beginPress(index)
             onReleased: root._endPress()
@@ -454,6 +459,7 @@ Item {
         Item {
             required property var modelData
             required property int index
+            readonly property bool labelTruncated: navigationLabel.truncated
             z: root._isActive ? 20 : 50
             x: index * root.itemWidth
             width: root.itemWidth
@@ -481,6 +487,7 @@ Item {
                 }
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
+                    id: navigationLabel
                     objectName: "liquid-nav-label-" + index
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
@@ -503,6 +510,7 @@ Item {
     // At rest: z 50 (above the opaque thumb). While the glass lens is active:
     // z 20 (below it, so the translucent lens covers them - Vue behaviour)
     Repeater {
+        id: displayItems
         model: root.model
         delegate: root.itemDelegate
     }

@@ -11,8 +11,9 @@ import "../../Kos/Ui/controls" as Controls
 //
 // 四步定义，顺序固定，后一步依赖前一步的结论：
 //   01 材质：先判断按钮浮在什么上面（浮在内容之上=液态；嵌在内容之内=实色 materialForm）
-//   02 大小：再按按钮所在位置取高度（工具栏 22 / 内容区 28 / 弹窗 32 / 浮层 28）
-//   03 圆角：由 01 的材质 + 02 的大小共同决定（液态一律胶囊；实色 28、32 胶囊，22、18 用 6pt）
+//   02 大小：正文旁行内按钮暂用 20 / 非主 Dialog 底栏 24 / 工具栏 26 /
+//            重要液态 Dialog 的实色底部按钮 30
+//   03 圆角：由 01 的材质 + 02 的大小共同决定（液态一律胶囊；实色 28、30 胶囊，26、24、20、18 用 6pt）
 //   04 颜色：最后按功能、主题、材质取色（主操作强调色底白字；普通控件底色；危险红字；禁用淡字）
 //
 // 改动规则时先改 LiquidActionButton.qml 的注释与实现，再回来同步本页示例。
@@ -55,36 +56,163 @@ ColumnLayout {
         Controls.LiquidActionButton { text: example.tr("Solid", "实色"); materialForm: true; implicitHeight: 28 }
     }
 
-    // 02 大小：implicitHeight 按位置取值；22 高度时字号降到 12 以保持可读
+    // 02 大小：按具体场景逐项说明；20 高度是待确认的项目取值。
     RuleBlock {
-        title: example.tr("02 · Size by placement", "02 · 再按位置定大小")
-        line: example.tr("Toolbar 22 · content 28 · dialog 32 · floating bar 28.", "工具栏 22 · 内容区 28 · 弹窗 32 · 浮层 28。")
-        Controls.LiquidActionButton { text: example.tr("Toolbar 22", "工具栏 22"); implicitHeight: 22; font.pixelSize: 12 }
-        Controls.LiquidActionButton { text: example.tr("Content 28", "内容区 28"); implicitHeight: 28 }
-        Controls.LiquidActionButton { text: example.tr("Dialog 32", "弹窗 32"); implicitHeight: 32 }
-        Controls.LiquidActionButton { text: example.tr("Floating 28", "浮层 28"); implicitHeight: 28 }
+        title: example.tr("02 · Size by placement and use", "02 · 再按位置和用途定大小")
+        line: example.tr("Choose the height for the button's actual role. The inline value is provisional.",
+                         "根据按钮的实际用途选高度；行内按钮的取值暂定。")
+        Column {
+            width: example.width
+            spacing: 6
+            Label {
+                width: parent.width; wrapMode: Text.WordWrap
+                text: example.tr("02.1 · Main content: inline action", "02.1 · 主体内容区：行内按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
+            }
+            Label {
+                width: parent.width; wrapMode: Text.WordWrap
+                text: example.tr("Next to normal body text. Keep its label close to body-text size; 20 high is a provisional choice.",
+                                 "放在正常正文文字旁，按钮文字与正文大小接近；按钮高度暂用 20。")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 13
+            }
+            Image {
+                width: Math.min(parent.width, 760)
+                height: implicitWidth > 0 ? width * implicitHeight / implicitWidth : 0
+                source: Qt.resolvedUrl("../../assets/15-Sequoia-Settings-Screen-Saver.png")
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                smooth: true
+            }
+            Label {
+                text: example.tr("macOS 15 System Settings reference", "macOS 15 系统设置参考图")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Inline 20", "行内 20")
+                materialForm: true; implicitHeight: 20; cornerRadius: 6
+                leftPadding: 10; rightPadding: 10; font.pixelSize: 11
+            }
+            Item { width: 1; height: 8 }
+            Label {
+                text: example.tr("02.2 · Secondary dialog footer", "02.2 · 非主 Dialog 弹出窗底部")
+                color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
+            }
+            Label {
+                text: example.tr("An action at the bottom of a secondary dialog; 24 high.", "非主 Dialog 弹出窗底部的操作按钮，高 24。")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 13
+            }
+            Image {
+                width: Math.min(parent.width, 760)
+                height: implicitWidth > 0 ? width * implicitHeight / implicitWidth : 0
+                source: Qt.resolvedUrl("../../assets/27-Golden-Gate-Finder-Connect-to-Server.png")
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                smooth: true
+            }
+            Label {
+                text: example.tr("macOS 27 Finder dialog reference", "macOS 27 Finder 弹窗参考图")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 12
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Secondary dialog 24", "非主弹窗 24")
+                materialForm: true; implicitHeight: 24; cornerRadius: 6
+                leftPadding: 10; rightPadding: 10; font.pixelSize: 11
+            }
+            Item { width: 1; height: 8 }
+            Label {
+                text: example.tr("02.3 · Toolbar", "02.3 · 工具栏")
+                color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
+            }
+            Label {
+                text: example.tr("Three icon actions share one toolbar surface; each button is 26 high.", "三个图标按钮共用一块工具栏材质，每个按钮高 26。")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 13
+            }
+            Controls.LiquidActionButtonGroup {
+                buttonSize: 26
+                icons: ["search", "grid", "more"]
+                labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
+            }
+            Item { width: 1; height: 8 }
+            Label {
+                width: parent.width; wrapMode: Text.WordWrap
+                text: example.tr("02.4 · Solid footer buttons in an important liquid Dialog", "02.4 · 非常重要的液态 Dialog 底部实色按钮")
+                color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
+            }
+            Label {
+                width: parent.width; wrapMode: Text.WordWrap
+                text: example.tr("These footer buttons are 30 high, usually solid, and capsule shaped.", "行高 30，一般使用实体材质和药丸形圆角。")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 13
+            }
+            Image {
+                width: Math.min(parent.width, 610)
+                height: implicitWidth > 0 ? width * implicitHeight / implicitWidth : 0
+                source: Qt.resolvedUrl("../../assets/Screenshot_20261026_195104.png")
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
+                smooth: true
+            }
+            Label {
+                text: example.tr("Important liquid Dialog reference", "重要液态 Dialog 参考图")
+                color: Ui.AppTheme.mutedText; font.pixelSize: 13
+            }
+            Controls.LiquidActionButton {
+                text: example.tr("Save · 30", "保存 · 30")
+                materialForm: true; highlighted: true; implicitHeight: 30
+                cornerRadius: height / 2
+            }
+        }
     }
 
-    // 03 圆角：液态无需指定（内部恒为胶囊 height/2）；实色小尺寸（22、18）必须显式 cornerRadius: 6，
-    //     实色 28、32 保持胶囊。唯一允许覆盖 cornerRadius 的场景就是"实色 + 小尺寸"。
+    // 03 圆角：对应 02 的四种位置。小实色按钮用 6 点圆角；工具栏液态按钮组共用胶囊外轮廓；
+    //     重要 Dialog 的 30 高实色按钮用药丸形圆角。
     RuleBlock {
-        title: example.tr("03 · Corner from material + size", "03 · 再按材质和大小定圆角")
-        line: example.tr("Liquid is always a capsule. Solid is a capsule at 28 and 32, and 6pt at 22 and 18.", "液态一律胶囊；实色 28、32 是胶囊，22、18 是 6 点圆角。")
-        Controls.LiquidActionButton { text: example.tr("Liquid 22", "液态 22"); implicitHeight: 22; font.pixelSize: 12 }
-        Controls.LiquidActionButton { text: example.tr("Liquid 28", "液态 28"); implicitHeight: 28 }
-        Controls.LiquidActionButton { text: example.tr("Solid 22", "实色 22"); materialForm: true; implicitHeight: 22; font.pixelSize: 12; cornerRadius: 6 }
-        Controls.LiquidActionButton { text: example.tr("Solid 28", "实色 28"); materialForm: true; implicitHeight: 28 }
+        title: example.tr("03 · Corner by the four placements", "03 · 按上面四种位置定圆角")
+        line: example.tr("Solid inline and secondary-dialog buttons use 6pt corners. The liquid toolbar group has one capsule outline. The important Dialog's solid footer button is a capsule.",
+                         "行内与非主弹窗的小实色按钮用 6 点圆角；液态工具栏按钮组共用药丸形外轮廓；重要 Dialog 的实色底部按钮也是药丸形。")
+        Column {
+            width: example.width
+            spacing: 8
+            Controls.LiquidActionButton { text: example.tr("Inline · 20 · 6pt", "行内 · 20 · 6 点"); materialForm: true; implicitHeight: 20 }
+            Controls.LiquidActionButton { text: example.tr("Secondary Dialog · 24 · 6pt", "非主弹窗 · 24 · 6 点"); materialForm: true; implicitHeight: 24 }
+            Controls.LiquidActionButtonGroup {
+                buttonSize: 26
+                icons: ["search", "grid", "more"]
+                labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
+            }
+            Controls.LiquidActionButton { text: example.tr("Important Dialog · 30 · capsule", "重要弹窗 · 30 · 药丸"); materialForm: true; implicitHeight: 30 }
+        }
     }
 
-    // 04 颜色：highlighted=主操作（强调色底白字）；默认普通；destructive=危险（红字，底不变）；
-    //     禁用只降文字不降底。颜色不在此处指定，由组件按 AppTheme 自动取值。
+    // 04 颜色：小实色按钮浅色纯黑中等字重；液态按钮与图标用稍浅的深灰；重要 Dialog 底栏
+    //     主操作蓝底白字、危险操作红字、取消为普通实色。
     RuleBlock {
-        title: example.tr("04 · Colour from function, theme and material", "04 · 最后按功能、主题、材质定颜色")
-        line: example.tr("Primary → accent fill with white text; normal → control fill with label colour; destructive → red text; disabled → muted text, fill unchanged.",
-                         "主操作 → 强调色底白字；普通 → 控件底色 + 文字色；危险 → 红字；禁用 → 淡字，底不变。")
-        Controls.LiquidActionButton { text: example.tr("Primary", "主操作"); highlighted: true; implicitHeight: 28 }
-        Controls.LiquidActionButton { text: example.tr("Normal", "普通"); implicitHeight: 28 }
-        Controls.LiquidActionButton { text: example.tr("Delete", "危险"); destructive: true; implicitHeight: 28 }
-        Controls.LiquidActionButton { text: example.tr("Disabled", "禁用"); enabled: false; implicitHeight: 28 }
+        title: example.tr("04 · Colour by the four placements", "04 · 按上面四种位置定颜色")
+        line: example.tr("Small solid actions use black medium-weight labels in light mode; liquid actions and toolbar icons use a softer dark gray. In an important Dialog, the primary action is blue with white text, the destructive action uses red text, and Cancel stays neutral.",
+                         "小实色按钮在浅色主题用纯黑色、中等字重；液态按钮和工具栏图标用稍浅的深灰。重要 Dialog 中，主操作蓝底白字，危险操作红字，取消保持普通实色。")
+        Column {
+            width: example.width
+            spacing: 8
+            Controls.LiquidActionButton { text: example.tr("Inline", "行内"); materialForm: true; implicitHeight: 20 }
+            Controls.LiquidActionButton { text: example.tr("Secondary dialog", "非主弹窗"); materialForm: true; implicitHeight: 24 }
+            Controls.LiquidActionButtonGroup {
+                buttonSize: 26
+                icons: ["search", "grid", "more"]
+                labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
+            }
+            Controls.LiquidActionButton {
+                width: 260; text: example.tr("Save", "保存")
+                materialForm: true; highlighted: true; implicitHeight: 30
+            }
+            Controls.LiquidActionButton {
+                width: 260; text: example.tr("Don't Save", "不保存")
+                materialForm: true; destructive: true; implicitHeight: 30
+                // This alert's destructive action has the pale red fill in the reference image.
+                surfaceColor: Ui.AppTheme.dark ? "#5A3338" : "#F3C3C6"
+            }
+            Controls.LiquidActionButton {
+                width: 260; text: example.tr("Cancel", "取消")
+                materialForm: true; implicitHeight: 30
+            }
+        }
     }
 }

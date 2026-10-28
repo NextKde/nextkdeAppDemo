@@ -4,6 +4,9 @@ KosWindowControls 1.0 KosWindowControls.qml
 KosWindowResizeHandles 1.0 KosWindowResizeHandles.qml
 KosButton 1.0 KosButton.qml
 KosCard 1.0 KosCard.qml
+SettingsGroup 1.0 SettingsGroup.qml
+SettingsItem 1.0 SettingsItem.qml
+SettingsAppearancePreview 1.0 SettingsAppearancePreview.qml
 KosDialog 1.0 KosDialog.qml
 KosEmptyState 1.0 KosEmptyState.qml
 KosNavigationButton 1.0 KosNavigationButton.qml
@@ -15,6 +18,7 @@ KosSlider 1.0 KosSlider.qml
 KosSwitch 1.0 KosSwitch.qml
 KosSurface 1.0 KosSurface.qml
 KosToolButton 1.0 KosToolButton.qml
+KosToolTip 1.0 KosToolTip.qml
 KosLyricLine 1.0 KosLyricLine.qml
 KosSidebar 1.0 KosSidebar.qml
 KosSidebarToggle 1.0 KosSidebarToggle.qml

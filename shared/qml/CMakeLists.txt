@@ -25,6 +25,9 @@ qt_add_qml_module(kos_ui
         foundation/KosWindowResizeHandles.qml
         foundation/KosButton.qml
         foundation/KosCard.qml
+        foundation/SettingsGroup.qml
+        foundation/SettingsItem.qml
+        foundation/SettingsAppearancePreview.qml
         foundation/KosWorkspaceDialog.qml
         foundation/KosItemDelegate.qml
         foundation/KosDialog.qml
@@ -39,6 +42,7 @@ qt_add_qml_module(kos_ui
         foundation/KosSwitch.qml
         foundation/KosTextField.qml
         foundation/KosToolButton.qml
+        foundation/KosToolTip.qml
         foundation/KosLyricLine.qml
         foundation/KosKineticScroll.qml
         foundation/KosKineticScrollPhysics.mjs
@@ -50,9 +54,11 @@ qt_add_qml_module(kos_ui
         controls/LiquidStyle.qml
         controls/LiquidBackdrop.qml
         controls/LiquidSurface.qml
+        controls/LiquidGlassNumber.qml
         controls/LiquidOuterShadow.qml
         controls/LiquidCard.qml
         controls/LiquidActionButton.qml
+        controls/LiquidActionButtonGroup.qml
         controls/LiquidNavigationButton.qml
         controls/LiquidCheckBox.qml
         controls/LiquidDialog.qml
@@ -64,6 +70,10 @@ qt_add_qml_module(kos_ui
         controls/LiquidSegmentedControl.qml
         controls/SelectionHighlight.qml
     RESOURCES
+        controls/shaders/liquid_number.vert
+        controls/shaders/liquid_number.vert.qsb
+        controls/shaders/liquid_number.frag
+        controls/shaders/liquid_number.frag.qsb
         controls/shaders/liquid_highlight_full_extended.frag
         controls/shaders/liquid_highlight_full_extended.frag.qsb
         controls/shaders/liquid_highlight_full_extended_fallback.frag

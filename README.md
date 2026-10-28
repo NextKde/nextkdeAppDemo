@@ -21,6 +21,7 @@ From this checkout, in a graphical VM session when runtime review is requested:
 ```sh
 qs -p demo/gallery.qml
 qs -p demo/sidebar-demo.qml
+qs -p demo/settings-demo.qml
 ```
 
 Run either command to open its own normal, resizable window. Closing the window exits
@@ -28,6 +29,9 @@ that preview process. No NextKde installation or running Shell is needed.
 
 - **Gallery:** interactive controls, searchable navigation, properties/signals and
   copyable QML examples. English is the default, with Chinese explanations available.
+- **Tooltip:** compact floating liquid help at 0.7 material coverage, with truncated-label handling. [Specification](docs/Tooltips.md).
+- **Settings:** the shared `SettingsGroup` / `SettingsItem` form, demonstrated with
+  Theme's Interface shape group. [Common settings specification](docs/Settings.md).
 - **Sidebar:** real navigation, file filtering and selection, opaque content, and a
   sidebar background starting at `opacity: 0.95`. Text stays fully opaque. Desktop
   mode leaves the window background transparent. Enable **Window scene** to compare
@@ -55,8 +59,8 @@ import Kos.Ui
 LiquidTextField {
     width: 280
     specificationForm: true
-    implicitHeight: 30
-    cornerRadius: 8
+    implicitHeight: 28
+    cornerRadius: height / 2
     placeholderText: "Search"
     textColor: AppTheme.text
     mutedTextColor: AppTheme.mutedText

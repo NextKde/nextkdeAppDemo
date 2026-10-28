@@ -10,6 +10,12 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        visible: root.mode === "ordinary"
+        color: Ui.AppTheme.contentBackground
+    }
+
+    Rectangle {
+        anchors.fill: parent
         visible: root.mode === "gradient"
         gradient: Gradient {
             orientation: Gradient.Horizontal

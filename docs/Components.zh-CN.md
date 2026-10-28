@@ -4,13 +4,77 @@
 
 [English](Components.md)
 
+设置表单统一使用 **SettingsGroup** 和 **SettingsItem**，字体层级、普通底板、
+紧凑行及可选说明遵循[设置分组与条目规范](Settings.zh-CN.md)。
+Gallery“设置分组与条目”和 `demo/settings-demo.qml` 使用同一个主题示例。
+
+## 应用接入的焦点规则
+
+遵循 [Gallery 设计语言](GalleryDesign.zh-CN.md) 的“焦点与选中规则”。液态输入／搜索、
+按钮和选择器获得焦点或被选中时保留玻璃边缘，不得在控件或应用包装层额外添加蓝色／
+强调色边框、外部焦点环。仅普通实色形态使用 `AppTheme.focusRing` 语义样式，禁止硬编码颜色。
+保留键盘焦点、编辑、激活及无障碍行为。本条优先于下方历史实现记录中的通用焦点环说法；
+历史记录不能作为全部旧控件已经符合新规则的证据。
+
+## 通用提示气泡
+
+悬停与键盘帮助统一使用液态 `KosToolTip`，不使用 Qt 默认附加 ToolTip 样式。
+[提示气泡规范与 API](Tooltips.zh-CN.md) 统一 0.7 背景覆盖强度、14px 圆角、
+水平 10px／垂直 5px 内边距、11px 普通字重不透明文字、真实同窗采样及截断提示策略。
+
+## 应用中的悬浮面板
+
+遵循 [Gallery 设计语言](GalleryDesign.zh-CN.md) 的“悬浮面板材质规则”。右键菜单、搜索下拉、
+选择器选项弹层和 Popover 的面板背景统一使用一层液态材质；内部栏目、候选行、菜单项，
+以及悬停／选中／按下填充均为普通材质，使用 Button 实现也不例外。文字前景保持不透明，
+使用真实同窗采样与 QML 模糊，并提供不透明回退。不得给每行套液态材质或额外蓝色焦点边框；
+下方文字干扰可读性时提高背景覆盖强度。
+
+## 液态玻璃数字
+
+`LiquidGlassNumber` 是只读的大号玻璃字组件，适合温度、时钟和重点数值。
+宿主通过 `text` 提供格式化后的内容，支持字体中的数字、正负号、小数点、冒号和度数符号。
+小字号标签和长段文字保持普通文字。
+
+使用同级 `LiquidBackdrop` 采样数字后面的真实窗口内场景。组件按真实字形裁切背景，
+对笔画内部做模糊和圆润倒角折射。QML `MultiEffect` 负责柔化字形场，
+`ShaderEffect` 据此计算同坐标系的柔和投影、背景透射、折射和方向性高光；仅靠 shadow 不会产生背景模糊或折射。
+不使用 KWin 液态插件、原生模糊请求或桌面采集。
+
+```qml
+LiquidBackdrop { id: numberBackdrop; sourceItem: scene; registerAsDefault: false }
+LiquidGlassNumber {
+    anchors.centerIn: parent
+    text: "−3.5°"
+    font.pixelSize: 144
+    backdrop: numberBackdrop
+    thickness: 5
+    refractionStrength: 8
+    blurRadius: 1.5
+}
+```
+
+`scene`、采样器与数字必须是独立同级子树，采样源不得包含数字自身。支持普通二维变换
+和滚动时的坐标映射，不支持透视变换。`thickness`、`refractionStrength`、`blurRadius`
+分别控制厚度、位移和模糊，单位为逻辑像素。`tintStrength` 默认 .08，
+`reflectionStrength` 默认 .75，`shadowOpacity` 默认 .16；`font` 控制字体、字号和字重，默认 Black 粗字重为玻璃内部留出充分空间。
+隐式尺寸包含倒角和投影留白，布局时应保留该空间。
+
+`reduceTransparency` 默认跟随 AppTheme。减少透明效果、背景缺失或不符合采样约定、
+软件渲染时，使用 `fallbackColor`（默认 AppTheme.text）显示清晰普通数字。
+无障碍名称只暴露一次 `text`，内部字形掩码不参与朗读。组件自身没有动画；宿主负责背景
+动态并遵循 AppTheme.reduceMotion。Gallery 的“液态玻璃数字”页包含可编辑内容、
+预设数值、光学参数及减少透明效果对照。
+
 ## 目录及状态
 
 | 用途 | 组件 | 状态约定 |
 | --- | --- | --- |
 | 共享窗口内采样 | `LiquidBackdrop` | 宿主提供独立的场景子树 |
+| 玻璃数字 | `LiquidGlassNumber` | 宿主格式化文字，提供同级背景采样源 |
 | 材质及容器 | `LiquidSurface`、`LiquidCard` | 宿主提供几何、背景源及可读性策略 |
 | 操作及导航 | `LiquidActionButton`、`LiquidNavigationButton` | 处理 `clicked()`，宿主持有当前页面 |
+| 组合图标按钮 | `LiquidActionButtonGroup` | 提供图标、名称及可选的 `enabledActions` 布尔数组，由宿主处理 `triggered(index)`；液态组键盘聚焦时保留玻璃边缘 |
 | 输入 | `LiquidTextField` | Qt Quick Controls 的文字编辑及确认 |
 | 独立选项 | `LiquidCheckBox` | 原生 `checked` / `toggled()` 行为 |
 | 设置开关 | `LiquidGlassSwitch` | 接收 `toggled(bool)` 并更新宿主状态 |
@@ -27,6 +91,9 @@ Gallery 加载 `demo/gallery/examples` 下的真实文件，代码面板读取�
 `demo/gallery/ComponentCatalog.mjs`。
 
 `LiquidTextField` 使用 `materialForm: false`、`liquidFinish: true` 启用液态表面。
+紧凑默认高度为 28px，与 `LiquidActionButton` 一致。同一位置的输入框与按钮等高：
+内容区行内暂用 20px、非主 Dialog 24px、工具栏 26px、重要 Dialog 30px。
+小实色输入框用 6px 圆角；液态输入框及 28px 起的实色输入框用药丸形。
 支持两种形态的控件使用 `materialForm: false` 保留液态外观。
 `LiquidSelect.appearanceMode` 接收 `system`、`light`、`dark`。
 AppTheme 提供语义颜色和减少动效策略；应用可覆盖已开放的输入属性。
@@ -89,7 +156,8 @@ Window {
 
 Alpha 透明是独立操作。透出桌面时，窗口及父容器背景必须透明，还要移除对应区域
 下方的不透明图片及采样副本。仅对材质背景设置不透明度；需要让重叠材质一起淡出时
-进行分组，文字和交互内容保持不透明。Gallery 左侧导航使用不透明普通背景，不采用这条透明路径。
+进行分组，文字和交互内容保持不透明。Gallery 左侧导航按 GalleryDesign.zh-CN.md 的 `.95` 整块普通面板规则，
+用 QML 模糊其下方真实应用内容；窗口底色保持不透明，不透出或模糊桌面。
 
 ## 链接静态模块
 
@@ -136,14 +204,18 @@ LiquidSurface 使用圆角形状法线产生方向性的正光，移除了全周
 reflectionStrength/rimColor 属性保留，控制柔光弧与弱面内反射；独立无纹理shader保证有无
 backdrop时反光一致。软件路径为克制的方向性Canvas光弧，不声称采样光学。
 按钮新增可选显式backdrop，普通态收敛、悬停/按下轻增并尊重减少动态。
-输入框默认文字/占位/选中文字使用AppTheme语义色，显式覆盖仍有效；液态焦点环独立绘制。
+输入框文字、占位和选区颜色按材质区分，显式覆盖仍有效；液态输入不显示焦点环。
 Gallery按钮页包含真实彩色条纹纹理及启用/禁用按钮、中英文输入，可实际悬停/按下/Tab/选择。
 编译和shader bake不等于视觉验收。
 
 独立旧材质仍待逐项审查：LiquidSelect弹层、LiquidGlassSwitch轨道/拇指、
-LiquidNavBar、LiquidSegmentedControl。必须保留Material分支及焦点指示；本轮未宣称全库完成。
+LiquidNavBar、LiquidSegmentedControl。必须保留 Material 分支及键盘焦点行为；描边外观遵循上方材质焦点规则。本轮未宣称全库完成。
 
 ### 选择器闭合场与弹层
+
+`LiquidSelect.plainTrigger: true` 使用纯当前值触发区，不画按钮底板、描边、
+投影或悬停底色。设置场景搭配 `indicatorStyle: "upDown"`。该属性不改变菜单
+材质或宿主确认状态的契约；`popupOpened` 表示打开过渡已完成。
 
 LiquidSelect 的闭合按钮直接复用 LiquidActionButton：materialForm 为 true 时是普通
 实色下拉框，为 false 时与液态 Button 共用填充、高光、折射和悬停外观。
@@ -151,8 +223,10 @@ liquidIntensity 共用 Button 的强度档位；shadowEnabled 默认关闭，sha
 阴影档位。箭头使用矢量图标。appearanceMode 继续支持独立的深浅色外观。
 Button 新增的 darkAppearance、reduceMotion 默认跟随 AppTheme，原调用方默认效果不变。
 
+浅色主题下，Select 的实色触发按钮和默认选项弹层使用 `#f6f6f6`，液态触发按钮保留采样表面。
 选项弹层保留实色/液态分支及 sheetColor，backdrop 提供有效窗口内纹理。
-activated(index)、乐观选择及宿主确认/回滚契约不变，保留独立焦点环和 Tab、方向键、
+activated(index)、乐观选择及宿主确认/回滚契约不变。液态 Select 不显示焦点描边，
+实色 Select 保留贴边的语义焦点环；液态选项悬停使用中性色，实色选项保留蓝色填充。Tab、方向键、
 Enter、Escape 操作，过渡尊重减少动态。Gallery 展示液态、禁用和普通款。
 按钮页的旋转条纹源现裁切在场景边界内，不改变玻璃自身裁切与采样映射。
 
@@ -185,6 +259,10 @@ Tab/方向键/Home/End/Space/Enter路径，禁用时拒绝激活。真实事件/
 VectorIcon新增一致的原创描线音乐/播放控制图形。LiquidActionButton.iconName默认
 空字符串，非空时居中绘制矢量图标，iconSize默认16，原text/iconOnly用法保留。
 LiquidNavigationButton的iconName/iconColor提供可选16px图标，cornerRadius默认保持10。
+`specificationFontSize` 可覆盖普通导航行的默认字号；Gallery 侧栏设为 12px。
+`specificationSelectedVerticalInset` 只收紧选中行的实色填充；Gallery 上下各用 2px。
+`specificationSelectedFillColor` 和 `specificationHoverFillColor` 允许宿主分别设置两种普通实色填充；Gallery 的选中项为蓝色，浅色主题悬停为 `#dbdbdd`。
+`specificationSelectedTextColor` 设置选中行文字色；Gallery 使用白色。
 纯图标操作需无障碍名称，导航与播放不再依赖字体符号。
 
 ActionButton光学：内容保留按压压缩，背景透镜轻微展开；实际hover/down驱动
@@ -223,29 +301,49 @@ LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell�
 `AppTheme.compactDesign`：正文 13、按钮高 28、搜索高 30、导航行高 30、列表行高 32、
 工具栏高 48。普通区域使用内容／控件语义色，Dialog 与按钮使用不同亮度的背景。
 
-紧凑模式不决定材质。`LiquidActionButton`、`LiquidSelect` 保留液态默认形态，
-紧凑普通控件圆角为 8，液态形态保留圆润轮廓。`fieldRadius` 仍为只读值。
+紧凑模式不决定材质。`LiquidActionButton`、`LiquidSelect` 保留液态默认形态。
+实色操作按钮低于 28px 时用 6px 圆角，28px 及以上用药丸形；液态操作按钮保持药丸形。
+液态和实色 Select 的闭合触发框都保持药丸形；展开弹框使用 8px 圆角与 24px 选项行高，每行悬停背景只覆盖本行。`fieldRadius` 仍为只读值。
 `LiquidCard.materialForm` 默认 false，普通容器显式设为 true；
 `LiquidTextField.specificationForm` 仍需显式启用。Gallery 保留液态示例与实色对照，
-两种材质均采用按钮高 28、输入框高 30 的紧凑尺寸。
+按钮、输入框和下拉选择两种材质的默认高度均为 28；Gallery 侧栏搜索按自身布局显式使用 30px。
 
 `LiquidSurface.adaptiveGlass` 与 `LiquidActionButton.adaptiveGlass` 复用已有采样 shader
 及按像素亮度处理，不使用固定 RGB 填充冒充玻璃。缺少采样、软件渲染或减少透明度
-时降级为普通材质。界面组合规则不用于删减组件目录中的液态形态。Gallery 原位整宽矩形浮动区域以 95% 材质覆盖本应用内容，不另建内缩圆角块，装饰器保持原位；顶部按钮与选择器使用轻档液态，左侧背景与导航项使用普通材质，搜索框显式使用轻档液态输入并采样独立侧栏背景。
+时降级为普通材质。界面组合规则不用于删减组件目录中的液态形态。Gallery 原位整宽矩形浮动区域以 95% 材质覆盖本应用内容，不另建内缩圆角块，装饰器保持原位；顶部按钮与选择器使用轻档液态，左侧背景采用整块普通面板、`.95` 背景不透明度与 QML 模糊，不做悬浮卡片或容器级液态效果，目录分组与导航条目不使用液态，选中／悬停／按下使用普通填充；导航栏上的搜索框和操作按钮显式使用轻档液态并采样独立侧栏材质。
 `LiquidCard.adaptiveGlass` 传给共享表面；其内部控件保持普通材质，不启用嵌套采样。
 
-Select 的键盘焦点由外层持有，独立焦点环跟随外层 activeFocus 与配置圆角。
+Select 的键盘焦点由外层持有；仅实色形态绘制贴边焦点环。
 这些改动不改变宿主状态、公开信号与弹层选择回写契约。应明确要求在本机打开的
 预览已加载并热重载成功；完整交互与视觉验收尚未完成。
 
-紧凑按钮／输入框文字统一为 11px、Font.Normal（400）、垂直居中，
-上下内边距 4px、常规左右内边距 12px；紧凑下拉框文字同样使用 11px 常规字重。
+紧凑按钮文字为 11px、Font.Medium（500）；输入框文字仍为 11px、Font.Normal（400），均垂直居中，
+常规高度上下内边距 4px，低于 26px 的输入框改用 2px；常规左右内边距 12px。
+浅色主题液态输入正文用稍浅的深灰，实色输入用纯黑；深色主题液态输入使用较柔和的浅色，实色输入沿用 AppTheme 文字色。液态输入不显示焦点描边，文字选区使用中性灰；实色输入保留强调色。紧凑下拉框文字使用 11px、Font.Medium（500），闭合框与选项一致。
 字号统一来自 AppTheme.compactControlFontSize，液态与实色形态共用规格。
 
-Gallery 仅浮动材质层设为 95% 不透明；QML MultiEffect 采样本应用真实滚动内容，
+Gallery 要求仅对浮动区域及左侧导航的背景材质层设置 95% 不透明度；QML MultiEffect 采样本应用真实滚动内容，
 浮动区域不绘制底部阴影。窗口与内容底色保持不透明，不透出外部窗口。
 示例背景不作为主区采样源；顶部控件采样材质，装饰器保持原位。
+左侧导航采样自身覆盖区域下的真实内容，排除导航材质及控件；`LiquidBackdrop.blur`
+采用 QML shader／MultiEffect blur，不用 DropShadow 代替背景模糊，也不调用 KWin 液态插件。
+缺少有效源或减少透明度时使用实心回退。2026-10-27 规则更新及实现状态见 GalleryDesign.zh-CN.md。
 
 Gallery 未滚动时顶部与正文为同底色完整平面，无独立阴影或高光；
 真实页面内容滚入顶部下方后（scrollOffset > 12px）才开启 95% 材质与模糊，不添加阴影。
 回顶恢复平面，控件与装饰器位置不变，顶部液态按钮自身材质保持不变。
+
+### 分段选择的几何与动效
+
+工具栏内的 `LiquidSegmentedControl.height` 设为 26px，与工具栏按钮一致。
+选中胶囊四周统一内缩 2px，圆角为高度的一半；首尾选中项与外轨道端部同心。
+液态选中态持续使用 `selectionColor` 着色，轨道使用 `backgroundColor`。
+默认使用中性色，不添加强调色焦点框或选中外框；紧凑文字使用共享的 11px 控件字号。
+
+选择变化时，透镜平移并短暂拉伸、压缩、回弹归位，键盘切换同样生效；
+按压反馈单独处理。减少动态效果会关闭位移和形变，实色模式保持普通静态选中态。
+保留宿主确认选择和未确认回退的行为。上述尺寸与时长是本组件的实现取值，
+不是测量得到的 macOS 27 参数。Apple 的 macOS 27 发布说明区分了内容导航的
+`tabs` 和属性值选择分段控件，但不能据此声称本组件与系统像素或动画完全一致。
+
+分段控件提供 `fontWeight`（默认 Normal）和 `selectedFontWeight`（默认 DemiBold）；宿主需要统一略加粗时，可将两者均设为 Medium。

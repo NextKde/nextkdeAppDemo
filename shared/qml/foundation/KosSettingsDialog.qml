@@ -107,11 +107,11 @@ KosDialog {
             }
 
             KosToolButton {
+                id: closeSettingsButton
                 text: "×"
                 font.pixelSize: 18
                 Accessible.name: qsTr("Close settings")
-                ToolTip.visible: hovered
-                ToolTip.text: Accessible.name
+                KosToolTip { target: closeSettingsButton; text: closeSettingsButton.Accessible.name }
                 onClicked: root.close()
             }
         }
@@ -302,8 +302,7 @@ KosDialog {
                             Accessible.role: Accessible.RadioButton
                             Accessible.name: modelData.label
                             Accessible.checked: checked
-                            ToolTip.visible: hovered
-                            ToolTip.text: modelData.label
+                            KosToolTip { target: accentButton; text: accentButton.Accessible.name }
                             onClicked: if (root.settings)
                                 root.settings.accentName = modelData.key
 

@@ -4,13 +4,91 @@
 
 [简体中文](Components.zh-CN.md)
 
+## Focus rule for application integration
+
+Follow the **Focus and selection contract** in [Gallery design language](GalleryDesign.md).
+Liquid inputs/search, buttons and selectors keep their glass edge on focus or selection;
+never add a blue/accent border or outer ring in the control or its application wrapper.
+Only ordinary solid forms use the semantic `AppTheme.focusRing`; do not hardcode colours.
+Keep keyboard focus, editing, activation and accessibility behaviour. This current rule
+supersedes generic ring advice in the historical implementation notes below; those notes
+are not proof that every legacy control already complies.
+
+## Common tooltips
+
+Use canonical `KosToolTip` for floating liquid hover/keyboard help, not Qt attached
+ToolTip styles. [Tooltip contract and API](Tooltips.md) define 0.7 material coverage,
+14px corners, 10px horizontal / 5px vertical padding, 11px normal opaque text,
+real same-window sampling and the truncation policy.
+
+## Floating panels in applications
+
+Follow the **Floating panel material contract** in [Gallery design language](GalleryDesign.md).
+Context menus, search dropdowns, select-option popups and popovers use one liquid
+panel background. Internal categories, rows and menu items use ordinary material,
+including their hover/selected/pressed fills; Button delegates do not change that.
+Keep foreground text opaque, use real same-window sampling and QML blur, and
+provide an opaque fallback. Never add liquid surfaces to every row or an extra
+blue focus border. Increase background coverage when text underneath interferes.
+
+## Liquid glass numbers
+
+`LiquidGlassNumber` is display-only glass typography for large temperatures,
+clocks and prominent values. The host formats `text`; the component accepts
+normal font glyphs, including signs, decimal points, colons and degree symbols.
+Use ordinary text for compact labels and long passages.
+
+Supply a sibling `LiquidBackdrop` containing the real scene behind the digits.
+The component masks that texture to the actual font outline, softens it and
+refracts it across rounded bevels. QML `MultiEffect` supplies the softened glyph field; `ShaderEffect` uses that
+field for a registered soft cast shadow, transmitted background pixels and
+directional lighting. Shadow alone does not blur or refract the background.
+There are no KWin effects, native blur requests or desktop capture.
+
+```qml
+LiquidBackdrop { id: numberBackdrop; sourceItem: scene; registerAsDefault: false }
+LiquidGlassNumber {
+    anchors.centerIn: parent
+    text: "−3.5°"
+    font.pixelSize: 144
+    backdrop: numberBackdrop
+    thickness: 5
+    refractionStrength: 8
+    blurRadius: 1.5
+}
+```
+
+Keep `scene`, the provider and the number as separate sibling subtrees. Never
+include the number in the captured scene. Ordinary 2D transforms and scrolling
+are mapped into the provider's texture; perspective transforms are unsupported.
+`thickness`, `refractionStrength` and `blurRadius` use logical pixels.
+`tintStrength` defaults to .08, `reflectionStrength` to .75 and `shadowOpacity`
+to .16. The `font` property controls family, size and weight; the default Black weight
+leaves a broad glass interior. Leave room for the
+component's implicit size, which includes bevel/shadow padding.
+
+`reduceTransparency` follows AppTheme by default. Reduced transparency, missing
+or rejected sources and software rendering use ordinary glyphs in `fallbackColor`
+(default AppTheme.text). Accessible.name exposes `text` once; glyph masks are
+excluded. The component owns no animation; hosts control background motion and
+respect AppTheme.reduceMotion. The Gallery's **Glass numbers** page provides
+editable text, presets and optical controls, plus a reduced-transparency comparison.
+
 ## Catalogue and state
+
+Settings forms use **SettingsGroup** and **SettingsItem**. Their typography,
+ordinary surface, compact rows and optional descriptions follow
+[the common settings specification](Settings.md). The Gallery Settings groups page
+and `demo/settings-demo.qml` consume the same Theme example.
 
 | Purpose | Component | State contract |
 | --- | --- | --- |
+| Settings form | `SettingsGroup`, `SettingsItem` | Host supplies labels, descriptions and state-bound controls; 24px compact controls |
 | Shared in-window capture | `LiquidBackdrop` | Host supplies a separate scene subtree |
+| Glass display numerals | `LiquidGlassNumber` | Host formats text and supplies a sibling backdrop |
 | Material and container | `LiquidSurface`, `LiquidCard` | Host supplies geometry, provider and readability |
 | Actions and navigation | `LiquidActionButton`, `LiquidNavigationButton` | Handle `clicked()`; own the selected destination |
+| Grouped icon actions | `LiquidActionButtonGroup` | Supply icons, labels and optional `enabledActions` booleans; handle `triggered(index)` in the host. Liquid groups keep the glass edge on keyboard focus |
 | Input | `LiquidTextField` | Qt Quick Controls text editing and acceptance |
 | Independent option | `LiquidCheckBox` | Native `checked` / `toggled()` behavior |
 | Setting toggle | `LiquidGlassSwitch` | Confirm `toggled(bool)` by updating host state |
@@ -29,6 +107,10 @@ persist demo actions. Keep catalogue metadata and bilingual API explanations in
 
 `LiquidTextField` enables its liquid surface with `materialForm: false` and
 `liquidFinish: true`. Set `materialForm: false` on controls that support both forms.
+Its compact default height is 28px, matching `LiquidActionButton`. At a shared
+placement, use the same height: inline content 20px (provisional), secondary
+Dialog 24px, toolbar 26px, and important Dialog 30px. Small solid fields use
+6px corners; liquid fields and solid fields from 28px are capsules.
 `LiquidSelect.appearanceMode` accepts `system`, `light` and `dark`. AppTheme supplies
 semantic colours and reduced-motion policy; applications may override supported inputs.
 
@@ -94,7 +176,9 @@ Alpha transparency is a separate operation. To reveal the desktop, keep the wind
 and ancestor containers transparent and remove every opaque image or sampled copy
 under that area. Apply opacity only to the material background, grouped where
 overlapping layers must fade together. Keep text and interactive content opaque.
-Gallery's left navigation uses an opaque ordinary background; it does not use this transparency path.
+Gallery's left navigation follows the in-window `.95` ordinary-panel contract
+in GalleryDesign.md: QML blur samples actual underlying app content, while the
+window stays opaque. This does not reveal or blur the desktop.
 
 ## Link the static module
 
@@ -153,19 +237,26 @@ Software rendering uses a restrained directional canvas arc without sampled opti
 
 `LiquidActionButton.backdrop` allows an explicit eligible sibling texture provider.
 Its normal state is subdued, with small hover/pressed reflection changes respecting
-reduced motion. `LiquidTextField` defaults follow AppTheme text/muted/selection
-colours; explicit colour overrides remain supported. The liquid input's actual
-focus indicator is drawn separately from decorative reflection.
+reduced motion. In light mode, `LiquidTextField` uses softer dark-gray text for
+liquid inputs and black text for solid inputs. Dark mode uses lighter text on
+liquid and theme text on solid. Liquid text selection uses neutral gray; solid
+inputs retain the accent color. Explicit colour overrides remain supported.
+Liquid inputs show no focus outline; solid inputs draw an edge-hugging ring.
 
 The Button example includes a real coloured/striped source texture, enabled and
 disabled buttons and a typed field. Interact with hover/press/tab/selection in both
 appearances; a source export or shader bake is not visual acceptance.
 
 Independent legacy optics still need separate review: LiquidSelect (popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
-LiquidSegmentedControl. Their Material branches and focus indicators must remain
-intact. This surface change does not claim to finish those controls.
+LiquidSegmentedControl. Their Material branches and keyboard focus behaviour must remain
+intact; outline appearance follows the material-specific focus rule above. This surface change does not claim to finish those controls.
 
 ### Select field and popup
+
+`LiquidSelect.plainTrigger: true` exposes a value-only trigger without any
+button surface, border, shadow or hover fill. Pair it with `indicatorStyle:
+"upDown"` for settings. This does not change the popup material or selection
+confirmation contract. `popupOpened` reports when its opening transition finishes.
 
 `LiquidSelect` reuses `LiquidActionButton` for its closed trigger: `materialForm:
 true` selects an ordinary solid fill; `false` selects the same liquid fill,
@@ -176,10 +267,14 @@ shadow presets. The dropdown uses a vector chevron rather than a font glyph.
 host theme. Button's new `darkAppearance` and `reduceMotion` overrides default to
 AppTheme, so existing Button users retain their defaults.
 
-The choice sheet retains its solid/liquid branches and `sheetColor`; `backdrop`
+In light mode, Select's solid trigger and default choice sheet use `#f6f6f6`;
+the liquid trigger keeps its sampled surface. The choice sheet retains its
+solid/liquid branches and `sheetColor`; `backdrop`
 provides eligible in-window texture. `activated(index)`, optimistic selection and
-owner acknowledgement/rollback remain unchanged. Keyboard focus has a separate
-indicator; Tab, arrows, Enter and Escape remain available. Transitions respect
+owner acknowledgement/rollback remain unchanged. Solid Select draws an
+edge-hugging semantic focus ring; liquid Select draws no focus ring. Liquid choice
+hover is neutral; solid choice hover retains its accent fill. Tab, arrows, Enter
+and Escape remain available. Transitions respect
 reduced motion. The Gallery shows liquid, disabled and standard variants.
 
 The Button example's coloured source clips its rotated stripes to the scene
@@ -232,6 +327,14 @@ LiquidActionButton.iconName (default empty) selects a centered vector icon;
 iconSize defaults16. Existing text/iconOnly use is preserved.
 LiquidNavigationButton.iconName/iconColor add an optional16px vector before its
 label; cornerRadius defaults to the original10px. Supply accessible action names.
+`specificationFontSize` overrides the plain navigation row's default font size
+without changing other uses; Gallery sets it to 12px.
+`specificationSelectedVerticalInset` reduces only the selected row's solid fill;
+Gallery uses 2px above and below.
+`specificationSelectedFillColor` and `specificationHoverFillColor` let a host
+set the two ordinary row fills independently; Gallery uses blue for selected
+rows and `#dbdbdd` for hover in light mode.
+`specificationSelectedTextColor` sets the selected row's label; Gallery uses white.
 These additions support actual app navigation and playback, not font-symbol icons.
 
 Action button optics: the shared background lens expands slightly while content
@@ -286,11 +389,14 @@ navigation rows 30, list rows 32 and toolbar 48. Ordinary areas use semantic
 content/control colors; Dialog containers and buttons retain a brightness step.
 
 Compact mode does not choose a material. LiquidActionButton and LiquidSelect
-retain their liquid defaults and use 8px corners only for compact ordinary controls;
-liquid controls keep their rounded shape. Select.fieldRadius remains read-only.
+retain their liquid defaults. Solid action buttons below 28px use 6px corners;
+at 28px and above they are capsules. Liquid actions remain capsules.
+Both Select triggers remain capsules. Their popup uses 8px corners and 24px
+option rows, with one hover fill per row. Select.fieldRadius remains read-only.
 LiquidCard.materialForm defaults to false; ordinary containers explicitly choose
 true. LiquidTextField.specificationForm remains opt-in. Gallery retains liquid
-examples and solid comparisons, with 28px buttons and 30px inputs in both forms.
+examples and solid comparisons. Buttons, inputs and selects default to 28px;
+Gallery's sidebar search explicitly uses 30px for its own layout.
 
 LiquidSurface.adaptiveGlass and LiquidActionButton.adaptiveGlass reuse existing
 sampled shaders and luminance-dependent readability. They never replace sampled
@@ -298,27 +404,54 @@ glass with a fixed RGB fill. Missing sources, software rendering and reduced
 transparency fall back to ordinary material. Composition rules apply to application
 layouts; they do not remove liquid controls from the component catalogue. Gallery’s original full-width rectangular floating region overlays actual app
 content without an inset rounded block. Window decorations retain their original coordinates;
-its top actions and selector explicitly use the light liquid finish. Left navigation rows and background remain
-ordinary; the search uses the light liquid finish with a separate sidebar backdrop.
+its top actions and selector explicitly use the light liquid finish. Left navigation is one ordinary panel with `.95` background opacity and QML blur,
+without floating geometry or container-level liquid optics;
+directory headings and rows have no liquid effect, including selection/hover/press;
+navigation search fields and action buttons use light liquid with a separate material capture.
 LiquidCard.adaptiveGlass
 forwards to the shared surface and disables nested content capture.
 
-Select owns keyboard focus at its outer item; a separate ring follows that item's
-focus and configured radius. Host-owned state, signals and selection acknowledgement
+Select owns keyboard focus at its outer item; only the solid form draws a ring
+following that item's focus and configured radius. Host-owned state, signals and selection acknowledgement
 remain intact. The explicitly requested workstation preview loaded and reloaded;
 full interaction and visual acceptance remains pending.
 
-Compact button/input typography: 11px Font.Normal (400), vertically centered,
-4px top/bottom padding and 12px standard horizontal padding. Select labels also
-use 11px Font.Normal in compact mode. AppTheme.compactControlFontSize owns this
+Compact button typography: 11px Font.Medium (500); inputs remain 11px
+Font.Normal (400). Both are vertically centered, with 4px top/bottom padding
+at ordinary heights; inputs below 26px use 2px. Standard horizontal padding is 12px. Select labels also
+use 11px Font.Medium in compact mode. AppTheme.compactControlFontSize owns this
 size; liquid and solid forms share it.
 
-Gallery uses 95% opacity on the floating material only. Its QML MultiEffect
+Gallery requires 95% opacity on floating and left-navigation material backgrounds only. Its QML MultiEffect
 provider samples the actual scrolling page; the floating region has no bottom shadow.
 Window and content base stay opaque. Example backgrounds never feed this provider.
 Top controls sample the material; decorations retain their original coordinates.
+Navigation samples the real content under its own coverage, excluding its material
+and controls. `LiquidBackdrop.blur` uses QML shader/MultiEffect blur, not DropShadow
+or a KWin liquid plugin. Missing sources or reduced transparency use opaque fallback.
+See GalleryDesign.md for the 2026-10-27 rule revision and implementation status.
 
 At scroll origin, Gallery renders the header and body as one ordinary surface.
 Only real page content scrolling beneath the header enables the 95% material and blur
 without a shadow (scrollOffset > 12px). Returning to origin restores the flat surface
 without moving controls or decorations. Top liquid buttons keep their own finish.
+
+### Segmented selection geometry and motion
+
+Toolbar hosts set `LiquidSegmentedControl.height` to 26px, matching toolbar
+actions. The selected capsule uses a uniform 2px inset and half-height radii;
+the first/last capsule endcaps are concentric with the track. Liquid selection
+uses `selectionColor` as its persistent tint, with `backgroundColor` on the track.
+Defaults are neutral, not accent-coloured; no liquid focus/selection ring is added.
+Compact labels use the shared 11px control font token.
+
+A confirmed or optimistic selection change slides the lens and triggers a short
+stretch, squash and settle, including keyboard changes. Press feedback is separate.
+Reduced motion disables both movement and deformation; material form retains the
+ordinary static selection. Host-owned selection and rollback are preserved.
+These QML timings and dimensions are our implementation choices, not measured
+macOS 27 constants. Apple's macOS 27 release notes distinguish content-navigation
+`tabs` from value-selection segmented controls; this does not establish pixel or
+animation parity for this component.
+
+Segmented label weights can be supplied through `fontWeight` (default Normal) and `selectedFontWeight` (default DemiBold). Use Medium for both when a host requires uniformly slightly heavier labels.

@@ -16,6 +16,7 @@
 ```sh
 qs -p demo/gallery.qml
 qs -p demo/sidebar-demo.qml
+qs -p demo/settings-demo.qml
 ```
 
 任选一条命令，打开对应的普通可缩放窗口。关闭窗口退出该预览进程。
@@ -23,6 +24,9 @@ qs -p demo/sidebar-demo.qml
 
 - **Gallery：**可操作控件、可搜索导航、属性和信号说明，以及可复制的 QML 示例。
   默认英文，可切换中文说明。
+- **提示气泡：**紧凑悬浮液态提示，背景覆盖强度 0.7，支持截断名称。[规范](docs/Tooltips.zh-CN.md)。
+- **设置分组：**使用统一的 `SettingsGroup` / `SettingsItem`，以“主题 → 界面形态”
+  做交互示范。见[设置分组与条目规范](docs/Settings.zh-CN.md)。
 - **侧栏：**真实导航、文件过滤及选择、不透明内容区，以及默认
   `opacity: 0.95` 的侧栏背景。文字保持完全不透明。桌面模式下窗口底色透明；
   勾选“窗口内背景”可对比 QML 对仓库内图片的模糊及折射效果。
@@ -49,8 +53,8 @@ import Kos.Ui
 LiquidTextField {
     width: 280
     specificationForm: true
-    implicitHeight: 30
-    cornerRadius: 8
+    implicitHeight: 28
+    cornerRadius: height / 2
     placeholderText: "Search"
     textColor: AppTheme.text
     mutedTextColor: AppTheme.mutedText

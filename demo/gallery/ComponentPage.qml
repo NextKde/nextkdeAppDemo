@@ -20,6 +20,8 @@ ScrollView {
     property string sourceError: ""
     property bool demoEnabled: true
     readonly property bool isButtonPage: entry !== null && entry.id === "button"
+    readonly property bool isRulesOnlyPage: entry !== null
+        && (entry.id === "button" || entry.id === "text-field" || entry.id === "combo-box")
     readonly property int contentIndent: tokens.pageInset
     readonly property int exampleSection: whitePanel.visible ? 2 : 1
     readonly property int apiSection: exampleSection + 1
@@ -29,7 +31,7 @@ ScrollView {
     function tr(en, zh) { return language === "zh" ? zh : en }
     function resetExample() {
         preview.active = false
-        preview.active = true
+        preview.active = !page.isRulesOnlyPage
         whitePreview.active = false
         whitePreview.active = Qt.binding(function() { return whitePanel.visible })
     }
@@ -78,6 +80,15 @@ ScrollView {
         RowLayout {
             Layout.fillWidth: true
             Label {
+                visible: page.isRulesOnlyPage
+                Layout.fillWidth: true
+                text: page.tr("01.Overview", "01.总览")
+                color: tokens.labelPrimary
+                font.pixelSize: 24
+                font.weight: Font.Bold
+            }
+            Label {
+                visible: !page.isRulesOnlyPage
                 Layout.fillWidth: true
                 text: page.tr("Interactive example", "交互示例")
                 color: Ui.AppTheme.text
@@ -104,8 +115,8 @@ ScrollView {
 
 
         Label {
-            visible: whitePanel.visible
-            text: page.isButtonPage ? page.tr("Examples", "示例") : page.tr("01 · Component examples", "01 · 组件分类示例")
+            visible: whitePanel.visible && !page.isRulesOnlyPage
+            text: page.tr("01 · Component examples", "01 · 组件分类示例")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
             topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
@@ -115,7 +126,7 @@ ScrollView {
         Pane {
             id: whitePanel
             Layout.fillWidth: true
-            visible: page.entry !== null && ["button", "text-field", "segmented", "bottom-navigation", "navigation"].indexOf(page.entry.id) >= 0
+            visible: page.entry !== null && ["button", "text-field", "combo-box", "segmented", "bottom-navigation", "navigation"].indexOf(page.entry.id) >= 0
             padding: page.contentIndent
             implicitHeight: whitePreview.item ? whitePreview.item.implicitHeight + padding * 2 : 0
             background: Item {}
@@ -133,12 +144,11 @@ ScrollView {
             }
         }
 
-        // 背景对照（仅白面板类组件）：同一示例在液态背景上的渲染效果。
-        // 按钮页不显示——按钮规则的验证只看实色背景下的形态。
-        // 其余组件页此块是它们的主交互示例，不受影响。
+        // Rules pages end after their primary examples. Other components keep
+        // their backdrop preview, API reference and source sections.
         Label {
             Layout.topMargin: tokens.sectionGap
-            visible: whitePanel.visible ? !page.isButtonPage : true
+            visible: !page.isRulesOnlyPage
             text: ("0" + page.exampleSection) + " · " + (whitePanel.visible
                 ? page.tr("Background comparison", "背景对照") : page.tr("Interactive examples", "交互示例"))
             color: Ui.AppTheme.text
@@ -147,11 +157,15 @@ ScrollView {
         }
         Pane {
             Layout.fillWidth: true
-            visible: whitePanel.visible ? !page.isButtonPage : true
+            visible: !page.isRulesOnlyPage
             padding: page.contentIndent
             clip: true
             implicitHeight: previewHost.implicitHeight + padding * 2
-            background: GalleryBackdrop { id: previewScene; mode: page.backgroundMode }
+            background: GalleryBackdrop {
+                id: previewScene
+                mode: page.entry && ["settings", "tooltip"].indexOf(page.entry.id) >= 0 ? "ordinary" : page.backgroundMode
+                visible: !page.entry || page.entry.id !== "liquid-number"
+            }
             readonly property alias contentBackdrop: previewBackdrop
             Controls.LiquidBackdrop {
                 id: previewBackdrop
@@ -165,6 +179,7 @@ ScrollView {
 
                 Loader {
                     id: preview
+                    active: !page.isRulesOnlyPage
                     anchors.fill: parent
                     enabled: page.demoEnabled
                     onLoaded: {
@@ -175,7 +190,7 @@ ScrollView {
                     }
                     // Use a new URL for the reorganized examples so the live
                     // QQmlEngine cannot reuse their previous compiled component.
-                    source: page.entry ? Qt.resolvedUrl("examples/" + page.entry.example
+                    source: active && page.entry ? Qt.resolvedUrl("examples/" + page.entry.example
                         + ((page.entry.id === "button" || page.entry.id === "text-field" || page.entry.id === "switch")
                             ? "?revision=switch-jelly-7" : "")) : ""
                 }
@@ -193,7 +208,7 @@ ScrollView {
 
         Label {
             Layout.topMargin: tokens.sectionGap
-            visible: !page.isButtonPage
+            visible: !page.isRulesOnlyPage
             text: "0" + page.apiSection + " · " + page.tr("API reference", "接口说明")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize
@@ -206,7 +221,7 @@ ScrollView {
             delegate: ColumnLayout {
                 required property var modelData
                 required property int index
-                visible: !page.isButtonPage
+                visible: !page.isRulesOnlyPage
                 Layout.fillWidth: true
                 Layout.topMargin: 8
                 Layout.bottomMargin: tokens.sectionGap
@@ -233,26 +248,26 @@ ScrollView {
 
         Label {
             Layout.fillWidth: true
-            visible: !page.isButtonPage
+            visible: !page.isRulesOnlyPage
             text: "0" + (page.apiSection + 1) + " · " + page.tr("Code example", "代码示例")
             color: Ui.AppTheme.text
             font.pixelSize: tokens.sectionTitleSize; font.weight: Font.DemiBold
             topPadding: tokens.sectionPadding; bottomPadding: tokens.sectionPadding
         }
         CodeBlock {
-            visible: !page.isButtonPage
+            visible: !page.isRulesOnlyPage
             Layout.fillWidth: true
             Layout.leftMargin: page.contentIndent
             Layout.rightMargin: page.contentIndent
             code: page.exampleCode; language: page.language
         }
         Label {
-            visible: !page.isButtonPage && page.sourceError.length > 0
+            visible: !page.isRulesOnlyPage && page.sourceError.length > 0
             text: page.sourceError
             color: Ui.AppTheme.destructive
         }
         Label {
-            visible: !page.isButtonPage
+            visible: !page.isRulesOnlyPage
             Layout.fillWidth: true
             Layout.leftMargin: page.contentIndent
             Layout.rightMargin: page.contentIndent
@@ -262,7 +277,7 @@ ScrollView {
             wrapMode: Text.WrapAnywhere
         }
         Controls.LiquidActionButton {
-            visible: !page.isButtonPage
+            visible: !page.isRulesOnlyPage
             materialForm: true
             scale: 1
             cornerRadius: tokens.controlRadius
