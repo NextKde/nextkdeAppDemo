@@ -61,7 +61,14 @@ qt_add_qml_module(kos_ui
         controls/LiquidActionButtonGroup.qml
         controls/LiquidNavigationButton.qml
         controls/LiquidCheckBox.qml
+        controls/LiquidContentPopover.qml
+        controls/LiquidPopover.qml
+        controls/LiquidPopoverItem.qml
+        controls/LiquidPopoverSurface.qml
         controls/LiquidDialog.qml
+        controls/LiquidDialogButton.qml
+        controls/LiquidDialogSurface.qml
+        controls/LiquidPanelSurface.qml
         controls/LiquidGlassSwitch.qml
         controls/LiquidSlider.qml
         controls/LiquidSelect.qml
@@ -70,6 +77,10 @@ qt_add_qml_module(kos_ui
         controls/LiquidSegmentedControl.qml
         controls/SelectionHighlight.qml
     RESOURCES
+        controls/shaders/liquid_dialog.vert
+        controls/shaders/liquid_dialog.frag
+        controls/shaders/liquid_dialog.vert.qsb
+        controls/shaders/liquid_dialog.frag.qsb
         controls/shaders/liquid_number.vert
         controls/shaders/liquid_number.vert.qsb
         controls/shaders/liquid_number.frag

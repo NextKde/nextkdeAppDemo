@@ -22,3 +22,10 @@ singleton ControlForm 1.0 ControlForm.qml
 VectorIcon 1.0 VectorIcon.qml
 SelectionHighlight 1.0 SelectionHighlight.qml
 LiquidOuterShadow 1.0 LiquidOuterShadow.qml
+LiquidDialogSurface 1.0 LiquidDialogSurface.qml
+LiquidDialogButton 1.0 LiquidDialogButton.qml
+LiquidPanelSurface 1.0 LiquidPanelSurface.qml
+LiquidPopover 1.0 LiquidPopover.qml
+LiquidPopoverItem 1.0 LiquidPopoverItem.qml
+LiquidPopoverSurface 1.0 LiquidPopoverSurface.qml
+LiquidContentPopover 1.0 LiquidContentPopover.qml
