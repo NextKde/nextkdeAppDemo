@@ -32,6 +32,8 @@ Item {
         refreshRounded: "M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8 M21 3v5h-5",
         trash: "M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15M10 10v7M14 10v7",
         archive: "M3 4h18v4H3z M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8 M12 10v5 M9.5 12.5 12 15l2.5-2.5",
+        envelope: "M3 5h18v14H3z M3 5l9 8 9-8",
+        envelopeOpen: "M3 9.5 12 3l9 6.5V21H3z M3 9.5 12 16l9-6.5",
         arrows: "M8 3 4 7l4 4 M4 7h16 M16 21l4-4-4-4 M20 17H4",
         circle: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8",
         contrast: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18M12 3v18M12 7h5M12 11h8M12 15h7",
