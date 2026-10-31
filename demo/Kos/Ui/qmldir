@@ -54,3 +54,15 @@ VectorIcon 1.0 controls/VectorIcon.qml
 SelectionHighlight 1.0 controls/SelectionHighlight.qml
 singleton I18n 1.0 i18n/I18n.qml
 LiquidOuterShadow 1.0 controls/LiquidOuterShadow.qml
+LiquidDialogSurface 1.0 controls/LiquidDialogSurface.qml
+LiquidDialogButton 1.0 controls/LiquidDialogButton.qml
+LiquidPanelSurface 1.0 controls/LiquidPanelSurface.qml
+LiquidPopover 1.0 controls/LiquidPopover.qml
+LiquidPopoverItem 1.0 controls/LiquidPopoverItem.qml
+LiquidPopoverSurface 1.0 controls/LiquidPopoverSurface.qml
+LiquidContentPopover 1.0 controls/LiquidContentPopover.qml
+SettingsTextField 1.0 foundation/SettingsTextField.qml
+SettingsTextArea 1.0 foundation/SettingsTextArea.qml
+SettingsSwitch 1.0 foundation/SettingsSwitch.qml
+SettingsDateField 1.0 foundation/SettingsDateField.qml
+SettingsTimeField 1.0 foundation/SettingsTimeField.qml

@@ -104,8 +104,6 @@ ColumnLayout {
                 plainTrigger: true
                 indicatorBackground: true
                 popupMaterialForm: true
-                sheetColor: "#f0f0f1"
-                popupTextColor: "#1c1c1e"
                 neutralOptionHighlight: true
                 compactPopup: true
                 popupBorderWidth: 0

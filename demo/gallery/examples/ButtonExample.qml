@@ -11,8 +11,8 @@ import "../../Kos/Ui/controls" as Controls
 //
 // 四步定义，顺序固定，后一步依赖前一步的结论：
 //   01 材质：先判断按钮浮在什么上面（浮在内容之上=液态；嵌在内容之内=实色 materialForm）
-//   02 大小：正文旁行内按钮暂用 20 / 非主 Dialog 底栏 24 / 工具栏 26 /
-//            重要液态 Dialog 的实色底部按钮 30
+//   02 大小：正文旁行内按钮暂用 20 / 普通非液态 Dialog 底栏 24 / 工具栏 26 /
+//            液态 Dialog 的实色底部按钮 30
 //   03 圆角：由 01 的材质 + 02 的大小共同决定（液态一律胶囊；实色 28、30 胶囊，26、24、20、18 用 6pt）
 //   04 颜色：最后按功能、主题、材质取色（主操作强调色底白字；普通控件底色；危险红字；禁用淡字）
 //
@@ -94,11 +94,11 @@ ColumnLayout {
             }
             Item { width: 1; height: 8 }
             Label {
-                text: example.tr("02.2 · Secondary dialog footer", "02.2 · 非主 Dialog 弹出窗底部")
+                text: example.tr("02.2 · Ordinary non-liquid dialog footer", "02.2 · 普通非液态 Dialog 弹出窗底部")
                 color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
             }
             Label {
-                text: example.tr("An action at the bottom of a secondary dialog; 24 high.", "非主 Dialog 弹出窗底部的操作按钮，高 24。")
+                text: example.tr("An action at the bottom of a ordinary non-liquid dialog; 24 high.", "普通非液态 Dialog 弹出窗底部的操作按钮，高 24。")
                 color: Ui.AppTheme.mutedText; font.pixelSize: 13
             }
             Image {
@@ -135,7 +135,7 @@ ColumnLayout {
             Item { width: 1; height: 8 }
             Label {
                 width: parent.width; wrapMode: Text.WordWrap
-                text: example.tr("02.4 · Solid footer buttons in an important liquid Dialog", "02.4 · 非常重要的液态 Dialog 底部实色按钮")
+                text: example.tr("02.4 · Solid footer buttons in a liquid Dialog", "02.4 · 液态 Dialog 底部实色按钮")
                 color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
             }
             Label {
@@ -152,7 +152,7 @@ ColumnLayout {
                 smooth: true
             }
             Label {
-                text: example.tr("Important liquid Dialog reference", "重要液态 Dialog 参考图")
+                text: example.tr("Liquid Dialog reference", "液态 Dialog 参考图")
                 color: Ui.AppTheme.mutedText; font.pixelSize: 13
             }
             Controls.LiquidActionButton {
@@ -164,11 +164,11 @@ ColumnLayout {
     }
 
     // 03 圆角：对应 02 的四种位置。小实色按钮用 6 点圆角；工具栏液态按钮组共用胶囊外轮廓；
-    //     重要 Dialog 的 30 高实色按钮用药丸形圆角。
+    //     液态 Dialog 的 30 高实色按钮用药丸形圆角。
     RuleBlock {
         title: example.tr("03 · Corner by the four placements", "03 · 按上面四种位置定圆角")
-        line: example.tr("Solid inline and secondary-dialog buttons use 6pt corners. The liquid toolbar group has one capsule outline. The important Dialog's solid footer button is a capsule.",
-                         "行内与非主弹窗的小实色按钮用 6 点圆角；液态工具栏按钮组共用药丸形外轮廓；重要 Dialog 的实色底部按钮也是药丸形。")
+        line: example.tr("Solid inline and secondary-dialog buttons use 6pt corners. The liquid toolbar group has one capsule outline. The liquid Dialog's solid footer button is a capsule.",
+                         "行内与非主弹窗的小实色按钮用 6 点圆角；液态工具栏按钮组共用药丸形外轮廓；液态 Dialog 的实色底部按钮也是药丸形。")
         Column {
             width: example.width
             spacing: 8
@@ -183,12 +183,12 @@ ColumnLayout {
         }
     }
 
-    // 04 颜色：小实色按钮浅色纯黑中等字重；液态按钮与图标用稍浅的深灰；重要 Dialog 底栏
+    // 04 颜色：小实色按钮浅色纯黑中等字重；液态按钮与图标用稍浅的深灰；液态 Dialog 底栏
     //     主操作蓝底白字、危险操作红字、取消为普通实色。
     RuleBlock {
         title: example.tr("04 · Colour by the four placements", "04 · 按上面四种位置定颜色")
-        line: example.tr("Small solid actions use black medium-weight labels in light mode; liquid actions and toolbar icons use a softer dark gray. In an important Dialog, the primary action is blue with white text, the destructive action uses red text, and Cancel stays neutral.",
-                         "小实色按钮在浅色主题用纯黑色、中等字重；液态按钮和工具栏图标用稍浅的深灰。重要 Dialog 中，主操作蓝底白字，危险操作红字，取消保持普通实色。")
+        line: example.tr("Small solid actions use black medium-weight labels in light mode; liquid actions and toolbar icons use a softer dark gray. In a liquid Dialog, the primary action is blue with white text, the destructive action uses red text, and Cancel stays neutral.",
+                         "小实色按钮在浅色主题用纯黑色、中等字重；液态按钮和工具栏图标用稍浅的深灰。液态 Dialog 中，主操作蓝底白字，危险操作红字，取消保持普通实色。")
         Column {
             width: example.width
             spacing: 8

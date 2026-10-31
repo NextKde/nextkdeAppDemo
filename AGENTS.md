@@ -21,16 +21,36 @@ Read README.md, docs/Architecture.md and docs/Components.md before editing.
   select-option popups and popovers use one liquid panel background. Their internal
   rows, categories, menu items and hover/selected/pressed fills use ordinary material,
   including delegates implemented as Buttons. Do not nest liquid surfaces per row.
+  Use canonical LiquidPanelSurface for these backgrounds, with the shared
+  LiquidStyle.panelMaterialOpacity default of 0.95. Glass-layer opacity is
+  independent of tint: composite lightly tinted refracted glass over an already
+  blurred underlay, never over a sharp source or under a 95% solid-tint cover. Keep popup rows ordinary.
   Sample actual same-window content excluding the popup and capture; use QML blur,
   never KWin liquid effects. Keep text opaque and provide an ordinary opaque fallback
   for reduced transparency or unavailable sampling. See GalleryDesign.md; this
   overrides generic advice to make every control inside a floating layer liquid.
+- Floating dialogs use canonical LiquidDialog: 32px G2 continuous corners,
+  background-only opacity 0.95 (independent of tint coverage), real
+  same-window QML blur/refraction, and solid interior buttons/fields/rows.
+  Use LiquidDialogButton for every liquid-dialog footer action: solid material,
+  30px high and capsule corners, regardless of importance. The 24px/6px rule
+  applies only to ordinary non-liquid dialogs. Disabled primary actions are neutral,
+  never blue. Enabled primary actions (Add/Save/Confirm) use defaultAccentSeed:
+  light #007AFF, dark #0A84FF, with white text. Never bind this primary fill to
+  the host/system accent or dilute it with glass opacity.
+  No action-button borders or decorative focus rings. Never replace its background with an ordinary
+  Rectangle or fade the entire dialog. See docs/Dialogs.md; this overrides the
+  older ordinary-dialog recipe and 12–16px floating-container radius.
 - Help tooltips are floating liquid panels too. Use canonical KosToolTip and
   docs/Tooltips.md: 0.7 material coverage, 14px corners, compact 11px text and
   10px horizontal / 5px vertical padding. Keep text fully opaque. Use actual
   same-window sampling and QML blur/refraction, with an opaque fallback only
   for reduced transparency, software rendering or unavailable sampling.
   Do not repeat complete navigation labels or add accent borders.
+- Initial main-window size guidance: consider 960 × 660 logical pixels as a
+  starting point, not a mandatory size or fixed aspect ratio. Adapt to each app's
+  actual content, layout and available screen area; preserve user resizing/saved
+  sizes. Do not apply this to dialogs or minimum sizes. See GalleryDesign.md.
 - Keep business logic, persistence and service calls in application adapters.
 - Settings forms use the canonical SettingsGroup and SettingsItem, not page-specific
   card/title/row replicas. Follow docs/Settings.md: larger bold group headings,
@@ -49,3 +69,9 @@ Read README.md, docs/Architecture.md and docs/Components.md before editing.
   reports out of tracked docs. Preserve LICENSE and extraction provenance.
 - Preserve unrelated edits. Stage explicit paths. Do not merge or publish releases
   without maintainer authorization.
+
+- Toolbar action choosers use canonical LiquidPopover with an anchored arrow and
+  LiquidPopoverItem ordinary rows. Follow docs/Popovers.md. Contextual creation,
+  inspection and editing use LiquidContentPopover anchored to the originating
+  item/range. Reserve LiquidDialog for standalone modal tasks and confirmations.
+  Do not substitute blue primary buttons for menu rows.

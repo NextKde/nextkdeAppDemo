@@ -86,3 +86,5 @@ cmake --build build
 保留原有 [GPL-3.0 许可证全文](LICENSE)。
 
 Gallery 的布局、材质与紧凑尺寸以 [Gallery 设计语言](docs/GalleryDesign.zh-CN.md) 为准。
+
+浮动对话框统一规格与示例：[`LiquidDialog`](docs/Dialogs.zh-CN.md)，G2 大圆角、0.95 背景不透明度、模糊折射与内部实体按钮。

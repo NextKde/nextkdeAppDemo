@@ -32,7 +32,7 @@ ColumnLayout {
     Sections.ExampleHeading { number: example.sectionPrefix + ".2"; title: example.tr("Floating search panel", "浮动搜索面板") }
     Label {
         Layout.fillWidth: true
-        text: example.tr("One adaptive glass container; ordinary search and list inside.", "外层一层自适应玻璃，内部搜索和列表使用普通材质。")
+        text: example.tr("One shared liquid panel at 0.95 coverage; ordinary search and list inside.", "外层统一 0.95 液态面板，内部搜索和列表使用普通材质。")
         color: Ui.AppTheme.mutedText; wrapMode: Text.WordWrap
     }
     Item {
@@ -59,16 +59,17 @@ ColumnLayout {
         }
         Controls.LiquidBackdrop {
             id: sampled
-            sourceItem: scene; registerAsDefault: false; blur: .30
+            sourceItem: scene; registerAsDefault: false; blur: .5
             active: !Ui.AppTheme.reduceTransparency
         }
-        Controls.LiquidCard {
+        Pane {
             anchors.centerIn: parent
             width: Math.min(360, parent.width - 32); height: 184
-            materialForm: false; adaptiveGlass: true
-            radius: 12; padding: 12
-            backdrop: sampled; shadowEnabled: true; shadowOpacity: .08
-            refractionStrength: .6; magnification: 1; reflectionStrength: .12
+            padding: 12
+            background: Controls.LiquidPanelSurface {
+                cornerRadius: 12
+                backdrop: sampled
+            }
             contentItem: ColumnLayout {
                 spacing: 8
                 Controls.LiquidTextField {

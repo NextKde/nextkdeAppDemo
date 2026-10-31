@@ -17,13 +17,13 @@
 | Group 底板 | 普通材质；浅色 `#f7f7f7`、深色 `#242426`；12px 圆角；无描边、无投影 |
 | 标题到底板 | 6px |
 | Group 之间 | 宿主纵向布局统一使用 12px spacing |
-| Group 上下内边距 | 4px |
+| Group 上下内边距 | 2px |
 | Item 之间 | 额外间距为 0px |
-| Item 高度 | 最小 36px；有说明、长名称或较高控件时自然增高 |
-| Item 内边距 | 水平 16px，垂直 5px |
+| Item 高度 | 最小 28px；有说明、长名称或较高控件时自然增高 |
+| Item 内边距 | 水平 16px，垂直 2px |
 | 名称到说明 | 2px |
 | 名称区域到控件 | 横向 12px；上下排列时 6px |
-| 示例紧凑控件高度 | 切换器、开关、滑块的布局区高 24px；开关外观为 44×20px、居中对齐，滑块把手 26×14px、轨道 4px |
+| 示例紧凑控件高度 | 切换器、滑块布局区高 24px；开关为 44×20px、不叠加上下边距，滑块把手 26×14px、轨道 4px |
 | 分隔线 | 1px，左右缩进 16px；仅显示在可见设置项之间 |
 
 SettingsItem 的 `title` 就是“材质风格”“模糊强度”等单一设置名称，
@@ -43,14 +43,14 @@ Group 和 Item 都是普通材质。宿主按控件用途显式选择既有组�
 当前值文字不画按钮底板、胶囊、描边、投影或悬停底色，聚焦、按下及打开
 菜单时也保持如此。保持设置场景
 24px 高度及 SettingsItem 的右侧缩进，参考示例也遵循此规则。
-设置下拉菜单使用 `popupMaterialForm: true` 和不透明的 `sheetColor: "#f0f0f1"`，
+设置下拉菜单使用 `popupMaterialForm: true` 和随主题切换的不透明底色（浅色 `#f0f0f1`、深色 `#2c2c2e`），
 8px 圆角、3px 内边距、24px 选项行。启用 `compactPopup: true`，按最长选项文字
 加勾选区及内边距计算菜单宽度，不保留通用的 160px 最小宽度；超长菜单受窗口
 宽度约束。设置菜单在打开和关闭过程中也保持不透明。
 设置 `popupBorderWidth: 0` 和 `popupShadowEnabled: true`：不加描边，只用一层
 四周均匀扩散的轻阴影（X/Y 偏移均为 0，不透明度 0.14，柔化 7px，扩散范围 18px）。
 阴影由 QML 绘制，不采样桌面、不请求 KWin 效果。启用 `neutralOptionHighlight: true`，
-选中状态只用前置深色勾表示，不加蓝色 active 底或蓝字；悬停和键盘导航使用
+选中状态只用随主题切换的前置勾表示，不加蓝色 active 底或蓝字；悬停和键盘导航使用
 中性灰提示，内部选项均为普通材质。
 这是设置下拉对通用悬浮液态面板规则的明确例外。通过 `activated(int)` 由宿主
 确认状态；打开菜单或聚焦本身不能触发保存。
@@ -129,3 +129,24 @@ Gallery 的“设置分组与条目”使用同一个 `SettingsExample.qml`，�
 组件接受 `form`（`macos` / `material`）、`darkAppearance`、`windowTitle` 和
 `settingTitle`，为自动缩放的静态图形，不加渐变、没有内部交互，也不代表实时截图。
 外层单选按钮继续管理选中状态、键盘和无障碍交互。
+
+普通实体下拉框继承 LiquidSelect 的面板及文字默认颜色，禁止用仅适合浅色的常量覆盖。深色文字和勾使用 #f5f5f7，深色中性悬停使用 12% 白色。
+
+## 分组编辑表单
+
+SettingsGroup/SettingsItem 内统一使用 SettingsTextField、SettingsTextArea、
+SettingsSwitch、SettingsDateField 和 SettingsTimeField。标题和控件共用一个普通分组
+底板，不再给输入框单独画胶囊背景、卡片或液态层。输入框高 24px、文字 12px；
+开关主体 44×20px。行高仍为最小 28px、上下各 2px，按内容自动增高。
+日期／时间支持文字编辑、点击整个字段打开、键盘选择；弹层使用跟随主题的不透明
+普通材质。宿主传入语言解析、格式和强调色，校验与数据存储由应用负责。
+
+窄编辑面板设置 `SettingsItem.allowStacking: false`，保留标题宽度，控件在剩余空间内右对齐，禁止自动上下堆叠。可伸缩字段设置 Layout.minimumWidth: 0，开关保持固定宽度。普通设置页默认仍允许自动换行。
+
+分组输入框／备注框支持 `filled: true`：浅色 #E5E5E8 灰底、深色 #2C2C2E，6px 圆角，无描边。宿主需要在较深分组底板中区分输入区域时显式开启；默认仍为无独立底色。
+
+紧凑行：最小 28px，item 上下各 2px，group 首尾各 2px；SettingsSwitch 不额外叠加上下边距。说明文字可自然撑高行。
+
+普通下拉触发器的当前文字与可选颜色圆点作为一组靠右对齐，文字与箭头间距 6px。展开菜单的勾选和文字仍保持左对齐布局。
+
+独立标题、备注和 URL 输入区域使用 `blockInput: true`：左右内边距 12px，12px 普通字重，placeholder 统一 AppTheme.mutedText。外层分组使用 8px 圆角，无内层背景；备注保留多行输入。

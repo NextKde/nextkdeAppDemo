@@ -9,9 +9,9 @@ import "../foundation" as Foundation
 //   1) 材质  ：默认液态（悬浮在内容之上、采样背景折射）。
 //              嵌在内容之内的按钮设 materialForm: true 切换实色。
 //   2) 大小  ：按所在位置设 implicitHeight——
-//              正文文字旁行内按钮暂用 20 / 非主 Dialog 底栏 24 /
+//              正文文字旁行内按钮暂用 20 / 普通非液态 Dialog 底栏 24 /
 //              工具栏 26（图标按钮）/ 内容区独立操作 28 /
-//              重要液态 Dialog 的实色底部按钮 30 / 浮层 28。
+//              液态 Dialog 的实色底部按钮 30 / 浮层 28。
 //   3) 圆角  ：液态恒为胶囊，不要设置 cornerRadius。
 //              实色 28、30 也是胶囊；实色 26、24、20、18 必须显式 cornerRadius: 6。
 //              这是唯一允许覆盖 cornerRadius 的场景。

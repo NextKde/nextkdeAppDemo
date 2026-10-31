@@ -18,16 +18,16 @@ visual implementation. Its controls update only example-owned state.
 | Group surface | Ordinary, light `#f7f7f7`, dark `#242426`; radius 12px; no outline or shadow |
 | Heading to surface | 6px |
 | Between groups | Host column spacing 12px |
-| Group top/bottom padding | 4px |
+| Group top/bottom padding | 2px |
 | Between items | 0px extra spacing |
-| Item height | Minimum 36px; grows for description, wrapped name and controls |
-| Item padding | 16px horizontal, 5px vertical |
+| Item height | Minimum 28px; grows for description, wrapped name and controls |
+| Item padding | 16px horizontal, 2px vertical |
 | Name to description | 2px |
 | Name block to controls | 12px horizontally; 6px if stacked |
-| Standard trailing controls | 24px layout height for segmented controls, switches and sliders |
+| Standard trailing controls | 24px layout height for segmented controls and sliders; switches 20px |
 | Separator | 1px, inset 16px on both ends, only between visible setting rows |
 
-The compact switch has a 44×20px visible body, centered in a 24px-high slot.
+The compact switch has a 44×20px visible body, without extra vertical margins.
 Sliders use a 26×14px thumb and 4px track. Their 24px layout height matches the
 segmented control; all three remain centered on their row.
 
@@ -51,7 +51,7 @@ up/down chevrons. Only the chevron area has an ordinary gray rounded background
 (`indicatorBackground: true`); the value text has no button fill, capsule, outline,
 shadow or hover background. This remains true on focus, press and popup opening. Keep its 24px
 settings height and the SettingsItem right inset. The example follows this rule.
-The settings popup uses `popupMaterialForm: true`, opaque `sheetColor: "#f0f0f1"`,
+The settings popup uses `popupMaterialForm: true`, opaque theme-aware defaults (light `#f0f0f1`, dark `#2c2c2e`),
 8px corners, 3px padding and 24px rows. Use `compactPopup: true` to size the menu
 from its longest option plus the checkmark gutter and padding; do not impose the
 generic 160px minimum. Clamp long menus to the window width. Opaque settings menus
@@ -59,7 +59,7 @@ remain fully opaque during opening/closing too. Set `popupBorderWidth: 0` and
 `popupShadowEnabled: true`: use one subtle outer shadow on all sides (zero X/Y
 offset, 0.14 opacity, 7px softness, 18px extent). The panel has no border. This
 QML shadow samples no desktop and requests no KWin effects. With `neutralOptionHighlight: true`,
-the selected row is identified only by a leading dark checkmark: no blue active
+the selected row is identified only by a leading theme-aware checkmark: no blue active
 fill, no blue text. Hover and keyboard navigation use a neutral gray hint; all
 rows remain ordinary material. This is the explicit settings-select exception to the
 general floating liquid-panel recipe. Selection stays
@@ -148,3 +148,26 @@ only macOS and Material Design; do not add descriptive taglines. The preview tak
 or `material`), `darkAppearance`, `windowTitle` and `settingTitle`. It is static,
 scales to fit, has no interaction or gradients, and is not a live system capture.
 The enclosing radio button remains responsible for selection and accessibility.
+
+Plain solid selects inherit panel/text colours from LiquidSelect. Do not override them with light-only literals. Dark text/checkmarks use #f5f5f7; neutral hover uses white at 12% in dark mode.
+
+## Grouped editor fields
+
+Use SettingsTextField, SettingsTextArea, SettingsSwitch, SettingsDateField and
+SettingsTimeField inside SettingsGroup/SettingsItem. The group supplies one
+ordinary background spanning the title and control: no separate input capsule,
+per-control card or nested glass. Text fields are 24px high with 12px text;
+switches use a 44×20px body. Rows keep their 28px minimum and 2px vertical padding.
+Date/time fields retain editable text, whole-field activation and keyboard navigation.
+Their ordinary opaque menus follow the theme; hosts provide locale parsing,
+formatting and accent colour. Validation and persistence remain in the application.
+
+For narrow editors set `SettingsItem.allowStacking: false`: reserve minimumLabelWidth for the label and constrain the right-aligned controls to the remaining width. Flexible fields must use Layout.minimumWidth: 0; switches retain a fixed width. The default remains true for general settings pages.
+
+Grouped text fields/areas also support `filled: true`: a solid #E5E5E8 input in light mode and #2C2C2E in dark mode, 6px corners, no border. Use this explicit option when the host requests contrast against a darker group; the default remains unfilled.
+
+Compact rows: 28px minimum, 2px item vertical padding and 2px group outer padding; no additional margins on SettingsSwitch. Descriptions can increase row height.
+
+Plain select triggers align the selected label and optional colour dot together to the right, with 6px between the label and chevron. Expanded menu rows retain their left-aligned checkmark/text layout.
+
+Standalone title, notes and URL inputs use `blockInput: true`: horizontal padding 12px, 12px Normal text, AppTheme.mutedText placeholders. Their host groups use 8px corners; no inner background. Notes remain multiline.

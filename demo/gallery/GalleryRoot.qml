@@ -11,6 +11,7 @@ Pane {
     id: root
 
     required property var targetWindow
+    readonly property alias dialogScene: contentScene
     readonly property alias toolTipBackdrop: helpBackdrop
     property string language: Quickshell.env("GALLERY_LANGUAGE") === "zh" ? "zh" : "en"
     property string themeMode: Quickshell.env("GALLERY_THEME") === "dark" ? "dark" : "light"

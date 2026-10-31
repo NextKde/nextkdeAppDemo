@@ -27,6 +27,10 @@ Follow the **Floating panel material contract** in [Gallery design language](Gal
 Context menus, search dropdowns, select-option popups and popovers use one liquid
 panel background. Internal categories, rows and menu items use ordinary material,
 including their hover/selected/pressed fills; Button delegates do not change that.
+Use `LiquidPanelSurface` with `LiquidBackdrop`; the shared coverage default is
+`LiquidStyle.panelMaterialOpacity` (0.95). `LiquidDialogSurface` uses this same
+material with dialog geometry. Never fade the composited texture again over the
+sharp source; see the shared material recipe in GalleryDesign.md.
 Keep foreground text opaque, use real same-window sampling and QML blur, and
 provide an opaque fallback. Never add liquid surfaces to every row or an extra
 blue focus border. Increase background coverage when text underneath interferes.
@@ -455,3 +459,11 @@ macOS 27 constants. Apple's macOS 27 release notes distinguish content-navigatio
 animation parity for this component.
 
 Segmented label weights can be supplied through `fontWeight` (default Normal) and `selectedFontWeight` (default DemiBold). Use Medium for both when a host requires uniformly slightly heavier labels.
+
+## Floating dialogs
+
+Use `LiquidDialog`: 32px G2 corners, background opacity 0.95, actual same-window QML blur/refraction and solid interior controls. See [the complete contract](Dialogs.md).
+
+## Anchored action popovers
+
+Use `LiquidPopover`, `LiquidPopoverItem` and `LiquidPopoverSurface` for toolbar action choosers with an arrow. See [the contract](Popovers.md).

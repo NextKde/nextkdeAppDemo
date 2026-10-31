@@ -150,10 +150,12 @@ export const entries = [
     },
     {
         id: "dialog", name: "Dialog", zh: "对话框", group: "feedback", type: "LiquidDialog",
-        summary: "Open a modal dialog, confirm or cancel, and show the result.",
-        summaryZh: "打开模态对话框，确认或取消后显示操作结果。",
+        summary: "Floating liquid dialog: G2 corners, 0.95 background opacity, blurred refraction and solid actions.",
+        summaryZh: "悬浮液态对话框：G2 大圆角、背景不透明度 0.95、模糊折射、实体按钮。",
         source: "shared/qml/controls/LiquidDialog.qml", example: "DialogExample.qml",
-        api: [["open() / close() / modal", "Explicit lifecycle and modality.", "显式控制生命周期和模态状态。"],
+        api: [["sourceItem / backdrop", "Actual same-window content excluding the dialog; QML blur and refraction.", "采样排除弹窗本身的同窗真实内容，用 QML 模糊和折射。"],
+              ["cornerRadius / materialOpacity", "32px G2 corners; 0.95 background tint coverage; composite the sampled scene once. Text and solid actions remain opaque.", "32px G2 圆角；背景覆盖率为 0.95、采样只合成一次，文字和实体按钮保持不透明。"],
+              ["open() / close() / modal", "Explicit lifecycle and modality.", "显式控制生命周期和模态状态。"],
               ["standardButtons / accepted() / rejected()", "Actions and results inherited from Qt Quick Controls Dialog.", "继承 Qt Quick Controls Dialog 的操作与结果。"]]
     },
 ];

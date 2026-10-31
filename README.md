@@ -93,3 +93,5 @@ There is no release or automatic test workflow in this initial import. Run build
 tests and graphical checks only when requested, and only in a VM or hosted CI.
 
 The original [GPL-3.0 license text](LICENSE) is preserved.
+
+Floating dialog contract and example: [`LiquidDialog`](docs/Dialogs.md), with G2 corners, 0.95 background opacity, blur/refraction and solid interior actions.

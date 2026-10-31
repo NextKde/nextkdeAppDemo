@@ -1,7 +1,48 @@
+## Recommended initial window size (2026-10-29)
+
+For general desktop applications, consider **960 × 660 logical pixels** as a
+starting point for the main window. This size was selected in Calendar review;
+it is a recommendation, not a mandatory size or aspect ratio (approximately 1.45:1).
+
+- Choose the actual initial size for the app's content, sidebar, toolbar, content
+  density and primary workflow. Smaller utilities and wider editors may differ.
+- Keep essential controls and text readable; do not shrink fonts, clip content or
+  force every app into this size. Account for the screen's available work area.
+- This recommends an initial main-window size only. It does not set a minimum,
+  lock resizing or aspect ratio, size dialogs/popovers, or override a user's saved
+  window size. Derive minimum dimensions from the app's usable layout.
+- Dimensions are logical pixels, independent of display scale: at 200% scale,
+  960 × 660 corresponds to 1920 × 1320 physical pixels.
+
+## Floating dialogs (2026-10-28)
+
+Use `LiquidDialog` for add/edit/confirmation overlays: background opacity 0.95, 32px G2 corners and actual QML blur/refraction underneath. Interior buttons, fields and rows stay solid. Do not replace the background with a solid panel or set whole-dialog opacity to 0.95. This supersedes older ordinary-dialog recipes. See [Dialogs.md](Dialogs.md).
 > Settings forms use the canonical `SettingsGroup` and `SettingsItem` contract in
 > [Settings.md](Settings.md): 15px bold group title, 12px normal item name, optional
 > 10px muted description, compact rows and an ordinary `#f7f7f7` borderless group.
 > The settings reference uses 24px control slots; switches are 44×20px and centered.
+
+
+### Shared floating-panel material (2026-10-28)
+
+Dialogs, context menus, search-result dropdowns and popovers use the same
+`LiquidPanelSurface`. `LiquidDialogSurface` only supplies the dialog's 32px G2
+geometry. `LiquidStyle.panelMaterialOpacity` is the shared **0.95** default.
+
+1. Capture actual same-window content, excluding the panel, its rows and capture.
+2. Blur that source with `LiquidBackdrop.blur`, then refract the sampled texture.
+3. Apply a light tint independently of opacity. Composite the refracted glass
+   at 0.95 over the already blurred underlay; do not cover it with 95% solid tint.
+4. Composite once. Never multiply the final output alpha by 0.95 or place a sharp
+   source beneath a translucent duplicate: that makes background text legible again.
+
+Keep foreground text opaque and internal rows/buttons ordinary. The opacity value
+is glass-layer opacity over the blurred underlay, not solid-tint coverage or
+whole-item opacity. Small panels retain their compact
+corner size; dialogs use 32px G2. No extra outlines; QML shadows only. Reduced
+transparency or unavailable sampling uses the ordinary opaque fallback. Tooltips
+retain their separately specified coverage, with the same single-composition rule.
+This supersedes previous independent tint/alpha recipes for these floating panels.
 
 ## Rule one: only floating operation layers use glass
 
@@ -23,9 +64,9 @@ Keep the original decoration coordinates and avoid an inset rounded block. Top a
 
 | Context | Container | Children |
 | --- | --- | --- |
-| Ordinary Dialog | Ordinary | Ordinary buttons and search |
-| Floating search panel | Light glass | Ordinary search and list |
-| Popover | Light glass | Ordinary buttons and list |
+| Floating Dialog | Liquid, 0.95 background opacity, 32px G2 corners | Solid buttons, fields and form rows |
+| Floating search panel | Shared liquid material, 0.95 coverage | Ordinary search and list |
+| Popover | Shared liquid material, 0.95 coverage | Ordinary buttons and list |
 | Original full-width rectangular floating region | 95% material opacity, QML blur of underlying app content, no bottom shadow | Decorations unchanged; top actions and selector use light liquid |
 | Embedded toolbar | Ordinary | Ordinary controls |
 | Left navigation | One ordinary background panel, `opacity: 0.95`, QML underlay blur; no container-level liquid effects | Ordinary directory rows; light liquid navigation search and action buttons; opaque text |
@@ -155,8 +196,8 @@ The same component keeps its dimensions when its material changes.
 | Ordinary button | Height 28px |
 | Shared input default | Height 28px, matching the button |
 | Inline button beside body text (provisional) | Height 20px |
-| Secondary dialog footer button | Height 24px |
-| Important liquid Dialog footer button, usually solid | Height 30px |
+| Ordinary non-liquid dialog footer button | Height 24px |
+| Liquid Dialog footer button, usually solid | Height 30px |
 | Toolbar button | Height 26px |
 | Gallery sidebar search | Height 30px, an explicit host size |
 | Navigation row | Height 30px; selected fill inset 2px vertically |
@@ -165,7 +206,7 @@ The same component keeps its dimensions when its material changes.
 | Window decoration row | Height 30px, original position |
 | Base spacing | 4 / 8 / 12 / 16px |
 | Other ordinary-control radius | 8px; action-button corners follow their size and role |
-| Floating container radius | 12–16px |
+| Floating container radius | Small panels: 12–16px; dialogs: 32px G2 |
 
 ---
 
@@ -209,8 +250,7 @@ hierarchy: 24px Bold primary page title, 17px DemiBold primary rule heading,
 15px DemiBold placement heading and 13px regular secondary explanation. Sidebar
 group labels stay 11px DemiBold in the secondary label color, with 12px above
 and 4px below. These are Gallery tokens, not fixed Apple control measurements.
-Cards, code and lists use content colors. Ordinary Dialog containers use the Dialog
-role, and their buttons use the distinct control role. The floating search example
+Cards, code and lists use content colors. Floating Dialogs use a G2 liquid background at 0.95 opacity; Dialog colors provide tint and fallback, while their buttons use solid control backgrounds. The floating search example
 has one glass container with an ordinary search field and ordinary list.
 
 ## Adaptive glass

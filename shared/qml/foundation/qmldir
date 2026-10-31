@@ -30,3 +30,8 @@ KosWorkspaceDialog 1.0 KosWorkspaceDialog.qml
 KosItemDelegate 1.0 KosItemDelegate.qml
 
 KosKineticScroll 1.0 KosKineticScroll.qml
+SettingsTextField 1.0 SettingsTextField.qml
+SettingsTextArea 1.0 SettingsTextArea.qml
+SettingsSwitch 1.0 SettingsSwitch.qml
+SettingsDateField 1.0 SettingsDateField.qml
+SettingsTimeField 1.0 SettingsTimeField.qml

@@ -92,7 +92,7 @@ Gallery 加载 `demo/gallery/examples` 下的真实文件，代码面板读取�
 
 `LiquidTextField` 使用 `materialForm: false`、`liquidFinish: true` 启用液态表面。
 紧凑默认高度为 28px，与 `LiquidActionButton` 一致。同一位置的输入框与按钮等高：
-内容区行内暂用 20px、非主 Dialog 24px、工具栏 26px、重要 Dialog 30px。
+内容区行内暂用 20px、普通非液态 Dialog 24px、工具栏 26px、液态 Dialog 30px。
 小实色输入框用 6px 圆角；液态输入框及 28px 起的实色输入框用药丸形。
 支持两种形态的控件使用 `materialForm: false` 保留液态外观。
 `LiquidSelect.appearanceMode` 接收 `system`、`light`、`dark`。
@@ -347,3 +347,15 @@ Gallery 未滚动时顶部与正文为同底色完整平面，无独立阴影或
 `tabs` 和属性值选择分段控件，但不能据此声称本组件与系统像素或动画完全一致。
 
 分段控件提供 `fontWeight`（默认 Normal）和 `selectedFontWeight`（默认 DemiBold）；宿主需要统一略加粗时，可将两者均设为 Medium。
+
+## 浮动 Dialog
+
+统一使用 `LiquidDialog`，32px G2 大圆角、背景不透明度 0.95、真实同窗口 QML 模糊折射，内部实体按钮和表单。参见 [完整规格](Dialogs.zh-CN.md)。
+
+通用浮层材质：`LiquidPanelSurface` + `LiquidBackdrop`，默认覆盖率由
+`LiquidStyle.panelMaterialOpacity` 统一为 0.95。Dialog 使用同一实现；先模糊折射，
+再混入底色，只合成一次，不能再透出未经模糊的原图。完整配方见 GalleryDesign.zh-CN.md。
+
+## 带箭头的操作弹层
+
+工具栏操作入口统一使用 `LiquidPopover`、`LiquidPopoverItem`、`LiquidPopoverSurface`，详见[规格](Popovers.zh-CN.md)。

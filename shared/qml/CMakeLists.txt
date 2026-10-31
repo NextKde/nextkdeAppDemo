@@ -27,6 +27,11 @@ qt_add_qml_module(kos_ui
         foundation/KosCard.qml
         foundation/SettingsGroup.qml
         foundation/SettingsItem.qml
+        foundation/SettingsTextField.qml
+        foundation/SettingsTextArea.qml
+        foundation/SettingsSwitch.qml
+        foundation/SettingsDateField.qml
+        foundation/SettingsTimeField.qml
         foundation/SettingsAppearancePreview.qml
         foundation/KosWorkspaceDialog.qml
         foundation/KosItemDelegate.qml
@@ -61,7 +66,14 @@ qt_add_qml_module(kos_ui
         controls/LiquidActionButtonGroup.qml
         controls/LiquidNavigationButton.qml
         controls/LiquidCheckBox.qml
+        controls/LiquidContentPopover.qml
+        controls/LiquidPopover.qml
+        controls/LiquidPopoverItem.qml
+        controls/LiquidPopoverSurface.qml
         controls/LiquidDialog.qml
+        controls/LiquidDialogButton.qml
+        controls/LiquidDialogSurface.qml
+        controls/LiquidPanelSurface.qml
         controls/LiquidGlassSwitch.qml
         controls/LiquidSlider.qml
         controls/LiquidSelect.qml
@@ -70,6 +82,14 @@ qt_add_qml_module(kos_ui
         controls/LiquidSegmentedControl.qml
         controls/SelectionHighlight.qml
     RESOURCES
+        controls/shaders/liquid_popover.vert
+        controls/shaders/liquid_popover.frag
+        controls/shaders/liquid_popover.vert.qsb
+        controls/shaders/liquid_popover.frag.qsb
+        controls/shaders/liquid_dialog.vert
+        controls/shaders/liquid_dialog.frag
+        controls/shaders/liquid_dialog.vert.qsb
+        controls/shaders/liquid_dialog.frag.qsb
         controls/shaders/liquid_number.vert
         controls/shaders/liquid_number.vert.qsb
         controls/shaders/liquid_number.frag
