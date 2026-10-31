@@ -87,10 +87,26 @@ cmake --build build
 This builds the component module, not a native Gallery executable. The preview uses
 the `qs` commands above and the committed QSB assets, without a local build.
 
-This repository starts from the current NextKde Gallery development snapshot, including
-uncommitted component work. The extracted checkout has not been built or launched.
-There is no release or automatic test workflow in this initial import. Run builds,
-tests and graphical checks only when requested, and only in a VM or hosted CI.
+## Source releases and dependency versions
+
+`v0.1.0-rc.1` is the first source prerelease candidate. See [GitHub releases](https://github.com/NextKde/nextkdeAppDemo/releases)
+for publication status and the verification results for each tag. This is not a binary
+SDK or a stable API/ABI commitment; there is no installed `find_package` package.
+The QML module's `VERSION 1.0` is an import version, not the source-release version.
+
+Applications should pin a release's exact commit with a Git submodule and build
+`shared/qml` through their existing Qt project. Do not follow `main` or automatically
+select the newest release. Upgrade each application's pin only after its own tests.
+See [versioned integration](docs/Components.md#versioned-application-dependencies).
+Explicitly using another local checkout is useful for development, not a reproducible
+release build. Preserve the committed GLSL/QSB pairs and the GPL license/provenance.
+
+The initial extraction included uncommitted component work from the parent workspace;
+the candidate's components are now committed in this repository. No standalone library,
+Gallery runtime or GPU acceptance is claimed by preparing this source candidate, and
+there is no automatic test workflow. Run this repository's builds, tests and graphical
+checks only when requested, and only in a VM or hosted CI. Consumer integration results
+must not be described as standalone Gallery or GPU acceptance.
 
 The original [GPL-3.0 license text](LICENSE) is preserved.
 

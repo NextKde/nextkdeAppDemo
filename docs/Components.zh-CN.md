@@ -175,6 +175,30 @@ Qt5Compat.GraphicalEffects。应用中使用 `import Kos.Ui`，本仓库不附�
 源码预览使用 `demo/Kos/Ui/{foundation,controls,i18n}`，保留这些仓库内软链接。
 新增类型时维护 qmldir 导出，不要把另一份组件实现复制进各应用。
 
+### 应用的版本化依赖
+
+使用 [GitHub Releases](https://github.com/NextKde/nextkdeAppDemo/releases) 中的源码版本，
+而不是没有固定提交的同级工作区。应用首次接入时：
+
+```sh
+git submodule add https://github.com/NextKde/nextkdeAppDemo.git third_party/nextkdeAppDemo
+git -C third_party/nextkdeAppDemo checkout --detach v0.1.0-rc.1
+git add .gitmodules third_party/nextkdeAppDemo
+```
+
+只在该标签实际发布后执行。父仓库提交记录的是精确的上游提交，而非移动分支。
+上述 CMake 接入路径改为 `third_party/nextkdeAppDemo/shared/qml`。
+新贡献者使用 `git clone --recurse-submodules`；已有 checkout 执行
+`git submodule update --init --recursive`。GitHub 自动生成的应用源码 ZIP/tarball 不包含子模块。
+
+升级时在子模块获取标签，检出选定新版本，运行应用回归后提交 gitlink 更新。
+不移动已发布标签，也不自动追随最新 Release。通用修改在 canonical 仓库完成并发布新版本，
+不要形成应用专属组件分叉。应用可提供显式本地源码路径覆盖用于联调；默认及发布构建
+应使用固定依赖。若 CMake 缓存了覆盖路径，返回固定依赖时使用新的构建目录。
+
+这些版本提供源码和已提交 shader 资源，不是二进制 SDK 或可安装的 `find_package` 包。
+应用仍需提供 Qt 及运行时 QML 模块。QML 导入版本与源码发布版本相互独立。
+
 ## 着色器及审阅
 
 可移植着色器源码和两个 QSB 位于 `shared/qml/controls/shaders`。

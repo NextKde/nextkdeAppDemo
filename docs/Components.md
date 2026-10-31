@@ -203,6 +203,35 @@ Source previews use `demo/Kos/Ui/{foundation,controls,i18n}` instead. Keep these
 in-repository symlinks intact and maintain their qmldir exports when adding types.
 Do not mix copied component implementations into individual applications.
 
+### Versioned application dependencies
+
+Use a source release from [GitHub releases](https://github.com/NextKde/nextkdeAppDemo/releases),
+not an unpinned sibling working tree. For an application's first integration:
+
+```sh
+git submodule add https://github.com/NextKde/nextkdeAppDemo.git third_party/nextkdeAppDemo
+git -C third_party/nextkdeAppDemo checkout --detach v0.1.0-rc.1
+git add .gitmodules third_party/nextkdeAppDemo
+```
+
+Run this only after that tag is published. The parent commit records the exact upstream
+commit, not a moving branch. Use `third_party/nextkdeAppDemo/shared/qml` in the CMake
+integration above. New contributors use `git clone --recurse-submodules`; existing
+checkouts use `git submodule update --init --recursive`. GitHub's automatic application
+source ZIP/tarball does not include its submodules.
+
+For upgrades, fetch tags in the submodule, check out the chosen new release, run the
+application's regressions, then commit the changed gitlink. Never move a published tag
+or automatically follow the latest release. Make shared changes in the canonical
+repository and publish a new version, not in an application-specific component fork.
+An application may expose an explicit local source-path override for joint development;
+its default and published builds should use the pinned dependency. If the override is
+cached by CMake, use a fresh build directory when returning to the pin.
+
+These releases contain sources and committed shader assets, not a binary SDK or an
+installed `find_package` package. Applications still supply Qt and runtime QML modules.
+The QML import version and source-release version are independent.
+
 ## Shader assets and review
 
 The portable shader source and QSB pair are in `shared/qml/controls/shaders`.

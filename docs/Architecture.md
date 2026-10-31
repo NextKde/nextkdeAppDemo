@@ -69,8 +69,14 @@ connected to this repository. Do not copy platform services into portable contro
 
 ## Change and verification policy
 
-The initial import includes working-tree changes and has not been built or launched
-after extraction. No CI, release or runtime-acceptance claim is made by this snapshot.
-Run verification only when requested, and only in a VM or hosted CI. Do not start or
-replace the maintainer's Shell. Source inspection and Git review are separate from
-runtime validation. Keep temporary artifacts outside tracked docs.
+The initial import included working-tree changes from its parent workspace; the source
+prerelease candidate contains committed components. Release tags identify immutable
+source snapshots, not stable API/ABI or runtime acceptance. Applications pin an exact
+release commit and upgrade independently; explicit local-checkout overrides are for
+development. Publication status and scoped verification results belong in GitHub releases.
+
+There is no automatic CI or standalone Gallery/GPU acceptance claim. Run this
+repository's verification only when requested, and only in a VM or hosted CI. Do not
+start or replace the maintainer's Shell. Source inspection, consumer integration tests
+and standalone graphical acceptance are separate results. Keep temporary artifacts
+outside tracked docs.
