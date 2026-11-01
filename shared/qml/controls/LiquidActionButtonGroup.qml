@@ -9,6 +9,7 @@ Item {
 
     property var icons: []
     property var labels: []
+    property var objectNames: []
     property var enabledActions: []
     property int buttonSize: 26
     property bool stacked: false
@@ -47,6 +48,7 @@ Item {
 
                 LiquidActionButton {
                     id: action
+                    objectName: (root.objectNames.length > index && root.objectNames[index]) ? String(root.objectNames[index]) : ""
                     anchors.fill: parent
                     enabled: root.enabledActions[index] !== false
                     materialForm: true
