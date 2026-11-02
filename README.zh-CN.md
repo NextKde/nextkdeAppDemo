@@ -101,3 +101,5 @@ QML 模块的 `VERSION 1.0` 是导入版本，不是源码发布版本。
 Gallery 的布局、材质与紧凑尺寸以 [Gallery 设计语言](docs/GalleryDesign.zh-CN.md) 为准。
 
 浮动对话框统一规格与示例：[`LiquidDialog`](docs/Dialogs.zh-CN.md)，G2 大圆角、0.95 背景不透明度、模糊折射与内部实体按钮。
+
+[窗口按钮布局、绘制权与可选合成器接入规范](docs/WindowControls.zh-CN.md)。

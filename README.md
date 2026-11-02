@@ -111,3 +111,5 @@ must not be described as standalone Gallery or GPU acceptance.
 The original [GPL-3.0 license text](LICENSE) is preserved.
 
 Floating dialog contract and example: [`LiquidDialog`](docs/Dialogs.md), with G2 corners, 0.95 background opacity, blur/refraction and solid interior actions.
+
+[Window control ownership and optional compositor integration](docs/WindowControls.md).

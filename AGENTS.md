@@ -75,3 +75,10 @@ Read README.md, docs/Architecture.md and docs/Components.md before editing.
   inspection and editing use LiquidContentPopover anchored to the originating
   item/range. Reserve LiquidDialog for standalone modal tasks and confirmations.
   Do not substitute blue primary buttons for menu rows.
+
+- Window controls follow docs/WindowControls.md: applications declare actual action
+  lists and geometry; one optional host adapter per surface negotiates drawing.
+  Never assume three buttons, guess positions or poll title-bar pixels. Keep native
+  protocol imports outside portable shared/qml; preserve client fallback until
+  takeover is confirmed and restore it on service loss. Use the shared KOS window
+  appearance switch, transparent compositor controls and event-driven updates.
