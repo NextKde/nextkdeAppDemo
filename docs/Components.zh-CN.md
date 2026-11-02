@@ -383,3 +383,5 @@ Gallery 未滚动时顶部与正文为同底色完整平面，无独立阴影或
 ## 带箭头的操作弹层
 
 工具栏操作入口统一使用 `LiquidPopover`、`LiquidPopoverItem`、`LiquidPopoverSurface`，详见[规格](Popovers.zh-CN.md)。
+
+窗口按钮遵循[布局与绘制权规范](WindowControls.zh-CN.md)：实际按钮列表、应用自绘回退、可选宿主适配器。

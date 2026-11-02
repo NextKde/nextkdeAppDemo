@@ -80,3 +80,5 @@ repository's verification only when requested, and only in a VM or hosted CI. Do
 start or replace the maintainer's Shell. Source inspection, consumer integration tests
 and standalone graphical acceptance are separate results. Keep temporary artifacts
 outside tracked docs.
+
+Window control platform adapters stay outside portable components; see [the ownership contract](WindowControls.md).

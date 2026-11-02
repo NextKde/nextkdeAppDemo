@@ -496,3 +496,5 @@ Use `LiquidDialog`: 32px G2 corners, background opacity 0.95, actual same-window
 ## Anchored action popovers
 
 Use `LiquidPopover`, `LiquidPopoverItem` and `LiquidPopoverSurface` for toolbar action choosers with an arrow. See [the contract](Popovers.md).
+
+Window controls follow the [layout and ownership contract](WindowControls.md): actual action lists, client fallback and optional host adapters.
