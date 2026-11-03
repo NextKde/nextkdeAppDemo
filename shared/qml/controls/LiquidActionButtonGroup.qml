@@ -9,8 +9,10 @@ Item {
 
     property var icons: []
     property var labels: []
+    property var objectNames: []
     property var enabledActions: []
     property int buttonSize: 26
+    property bool stacked: false
     property bool materialForm: ControlForm.materialForm
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
     property color surfaceColor: Foundation.AppTheme.controlBackground
@@ -18,8 +20,8 @@ Item {
 
     signal triggered(int index)
 
-    implicitWidth: icons.length * buttonSize
-    implicitHeight: buttonSize
+    implicitWidth: stacked ? icons.length * 52 : icons.length * buttonSize
+    implicitHeight: stacked ? 38 : buttonSize
     clip: true
 
     // One shared material keeps the buttons visually joined.
@@ -30,7 +32,7 @@ Item {
         materialForm: root.materialForm
         backdrop: root.backdrop
         surfaceColor: root.surfaceColor
-        cornerRadius: root.materialForm ? 6 : height / 2
+        cornerRadius: root.stacked ? height / 2 : (root.materialForm ? 6 : height / 2)
     }
 
     Row {
@@ -41,11 +43,12 @@ Item {
             model: root.icons.length
             delegate: Item {
                 required property int index
-                width: root.buttonSize
-                height: root.buttonSize
+                width: root.stacked ? 52 : root.buttonSize
+                height: root.stacked ? 38 : root.buttonSize
 
                 LiquidActionButton {
                     id: action
+                    objectName: (root.objectNames.length > index && root.objectNames[index]) ? String(root.objectNames[index]) : ""
                     anchors.fill: parent
                     enabled: root.enabledActions[index] !== false
                     materialForm: true
@@ -53,7 +56,9 @@ Item {
                     surfaceColor: "transparent"
                     cornerRadius: 0
                     focusRingColor: "transparent"
-                    iconOnly: true
+                    iconOnly: !root.stacked
+                    stacked: root.stacked
+                    stackedText: root.labels[index] || ""
                     iconName: root.icons[index]
                     iconSize: 16
                     iconColor: !enabled ? Foundation.AppTheme.disabledText : root.materialForm
@@ -65,7 +70,7 @@ Item {
                         clip: true
                         Rectangle {
                             readonly property bool outerEnd: index === 0 || index === root.icons.length - 1
-                            radius: outerEnd ? (root.materialForm ? 6 : height / 2) : 0
+                            radius: outerEnd ? (root.stacked ? height / 2 : (root.materialForm ? 6 : height / 2)) : 0
                             x: index > 0 && index === root.icons.length - 1 ? -radius : 0
                             width: parent.width + (outerEnd && root.icons.length > 1 ? radius : 0)
                             height: parent.height

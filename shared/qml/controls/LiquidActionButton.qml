@@ -44,9 +44,14 @@ Button {
     property real shadowOpacity: LiquidStyle.shadowProfile(shadowLevel).opacity
     property bool adaptiveGlass: false
     property bool convexLens: !adaptiveGlass
-    property real cornerRadius: materialForm && Foundation.AppTheme.compactDesign && height < 28
-        ? 6 : height / 2
+    // 液态按钮恒为药丸；仅实色紧凑按钮使用 6px 小圆角
+    property real cornerRadius: stacked ? height / 2 : !materialForm ? height / 2
+        : (Foundation.AppTheme.compactDesign && height < 28 ? 6 : height / 2)
     property bool iconOnly: false
+    property bool stacked: false          // 图标在上、文字在下
+    property string stackedText: ""
+    property real stackedIconSize: 14
+    property real stackedTextSize: 10
     property string iconName: ""
     property bool iconFilled: false
     property real iconSize: 16
@@ -69,7 +74,7 @@ Button {
     readonly property real opticalMagnification: buttonGlass.magnification
     readonly property real opticalReflection: buttonGlass.reflectionStrength
     hoverEnabled: true
-    implicitHeight: Foundation.AppTheme.compactDesign ? 28 : 36
+    implicitHeight: stacked ? 38 : Foundation.AppTheme.compactDesign ? 28 : 36
     font.weight: Font.Medium
     Binding {
         target: root; property: "font.pixelSize"
@@ -78,17 +83,18 @@ Button {
     }
     Binding {
         target: root; property: "topPadding"
-        value: 4; when: Foundation.AppTheme.compactDesign
+        value: root.stacked ? 0 : 4; when: Foundation.AppTheme.compactDesign
         restoreMode: Binding.RestoreBindingOrValue
     }
     Binding {
         target: root; property: "bottomPadding"
-        value: 4; when: Foundation.AppTheme.compactDesign
+        value: root.stacked ? 0 : 4; when: Foundation.AppTheme.compactDesign
         restoreMode: Binding.RestoreBindingOrValue
     }
-    implicitWidth: iconOnly ? implicitHeight : Math.max(76, contentItem.implicitWidth + leftPadding + rightPadding)
-    leftPadding: iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
-    rightPadding: iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
+    implicitWidth: stacked ? Math.max(56, stackedTextItem.implicitWidth + 22)
+        : iconOnly ? implicitHeight : Math.max(76, contentItem.implicitWidth + leftPadding + rightPadding)
+    leftPadding: stacked ? 0 : iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
+    rightPadding: stacked ? 0 : iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
     scale: Foundation.AppTheme.compactDesign || adaptiveGlass ? 1 : materialForm ? (down ? .98 : 1) : hovered ? 1.03 : 1
     Behavior on scale { NumberAnimation { duration: root.reduceMotion ? 0 : Foundation.AppTheme.motionFast; easing.type: Easing.OutCubic } }
     // 禁用靠文字色表达，不整块降透明度
@@ -115,6 +121,40 @@ Button {
             size: root.iconSize
             color: root.iconColor
         }
+    }
+    property Item _stackedContent: Item {
+        visible: root.stacked
+        implicitWidth: stackedColumn.implicitWidth
+        implicitHeight: stackedColumn.implicitHeight
+        Column {
+            id: stackedColumn
+            anchors.centerIn: parent
+            spacing: 0
+            topPadding: 7
+            bottomPadding: 7
+            VectorIcon {
+                anchors.horizontalCenter: parent.horizontalCenter
+                name: root.iconName
+                size: root.stackedIconSize
+                color: root.iconColor
+            }
+            Text {
+                id: stackedTextItem
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: root.stackedText
+                color: root.iconColor
+                font.pixelSize: root.stackedTextSize
+                height: root.stackedTextSize
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideNone
+            }
+        }
+    }
+    Binding {
+        target: root; property: "contentItem"
+        value: root._stackedContent; when: root.stacked
+        restoreMode: Binding.RestoreBindingOrValue
     }
     background: Item {
         // Independent sibling behind the glass, never part of its material.
