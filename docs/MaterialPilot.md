@@ -1,49 +1,13 @@
-# Material specification pilot
+# Historical material pilot
 
-> Historical pilot record. The current Gallery design and implementation values are defined in [Gallery design language](GalleryDesign.md), version 2.10 (2026-10-27). Earlier geometry, strong search optics and layered shadows below are superseded.
+[简体中文](MaterialPilot.zh-CN.md)
 
-> Current composition: the original full-width rectangular floating region overlays and blurs real app content at 95% material opacity; the window is opaque and decorations retain their original coordinates, with light liquid top actions and selector. The revised left-navigation contract uses one ordinary panel at background opacity=.95 and QML blur of the real same-window underlay, with no floating geometry or container-level liquid optics; directory sections have no liquid effect and rows retain ordinary fills; navigation search and action buttons use light liquid. See GalleryDesign.md for implementation status.
+The 2026-10-22 pilot explored plain sidebar rows, toolbar composition and liquid
+intensity. Its geometry, focus recipes, shadows and search-material choices were
+superseded. The original record remains in Git history; it is not a current API
+recipe or runtime acceptance report.
 
-## 2026-10-22 sidebar rows
-
-Follow-up: the navigation search opts into the shared plain text-field form
-(34px, radius10, fill.06, focus2px with offset2). Sidebar padding16, title17/600,
-caption/group11, body14, label.92/.62. The footer uses a standard Switch and a
-plain guide action. Sidebar background is retained and is not claimed to match
-regular/E2. Other pages and KMusic remain unchanged. User reviews hot reload;
-no screenshots or runtime verification.
-
-Gallery sidebar rows opt into shared LiquidNavigationButton.specificationForm.
-The sidebar background and all other consumers remain unchanged. Rows are plain
-(no glass): height30, radius8, body14, selected tint.13, hover.06/.08,
-pressed.10/.12, pressScale.96, 100/150ms, focus2px with offset2, disabled.38.
-Specification values are grouped in the component; no new specification token.
-Additional glass budget: persistent0/2, transient0/1. User reviews hot reload;
-no build, run, screenshot or verification performed.
-
-## Toolbar pilot
-
-2026-10-22: a standalone toolbar pilot appears above the retained comparisons on
-Gallery's Buttons page. KMusic and shared control defaults are unchanged.
-
-Only the L1 toolbar samples scrolling content. Its standard Qt Quick Controls
-button and input use plain fills, with no additional glass. Pilot values are
-centralized in `demo/gallery/components/MaterialSpecTokens.qml`: 44px toolbar,
-20px radius, 8px inset, 28px controls, 10px control radius, regular fill .58/.52,
-plain/hover/pressed fills, label .92/.62, two E2 shadow layers, 2px focus border,
-.96 press scale, and 100/150ms transitions.
-
-Glass budget: pilot 1/2 persistent, 0/1 transient. Retained comparison sections
-are not claimed to satisfy the whole-screen glass budget.
-
-Recorded exceptions: retain existing diagonal highlights and refraction3,
-magnification1.025, reflection.50, normalized backdropBlur.20 pending user review.
-The 240px scene height is demo geometry. Blur and shadow radii are not visually
-calibrated to the specification. Saturation, noise, luminosity shift, contextual
-shadow multipliers, increased contrast and all state rules remain unresolved.
-Reduced transparency makes this pilot solid; reduced motion removes its button
-scale and color animations.
-
-User review: light/dark, scrolling actual image/text under the fixed toolbar,
-typing/selecting/clearing, Tab focus, press feedback, Enabled and Reduce motion.
-No build, launch, screenshot or visual acceptance was performed.
+Use [Gallery design language](GalleryDesign.md) for current composition and
+[Components](Components.md) for integration. Gallery-private layout values live in
+`demo/gallery/components/MaterialSpecTokens.qml`; shared defaults remain canonical
+in `shared/qml`. Temporary captures and run logs belong outside tracked docs.

@@ -115,15 +115,6 @@ cmake --build build --target kos-notes
 提交 TS 源文件，不提交构建目录的 QM。复制模板后，应用自行维护目录和上下文列表
 并重新构建；仅改变 `QLocale` 不会翻译 QML 绑定。
 
-随后 2026-11-05 国际化验收在 VM 的 Qt 6.10.2 上完成：两个构建入口均运行全量
-回归，含 `commitCrash` 八个场景及 `translationBindings`。可选 `desktopI18n`
-使用正常窗口尺寸、DPR 1 的真实可见 Wayland/OpenGL 窗口，覆盖英文→中文→英文、
-设置失败/取消、已开编辑器错误文案、任务复数、共享窗口按钮无障碍名称及重启中文。
-运行方式与 `desktopDeleteTask` 相同，将测试函数换为 `desktopI18n`。安装版还在
-源码目录不可用时从 `/tmp` 启动。VM 实际运行 `update_translations` /
-`release_translations`，两个目录各有 85 条完成翻译。这是应用国际化验收，
-不扩张为合成器、缩放或完整组件库语言矩阵。
-
 ## 状态与生命周期
 
 C++ adapter 从 `QStandardPaths::AppDataLocation` 下读取 `notes.json`，Linux
@@ -184,20 +175,6 @@ translator、设置应用 locale 并调用 `QQmlEngine::retranslate()`。已经�
 会移除待执行回调。三个虚构结果仅保留在独立临时属性中，不联网，不修改真实
 笔记或恢复文件。这演示事件循环调度，不能作为阻塞 CPU/I/O 工作的工作线程。
 
-2026-11-05 的 VM 验收使用 Qt 6.10.2 构建根入口与独立入口，并运行全部常规
-回归，覆盖删除/撤销写入失败与持久性、重试、单步撤销、编辑与草稿保护、筛选
-选择、取消、请求代次隔离和回调生命周期。可选的 `desktopDeleteTask` 用例在
-960×660、DPR 1 的真实可见 Wayland 窗口中通过鼠标/键盘事件验证删除取消与
-Escape、删除失败重试、最后一条删除、撤销失败重试、编辑草稿保护，以及任务
-成功/失败/重试/取消/关闭/重开。渲染使用 OpenGL（VMware SVGA3D），没有用直接
-调用应用方法代替桌面交互。
-
-运行该聚焦用例时设置 `KOS_NOTES_DESKTOP_ACCEPTANCE=1`，向测试程序传入
-`desktopDeleteTask`；可设置 `KOS_NOTES_CAPTURE_DIR`（先创建目录）保存截图。
-XDG 数据、配置、缓存目录必须隔离。常规 `ctest` 跳过所有可选桌面用例。
-本轮未重复历史安装、合成器控件、暗色/减少透明度或跨平台矩阵，没有极端缩放。
-下方历史记录属于独立证据，不能视为本轮 VM 的验收范围。
-
 ## 验收清单
 
 仅在 VM/托管 CI 执行。将实际命令、Qt/平台/backend 版本、截图、日志及
@@ -222,7 +199,7 @@ XDG 数据、配置、缓存目录必须隔离。常规 `ctest` 跳过所有可�
    移除此环境变量重启后重试成功。另测真实不可写路径。
 6. 停止应用，破坏临时 JSON 或版本；重启检查加载失败和禁止写入，修复后 Retry。
 7. 保存每种主题/语言/降低透明度，重启检查；取消设置草稿并注入失败，原设置应
-   保持。检查深色菜单、应用文案、100/200% 缩放、最小尺寸、长标题和长正文。
+   保持。检查深色菜单、应用文案、请求范围内的缩放、最小尺寸、长标题和长正文。
 8. 检查两个窗口的移动/缩放/最大化/恢复/最小化，以及主窗口最小化后编辑窗口独立
    可用。检查贴边矩形、无应用外框/阴影/圆角、命中区域、双击和键盘焦点；在临时
    VM harness 中覆盖三/一/零按钮及动作重排。
@@ -246,40 +223,33 @@ XDG 数据、配置、缓存目录必须隔离。常规 `ctest` 跳过所有可�
 默认 OFF，不新增 CI。`KOS_NOTES_FAIL_DRAFT=1` 独立注入恢复副本写入失败，
 `KOS_NOTES_FAIL_CLEAR_DRAFT=1` 注入恢复文件删除失败。
 
-2026-11-05 经用户授权在本机构建两个入口、安装到源码外目录，并从 `/tmp`
-加载已安装程序的资源 QML。Qt 6.12.0 下两个构建的五个测试函数（七组数据）及初始化/清理通过，覆盖
-原子保存、校验、注入/真实写失败、损坏修复、筛选选中、编辑器重用与关闭保护、
-独立进程锁竞争、进程异常退出恢复、损坏草稿保留及真实 QML 恢复。
-清理回归覆盖已生成检查点后撤销并立即 Close/Quit、重启不恢复、显式保存后
-注入及真实路径删除失败、重复 Save/Close/Quit 保护、成功重试不重复笔记且
-无恢复文件残留。真实路径故障通过临时把 `draft.json` 替换为目录实现。
-后续经授权的桌面验收增加可选 `desktopInput` 用例，仅在
-`KOS_NOTES_DESKTOP_ACCEPTANCE=1` 时运行，普通 `ctest` 会跳过。
-它向实际可见应用窗口发送 Qt 鼠标/键盘事件，不以调用应用方法代替交互；
-`KOS_NOTES_CAPTURE_DIR` 仅保存这些窗口。示例：
+可见输入检查只在已授权 VM 图形会话运行。先创建截图目录，隔离
+`XDG_DATA_HOME`、`XDG_CONFIG_HOME` 与 `XDG_CACHE_HOME`，然后执行：
 
 ```sh
-QT_QPA_PLATFORM=xcb QSG_RHI_BACKEND=opengl QT_SCREEN_SCALE_FACTORS=1 \
-QT_FONT_DPI=96 QT_SCALE_FACTOR=1 KOS_NOTES_DESKTOP_ACCEPTANCE=1 \
-KOS_NOTES_CAPTURE_DIR=/tmp/notes-captures ./build-notes/kos-notes-tests desktopInput
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=opengl QT_SCALE_FACTOR=1 \
+KOS_NOTES_DESKTOP_ACCEPTANCE=1 KOS_NOTES_CAPTURE_DIR=/tmp/notes-captures \
+./build-notes/kos-notes-tests desktopInput
 ```
 
-先创建截图目录并隔离 `XDG_DATA_HOME`、`XDG_CONFIG_HOME`、`XDG_CACHE_HOME`。
-用 `QT_SCALE_FACTOR=2` 重复，再单独用 `QT_QUICK_BACKEND=software` 复测；
-不修改全局显示设置。XCB 用例仅用 `xdotool` 激活自身窗口 ID 及有界的原生几何
-检查，应用控件仍由 Qt 输入事件驱动。
+可选用例为 `desktopInput`（编辑、选择、关闭保护及设置）、`desktopDeleteTask`
+（删除/撤销与任务生命周期）、`desktopI18n`（语言切换、错误绑定、复数与重启）。
+将对应函数名作为最后一个参数；普通 `ctest` 跳过这些用例。它们向可见窗口发送
+Qt 鼠标/键盘事件，截图不能代替交互断言。XCB 下 `desktopInput` 还使用
+`xdotool` 激活自身窗口并做有界原生几何检查。使用并记录 VM 的实际平台/backend，
+不更改全局显示设置。仅在明确要求的范围内执行缩放矩阵。模板没有窗口几何持久化。
 
-覆盖新建、中英文/长标题/多行输入、Tab、保存、点击及上下键/筛选后的选择，
-活跃编辑器 Quit 的保存/丢弃/取消/Escape/保存失败，设置提交/取消/失败，
-中英文明暗主题、最小尺寸、窗口动作声明和独立窗口状态。
-自定义页脚断言按钮高30px、右侧及底部留白24px；点击条目把焦点交给列表，
-详情长标题最多三行后省略，保留正文空间。
-Intel Arc/OpenGL 在实际 DPR 1/2 下对比文字背景上的液态对话框与降低透明度、
-软件渲染的普通不透明回退。采样场景包含主题不透明底色，避免透明纹理让
-未采样的锐利正文穿透；回退使用普通对话框背景色。
-已安装程序的 `gtk-launch` 身份、desktop/图标资源及窗口属性单独检查。
-仅 Qt 注入拖动/边缘缩放事件不代表合成器 seat 验收，原生指针检查单独记录。
-不声称可选合成器 adapter 或跨平台渲染通过。没有烘焙 shader，没有实现窗口几何持久化。
+### 历史范围与边界
+
+2026-11-05 的历史证据覆盖两个构建入口、安装资源、恢复与持久化回归及可见桌面输入。
+较早的 Qt 6.12.0 本机/XCB 运行记录了 Intel Arc/OpenGL 的 DPR 1/2 对话框对比及
+软件/减少透明度回退；这是历史事实，不是现在允许本机验证的指令。
+后续 Qt 6.10.2 VM/Wayland 运行覆盖全量回归、`commitCrash`、`translationBindings`，
+以及 DPR 1 下的 `desktopDeleteTask`/`desktopI18n` 聚焦交互（VMware SVGA3D/OpenGL）。
+国际化运行还覆盖安装资源及翻译构建目标。
+这些属于独立范围，不代表当前全平台或全库验收。可选合成器 adapter 仍未验证，
+Qt 注入的窗口移动本身不代表合成器 seat 行为通过。
+命令、源码哈希、截图和详细结果保存在受跟踪文档之外。
 
 补充手动检查：编辑后等待超过 600 ms，仅终止隔离示例进程，重启检查恢复内容；
 带 `KOS_NOTES_FAIL_DRAFT=1` 重复。两个实例使用同一临时数据目录，关闭首实例后

@@ -1,5 +1,7 @@
 # macOS 27「金门」设计指导（中文版）
 
+> 历史研究参考，适用范围与当前规范优先级见 [本目录说明](README.md)。旧配方不能覆盖当前专项契约。
+
 **版本** 2.0 · **整理日期** 2026-10-24 · **目标系统** macOS 27 金门（2026 年 9 月发布）
 
 > 本文所有数值均来自苹果官方公开资料：人机界面指南（developer.apple.com/design/human-interface-guidelines，2026 年 10 月抓取）、苹果设计资源、macOS 27 新特性、苹果支持文档。每条数据都标注可信度等级：
@@ -14,7 +16,7 @@
 
 **液态玻璃是唯一的功能层材质，覆盖在内容层之上。** 工具栏、侧边栏、弹层、浮起按钮这些“功能层”元素浮在内容之上；内容可以从它们下方透出、滚动时在边缘被模糊。窗口主体、列表、表单、网格这些“内容层”用标准材质，不用液态玻璃。
 
-![](images/platforms-macOS-intro@2x.png)
+（历史插图：`images/platforms-macOS-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 0-1 苹果官方 macOS 设计总览**
 
@@ -78,15 +80,15 @@
 
 官方原文明确：**不要在内容层使用液态玻璃**。例外是内容层里的**瞬时交互控件**（滑块、开关），被操作的一瞬间可以呈现液态玻璃外观，用来强调“正在被操作”。
 
-![](images/foundations-materials-intro@2x.png)
+（历史插图：`images/foundations-materials-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 1-1 材质总览**
 
-![](images/materials-legibility-primary-label@2x.png)
+（历史插图：`images/materials-legibility-primary-label@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 1-1b 材质厚度对比**
 
-![](images/materials-legibility-non-vibrant-label@2x.png)
+（历史插图：`images/materials-legibility-non-vibrant-label@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 1-1c 液态玻璃与内容层**
 
@@ -186,23 +188,23 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 规则：所有颜色都要在**浅色、深色、增强对比**三种上下文里验证；即使只做单一外观，也要提供两套色以支持液态玻璃自适应。
 
-![](images/color-context-light-mode@2x.png)
+（历史插图：`images/color-context-light-mode@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 2-1 浅色模式上下文**
 
-![](images/color-context-dark-mode@2x.png)
+（历史插图：`images/color-context-dark-mode@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 2-2 深色模式上下文**
 
-![](images/color-inclusive-color-charts-english@2x.png)
+（历史插图：`images/color-inclusive-color-charts-english@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 2-3 增强对比下的系统色**
 
-![](images/colors-liquid-glass-usage-incorrect@2x.png)
+（历史插图：`images/colors-liquid-glass-usage-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 2-4 色彩空间与宽色域（反例·勿照做）**
 
-![](images/color-graphic-wide-color@2x.png)
+（历史插图：`images/color-graphic-wide-color@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 2-5 包容性配色**
 
@@ -291,15 +293,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 | 提示气泡 | 句首大写，不加句末标点，最多 60 到 75 个字符 |
 | 菜单项省略号 | 还需要用户提供信息才能完成时加省略号 |
 
-![](images/game-typography-incorrect@2x.png)
+（历史插图：`images/game-typography-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 3-1 字体排印总览（反例·勿照做）**
 
-![](images/game-typography-correct@2x.png)
+（历史插图：`images/game-typography-correct@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 3-2 确保可读性**
 
-![](images/typography-default-type@2x.png)
+（历史插图：`images/typography-default-type@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 3-3 避免全文大写**
 
@@ -349,19 +351,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 | 侧边栏 | 小、中、大三档，行高、文字、图标尺寸随档变化 | 层级不超过两层；关键操作不要放侧栏底部 |
 | 工具栏 | 位于窗口框架顶部，可与标题栏合并；项无边框 | 每个工具栏项都必须在菜单栏里有对应命令 |
 
-![](images/foundations-layout-intro@2x.png)
+（历史插图：`images/foundations-layout-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 4-1 布局总览**
 
-![](images/layout-background-extention-view@2x.png)
+（历史插图：`images/layout-background-extention-view@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 4-2 内容延伸到功能层下方**
 
-![](images/app-layout-square@2x.png)
+（历史插图：`images/app-layout-square@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 4-3 分组与层级**
 
-![](images/app-layout-vertical@2x.png)
+（历史插图：`images/app-layout-vertical@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 4-4 渐进披露**
 
@@ -386,27 +388,27 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 规则：每个自定义按钮必须有按下态；用样式而不是尺寸区分首选操作；按钮标签颜色不要和内容层背景同色；熟悉动作配熟悉图标；短标签比图标清楚时用文字；主操作给用户最可能选的那个动作；鼠标悬停片刻后显示提示气泡。
 
-![](images/components-buttons-intro@2x.png)
+（历史插图：`images/components-buttons-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-1 按钮总览**
 
-![](images/buttons-roles-alert@2x.png)
+（历史插图：`images/buttons-roles-alert@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-2 警告框中的按钮角色**
 
-![](images/button-activity-indicator-hidden@2x.png)
+（历史插图：`images/button-activity-indicator-hidden@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-3 按钮状态：隐藏活动指示**
 
-![](images/button-activity-indicator-visible@2x.png)
+（历史插图：`images/button-activity-indicator-visible@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-4 按钮状态：显示活动指示**
 
-![](images/buttons-watch-toolbar-corners@2x.png)
+（历史插图：`images/buttons-watch-toolbar-corners@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-4b 按钮的角色与层级**
 
-![](images/buttons-watch-full-width@2x.png)
+（历史插图：`images/buttons-watch-full-width@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-4c 按钮的可用状态**
 
@@ -435,15 +437,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 只放在窗口主体，不要放窗口框架（工具栏、状态栏）。
 - 想强调某个设置用开关；组内多选用勾选框；互斥用单选；分组表单里可用迷你开关。
 
-![](images/components-toggles-intro@2x.png)
+（历史插图：`images/components-toggles-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-5 开关总览**
 
-![](images/radio-button-example@2x.png)
+（历史插图：`images/radio-button-example@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-5b 开关的三种样式**
 
-![](images/checkbox-alignment@2x.png)
+（历史插图：`images/checkbox-alignment@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-5c 勾选框与单选**
 
@@ -454,7 +456,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 主窗口内的视图切换要用标签视图，而不是分段控件；分段控件适合工具栏或检查器里的切换。
 - 支持弹簧加载：把选中项拖到某段上用力按即激活。
 
-![](images/components-segmented-control-intro@2x.png)
+（历史插图：`images/components-segmented-control-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-6 分段控件总览**
 
@@ -465,12 +467,12 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 下拉：用于在少量固定选项里选一个；选项多时改用菜单或搜索。
 - 步进器：用于小幅数值调整，配合数值文本。
 
-![](images/components-slider-intro@2x.png)
+（历史插图：`images/components-slider-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-7 滑块总览**
 
 
-![](images/segmented-controls-calendar-new-event@2x.png)
+（历史插图：`images/segmented-controls-calendar-new-event@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-7c 分段控件的状态**
 
@@ -481,11 +483,11 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 后台任务或空间受限时优先转圈；不要给转圈加标签，因为用户是自己触发的。
 - 已知进度用确定型进度条，不要用转圈假装。
 
-![](images/components-progress-indicators-intro@2x.png)
+（历史插图：`images/components-progress-indicators-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-8 不确定进度：横条**
 
-![](images/refresh-controls@2x.png)
+（历史插图：`images/refresh-controls@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-9 不确定进度：转圈**
 
@@ -500,7 +502,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 | 不可用 | 文字用不可用控件文字色；仍然可见 | 不要靠隐藏表达不可用 |
 | 选中 | 用选中项文字色；必须持续高亮 | 分栏视图明确要求 |
 
-![](images/patterns-feedback-intro@2x.png)
+（历史插图：`images/patterns-feedback-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 5-10 反馈与状态**
 
@@ -524,11 +526,11 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 | 文本框 | 只有必须靠用户输入才能解决时才放 |
 | 使用频率 | 少用；不要用警告框传递普通信息；不要在启动时弹 |
 
-![](images/alert-macos@2x.png)
+（历史插图：`images/alert-macos@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-1 macOS 警告框实样**
 
-![](images/alert-ios@2x.png)
+（历史插图：`images/alert-ios@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-2 按钮角色：默认、取消、破坏性**
 
@@ -541,7 +543,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 复杂或长流程要考虑工作表之外的形式；需要反复输入并观察结果时用面板。
 - 关闭方式：提供“完成”之外的替代路径（退出键或明确取消）。
 
-![](images/components-sheet-intro@2x.png)
+（历史插图：`images/components-sheet-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-3 工作表在音符应用中的实样**
 
@@ -553,15 +555,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 关闭按钮只用于确认或引导，不要滥用；非模态浮层自动关闭前必须已保存工作。
 - macOS 支持可拆分浮层：拖出后成为独立面板，期间仍可操作其他内容。
 
-![](images/components-popover-intro@2x.png)
+（历史插图：`images/components-popover-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-4 浮层总览**
 
-![](images/detached-popover@2x.png)
+（历史插图：`images/detached-popover@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-4b 浮层的位置与箭头**
 
-![](images/hud-style-panel@2x.png)
+（历史插图：`images/hud-style-panel@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-4c 检查器面板**
 
@@ -571,7 +573,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 用于检查器类功能。用简单调整控件，标题简短说明用途。
 - 一般不提供最小化按钮；不要出现在“窗口”菜单的文档列表里；优先用系统标准面板。
 
-![](images/components-panel-intro@2x.png)
+（历史插图：`images/components-panel-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-5 面板总览**
 
@@ -592,11 +594,11 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 > **官方自相矛盾（如实记录）**：菜单页要求“让人看到菜单项当前不可用”（置灰），上下文菜单页要求“隐藏不可用项，不要置灰”。实现建议：菜单栏与主菜单置灰，上下文菜单隐藏。
 
-![](images/components-menus-intro@2x.png)
+（历史插图：`images/components-menus-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-6 菜单结构**
 
-![](images/components-context-menu-intro@2x.png)
+（历史插图：`images/components-context-menu-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 6-7 上下文菜单**
 
@@ -621,19 +623,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 自定义窗口必须实现上述状态切换；用系统组件会自动处理。
 
-![](images/components-window-intro@2x.png)
+（历史插图：`images/components-window-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-1 窗口结构**
 
-![](images/windows-ipad-notes-fullscreen@2x.png)
+（历史插图：`images/windows-ipad-notes-fullscreen@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-2 窗口三态**
 
-![](images/windows-ipad-notes-windowed@2x.png)
+（历史插图：`images/windows-ipad-notes-windowed@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-3 非激活窗口不使用材质**
 
-![](images/window-states@2x.png)
+（历史插图：`images/window-states@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-3b 窗口的底部栏**
 
@@ -647,19 +649,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 减少工具栏背景与着色控件；工具栏项标签颜色不要与内容层背景同色。
 - 优先用标准组件；标准按钮、文本框、页眉页脚的圆角与栏的圆角同心。
 
-![](images/components-toolbar-intro@2x.png)
+（历史插图：`images/components-toolbar-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-4 工具栏结构**
 
-![](images/toolbars-notes-app-expanded-icons@2x.png)
+（历史插图：`images/toolbars-notes-app-expanded-icons@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-5 窗口结构标注**
 
-![](images/toolbars-prefer-symbols-incorrect@2x.png)
+（历史插图：`images/toolbars-prefer-symbols-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-5b 工具栏的自定义（反例·勿照做）**
 
-![](images/toolbars-ipad-anatomy@2x.png)
+（历史插图：`images/toolbars-ipad-anatomy@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-5c 溢出菜单**
 
@@ -671,15 +673,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 允许用户隐藏侧边栏；窗口缩小时可自动收起。
 - 图标颜色要有明确用途；内容可以在侧边栏下方延伸；关键操作不要放底部。
 
-![](images/components-sidebar-intro@2x.png)
+（历史插图：`images/components-sidebar-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-6 侧边栏总览**
 
-![](images/sidebars-extend-content-beneath-sidebar-correct@2x.png)
+（历史插图：`images/sidebars-extend-content-beneath-sidebar-correct@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-6b 侧边栏的三档尺寸**
 
-![](images/sidebars-extend-content-beneath-sidebar-incorrect@2x.png)
+（历史插图：`images/sidebars-extend-content-beneath-sidebar-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-6c 侧边栏的图标（反例·勿照做）**
 
@@ -690,7 +692,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 每个标签必须有描述内容的标题；不要用下拉按钮切换标签。
 - 最多六个标签；标签视图四周应留出窗口主体的边距。
 
-![](images/components-tab-view-intro@2x.png)
+（历史插图：`images/components-tab-view-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-7 标签视图总览**
 
@@ -703,7 +705,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 处理窄、中、宽三档宽度；给每个面板设置合理的最小与最大尺寸。
 - 允许用户隐藏面板。
 
-![](images/components-split-view-intro@2x.png)
+（历史插图：`images/components-split-view-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-8 分栏视图总览**
 
@@ -714,15 +716,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 多列表格用描述性列标题；需要时用交替行底色帮助横向追踪。
 - 点列标题排序（再点反向）；允许拖动调整列宽；选中项必须有明确反馈。
 
-![](images/components-lists-and-tables-intro@2x.png)
+（历史插图：`images/components-lists-and-tables-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-9 列表与表格总览**
 
-![](images/info-button-in-list@2x.png)
+（历史插图：`images/info-button-in-list@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-9b 表格的排序**
 
-![](images/disclosure-indicator-in-list@2x.png)
+（历史插图：`images/disclosure-indicator-in-list@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-9c 交替行底色**
 
@@ -733,7 +735,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 层级只在第一列体现；列标题要有描述性；可点列标题排序、可调列宽。
 - 展开与收起嵌套容器必须容易操作。
 
-![](images/components-outline-view-intro@2x.png)
+（历史插图：`images/components-outline-view-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-10 大纲视图总览**
 
@@ -745,15 +747,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 需要时支持整页滚动、自动滚动到位置、缩放；设置合理的最大与最小比例。
 - macOS 上滚动条就叫滚动条；面板空间紧张时可用小号或迷你滚动条，但同一个面板内所有控件要用同一尺寸。
 
-![](images/components-scroll-view-intro@2x.png)
+（历史插图：`images/components-scroll-view-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-11 滚动视图总览**
 
-![](images/scroll-views-scroll-edge-effect-hard@2x.png)
+（历史插图：`images/scroll-views-scroll-edge-effect-hard@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-11b 滚动条尺寸**
 
-![](images/patterns-searching-intro@2x.png)
+（历史插图：`images/patterns-searching-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-11c 搜索框的位置**
 
@@ -766,7 +768,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 标准快捷键由系统菜单提供，不要重定义；自定义快捷键必须同时出现在菜单项里。
 - 窗口标题不要写成应用名字；标题要说明当前内容。
 
-![](images/patterns-offering-help-intro@2x.png)
+（历史插图：`images/patterns-offering-help-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 7-12 提示气泡**
 
@@ -781,15 +783,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 符号有两种以上图层结构，为动效与层级服务；可导出矢量再改。
 - 符号是系统语言的一部分，优先用系统符号，不要自绘图标。
 
-![](images/foundations-sf-symbols-intro@2x.png)
+（历史插图：`images/foundations-sf-symbols-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-1 图形符号总览**
 
-![](images/sf-scales-weights@2x.png)
+（历史插图：`images/sf-scales-weights@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-1b 符号的图层结构**
 
-![](images/sf-localized@2x.png)
+（历史插图：`images/sf-localized@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-1c 符号的渲染模式**
 
@@ -811,31 +813,31 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - macOS 图标是正方形，由系统施加蒙版，不要自己切圆角。
 - 用系统图标合成工具（随开发工具提供）定义背景层、调整前景位置、加高光与折射、标注浅色、深色、单色变体、跨系统版本预览，再导出给开发工具。
 
-![](images/foundations-app-icons-intro@2x.png)
+（历史插图：`images/foundations-app-icons-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-2 应用图标总览**
 
-![](images/app-icons-icon-composer-overview-photos@2x.png)
+（历史插图：`images/app-icons-icon-composer-overview-photos@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-3 图标合成工具中的分层**
 
-![](images/app-icons-settings-app-grid-square@2x.png)
+（历史插图：`images/app-icons-settings-app-grid-square@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-4 方形图标网格**
 
-![](images/app-icons-settings-app-grid-circle@2x.png)
+（历史插图：`images/app-icons-settings-app-grid-circle@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-4b 图标的平台外观**
 
-![](images/app-icons-element-outline-shape@2x.png)
+（历史插图：`images/app-icons-element-outline-shape@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-4c 图标变体：深色与单色**
 
-![](images/app-icons-rendering-modes@2x.png)
+（历史插图：`images/app-icons-rendering-modes@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-4d 图标层与蒙版**
 
-![](images/sf-symbols-sun-solid-fill@2x.png)
+（历史插图：`images/sf-symbols-sun-solid-fill@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-1d 符号的可变色**
 
@@ -847,7 +849,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 - 以动词开头描述它会触发的动作。
 - 不要重复控件名称；内容最多 60 到 75 个字符；句首大写，不加句末标点。
 
-![](images/offering-help-tip-popover@2x.png)
+（历史插图：`images/offering-help-tip-popover@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 8-5 提示气泡的写法**
 
@@ -868,7 +870,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 时长与曲线：苹果未发布。唯一安全做法是调用系统动画接口，让系统按当前设置决定；自造曲线在减弱动态效果下必然不一致。
 
-![](images/foundations-motion-intro@2x.png)
+（历史插图：`images/foundations-motion-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 9-1 动效总览**
 
@@ -1039,15 +1041,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 > 下面是苹果官方新闻稿里的 macOS 27 实机截图（非指南配图），用于核对真实观感：界面元素、材质、层级。截图来源：苹果新闻稿（2026 年 9 月「软件平台重大更新」）。
 
-![](images/newsroom/Apple-macOS-27-organize-tab-in-Safari_big.jpg.large_2x.jpg)
+（历史插图：`images/newsroom/Apple-macOS-27-organize-tab-in-Safari_big.jpg.large_2x.jpg`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-1** macOS 27 上的 Safari 标签页整理（官方截图）
 
-![](images/newsroom/Apple-macOS-27-Visual-Intelligence_big.jpg.large_2x.jpg)
+（历史插图：`images/newsroom/Apple-macOS-27-Visual-Intelligence_big.jpg.large_2x.jpg`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-2** macOS 27 的视觉智能（官方截图）
 
-![](images/newsroom/Apple-macOS-27-Write-with-Siri_big.jpg.large_2x.jpg)
+（历史插图：`images/newsroom/Apple-macOS-27-Write-with-Siri_big.jpg.large_2x.jpg`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-3** macOS 27 用 Siri 写作（官方截图）
 
@@ -1059,39 +1061,39 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 > 来自苹果官方《macOS 使用手册》（support.apple.com/guide/mac-help，版本 26 页面）。这些是真实系统界面截图，可直接比对控件形态、窗口结构与菜单排布。注意版本为 macOS 26，供 27 参考。
 
-![](images/macguide/welcome__0109b77aa62a224f16cd99556fef62bf.png)
+（历史插图：`images/macguide/welcome__0109b77aa62a224f16cd99556fef62bf.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-1**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__09d3bea93c6cbd861886e60a1a56411e.png)
+（历史插图：`images/macguide/welcome__09d3bea93c6cbd861886e60a1a56411e.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-2**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__1458ab544280fa1c1750179aeb491719.png)
+（历史插图：`images/macguide/welcome__1458ab544280fa1c1750179aeb491719.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-3**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__4ea9b68923df995724dfe809ce024780.png)
+（历史插图：`images/macguide/welcome__4ea9b68923df995724dfe809ce024780.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-4**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__80b900f79404bf10b2f2908d56a5ed98.png)
+（历史插图：`images/macguide/welcome__80b900f79404bf10b2f2908d56a5ed98.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-5**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__8223448ac2a48c93da478080d1d2cab1.png)
+（历史插图：`images/macguide/welcome__8223448ac2a48c93da478080d1d2cab1.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-6**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__89981d3fb6b308e722cf1f4f2c0543b9.png)
+（历史插图：`images/macguide/welcome__89981d3fb6b308e722cf1f4f2c0543b9.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-7**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__9bbc50fa9586f545dbdc460744e8f6ea.png)
+（历史插图：`images/macguide/welcome__9bbc50fa9586f545dbdc460744e8f6ea.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-8**《macOS 使用手册》官方截图：welcome
 
-![](images/macguide/welcome__fada553391da7148a6852ebb08ca2399.png)
+（历史插图：`images/macguide/welcome__fada553391da7148a6852ebb08ca2399.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 12-6-9**《macOS 使用手册》官方截图：welcome
 
@@ -1103,173 +1105,173 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 > 来源：苹果官方《macOS 使用手册》版本 27（support.apple.com/guide/mac-help）。这些是 macOS 27 的真实系统界面截图，可直接比对窗口、菜单、控制中心、通知、访达、程序坞的真实形态。
 
 #### 欢迎使用
-![](images/macguide27/welcome__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/welcome__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-1** 欢迎使用 · 官方系统截图 1
 
-![](images/macguide27/welcome__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/welcome__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-2** 欢迎使用 · 官方系统截图 2
 
-![](images/macguide27/welcome__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/welcome__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-3** 欢迎使用 · 官方系统截图 3
 
-![](images/macguide27/welcome__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/welcome__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-4** 欢迎使用 · 官方系统截图 4
 
 #### 开始使用你的 Mac
-![](images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__9b62e3bd-fadd-4bfe-b365-.png)
+（历史插图：`images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__9b62e3bd-fadd-4bfe-b365-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-6** 开始使用你的 Mac · 官方系统截图 1
 
-![](images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__d166c300-36a3-43a9-bf6b-.png)
+（历史插图：`images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__d166c300-36a3-43a9-bf6b-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-7** 开始使用你的 Mac · 官方系统截图 2
 
-![](images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__f4687dee-e6a1-4c19-b5df-.png)
+（历史插图：`images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__f4687dee-e6a1-4c19-b5df-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-8** 开始使用你的 Mac · 官方系统截图 3
 
-![](images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__1b297cd9-40a0-426d-a9b5-.png)
+（历史插图：`images/macguide27/get-started-with-your-mac-mchl3a2c2cb0__1b297cd9-40a0-426d-a9b5-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-9** 开始使用你的 Mac · 官方系统截图 4
 
 #### 快速更改设置
-![](images/macguide27/quickly-change-settings-mchl50f94f8f__a973038b-6700-4b72-8c34-.png)
+（历史插图：`images/macguide27/quickly-change-settings-mchl50f94f8f__a973038b-6700-4b72-8c34-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-11** 快速更改设置 · 官方系统截图 1
 
 #### 选择桌面图片
-![](images/macguide27/choose-your-desktop-picture-mchlp3013__ec471d81-1296-418f-89e8-.png)
+（历史插图：`images/macguide27/choose-your-desktop-picture-mchlp3013__ec471d81-1296-418f-89e8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-13** 选择桌面图片 · 官方系统截图 1
 
-![](images/macguide27/choose-your-desktop-picture-mchlp3013__dc58b67a-e616-421d-a339-.png)
+（历史插图：`images/macguide27/choose-your-desktop-picture-mchlp3013__dc58b67a-e616-421d-a339-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-14** 选择桌面图片 · 官方系统截图 2
 
 
 **图 13-15** 选择桌面图片 · 官方系统截图 3
 
-![](images/macguide27/choose-your-desktop-picture-mchlp3013__50474e7b-19db-4b83-99ef-.png)
+（历史插图：`images/macguide27/choose-your-desktop-picture-mchlp3013__50474e7b-19db-4b83-99ef-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-16** 选择桌面图片 · 官方系统截图 4
 
 #### Mac 上的应用
-![](images/macguide27/apps-on-your-mac-mchl110b00b7__beb1f865-b5ce-4620-9078-.png)
+（历史插图：`images/macguide27/apps-on-your-mac-mchl110b00b7__beb1f865-b5ce-4620-9078-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-18** Mac 上的应用 · 官方系统截图 1
 
-![](images/macguide27/apps-on-your-mac-mchl110b00b7__5f8f41f3-1f61-43c8-a26e-.png)
+（历史插图：`images/macguide27/apps-on-your-mac-mchl110b00b7__5f8f41f3-1f61-43c8-a26e-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-19** Mac 上的应用 · 官方系统截图 2
 
-![](images/macguide27/apps-on-your-mac-mchl110b00b7__b7c32e0f-58a2-41f7-a13e-.png)
+（历史插图：`images/macguide27/apps-on-your-mac-mchl110b00b7__b7c32e0f-58a2-41f7-a13e-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-20** Mac 上的应用 · 官方系统截图 3
 
-![](images/macguide27/apps-on-your-mac-mchl110b00b7__8cb5ab10-e7d9-4c90-9c19-.png)
+（历史插图：`images/macguide27/apps-on-your-mac-mchl110b00b7__8cb5ab10-e7d9-4c90-9c19-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-21** Mac 上的应用 · 官方系统截图 4
 
 #### 使用窗口
-![](images/macguide27/work-with-windows-mchl4c4b9d57__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/work-with-windows-mchl4c4b9d57__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-23** 使用窗口 · 官方系统截图 1
 
-![](images/macguide27/work-with-windows-mchl4c4b9d57__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/work-with-windows-mchl4c4b9d57__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-24** 使用窗口 · 官方系统截图 2
 
-![](images/macguide27/work-with-windows-mchl4c4b9d57__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/work-with-windows-mchl4c4b9d57__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-25** 使用窗口 · 官方系统截图 3
 
-![](images/macguide27/work-with-windows-mchl4c4b9d57__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/work-with-windows-mchl4c4b9d57__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-26** 使用窗口 · 官方系统截图 4
 
 #### 使用菜单
-![](images/macguide27/use-menus-mchl4c4b9d58__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/use-menus-mchl4c4b9d58__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-28** 使用菜单 · 官方系统截图 1
 
-![](images/macguide27/use-menus-mchl4c4b9d58__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/use-menus-mchl4c4b9d58__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-29** 使用菜单 · 官方系统截图 2
 
-![](images/macguide27/use-menus-mchl4c4b9d58__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/use-menus-mchl4c4b9d58__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-30** 使用菜单 · 官方系统截图 3
 
-![](images/macguide27/use-menus-mchl4c4b9d58__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/use-menus-mchl4c4b9d58__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-31** 使用菜单 · 官方系统截图 4
 
 #### 使用程序坞
-![](images/macguide27/use-the-dock-mh35859__1a9caa8e-0dfe-44da-97a4-.png)
+（历史插图：`images/macguide27/use-the-dock-mh35859__1a9caa8e-0dfe-44da-97a4-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-33** 使用程序坞 · 官方系统截图 1
 
 #### 使用访达
-![](images/macguide27/use-finder-mchl4c4b9d59__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/use-finder-mchl4c4b9d59__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-35** 使用访达 · 官方系统截图 1
 
-![](images/macguide27/use-finder-mchl4c4b9d59__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/use-finder-mchl4c4b9d59__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-36** 使用访达 · 官方系统截图 2
 
-![](images/macguide27/use-finder-mchl4c4b9d59__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/use-finder-mchl4c4b9d59__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-37** 使用访达 · 官方系统截图 3
 
-![](images/macguide27/use-finder-mchl4c4b9d59__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/use-finder-mchl4c4b9d59__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-38** 使用访达 · 官方系统截图 4
 
 #### 使用通知中心
-![](images/macguide27/use-notification-center-mchlp3d7d1__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/use-notification-center-mchlp3d7d1__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-40** 使用通知中心 · 官方系统截图 1
 
-![](images/macguide27/use-notification-center-mchlp3d7d1__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/use-notification-center-mchlp3d7d1__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-41** 使用通知中心 · 官方系统截图 2
 
-![](images/macguide27/use-notification-center-mchlp3d7d1__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/use-notification-center-mchlp3d7d1__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-42** 使用通知中心 · 官方系统截图 3
 
-![](images/macguide27/use-notification-center-mchlp3d7d1__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/use-notification-center-mchlp3d7d1__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-43** 使用通知中心 · 官方系统截图 4
 
 #### 使用控制中心
-![](images/macguide27/use-control-center-mchl1a1b1__39129511-0d66-42cc-bc88-.png)
+（历史插图：`images/macguide27/use-control-center-mchl1a1b1__39129511-0d66-42cc-bc88-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-45** 使用控制中心 · 官方系统截图 1
 
-![](images/macguide27/use-control-center-mchl1a1b1__7ef8a570-27b0-4982-a682-.png)
+（历史插图：`images/macguide27/use-control-center-mchl1a1b1__7ef8a570-27b0-4982-a682-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-46** 使用控制中心 · 官方系统截图 2
 
-![](images/macguide27/use-control-center-mchl1a1b1__d001cedd-025d-46a5-86d8-.png)
+（历史插图：`images/macguide27/use-control-center-mchl1a1b1__d001cedd-025d-46a5-86d8-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-47** 使用控制中心 · 官方系统截图 3
 
-![](images/macguide27/use-control-center-mchl1a1b1__5f3493ba-ce81-442b-afc0-.png)
+（历史插图：`images/macguide27/use-control-center-mchl1a1b1__5f3493ba-ce81-442b-afc0-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-48** 使用控制中心 · 官方系统截图 4
 
 #### 登录 Apple 账户
-![](images/macguide27/sign-in-to-your-apple-account-mchla99dc8da__804869db-5fe1-4650-b763-.png)
+（历史插图：`images/macguide27/sign-in-to-your-apple-account-mchla99dc8da__804869db-5fe1-4650-b763-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-50** 登录 Apple 账户 · 官方系统截图 1
 
-![](images/macguide27/sign-in-to-your-apple-account-mchla99dc8da__b06cc063-11ad-4dee-a091-.png)
+（历史插图：`images/macguide27/sign-in-to-your-apple-account-mchla99dc8da__b06cc063-11ad-4dee-a091-.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 13-51** 登录 Apple 账户 · 官方系统截图 2
 
@@ -1285,79 +1287,79 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 ### 十四、一 macOS 27（金门）
 
-![](images/aqua/27__27-Golden-Gate-About-This-Mac-Menu.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-About-This-Mac-Menu.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-1** macOS 27 · 关于本机（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-About-This-Mac.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-About-This-Mac.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-2** macOS 27 · 关于本机（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Activity-Monitor.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Activity-Monitor.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-3** macOS 27 · 活动监视器（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Automatic.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Automatic.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-4** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Blue.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Blue.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-5** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Graphite.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Graphite.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-6** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Green.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Green.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-7** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Orange.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Orange.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-8** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Pink.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Pink.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-9** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
-![](images/aqua/27__27-Golden-Gate-Apperance-Dark-Purple.png)
+（历史插图：`images/aqua/27__27-Golden-Gate-Apperance-Dark-Purple.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-27-10** macOS 27 · 外观（强调色）（512 Pixels 档案）
 
 
 ### 十四、二 与 macOS 26、15 的对比（同一批面板）
 
-![](images/aqua/26__26-Tahoe-About-This-Mac-Menu.png)
+（历史插图：`images/aqua/26__26-Tahoe-About-This-Mac-Menu.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-26-1** macOS 26 · 关于本机（512 Pixels 档案）
 
-![](images/aqua/26__26-Tahoe-About-This-Mac.png)
+（历史插图：`images/aqua/26__26-Tahoe-About-This-Mac.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-26-2** macOS 26 · 关于本机（512 Pixels 档案）
 
-![](images/aqua/26__26-Tahoe-Activity-Monitor.png)
+（历史插图：`images/aqua/26__26-Tahoe-Activity-Monitor.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-26-3** macOS 26 · 活动监视器（512 Pixels 档案）
 
-![](images/aqua/26__26-Tahoe-Apperance-Dark-Automatic.png)
+（历史插图：`images/aqua/26__26-Tahoe-Apperance-Dark-Automatic.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-26-4** macOS 26 · 外观（强调色）（512 Pixels 档案）
 
 
-![](images/aqua/15__15-Sequoia-About-This-Mac.png)
+（历史插图：`images/aqua/15__15-Sequoia-About-This-Mac.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-15-1** macOS 15 · 关于本机（512 Pixels 档案）
 
-![](images/aqua/15__15-Sequoia-Activity-Monitor.png)
+（历史插图：`images/aqua/15__15-Sequoia-Activity-Monitor.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-15-2** macOS 15 · 活动监视器（512 Pixels 档案）
 
-![](images/aqua/15__15-Sequoia-Calendar-Settings.png)
+（历史插图：`images/aqua/15__15-Sequoia-Calendar-Settings.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-15-3** macOS 15 · 日历（512 Pixels 档案）
 
-![](images/aqua/15__15-Sequoia-Calendar.png)
+（历史插图：`images/aqua/15__15-Sequoia-Calendar.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **图 14-15-4** macOS 15 · 日历（512 Pixels 档案）
 
@@ -1414,71 +1416,71 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 #### 深色模式
 
-![](images/foundations-dark-mode-intro@2x.png)
+（历史插图：`images/foundations-dark-mode-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 1（通用示意）**
 
-![](images/dark-mode-system-colors-light@2x.png)
+（历史插图：`images/dark-mode-system-colors-light@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 2（通用示意）**
 
-![](images/dark-mode-system-colors-dark@2x.png)
+（历史插图：`images/dark-mode-system-colors-dark@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 3（通用示意）**
 
-![](images/dark-mode-icon-in-light-mode@2x.png)
+（历史插图：`images/dark-mode-icon-in-light-mode@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 4（通用示意）**
 
-![](images/dark-mode-icon-in-dark-mode@2x.png)
+（历史插图：`images/dark-mode-icon-in-dark-mode@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 5（通用示意）**
 
-![](images/dark-mode-illustration-in-light-mode@2x.png)
+（历史插图：`images/dark-mode-illustration-in-light-mode@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 6（通用示意）**
 
-![](images/dark-mode-illustration-in-dark-mode-incorrect@2x.png)
+（历史插图：`images/dark-mode-illustration-in-dark-mode-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 7（反例·勿照做）**
 
-![](images/dark-mode-illustration-in-dark-mode-correct@2x.png)
+（历史插图：`images/dark-mode-illustration-in-dark-mode-correct@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《深色模式》官方插图 8（通用示意）**
 
 
 #### 颜色
 
-![](images/foundations-color-intro@2x.png)
+（历史插图：`images/foundations-color-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《颜色》官方插图 1（通用示意）**
 
 
 
-![](images/color-context-light-mode-high-contrast@2x.png)
+（历史插图：`images/color-context-light-mode-high-contrast@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《颜色》官方插图 3（通用示意）**
 
 
 
-![](images/color-context-dark-mode-high-contrast@2x.png)
+（历史插图：`images/color-context-dark-mode-high-contrast@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《颜色》官方插图 5（通用示意）**
 
 
 
-![](images/color-inclusive-color-charts-chinese@2x.png)
+（历史插图：`images/color-inclusive-color-charts-chinese@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《颜色》官方插图 7（通用示意）**
 
-![](images/color-liquid-glass-overview-tinted@2x.png)
+（历史插图：`images/color-liquid-glass-overview-tinted@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《颜色》官方插图 8（通用示意·原图较小）**
 
 
 #### 字体排印
 
-![](images/foundations-typography-intro@2x.png)
+（历史插图：`images/foundations-typography-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《字体排印》官方插图 1（通用示意）**
 
@@ -1486,15 +1488,15 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/typography-sanfrancisco@2x.png)
+（历史插图：`images/typography-sanfrancisco@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《字体排印》官方插图 4（通用示意）**
 
-![](images/typography-new-york@2x.png)
+（历史插图：`images/typography-new-york@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《字体排印》官方插图 5（通用示意）**
 
-![](images/typography-text-hierarchy-levels@2x.png)
+（历史插图：`images/typography-text-hierarchy-levels@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《字体排印》官方插图 6（通用示意）**
 
@@ -1509,19 +1511,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/app-layout-horizontal@2x.png)
+（历史插图：`images/app-layout-horizontal@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《布局》官方插图 5（通用示意）**
 
-![](images/app-layout-full@2x.png)
+（历史插图：`images/app-layout-full@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《布局》官方插图 6（通用示意）**
 
-![](images/visual-design-safe-zone@2x.png)
+（历史插图：`images/visual-design-safe-zone@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《布局》官方插图 7（通用示意）**
 
-![](images/visual-design-padding@2x.png)
+（历史插图：`images/visual-design-padding@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《布局》官方插图 8（通用示意）**
 
@@ -1554,19 +1556,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/sliders-text-field@2x.png)
+（历史插图：`images/sliders-text-field@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《滑块》官方插图 2（通用示意）**
 
-![](images/sliders-no-tick-marks@2x.png)
+（历史插图：`images/sliders-no-tick-marks@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《滑块》官方插图 3（通用示意）**
 
-![](images/sliders-tick-marks@2x.png)
+（历史插图：`images/sliders-tick-marks@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《滑块》官方插图 4（通用示意）**
 
-![](images/sliders-labels@2x.png)
+（历史插图：`images/sliders-labels@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《滑块》官方插图 5（通用示意）**
 
@@ -1575,13 +1577,13 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/segmented-controls-activity-charts@2x.png)
+（历史插图：`images/segmented-controls-activity-charts@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分段控件》官方插图 2（通用示意）**
 
 
 
-![](images/macos-calendar-tab-view-segmented-control-comparison@2x.png)
+（历史插图：`images/macos-calendar-tab-view-segmented-control-comparison@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分段控件》官方插图 4（macOS 实机）**
 
@@ -1592,14 +1594,14 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/progress-indicator-intermediate-bar@2x.png)
+（历史插图：`images/progress-indicator-intermediate-bar@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《进度指示器》官方插图 3（通用示意）**
 
 
 #### 警告框
 
-![](images/components-alert-intro@2x.png)
+（历史插图：`images/components-alert-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《警告框》官方插图 1（通用示意）**
 
@@ -1610,29 +1612,29 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/sheets-buttons-placement-done-incorrect@2x.png)
+（历史插图：`images/sheets-buttons-placement-done-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 2（反例·勿照做）**
 
-![](images/sheets-buttons-placement-cancel-done@2x.png)
+（历史插图：`images/sheets-buttons-placement-cancel-done@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 3（通用示意）**
 
-![](images/sheets-buttons-placement-back-cancel-done-incorrect@2x.png)
+（历史插图：`images/sheets-buttons-placement-back-cancel-done-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 4（反例·勿照做）**
 
 
 
-![](images/sheets-buttons-placement-navigation-first-page@2x.png)
+（历史插图：`images/sheets-buttons-placement-navigation-first-page@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 6（通用示意）**
 
-![](images/sheets-buttons-placement-navigation-subsequent-page@2x.png)
+（历史插图：`images/sheets-buttons-placement-navigation-subsequent-page@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 7（通用示意）**
 
-![](images/sheets-buttons-placement-navigation-final-page@2x.png)
+（历史插图：`images/sheets-buttons-placement-navigation-final-page@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工作表》官方插图 8（通用示意）**
 
@@ -1641,7 +1643,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/attached-popover@2x.png)
+（历史插图：`images/attached-popover@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《浮层》官方插图 2（通用示意）**
 
@@ -1659,23 +1661,23 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/menus-days-of-the-week-incorrect-icons@2x.png)
+（历史插图：`images/menus-days-of-the-week-incorrect-icons@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《菜单》官方插图 2（反例·勿照做）**
 
-![](images/menus-days-of-the-week-correct-no-icons@2x.png)
+（历史插图：`images/menus-days-of-the-week-correct-no-icons@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《菜单》官方插图 3（通用示意）**
 
-![](images/menus-groups-visual-treatment@2x.png)
+（历史插图：`images/menus-groups-visual-treatment@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《菜单》官方插图 4（通用示意）**
 
-![](images/menus-toggled-item@2x.png)
+（历史插图：`images/menus-toggled-item@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《菜单》官方插图 5（通用示意）**
 
-![](images/small-medium-large-menu-layouts@2x.png)
+（历史插图：`images/small-medium-large-menu-layouts@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《菜单》官方插图 6（通用示意）**
 
@@ -1691,25 +1693,25 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/toolbars-notes-app-collapsed-icons@2x.png)
+（历史插图：`images/toolbars-notes-app-collapsed-icons@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工具栏》官方插图 3（通用示意）**
 
-![](images/toolbars-navigation-action-back-incorrect@2x.png)
+（历史插图：`images/toolbars-navigation-action-back-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工具栏》官方插图 4（通用示意·原图较小）**
 
-![](images/toolbars-navigation-action-back-correct@2x.png)
+（历史插图：`images/toolbars-navigation-action-back-correct@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工具栏》官方插图 5（通用示意·原图较小）**
 
 
 
-![](images/toolbars-prefer-symbols-correct@2x.png)
+（历史插图：`images/toolbars-prefer-symbols-correct@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工具栏》官方插图 7（通用示意）**
 
-![](images/toolbars-icons-circle-outline-incorrect@2x.png)
+（历史插图：`images/toolbars-icons-circle-outline-incorrect@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《工具栏》官方插图 8（通用示意·原图较小）**
 
@@ -1752,11 +1754,11 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/tab-views-top@2x.png)
+（历史插图：`images/tab-views-top@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《标签视图》官方插图 2（通用示意）**
 
-![](images/tab-view-watch-vertical@2x.png)
+（历史插图：`images/tab-view-watch-vertical@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《标签视图》官方插图 3（通用示意）**
 
@@ -1765,19 +1767,19 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/vertical-split-view@2x.png)
+（历史插图：`images/vertical-split-view@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分栏视图》官方插图 2（通用示意）**
 
-![](images/horizontal-split-view@2x.png)
+（历史插图：`images/horizontal-split-view@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分栏视图》官方插图 3（通用示意）**
 
-![](images/multiple-split-view@2x.png)
+（历史插图：`images/multiple-split-view@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分栏视图》官方插图 4（通用示意）**
 
-![](images/split-view-watch-vertical-tab@2x.png)
+（历史插图：`images/split-view-watch-vertical-tab@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《分栏视图》官方插图 5（通用示意）**
 
@@ -1788,7 +1790,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/scroll-views-scroll-edge-effect-soft@2x.png)
+（历史插图：`images/scroll-views-scroll-edge-effect-soft@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《滚动视图》官方插图 3（通用示意）**
 
@@ -1802,25 +1804,25 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/sf-three-layers-primary@2x.png)
+（历史插图：`images/sf-three-layers-primary@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《图形符号》官方插图 2（通用示意·原图较小）**
 
-![](images/sf-three-layers-secondary@2x.png)
+（历史插图：`images/sf-three-layers-secondary@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《图形符号》官方插图 3（通用示意·原图较小）**
 
-![](images/sf-three-layers-tertiary@2x.png)
+（历史插图：`images/sf-three-layers-tertiary@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《图形符号》官方插图 4（通用示意·原图较小）**
 
-![](images/sf-three-layers-color@2x.png)
+（历史插图：`images/sf-three-layers-color@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《图形符号》官方插图 5（通用示意·原图较小）**
 
 
 
-![](images/sf-symbols-sun-gradient-fill@2x.png)
+（历史插图：`images/sf-symbols-sun-gradient-fill@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《图形符号》官方插图 7（通用示意）**
 
@@ -1831,7 +1833,7 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/app-icons-platform-appearance-overview@2x.png)
+（历史插图：`images/app-icons-platform-appearance-overview@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《应用图标》官方插图 2（通用示意）**
 
@@ -1839,105 +1841,105 @@ macOS 用一整套**动态语义色**，随外观、活力效果、辅助功能�
 
 
 
-![](images/app-icons-settings-app-grid-rectangle@2x.png)
+（历史插图：`images/app-icons-settings-app-grid-rectangle@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《应用图标》官方插图 5（通用示意）**
 
 
 
-![](images/app-icons-embrace-simplicity-podcasts@2x.png)
+（历史插图：`images/app-icons-embrace-simplicity-podcasts@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《应用图标》官方插图 7（通用示意）**
 
-![](images/app-icons-embrace-simplicity-home@2x.png)
+（历史插图：`images/app-icons-embrace-simplicity-home@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《应用图标》官方插图 8（通用示意）**
 
 
 #### 文本框
 
-![](images/components-text-field-intro@2x.png)
+（历史插图：`images/components-text-field-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《文本输入》官方插图 1（通用示意）**
 
-![](images/text-fields-formatted-text@2x.png)
+（历史插图：`images/text-fields-formatted-text@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《文本输入》官方插图 2（通用示意）**
 
-![](images/text-fields-clipped-text@2x.png)
+（历史插图：`images/text-fields-clipped-text@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《文本输入》官方插图 3（通用示意）**
 
-![](images/text-fields-wrapped-text@2x.png)
+（历史插图：`images/text-fields-wrapped-text@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《文本输入》官方插图 4（通用示意）**
 
-![](images/text-fields-truncated-text@2x.png)
+（历史插图：`images/text-fields-truncated-text@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《文本输入》官方插图 5（通用示意）**
 
 
 #### 组合框
 
-![](images/components-combobox-intro@2x.png)
+（历史插图：`images/components-combobox-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《组合框》官方插图 1（通用示意）**
 
 
 #### 展开控件
 
-![](images/components-disclosure-control-intro@2x.png)
+（历史插图：`images/components-disclosure-control-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《展开控件》官方插图 1（通用示意）**
 
-![](images/disclosure-triangle-before@2x.png)
+（历史插图：`images/disclosure-triangle-before@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《展开控件》官方插图 2（通用示意）**
 
-![](images/disclosure-triangle-after@2x.png)
+（历史插图：`images/disclosure-triangle-after@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《展开控件》官方插图 3（通用示意）**
 
-![](images/disclosure-button-before@2x.png)
+（历史插图：`images/disclosure-button-before@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《展开控件》官方插图 4（通用示意）**
 
-![](images/disclosure-button-after@2x.png)
+（历史插图：`images/disclosure-button-after@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《展开控件》官方插图 5（通用示意）**
 
 
 #### 控件
 
-![](images/components-controls-intro@2x.png)
+（历史插图：`images/components-controls-intro@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 1（通用示意）**
 
-![](images/control-medium-anatomy@2x.png)
+（历史插图：`images/control-medium-anatomy@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 2（通用示意）**
 
-![](images/control-control-center@2x.png)
+（历史插图：`images/control-control-center@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 3（通用示意）**
 
-![](images/control-lock-screen@2x.png)
+（历史插图：`images/control-lock-screen@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 4（通用示意）**
 
-![](images/control-dynamic-island@2x.png)
+（历史插图：`images/control-dynamic-island@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 5（通用示意）**
 
-![](images/control-lightbulb-not-tinted@2x.png)
+（历史插图：`images/control-lightbulb-not-tinted@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 6（通用示意）**
 
-![](images/control-lightbulb-tinted@2x.png)
+（历史插图：`images/control-lightbulb-tinted@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 7（通用示意）**
 
-![](images/control-configuration-options@2x.png)
+（历史插图：`images/control-configuration-options@2x.png`；见[设计指导 PDF](macOS27-design-guide.zh-CN.pdf)。）
 
 **《控件》官方插图 8（通用示意）**
 

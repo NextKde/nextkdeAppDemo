@@ -1,6 +1,6 @@
 # Components and application integration
 
-> For current material placement, palette and dimensions, follow the four rules in [Gallery design language](GalleryDesign.md). Earlier optical implementation notes below are not default UI recipes.
+> For current material placement, palette and dimensions, follow the current contracts in [Gallery design language](GalleryDesign.md). Earlier optical implementation notes below are not default UI recipes.
 
 [简体中文](Components.zh-CN.md)
 
@@ -112,8 +112,8 @@ persist demo actions. Keep catalogue metadata and bilingual API explanations in
 `LiquidTextField` enables its liquid surface with `materialForm: false` and
 `liquidFinish: true`. Set `materialForm: false` on controls that support both forms.
 Its compact default height is 28px, matching `LiquidActionButton`. At a shared
-placement, use the same height: inline content 20px (provisional), secondary
-Dialog 24px, toolbar 26px, and important Dialog 30px. Small solid fields use
+placement, use the same height: inline content 20px (provisional), ordinary non-liquid
+Dialog 24px, toolbar 26px, and liquid Dialog 30px. Small solid fields use
 6px corners; liquid fields and solid fields from 28px are capsules.
 `LiquidSelect.appearanceMode` accepts `system`, `light` and `dark`. AppTheme supplies
 semantic colours and reduced-motion policy; applications may override supported inputs.
@@ -259,6 +259,10 @@ with zero horizontal label padding and centered, unelided glyph content. Supply
 an `Accessible.name` when the text is only a symbol. Disabled icons retain the
 existing opacity treatment. The Gallery shows enabled and disabled examples.
 
+> The following optical revision notes explain API evolution. Current placement and
+> appearance follow the contracts linked above; historical run statements describe
+> only their original change, not present verification status.
+
 ### Directional reflections and text input
 
 `LiquidSurface` draws a positive, directional reflection using the rounded-shape
@@ -280,9 +284,9 @@ The Button example includes a real coloured/striped source texture, enabled and
 disabled buttons and a typed field. Interact with hover/press/tab/selection in both
 appearances; a source export or shader bake is not visual acceptance.
 
-Independent legacy optics still need separate review: LiquidSelect (popup), LiquidGlassSwitch (track and knob), LiquidNavBar and
-LiquidSegmentedControl. Their Material branches and keyboard focus behaviour must remain
-intact; outline appearance follows the material-specific focus rule above. This surface change does not claim to finish those controls.
+Control-specific optics and review boundaries are described below. Preserve Material
+branches and keyboard behavior; outline appearance follows the current focus rule
+above. Shared surface reuse alone does not establish interaction or visual acceptance.
 
 ### Select field and popup
 
@@ -329,7 +333,7 @@ white rim, vertical bevel and lens shadow. Material fills/outlines remain.
 Gallery examples include disabled/Material controls and a real striped sampling
 scene. Review hooks use the real press/release state paths; state-driven frames
 do not establish pointer/keyboard event acceptance. Expanded/moving light/dark
-review is required. LiquidNavBar's independent older material remains pending.
+review is required; navigation surface integration is described below.
 
 ### Navigation lens
 
@@ -416,7 +420,7 @@ No runtime or visual acceptance is claimed.
 
 ## Compact Gallery composition
 
-Follow the four rules at the top of [Gallery design language](GalleryDesign.md).
+Follow the current contracts in [Gallery design language](GalleryDesign.md).
 Gallery enables AppTheme.compactDesign: body 13, actions 28 high, search 30,
 navigation rows 30, list rows 32 and toolbar 48. Ordinary areas use semantic
 content/control colors; Dialog containers and buttons retain a brightness step.

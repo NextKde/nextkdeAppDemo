@@ -24,7 +24,7 @@ qs -p demo/sidebar-demo.qml
 qs -p demo/settings-demo.qml
 ```
 
-Run either command to open its own normal, resizable window. Closing the window exits
+Run any command to open its own normal, resizable window. Closing the window exits
 that preview process. No NextKde installation or running Shell is needed.
 
 - **Gallery:** interactive controls, searchable navigation, properties/signals and
@@ -101,12 +101,11 @@ See [versioned integration](docs/Components.md#versioned-application-dependencie
 Explicitly using another local checkout is useful for development, not a reproducible
 release build. Preserve the committed GLSL/QSB pairs and the GPL license/provenance.
 
-The initial extraction included uncommitted component work from the parent workspace;
-the candidate's components are now committed in this repository. No standalone library,
-Gallery runtime or GPU acceptance is claimed by preparing this source candidate, and
-there is no automatic test workflow. Run this repository's builds, tests and graphical
-checks only when requested, and only in a VM or hosted CI. Consumer integration results
-must not be described as standalone Gallery or GPU acceptance.
+Extraction history is recorded in [NOTICE](NOTICE.md). Source publication alone does
+not establish runtime acceptance. There is no automatic test workflow. Run builds,
+tests and graphical checks only when requested, and only in a VM or hosted CI.
+Keep results scoped to the exact application, revision and rendering environment;
+consumer integration does not establish standalone Gallery acceptance.
 
 The original [GPL-3.0 license text](LICENSE) is preserved.
 
@@ -123,5 +122,5 @@ persistence, theme/language settings and unsaved-close protection. It is indepen
 of Quickshell and NextKde platform services. The guide distinguishes copyable app
 structure from Gallery optical experiments and provides the VM acceptance checklist.
 Enable `KOS_BUILD_NATIVE_NOTES=ON` for the optional root build, or configure the
-example directory independently. The guide records the authorized native-starter
-build and offscreen regression scope; GPU/compositor acceptance remains unverified.
+example directory independently. The guide separates regression and visible GPU
+checks from unverified optional compositor integration and cross-platform coverage.

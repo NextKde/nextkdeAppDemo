@@ -1,6 +1,6 @@
 # 组件及应用接入
 
-> 当前材质分配、色族与尺寸以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 顶部四条规则为准；下方历史光学实现说明不是默认界面配方。
+> 当前材质分配、色族与尺寸以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 当前契约为准；下方历史光学实现说明不是默认界面配方。
 
 [English](Components.md)
 
@@ -222,6 +222,9 @@ GLSL 及匹配的两个 QSB 一起提交。脚本使用 Qt 6 变体及 QSB 格�
 取消文字按钮的左右内边距，图标居中且不省略。纯符号应提供 `Accessible.name`。
 禁用态保留原透明度处理；Gallery 同时展示启用与禁用示例。
 
+> 以下光学修订说明用于解释 API 演进；当前材质及外观遵循上方链接的契约。
+> 历史运行描述仅限当时修改，不代表当前验证状态。
+
 ### 方向性反光与输入文字
 
 LiquidSurface 使用圆角形状法线产生方向性的正光，移除了全周双描边与固定上下浮雕渐变。
@@ -232,8 +235,8 @@ backdrop时反光一致。软件路径为克制的方向性Canvas光弧，不声
 Gallery按钮页包含真实彩色条纹纹理及启用/禁用按钮、中英文输入，可实际悬停/按下/Tab/选择。
 编译和shader bake不等于视觉验收。
 
-独立旧材质仍待逐项审查：LiquidSelect弹层、LiquidGlassSwitch轨道/拇指、
-LiquidNavBar、LiquidSegmentedControl。必须保留 Material 分支及键盘焦点行为；描边外观遵循上方材质焦点规则。本轮未宣称全库完成。
+各控件光学与审阅边界见下文。保留 Material 分支与键盘行为，描边外观遵循上方
+当前焦点规则。复用共享表面本身不代表交互或视觉验收。
 
 ### 选择器闭合场与弹层
 
@@ -264,7 +267,7 @@ LiquidSegmentedControl保留几何、selectionRequested乐观选择、宿主确�
 液态透镜共享Surface，支持有效backdrop，移除旧白圈、垂直浮雕和透镜阴影；
 Material填充/轮廓保留。Gallery含禁用/Material对照及真实条纹采样场景。
 审阅钩子调用真实按下/释放状态路径；状态驱动连续帧不能代替指针/键盘事件验收。
-仍须审阅浅深色展开和移动过程；LiquidNavBar独立旧材质留待后续。
+仍须审阅浅深色展开和移动过程；导航表面的接入见下文。
 
 ### 导航透镜
 
@@ -313,7 +316,7 @@ LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell�
 
 ## 液态强度档位（2026-10-22）
 
-按钮 LiquidActionButton、输入 LiquidTextField 新增 liquidIntensity：light（轻）、medium（中）、strong（强）。默认跟随 LiquidStyle.intensityLevel=medium，保持现有中档参数；Gallery框架改用普通控件，导航搜索使用specificationForm；液态示例可显式选择强度。档位联动折射、放大、高光、局部模糊和向内染色；布局、字体、填充透明度不变。现有shader将向内染色上限限制为.10，所以中强两档此项相同，强档提高其他光学值。其他组件类型尚未接入档位。未截图、未运行验证。
+按钮 LiquidActionButton、输入 LiquidTextField 新增 liquidIntensity：light（轻）、medium（中）、strong（强）。默认跟随 LiquidStyle.intensityLevel=medium，保持现有中档参数；Gallery框架使用普通控件，导航搜索显式使用轻档液态；液态示例可显式选择强度。档位联动折射、放大、高光、局部模糊和向内染色；布局、字体、填充透明度不变。现有shader将向内染色上限限制为.10，所以中强两档此项相同，强档提高其他光学值。其他组件类型尚未接入档位。未截图、未运行验证。
 
 
 2026-10-22 填充修订：液态按钮和输入禁用原自适应向内染色，改为上下各3px白色10%→0渐隐。普通液态填充中心#f2f2f4向外椭圆渐变至#c4c4c8，两种主题使用同一灰白/灰色配色，默认20%与hover25%保持不变。主题色主操作按钮保留accent。折射shader关闭原均匀填充，由共享LiquidSurface单次绘制渐变，不重复叠加平色；对角高光与档位光学值不变。新增QML绘制无需更改或重烘焙QSB。未运行验证。
@@ -321,7 +324,7 @@ LiquidSurface.convexLens默认false：四阶凸面边缘法线同时控制Snell�
 
 ## Gallery 紧凑组合
 
-以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 顶部四条规则为准。Gallery 启用
+以 [Gallery 设计语言](GalleryDesign.zh-CN.md) 当前契约为准。Gallery 启用
 `AppTheme.compactDesign`：正文 13、按钮高 28、搜索高 30、导航行高 30、列表行高 32、
 工具栏高 48。普通区域使用内容／控件语义色，Dialog 与按钮使用不同亮度的背景。
 

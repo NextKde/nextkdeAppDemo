@@ -9,8 +9,8 @@ Keep effects in QML/shaders and service operations in application adapters.
 `LiquidBackdrop` shares one in-window capture; `LiquidSurface` performs sampled
 optics or transparent fallback. Neither supplies a texture of the real desktop.
 Text fields opt in with `liquidFinish: true` and `materialForm: false`.
-The slider samples its own track; other existing liquid controls retain their
-gradient/mask rendering until explicitly migrated.
+The slider samples its own track; other controls have individual backdrop and
+material contracts documented in the integration guide.
 
 GLSL and matching QSB assets live in `shaders/`. Only regenerate or run them in
 a VM/CI when requested. See the guide for host-owned state and source registration.

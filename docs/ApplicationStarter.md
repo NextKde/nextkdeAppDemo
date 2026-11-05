@@ -139,18 +139,6 @@ generate and embed the QM resources. Commit TS sources, not build-tree QM files.
 Copied applications must maintain their own catalogs/context list and rebuild;
 changing `QLocale` alone does not translate QML bindings.
 
-The subsequent 2026-11-05 internationalization acceptance uses Qt 6.10.2 in the
-VM: both build entry points run the full regression suite, including the eight
-`commitCrash` scenarios and `translationBindings`. The opt-in `desktopI18n` case
-uses real visible Wayland/OpenGL windows at normal size and DPR 1. It covers
-English → Chinese → English, settings failure/cancellation, existing editor error
-text, task plurals, shared window-button accessibility names and persisted Chinese
-on restart. Run it like `desktopDeleteTask`, substituting `desktopI18n` as the test
-function. The installed executable also runs from `/tmp` with the source directory
-unavailable. `update_translations`/`release_translations` were exercised in the VM;
-both catalogs contain 85 completed messages. This is application translation
-acceptance, not a new compositor, scaling or complete-library language matrix.
-
 ## State and lifecycle
 
 The C++ adapter loads `notes.json` below
@@ -236,24 +224,6 @@ Adapter destruction removes pending callbacks. Three fictional results stay in a
 separate transient property: no network, note writes or recovery changes occur.
 This demonstrates event-loop scheduling, not a worker for blocking CPU/I/O work.
 
-The 2026-11-05 VM run built the root and standalone entry points with Qt 6.10.2
-and ran all ordinary regressions. Coverage includes failed delete/undo durability,
-retry, one-step undo, editor/draft guards, filtered selection, cancellation,
-request-generation isolation and callback lifetime. The opt-in
-`desktopDeleteTask` case additionally uses mouse/key events on visible Wayland
-windows at 960×660 and DPR 1 with OpenGL (VMware SVGA3D): Delete/Cancel/Escape,
-failed delete then retry, deleting the last note, failed undo then retry, editor
-draft protection, and Task demo success/failure/retry/cancel/close/reopen.
-No application method invocation substitutes for these desktop actions.
-
-Run this focused case with `KOS_NOTES_DESKTOP_ACCEPTANCE=1` and optionally
-`KOS_NOTES_CAPTURE_DIR` (create that directory first), using the test executable's
-`desktopDeleteTask` argument. Keep XDG data/config/cache directories disposable.
-Ordinary `ctest` skips all opt-in desktop cases. This VM run did not repeat the
-historical installation, compositor controls, dark/reduced-transparency or
-cross-platform matrix; it did not use extreme scaling. The historical results
-below are separate evidence, not claims about this VM run.
-
 ## Acceptance checklist
 
 Use a VM or hosted CI only. Record actual commands,
@@ -288,8 +258,8 @@ An unrun item stays **not verified**; source review is not runtime acceptance.
    the load-error state and disabled writes, repair the file and click Retry.
 7. Save each theme/language/reduced-transparency setting, restart, and verify it.
    Cancel draft settings and repeat with injected failure: the old settings remain.
-   Check dark settings menus, all application labels and readable text at 100/200%
-   scaling, minimum window sizes, long titles and long note content.
+   Check dark settings menus, all application labels and readable text at the
+   requested scaling, minimum window sizes, long titles and long note content.
 8. Move/resize/maximize/restore/minimize each independent window; minimize the
    main window while editing. Check edge-to-edge rectangular content, no outer
    app border/shadow/corners, controls hit areas, double-click and keyboard focus.
@@ -320,49 +290,39 @@ is OFF by default and introduces no CI. `KOS_NOTES_FAIL_DRAFT=1` injects recover
 write failure independently of `KOS_NOTES_FAIL_SAVE=1`;
 `KOS_NOTES_FAIL_CLEAR_DRAFT=1` injects recovery removal failure.
 
-The authorized 2026-11-05 workstation run built both entry points, installed outside
-the checkout and loaded the installed resource QML from `/tmp`. Qt 6.12.0 regression
-cases exercise atomic persistence, validation, injected/real write failure, corrupt
-file repair, selection/filtering, editor reuse and close protection, separate-process
-lock contention, abrupt-process recovery, corrupt draft preservation and QML recovery.
-The five test functions (seven data rows) plus init/cleanup passed in both builds.
-Cleanup regressions cover immediate Close/Quit after reverting a checkpointed edit,
-restart without recovery, explicit Save followed by injected and real-path removal
-failure, repeated Save/Close/Quit protection, and successful retry without duplicate
-notes or leftover recovery. The real-path case temporarily replaces `draft.json`
-with a directory. The subsequent authorized desktop run uses the optional `desktopInput` case with
-`KOS_NOTES_DESKTOP_ACCEPTANCE=1`; ordinary `ctest` skips this case. It sends Qt
-mouse/key events to visible application windows rather than invoking application
-methods. `KOS_NOTES_CAPTURE_DIR` saves only those windows. For example, in an
-authorized desktop session:
+For visible input checks in an authorized VM desktop session, create a capture
+folder and isolate `XDG_DATA_HOME`, `XDG_CONFIG_HOME` and `XDG_CACHE_HOME`, then run:
 
 ```sh
-QT_QPA_PLATFORM=xcb QSG_RHI_BACKEND=opengl QT_SCREEN_SCALE_FACTORS=1 \
-QT_FONT_DPI=96 QT_SCALE_FACTOR=1 KOS_NOTES_DESKTOP_ACCEPTANCE=1 \
-KOS_NOTES_CAPTURE_DIR=/tmp/notes-captures ./build-notes/kos-notes-tests desktopInput
+QT_QPA_PLATFORM=wayland QSG_RHI_BACKEND=opengl QT_SCALE_FACTOR=1 \
+KOS_NOTES_DESKTOP_ACCEPTANCE=1 KOS_NOTES_CAPTURE_DIR=/tmp/notes-captures \
+./build-notes/kos-notes-tests desktopInput
 ```
 
-Create the capture directory first and isolate `XDG_DATA_HOME`, `XDG_CONFIG_HOME`
-and `XDG_CACHE_HOME`. Repeat with `QT_SCALE_FACTOR=2` and separately with
-`QT_QUICK_BACKEND=software`. No global display configuration is changed. The
-XCB input case uses `xdotool` only for activating its own window IDs and bounded
-native geometry checks; the Qt events drive application controls.
+The opt-in cases are `desktopInput` (editing, selection, close guards and settings),
+`desktopDeleteTask` (delete/undo and task lifecycle), and `desktopI18n` (language
+switching, error bindings, plurals and restart). Pass the relevant function name
+as the final argument. Ordinary `ctest` skips these cases. They send Qt mouse/key
+events to visible windows; captures do not replace interaction assertions.
+On XCB, `desktopInput` additionally uses `xdotool` for its own window activation
+and bounded native geometry checks. Use the VM's actual platform/backend and
+record it; do not change global display settings. Run any scaling matrix only
+when that scope is requested. No window geometry persistence is implemented.
 
-The run covers New, Unicode/long-title/multiline input, Tab, save, selection after
-click/Up/Down/filtering, active-editor Quit Save/Discard/Cancel/Escape and failed
-Save, settings commit/cancel/failure, English/Chinese and light/dark appearances,
-minimum sizes, window-control declarations and independent window states. Custom
-footer geometry asserts 30px actions and 24px right/bottom padding. The selected
-row takes keyboard focus on click; long detail titles elide after three lines.
-GPU images on Intel Arc/OpenGL at effective DPR 1 and 2 compare real text behind
-liquid dialogs with reduced-transparency/software opaque fallback. Capture scenes
-include an opaque theme base, so uncaptured sharp content cannot leak through
-transparent source texels. Fallback uses the ordinary dialog background.
-Installed `gtk-launch` identity, desktop/icon resources and window properties are
-checked separately from the input test. Qt-injected drag/edge-resize events alone
-do not establish compositor seat acceptance; native pointer checks are separate.
-No optional compositor adapter or cross-platform rendering acceptance is claimed.
-No shaders were baked. Window geometry persistence is not implemented.
+### Recorded scope and limits
+
+Historical 2026-11-05 evidence covers both build entry points, installed resources,
+recovery and persistence regressions, and visible desktop input. The earlier
+Qt 6.12.0 workstation/XCB run recorded Intel Arc/OpenGL dialog comparisons at
+DPR 1/2 and software/reduced-transparency fallbacks; it is historical evidence,
+not permission to run workstation verification now. Later Qt 6.10.2 VM/Wayland
+runs covered full regressions, `commitCrash`, `translationBindings`, and focused
+`desktopDeleteTask`/`desktopI18n` interaction at DPR 1 (VMware SVGA3D/OpenGL).
+The i18n run also exercised installed resources and translation build targets.
+These are separate scopes, not a current all-platform or full-library acceptance
+claim. Optional compositor-adapter integration remains unverified. Qt-injected
+window movement does not by itself establish compositor-seat behavior.
+Store commands, source hashes, captures and detailed outcomes outside tracked docs.
 
 Additional manual recovery checks: edit and wait over 600 ms, terminate only the
 isolated example process, restart and review the restored draft; repeat with

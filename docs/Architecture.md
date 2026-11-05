@@ -48,8 +48,9 @@ opaque; neither KWin liquid effects nor desktop capture provide this blur.
 Navigation material and controls must be excluded from its source subtree.
 This is a composition requirement; implementation status is recorded in GalleryDesign.md.
 
-Switch, select, segmented control and navigation bar retain their existing QML
-gradient/mask optics; migration of every control to sampled optics is unfinished.
+Switch, select, segmented control and navigation bar reuse canonical liquid
+surfaces while retaining their control-specific geometry and state handling.
+See [Components](Components.md) for their individual backdrop contracts.
 `sampling` indicates source/path selection, not visual acceptance.
 
 ## Application integration
@@ -75,7 +76,7 @@ source snapshots, not stable API/ABI or runtime acceptance. Applications pin an 
 release commit and upgrade independently; explicit local-checkout overrides are for
 development. Publication status and scoped verification results belong in GitHub releases.
 
-There is no automatic CI or standalone Gallery/GPU acceptance claim. Run this
+There is no automatic CI. A source release is not a blanket runtime/GPU acceptance claim. Run this
 repository's verification only when requested, and only in a VM or hosted CI. Do not
 start or replace the maintainer's Shell. Source inspection, consumer integration tests
 and standalone graphical acceptance are separate results. Keep temporary artifacts
