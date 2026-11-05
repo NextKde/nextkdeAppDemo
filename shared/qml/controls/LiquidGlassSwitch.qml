@@ -8,7 +8,6 @@ Item {
 
     // Public API
     property bool checked: false
-    property bool enabled: true
     property color accentColor: "#43c154"
     property bool reduceMotion: Foundation.AppTheme.reduceMotion
     property bool darkAppearance: Foundation.AppTheme.dark

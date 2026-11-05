@@ -1,0 +1,42 @@
+// Binding regression complements the opt-in pointer/keyboard acceptance.
+void NotesTest::translationBindings() {
+    QTemporaryDir dir; qputenv("XDG_DATA_HOME",dir.path().toUtf8());
+    NotesAdapter store; QTRY_COMPARE(store.state(),QString("ready"));
+    QQmlApplicationEngine engine; TranslationManager translations(&store,&engine);
+    engine.setInitialProperties({{"store",QVariant::fromValue(&store)}});
+    engine.loadFromModule("Kos.Notes","Main"); QVERIFY(!engine.rootObjects().isEmpty());
+    auto root=engine.rootObjects().first();
+    auto editor=root->findChild<QObject*>("editor");
+    auto settings=root->findChild<QObject*>("preferences");
+    auto task=root->findChild<QObject*>("taskDialog");
+    QVERIFY(editor); QVERIFY(settings); QVERIFY(task);
+    auto text=[&](const char *name) { return root->findChild<QObject*>(name)->property("text").toString(); };
+    QVERIFY(QMetaObject::invokeMethod(root,"begin",Q_ARG(QVariant,store.notes().first())));
+    QVERIFY(QMetaObject::invokeMethod(task,"open"));
+    QVERIFY(QMetaObject::invokeMethod(settings,"openDraft"));
+    editor->setProperty("status","failed"); settings->setProperty("failed",true);
+    const auto original=store.notes();
+    store.startTask(true); QTRY_COMPARE(store.taskState(),QString("failed"));
+    QVERIFY(store.savePreferences("system","zh",false));
+    QTRY_COMPARE(root->property("title").toString(),QString("Kos 笔记"));
+    QCOMPARE(settings->property("title").toString(),QString("设置"));
+    QCOMPARE(task->property("title").toString(),QString("示例数据任务"));
+    QCOMPARE(text("editorStatus"),QString("保存失败。编辑内容仍保留，请检查存储权限后重试。"));
+    QCOMPARE(text("preferencesError"),QString("设置保存失败，仍使用之前的设置。"));
+    QCOMPARE(text("taskStatus"),QString("模拟加载失败。重试将不再注入故障。"));
+    QCOMPARE(store.notes(),original);
+    QCOMPARE(QCoreApplication::translate("QPlatformTheme","Cancel"),QString("取消"));
+    store.retryTask(); QTRY_COMPARE(store.taskState(),QString("running"));
+    QTRY_VERIFY(text("taskStatus").startsWith(QString("正在加载示例数据：")));
+    QVERIFY(!text("taskStatus").contains("undefined"));
+    QTRY_COMPARE(store.taskState(),QString("succeeded"));
+    QCOMPARE(text("taskStatus"),QString("已完成，加载了 3 个示例条目。"));
+    QVERIFY(store.savePreferences("system","en",false));
+    QTRY_COMPARE(text("taskStatus"),QString("Complete — 3 sample items loaded."));
+    QCOMPARE(text("editorStatus"),QString("Save failed. Your edits are still here; check storage access and retry."));
+    QCOMPARE(text("preferencesError"),QString("Settings could not be saved. Previous settings remain active."));
+    QCOMPARE(QCoreApplication::translate("QPlatformTheme","Cancel"),QString("Cancel"));
+    QCOMPARE(task->property("title").toString(),QString("Sample data task"));
+    QCOMPARE(settings->property("title").toString(),QString("Settings"));
+    QCOMPARE(store.notes(),original);
+}

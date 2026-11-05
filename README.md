@@ -113,3 +113,15 @@ The original [GPL-3.0 license text](LICENSE) is preserved.
 Floating dialog contract and example: [`LiquidDialog`](docs/Dialogs.md), with G2 corners, 0.95 background opacity, blur/refraction and solid interior actions.
 
 [Window control ownership and optional compositor integration](docs/WindowControls.md).
+
+## Native application starter / AI entry point
+
+Start with [ApplicationStarter](docs/ApplicationStarter.md) and
+[`examples/native-notes`](examples/native-notes): a native Qt executable using the
+new additive `KosAppWindow`, content list/detail, independent editor, atomic local
+persistence, theme/language settings and unsaved-close protection. It is independent
+of Quickshell and NextKde platform services. The guide distinguishes copyable app
+structure from Gallery optical experiments and provides the VM acceptance checklist.
+Enable `KOS_BUILD_NATIVE_NOTES=ON` for the optional root build, or configure the
+example directory independently. The guide records the authorized native-starter
+build and offscreen regression scope; GPU/compositor acceptance remains unverified.

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Kos Notes
+Name[zh_CN]=Kos 笔记
+Comment=Native Qt application reference
+Exec=kos-notes
+Icon=org.nextkde.KosNotes
+Terminal=false
+Categories=Utility;TextEditor;

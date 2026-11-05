@@ -13,6 +13,9 @@ Item {
     property bool reduceTransparency: Foundation.AppTheme.reduceTransparency
     property bool darkAppearance: Foundation.AppTheme.dark
     property color tintColor: darkAppearance ? "#000000" : "#FFFFFF"
+    // Ordinary dialog tokens, selected by this surface's explicit appearance.
+    // Keep independent of optical tint; hosts may override the opaque fallback.
+    property color fallbackColor: darkAppearance ? "#2C2C2E" : "#F7F7F9"
     // Tint is independent of the glass-layer opacity.
     property real tintStrength: darkAppearance ? 0.24 : 0.18
     property real blurStrength: 0.7
@@ -92,7 +95,7 @@ Item {
         preferredRendererType: Shape.CurveRenderer
         ShapePath {
             strokeWidth: -1
-            fillColor: root.tintColor
+            fillColor: root.fallbackColor
             PathSvg { path: root.contour }
         }
     }

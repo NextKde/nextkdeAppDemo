@@ -30,7 +30,9 @@ windows**. Use canonical `LiquidDialog`, including when its content is a form.
   decorative gradients.
 - Reduced transparency, software rendering and unavailable sources use an
   opaque ordinary fallback with the same G2 contour. An unsampled tint must
-  not be presented as blur/refraction.
+  not be presented as blur/refraction. `LiquidPanelSurface.fallbackColor` is
+  independent of optical tint and follows its explicit `darkAppearance` using
+  ordinary dialog tokens (light `#F7F7F9`, dark `#2C2C2E`). Hosts may override it.
 - Preserve modality, keyboard focus, Escape and lifecycle signals. The host
   owns data, validation and submission.
 

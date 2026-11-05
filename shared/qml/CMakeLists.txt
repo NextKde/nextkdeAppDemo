@@ -20,6 +20,7 @@ qt_add_qml_module(kos_ui
         foundation/KosCheckBox.qml
         foundation/KosComboBox.qml
         foundation/KosTextArea.qml
+        foundation/KosAppWindow.qml
         foundation/KosApplicationWindow.qml
         foundation/KosWindowControls.qml
         foundation/KosWindowResizeHandles.qml

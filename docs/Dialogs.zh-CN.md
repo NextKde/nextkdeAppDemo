@@ -60,3 +60,6 @@ LiquidDialog {
 Gallery 的 Dialog 示例使用真实页面作为底图，确认/取消更新示例状态。
 检查深浅主题、文字经过面板底下时的模糊、边缘折射、放大后的 G2 轮廓、
 减少透明度回退，以及主按钮/禁用按钮的实体样式。测试位置遵循用户当前授权。
+
+普通回退：`LiquidPanelSurface.fallbackColor` 独立于光学 `tintColor`，按组件显式
+`darkAppearance` 使用普通对话框色（浅色 `#F7F7F9`、深色 `#2C2C2E`），宿主可覆盖。

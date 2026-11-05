@@ -103,3 +103,13 @@ Gallery 的布局、材质与紧凑尺寸以 [Gallery 设计语言](docs/Gallery
 浮动对话框统一规格与示例：[`LiquidDialog`](docs/Dialogs.zh-CN.md)，G2 大圆角、0.95 背景不透明度、模糊折射与内部实体按钮。
 
 [窗口按钮布局、绘制权与可选合成器接入规范](docs/WindowControls.zh-CN.md)。
+
+## 原生应用模板 / AI 开发入口
+
+从 [ApplicationStarter](docs/ApplicationStarter.zh-CN.md) 与
+[`examples/native-notes`](examples/native-notes) 开始：原生 Qt 可执行程序使用新增
+`KosAppWindow`，提供列表/详情、独立编辑、原子本地持久化、主题/语言设置和未保存
+关闭保护，不依赖 Quickshell 或 NextKde 平台服务。文档区分可直接复制的应用结构与
+Gallery 光学实验，并提供 VM 验收清单。根目录通过 `KOS_BUILD_NATIVE_NOTES=ON`
+可选构建，也可独立配置示例目录。指南记录了已授权的本机构建和离屏回归范围；
+GPU/合成器仍未验收。
