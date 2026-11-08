@@ -71,6 +71,7 @@ qt_add_qml_module(kos_ui
         controls/LiquidPopover.qml
         controls/LiquidPopoverItem.qml
         controls/LiquidPopoverSurface.qml
+        controls/LiquidFilePicker.qml
         controls/LiquidDialog.qml
         controls/LiquidDialogButton.qml
         controls/LiquidDialogSurface.qml

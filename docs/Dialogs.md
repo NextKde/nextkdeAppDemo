@@ -73,3 +73,30 @@ Review light/dark appearances, blurred content underneath, edge refraction,
 G2 corners at magnification, reduced-transparency fallback and solid primary /
 disabled buttons. Run verification in the environment currently authorized by
 the user.
+
+## Shared footer and file-selection APIs
+
+`LiquidDialog` defaults to the window overlay, centered and constrained to its
+client area. `acceptText`, `rejectText`, and `closeText` optionally localize or
+name standard actions; `acceptEnabled` controls standard Accept/Apply actions.
+The ordinary footer is omitted for `Dialog.NoButton`. Custom footers still use
+`LiquidDialogButton` and keep the standard 24px / 12px padding and 8px spacing.
+Long forms must scroll their body while keeping the footer available.
+
+`LiquidFilePicker` shares this dialog, material fields, ordinary file rows and
+footer. It returns URLs; the consuming application owns IO and validation.
+`mode` accepts `openFile`, `openFiles`, `folder`, or `saveFile`. Supply glob
+`nameFilters` (for example `["*.md", "*.MD"]`), `currentFolder`, and optionally
+`defaultSuffix`. Read `selectedFile`, `selectedFiles`, or `selectedFolder` in
+`onAccepted`. Directory double-click navigates; Ctrl/Command and Shift select
+multiple files. Ctrl+L focuses the path field. Keyboard arrows select rows and
+Enter opens/navigates. Save mode confirms a visible same-name file before return.
+Localized body strings are configurable independently of appearance. This is an
+in-window picker, not a replacement for every platform file-manager feature.
+
+Solid `LiquidTextField` forms use `AppTheme.controlBackground`, rather than the
+translucent liquid tint. `LiquidCheckBox.textWrapMode` can enable wrapped labels
+without clipping long options. These changes were integrated into Notes; they do
+not claim standalone Gallery/GPU acceptance.
+
+Public dialog footers use `DialogButtonBox.MacLayout` for a consistent cancel-before-primary order across hosts.

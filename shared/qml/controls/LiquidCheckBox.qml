@@ -5,7 +5,8 @@ import "../foundation" as Foundation
 
 CheckBox {
     id: root
-    implicitHeight: Foundation.AppTheme.compactDesign ? 28 : 34
+    property int textWrapMode: Text.NoWrap
+    implicitHeight: Math.max(Foundation.AppTheme.compactDesign ? 28 : 34, implicitContentHeight + topPadding + bottomPadding)
     Binding {
         target: root; property: "font.pixelSize"
         value: 13; when: Foundation.AppTheme.compactDesign
@@ -40,6 +41,7 @@ CheckBox {
     }
     contentItem: Label {
         text: root.text
+        wrapMode: root.textWrapMode
         font: root.font
         leftPadding: root.indicator.width + root.spacing
         verticalAlignment: Text.AlignVCenter

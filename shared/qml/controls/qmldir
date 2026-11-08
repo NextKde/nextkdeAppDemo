@@ -29,3 +29,5 @@ LiquidPopover 1.0 LiquidPopover.qml
 LiquidPopoverItem 1.0 LiquidPopoverItem.qml
 LiquidPopoverSurface 1.0 LiquidPopoverSurface.qml
 LiquidContentPopover 1.0 LiquidContentPopover.qml
+
+LiquidFilePicker 1.0 LiquidFilePicker.qml

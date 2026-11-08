@@ -7,6 +7,14 @@ import "../foundation" as Foundation
 Foundation.KosDialog {
     id: root
     property Item sourceItem: null
+    property string acceptText: ""
+    property string rejectText: ""
+    property string closeText: ""
+    property bool acceptEnabled: true
+    parent: Overlay.overlay
+    anchors.centerIn: parent
+    width: Math.min(440, parent ? parent.width - 40 : 440)
+    height: Math.min(implicitHeight, parent ? parent.height - 40 : implicitHeight)
     property LiquidBackdrop backdrop: LiquidStyle.backdropFor(root.parent ? root.parent.Window.window : null)
     property alias contentBackdrop: sceneBackdrop
     property real cornerRadius: 32
@@ -44,12 +52,21 @@ Foundation.KosDialog {
         }
     }
     footer: DialogButtonBox {
+        buttonLayout: DialogButtonBox.MacLayout
+        visible: root.standardButtons !== Dialog.NoButton
+        implicitHeight: visible ? implicitContentHeight + topPadding + bottomPadding : 0
         padding: 24
         topPadding: 12
         spacing: 8
         alignment: Qt.AlignRight
         standardButtons: root.standardButtons
         delegate: LiquidDialogButton {
+            id: footerButton
+            readonly property int role: DialogButtonBox.buttonRole
+            enabled: role === DialogButtonBox.AcceptRole || role === DialogButtonBox.ApplyRole ? root.acceptEnabled : true
+            Binding { target: footerButton; property: "text"; when: root.acceptText.length > 0 && (footerButton.role === DialogButtonBox.AcceptRole || footerButton.role === DialogButtonBox.ApplyRole); value: root.acceptText }
+            Binding { target: footerButton; property: "text"; when: root.rejectText.length > 0 && footerButton.role === DialogButtonBox.RejectRole && (root.standardButtons & Dialog.Cancel); value: root.rejectText }
+            Binding { target: footerButton; property: "text"; when: root.closeText.length > 0 && footerButton.role === DialogButtonBox.RejectRole && (root.standardButtons & Dialog.Close); value: root.closeText }
             primaryAction: DialogButtonBox.buttonRole === DialogButtonBox.AcceptRole
                 || DialogButtonBox.buttonRole === DialogButtonBox.ApplyRole
             implicitHeight: root.actionHeight

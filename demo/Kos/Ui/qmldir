@@ -67,3 +67,6 @@ SettingsSwitch 1.0 foundation/SettingsSwitch.qml
 SettingsDateField 1.0 foundation/SettingsDateField.qml
 SettingsTimeField 1.0 foundation/SettingsTimeField.qml
 KosAppWindow 1.0 foundation/KosAppWindow.qml
+
+
+LiquidFilePicker 1.0 controls/LiquidFilePicker.qml

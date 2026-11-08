@@ -69,7 +69,7 @@ TextField {
     property real ambientStrength: 0
     readonly property bool sampling: _liquid && liquidSurface.sampling
     readonly property bool _liquid: liquidFinish && !materialForm && !specificationForm
-    readonly property color _fill: specificationForm
+    readonly property color _fill: specificationForm || materialForm
         ? Foundation.AppTheme.controlBackground
         : Qt.rgba(glassColor.r, glassColor.g, glassColor.b,
         Math.min(1, glassColor.a + (_liquid ? (hover.hovered ? .05 : 0)
@@ -100,7 +100,7 @@ TextField {
             visible: !root._liquid
             radius: root.cornerRadius
             color: root._fill
-            border.width: root.specificationForm ? 0 : 1
+            border.width: root.specificationForm || root.materialForm ? 0 : 1
             border.color: root.outlineColor
             Behavior on color { ColorAnimation { duration: root.reduceMotion ? 0 : 150 } }
             Behavior on border.color { ColorAnimation { duration: root.reduceMotion ? 0 : 150 } }

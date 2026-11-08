@@ -13,11 +13,18 @@ Menu {
     property color borderColor: "transparent"
     property real materialOpacity: LiquidStyle.panelMaterialOpacity
     property real cornerRadius: 12
-    property bool arrowEnabled: true
+    property string preferredSide: "bottom"
+    property string anchorAlignment: "center"
+    property real sideGap: anchorGap
+    property real pointerOffset: 32
+    readonly property bool sideways: preferredSide === "right"
+    property real arrowY: pointerOffset
+    property bool arrowEnabled: !sideways
     property bool arrowFits: false
     readonly property bool arrowVisible: arrowEnabled && arrowFits
     property real arrowHeight: 8
     readonly property real effectiveArrowHeight: arrowVisible ? arrowHeight : 0
+    readonly property real reservedArrowInset: arrowEnabled ? arrowHeight : 0
     property real arrowWidth: 18
     property real anchorGap: 4
     property bool arrowOnBottom: false
@@ -27,27 +34,56 @@ Menu {
     modal: false
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-    implicitWidth: Math.max(2 * cornerRadius + arrowWidth,
-        contentChildren.reduce((widest, item) => Math.max(widest, item.implicitWidth), 0)
-        + leftPadding + rightPadding)
+    implicitWidth: {
+        let widest = 168
+        for (let i = 0; i < count; ++i) {
+            const entry = itemAt(i)
+            if (entry && entry.visible) widest = Math.max(widest, entry.implicitWidth)
+        }
+        const available = parent ? parent.width - margins * 2 : 600
+        return Math.min(widest + leftPadding + rightPadding, Math.max(100, available))
+    }
+    // Placement may hide or flip the pointer. Its reserved inset must not
+    // feed back into the measured menu height while positioning runs.
+    implicitHeight: {
+        let total = padding * 2 + (sideways ? 0 : reservedArrowInset)
+        let rows = 0
+        for (let i = 0; i < count; ++i) {
+            const entry = itemAt(i)
+            if (entry && entry.visible) { total += entry.implicitHeight; ++rows }
+        }
+        const gap = contentItem && contentItem.spacing !== undefined ? contentItem.spacing : 0
+        return total + Math.max(0, rows - 1) * gap
+    }
     margins: 8
     padding: 6
-    topPadding: padding + (arrowOnBottom ? 0 : effectiveArrowHeight)
-    bottomPadding: padding + (arrowOnBottom ? effectiveArrowHeight : 0)
+    topPadding: padding + (!sideways && !arrowOnBottom ? reservedArrowInset : 0)
+    bottomPadding: padding + (!sideways && arrowOnBottom ? reservedArrowInset : 0)
+    leftPadding: padding + (sideways ? reservedArrowInset : 0)
     function updatePosition() {
         if (!anchorItem || !parent) return
-        const point = anchorItem.mapToItem(parent, anchorItem.width/2, 0)
+        if (sideways) {
+            const point = anchorItem.mapToItem(parent, anchorItem.width, anchorItem.height / 2)
+            x = Math.max(margins, Math.min(parent.width - width - margins, point.x + sideGap))
+            y = Math.max(margins, Math.min(parent.height - height - margins, point.y - pointerOffset))
+            arrowY = pointerOffset
+            const inset = cornerRadius + arrowWidth / 2
+            arrowFits = x >= point.x && Math.abs(y + arrowY - point.y) < 1
+                && arrowY >= inset && arrowY <= height - inset
+                && point.y >= 0 && point.y <= parent.height
+            return
+        }
+        const point = anchorItem.mapToItem(parent, anchorItem.width / 2, 0)
         const below = point.y + anchorItem.height + anchorGap
-        arrowOnBottom = below + height > parent.height - margins && point.y > parent.height/2
-        x = Math.max(margins, Math.min(parent.width-width-margins, point.x-width/2))
-        y = arrowOnBottom ? point.y-anchorGap-height : below
-        y = Math.max(margins, Math.min(parent.height-height-margins, y))
-        arrowX = point.x-x
-        const inset = cornerRadius + arrowWidth/2
-        const clearAnchor = arrowOnBottom ? y+height <= point.y : y >= point.y+anchorItem.height
-        arrowFits = clearAnchor && arrowX >= inset && arrowX <= width-inset
+        arrowOnBottom = below + height > parent.height - margins && point.y > parent.height / 2
+        x = Math.max(margins, Math.min(parent.width - width - margins, (anchorAlignment === "end" ? point.x + anchorItem.width / 2 - width : point.x - width / 2)))
+        y = Math.max(margins, Math.min(parent.height - height - margins, arrowOnBottom ? point.y - anchorGap - height : below))
+        arrowX = point.x - x
+        const inset = cornerRadius + arrowWidth / 2
+        arrowFits = (arrowOnBottom ? y + height <= point.y : y >= point.y + anchorItem.height)
+            && arrowX >= inset && arrowX <= width - inset
             && point.x >= 0 && point.x <= parent.width && point.y >= 0
-            && point.y+anchorItem.height <= parent.height
+            && point.y + anchorItem.height <= parent.height
     }
     function openAtAnchor() {
         if (!anchorItem || !parent) return
@@ -63,23 +99,24 @@ Menu {
         enabled: root.visible
         function onAfterAnimating() { root.updatePosition() }
     }
-    background: LiquidPopoverSurface {
-        backdrop: sceneBackdrop
-        highlightStrength: root.highlightStrength
-        borderWidth: root.borderWidth
-        borderColor: root.borderColor
-        materialOpacity: root.materialOpacity
-        cornerRadius: root.cornerRadius
-        arrowHeight: root.effectiveArrowHeight
-        arrowWidth: root.arrowWidth
-        arrowX: root.arrowX
-        arrowOnBottom: root.arrowOnBottom
+    background: Item {
         LiquidBackdrop {
-            id: sceneBackdrop
-            sourceItem: root.sourceItem
-            registerAsDefault: false
-            active: root.visible && !Foundation.AppTheme.reduceTransparency
-            blur: 0.85
+            id: menuBackdrop
+            sourceItem: root.sourceItem; registerAsDefault: false
+            active: root.visible && !Foundation.AppTheme.reduceTransparency; blur: 0.85
+        }
+        LiquidPopoverSurface {
+            anchors.centerIn: parent
+            width: root.sideways ? parent.height : parent.width
+            height: root.sideways ? parent.width : parent.height
+            rotation: root.sideways ? -90 : 0
+            backdrop: menuBackdrop
+            highlightStrength: root.highlightStrength
+            borderWidth: root.borderWidth; borderColor: root.borderColor
+            materialOpacity: root.materialOpacity; cornerRadius: root.cornerRadius
+            arrowHeight: root.effectiveArrowHeight; arrowWidth: root.arrowWidth
+            arrowX: root.sideways ? root.height - root.arrowY : root.arrowX
+            arrowOnBottom: !root.sideways && root.arrowOnBottom
         }
     }
 }

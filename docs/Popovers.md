@@ -130,3 +130,17 @@ removes arrow padding as well as its silhouette; material, highlight, shadow and
 non-modal interaction remain unchanged. Short anchored menus retain their pointer
 when it can point accurately. Check all four sides, corner anchors, resize and
 light/dark appearance in a VM before visual acceptance.
+
+## Shared list action placement
+
+`LiquidPopover.preferredSide: "right"` opens beside the anchor row, with no
+arrow by default. `sideGap` follows `anchorGap` (4 logical pixels by default) and `pointerOffset`
+to 32; the latter fixes the vertical alignment instead of centering a tall menu.
+Placement remains within the window. `anchorAlignment: "end"` aligns bottom
+menus to the trigger's right edge; the default is `"center"`. Existing bottom
+menus retain their pointer and above/below placement. `arrowEnabled` remains
+explicitly configurable; a side pointer is hidden if it cannot target its row
+accurately. Shared width measurement uses visible menu entries via `itemAt()`.
+Applications supply actions and anchors, without replacing placement or surfaces.
+
+Menu measurement reserves the enabled pointer inset independently of whether placement can display the pointer. Visible row implicit heights determine the menu height; flipping or hiding the pointer must not change that measurement or create a layout feedback loop.

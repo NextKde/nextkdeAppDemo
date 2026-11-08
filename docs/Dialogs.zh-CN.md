@@ -63,3 +63,22 @@ Gallery 的 Dialog 示例使用真实页面作为底图，确认/取消更新示
 
 普通回退：`LiquidPanelSurface.fallbackColor` 独立于光学 `tintColor`，按组件显式
 `darkAppearance` 使用普通对话框色（浅色 `#F7F7F9`、深色 `#2C2C2E`），宿主可覆盖。
+
+## 公共页脚与文件选择
+
+`LiquidDialog` 默认位于窗口 overlay 中央，尺寸限制在客户区内。可通过 `acceptText`、
+`rejectText`、`closeText` 为标准按钮提供本地化／操作名称；`acceptEnabled` 控制接受／应用按钮。
+`Dialog.NoButton` 不保留空白页脚。自定义页脚继续使用 `LiquidDialogButton`，保持统一间距。
+长表单滚动正文，页脚保持可见。
+
+`LiquidFilePicker` 复用公共对话框、实心输入框、普通文件行和页脚，只返回 URL，读写及导入由应用承担。
+`mode` 支持 `openFile`、`openFiles`、`folder`、`saveFile`；`nameFilters` 为 glob 数组，
+`currentFolder` 指定目录，`defaultSuffix` 用于保存后缀。`onAccepted` 读取 `selectedFile`、
+`selectedFiles` 或 `selectedFolder`。双击目录进入；Ctrl/Command、Shift 多选文件；Ctrl+L 定位路径，
+方向键选择、回车进入／确认。保存已有同名文件前有统一确认框。正文提示语可配置，不必重写外观。
+该组件是窗口内选择器，不承担完整系统文件管理器功能。
+
+实心 `LiquidTextField` 使用 `AppTheme.controlBackground`，避免半透明白色使输入区域消失。
+`LiquidCheckBox.textWrapMode` 支持长选项换行。这些修改已接入 Notes，不宣称完成独立 Gallery／GPU 验收。
+
+公共对话框页脚使用 `DialogButtonBox.MacLayout`，跨宿主统一为取消在左、主操作在右。
