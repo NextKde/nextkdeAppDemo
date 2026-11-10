@@ -124,3 +124,5 @@ structure from Gallery optical experiments and provides the VM acceptance checkl
 Enable `KOS_BUILD_NATIVE_NOTES=ON` for the optional root build, or configure the
 example directory independently. The guide separates regression and visible GPU
 checks from unverified optional compositor integration and cross-platform coverage.
+
+[Unified platform icon font](docs/Icons.md).

@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.21)
+project(KosIconTests LANGUAGES CXX)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Quick QuickTest)
+qt_standard_project_setup(REQUIRES 6.8)
+add_subdirectory(../../shared/Icons icons)
+qt_add_executable(kos-icon-tests main.cpp)
+target_link_libraries(kos-icon-tests PRIVATE Qt6::QuickTest Kos::Icons Kos::IconsPlugin)
+target_compile_definitions(kos-icon-tests PRIVATE QUICK_TEST_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")

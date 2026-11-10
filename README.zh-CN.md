@@ -112,3 +112,5 @@ Gallery 的布局、材质与紧凑尺寸以 [Gallery 设计语言](docs/Gallery
 Gallery 光学实验，并提供 VM 验收清单。根目录通过 `KOS_BUILD_NATIVE_NOTES=ON`
 可选构建，也可独立配置示例目录。指南区分回归、可见 GPU 检查与仍未验证的
 可选合成器接入及跨平台范围。
+
+[平台统一图标字体](docs/Icons.zh-CN.md)。
