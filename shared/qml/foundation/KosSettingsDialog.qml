@@ -82,11 +82,11 @@ KosDialog {
                 color: AppTheme.withAlpha(AppTheme.accent,
                                           AppTheme.dark ? 0.22 : 0.14)
 
-                Label {
+                Symbols.Icon {
                     anchors.centerIn: parent
-                    text: "⚙"
+                    name: "gear_alt"
                     color: AppTheme.accent
-                    font.pixelSize: 20
+                    size: 20
                 }
             }
 

@@ -4,13 +4,16 @@ from pathlib import Path
 
 def migrate(root):
     root = Path(root)
-    for relative in ['foundation/KosCheckBox.qml', 'controls/LiquidCheckBox.qml', 'foundation/KosComboBox.qml', 'foundation/SettingsDateField.qml', 'foundation/KosSettingsDialog.qml', 'controls/LiquidGlassButton.qml']:
+    for relative in ['foundation/KosEmptyState.qml', 'foundation/KosCheckBox.qml', 'controls/LiquidCheckBox.qml', 'foundation/KosComboBox.qml', 'foundation/SettingsDateField.qml', 'foundation/KosSettingsDialog.qml', 'controls/LiquidGlassButton.qml']:
         p = root / relative
         if not p.exists():
             continue
         s = p.read_text()
         original = s
-        if p.name in ['KosCheckBox.qml', 'LiquidCheckBox.qml']:
+        if p.name == 'KosEmptyState.qml':
+            s = s.replace('Label {\n            Layout.alignment: Qt.AlignHCenter\n            text: root.symbol', 'Symbols.Icon {\n            Layout.alignment: Qt.AlignHCenter\n            name: root.symbol')
+            s = re.sub(r'(name: root.symbol\s+color: root.symbolColor\s+)font.pixelSize:', r'\1size:', s)
+        elif p.name in ['KosCheckBox.qml', 'LiquidCheckBox.qml']:
             s = re.sub(r'Text \{(\s*anchors.centerIn: parent\s*)text: root.checkState === Qt.PartiallyChecked \? "−" : "✓"', r'Symbols.Icon {\1name: root.checkState === Qt.PartiallyChecked ? "minus" : "checkmark"', s)
             # Only the indicator has this fixed pixelSize in these components.
             s = s.replace('color: AppTheme.accentText; font.pixelSize: 14', 'color: AppTheme.accentText; size: 14')
@@ -20,6 +23,8 @@ def migrate(root):
         elif p.name == 'SettingsDateField.qml':
             s = s.replace('contentItem: Label { text: parent.text; color: AppTheme.text; font.pixelSize: 18; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }', 'contentItem: Symbols.Icon { name: parent.text === "‹" ? "chevron_left" : "chevron_right"; color: AppTheme.text; size: 18 }')
         elif p.name == 'KosSettingsDialog.qml':
+            s = s.replace('Label {\n                    anchors.centerIn: parent\n                    text: "⚙"', 'Symbols.Icon {\n                    anchors.centerIn: parent\n                    name: "gear_alt"')
+            s = s.replace('color: AppTheme.accent\n                    font.pixelSize: 20', 'color: AppTheme.accent\n                    size: 20')
             s = s.replace('text: "×"\n                font.pixelSize: 18', 'contentItem: Symbols.Icon { name: "xmark"; color: AppTheme.text; size: 18 }')
             pattern = r'contentItem: Label \{\s*text: accentButton.checked \? "✓" : ""(.*?)\n                            \}'
             def accent(m):

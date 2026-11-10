@@ -1,4 +1,5 @@
 import QtQuick
+import "../../Icons" as Symbols
 import QtQuick.Controls
 import QtQuick.Layouts
 
@@ -30,11 +31,11 @@ Item {
         width: Math.min(root.width, 420)
         spacing: 10
 
-        Label {
+        Symbols.Icon {
             Layout.alignment: Qt.AlignHCenter
-            text: root.symbol
+            name: root.symbol
             color: root.symbolColor
-            font.pixelSize: 48
+            size: 48
             Accessible.name: root.title
         }
 
