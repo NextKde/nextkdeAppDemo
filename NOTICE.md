@@ -46,3 +46,7 @@ part of the portable shared UI module.
 
 2026-10-21按用户要求，Gallery Contrast预览采用指定Unsplash图片；图片仅属Demo，
 来源、署名及Unsplash许可链接见demo/assets/PROVENANCE.txt，不属于共享UI模块。
+
+## Icons
+
+NextKde Icons includes Framework7 Icons (MIT), pinned at 7fb38494ba82cbef74d4f7e725431544c8ea1ee5. See shared/Icons/LICENSE.Framework7, provenance.json and docs/Icons.md for attribution and reproducible extension sources.
