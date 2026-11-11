@@ -11,7 +11,8 @@ Item {
     property var labels: []
     property var objectNames: []
     property var enabledActions: []
-    property int buttonSize: 26
+    property int buttonSize: LiquidStyle.toolbarButtonHeight
+    property real iconSize: LiquidStyle.toolbarIconSize
     property bool stacked: false
     property bool materialForm: ControlForm.materialForm
     property LiquidBackdrop backdrop: LiquidStyle.backdropForItem(root, root.Window.window)
@@ -60,7 +61,7 @@ Item {
                     stacked: root.stacked
                     stackedText: root.labels[index] || ""
                     iconName: root.icons[index]
-                    iconSize: 16
+                    iconSize: root.iconSize
                     iconColor: !enabled ? Foundation.AppTheme.disabledText : root.materialForm
                         ? (Foundation.AppTheme.dark ? Foundation.AppTheme.text : "#000000")
                         : (Foundation.AppTheme.dark ? "#D6D6DA" : "#55555A")

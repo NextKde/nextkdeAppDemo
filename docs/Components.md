@@ -4,6 +4,23 @@
 
 [简体中文](Components.zh-CN.md)
 
+## Shared toolbar button dimensions
+
+Use `LiquidActionButton { toolbarAction: true; iconOnly: true }` for a single
+toolbar icon action, and `LiquidActionButtonGroup` for joined actions. Both use
+`LiquidStyle.toolbarButtonHeight` (28 logical pixels) and
+`LiquidStyle.toolbarIconSize` (16). Toolbar text actions also accept
+`toolbarAction: true`; their width fits the label with a two-cell minimum.
+Applications should not override these dimensions or copy their numeric defaults.
+Bind surrounding layout heights and custom toolbar glyph sizes to these shared
+properties too. Material changes and `AppTheme.compactDesign` do not change the
+toolbar dimensions. Explicit custom sizes and stacked actions remain supported.
+
+The catalogue names sizes by role, not a small/medium enum: toolbar 28, ordinary
+content action 28, liquid-dialog footer 30. Liquid actions also default to this shared height outside compact mode. Solid
+non-compact actions retain their 36px default; stacked actions and dialog footers
+keep their separate specifications.
+
 ## Focus rule for application integration
 
 Follow the **Focus and selection contract** in [Gallery design language](GalleryDesign.md).

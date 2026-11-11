@@ -198,7 +198,7 @@ The same component keeps its dimensions when its material changes.
 | Inline button beside body text (provisional) | Height 20px |
 | Ordinary non-liquid dialog footer button | Height 24px |
 | Liquid Dialog footer button, usually solid | Height 30px |
-| Toolbar button | Height 26px |
+| Toolbar button | Height 28px (`LiquidStyle.toolbarButtonHeight`) |
 | Gallery sidebar search | Height 30px, an explicit host size |
 | Navigation row | Height 30px; selected fill inset 2px vertically |
 | List row | Height 32px |
