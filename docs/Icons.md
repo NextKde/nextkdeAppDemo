@@ -72,3 +72,13 @@ into a reviewed UI source snapshot. It does not replace other controls. Snapshot
 repositories should record that source revision and preserve license/provenance;
 source consumers must update their fixed gitlink or vendor manifest after validation.
 The build never follows a floating branch or a workstation-specific path by default.
+
+## Coverage audit
+
+In the VM, run `python3 tools/icons/audit_usage.py <checkout roots> --inventory`.
+The scan covers literal characters, conditional bindings, custom buttons, dynamic
+icon fields and glyph names. Review the Canvas/SVG inventory individually. Retain
+mathematical/dimension text, path separators, user avatars/covers/emoji, branding,
+weather scenes, data plots, material masks and cursors in instructional animations.
+`tests/icons/tst_hosts.qml` also exercises navigation, tab-model icons and window
+action geometry. A clean source scan does not establish visual acceptance.

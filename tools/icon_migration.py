@@ -4,13 +4,41 @@ from pathlib import Path
 
 def migrate(root):
     root = Path(root)
-    for relative in ['foundation/KosEmptyState.qml', 'foundation/KosCheckBox.qml', 'controls/LiquidCheckBox.qml', 'foundation/KosComboBox.qml', 'foundation/SettingsDateField.qml', 'foundation/KosSettingsDialog.qml', 'controls/LiquidGlassButton.qml']:
+    for relative in ['foundation/KosNavigationButton.qml', 'foundation/KosWindowControls.qml', 'controls/LiquidNavBar.qml', 'foundation/KosEmptyState.qml', 'foundation/KosCheckBox.qml', 'controls/LiquidCheckBox.qml', 'foundation/KosComboBox.qml', 'foundation/SettingsDateField.qml', 'foundation/KosSettingsDialog.qml', 'controls/LiquidGlassButton.qml']:
         p = root / relative
         if not p.exists():
             continue
         s = p.read_text()
         original = s
-        if p.name == 'KosEmptyState.qml':
+        if p.name in ['KosNavigationButton.qml', 'LiquidNavBar.qml']:
+            expression = 'root.symbol' if p.name == 'KosNavigationButton.qml' else 'modelData.icon || ""'
+            def glyph(match):
+                body = match[1]
+                if 'text: ' + expression not in body:
+                    return match[0]
+                body = body.replace('text: ' + expression, 'name: ' + expression)
+                body = body.replace('font.pixelSize:', 'size:')
+                body = re.sub(r'^\s*(?:horizontalAlignment|elide|font.weight):[^\n]+', '', body, flags=re.M)
+                return 'Symbols.Icon {' + body + '}'
+            s = re.sub(r'(?:Label|Text) \{([^{}]*)\}', glyph, s)
+        elif p.name == 'KosWindowControls.qml':
+            marker = 'anchors.centerIn: parent; width: 9; height: 9'
+            if marker in s:
+                start = s.rfind('Item {', 0, s.index(marker))
+                finish = s.index('{', start) + 1
+                depth = 1
+                while depth:
+                    depth += (s[finish] == '{') - (s[finish] == '}')
+                    finish += 1
+                s = s[:start] + """Symbols.Icon {
+                        anchors.centerIn: parent
+                        size: 9
+                        name: button.modelData === "maximize" ? "square" : button.modelData === "minimize" ? "minus" : "xmark"
+                        color: "black"
+                        opacity: !root.hoverGlyphs || groupHover.hovered || button.activeFocus ? .72 : 0
+                        Behavior on opacity { NumberAnimation { duration: AppTheme.motionFast } }
+                    }""" + s[finish:]
+        elif p.name == 'KosEmptyState.qml':
             s = s.replace('Label {\n            Layout.alignment: Qt.AlignHCenter\n            text: root.symbol', 'Symbols.Icon {\n            Layout.alignment: Qt.AlignHCenter\n            name: root.symbol')
             s = re.sub(r'(name: root.symbol\s+color: root.symbolColor\s+)font.pixelSize:', r'\1size:', s)
         elif p.name in ['KosCheckBox.qml', 'LiquidCheckBox.qml']:
