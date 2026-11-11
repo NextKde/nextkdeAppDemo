@@ -46,3 +46,10 @@ part of the portable shared UI module.
 
 2026-10-21按用户要求，Gallery Contrast预览采用指定Unsplash图片；图片仅属Demo，
 来源、署名及Unsplash许可链接见demo/assets/PROVENANCE.txt，不属于共享UI模块。
+
+## Interface icon font
+
+Framework7 Icons, copyright 2016 Vladimir Kharlampidi, MIT. The pinned font is
+extended and renamed NextKde Icons; preserve shared/Icons/LICENSE.Framework7
+and provenance.json. Original extension source and the reproducible builder are
+in tools/icons. See docs/Icons.md for the single-module integration contract.

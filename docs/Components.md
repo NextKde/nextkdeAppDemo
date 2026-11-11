@@ -357,9 +357,12 @@ and retains GPU grab results until all frames are captured; PNG encoding follows
 capture so it cannot stall the observed animation. These are actual scene frames
 from shared state entry, not synthetic pointer/keyboard event verification.
 
-### Shared vector icons
+### Shared icon font
 
-VectorIcon includes a consistent original stroked music/transport set.
+See [Icons](Icons.md) for the current Kos.Icons font, semantic aliases, extensions
+and rendering contract. VectorIcon remains a compatibility facade.
+
+VectorIcon resolves the shared Framework7 and NextKde font glyphs.
 LiquidActionButton.iconName (default empty) selects a centered vector icon;
 iconSize defaults16. Existing text/iconOnly use is preserved.
 LiquidNavigationButton.iconName/iconColor add an optional16px vector before its
@@ -372,7 +375,7 @@ Gallery uses 2px above and below.
 set the two ordinary row fills independently; Gallery uses blue for selected
 rows and `#dbdbdd` for hover in light mode.
 `specificationSelectedTextColor` sets the selected row's label; Gallery uses white.
-These additions support actual app navigation and playback, not font-symbol icons.
+These additions support app navigation and playback through the same icon font.
 
 Action button optics: the shared background lens expands slightly while content
 retains its press compression. Refraction/magnification/reflection respond to

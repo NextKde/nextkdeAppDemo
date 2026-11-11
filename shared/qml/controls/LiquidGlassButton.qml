@@ -1,4 +1,5 @@
 import QtQuick
+import "../../Icons" as Symbols
 
 // iOS-style liquid glass button with pure QML rendering.
 // No external texture needed - uses mathematical gradients to simulate refraction.
@@ -153,17 +154,13 @@ Item {
         }
     }
 
-    // Icon (crisp layer on top)
-    Text {
+    Symbols.Icon {
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: root.symbol === "▶" ? 1 : 0
-        text: root.symbol
+        name: root.symbol
         color: root.iconColor
-        style: (root.iconColor === "#ffffff" || root.iconColor === "white" || String(root.iconColor).toLowerCase() === "#ffffffff")
-            ? Text.Outline : Text.Normal
-        styleColor: Qt.rgba(0, 0, 0, 0.45)
-        font.pixelSize: root.primary ? 16 : 12
-        font.weight: Font.Medium
+        outlined: String(root.iconColor).toLowerCase() === "#ffffff"
+        outlineColor: Qt.rgba(0, 0, 0, 0.45)
+        size: root.primary ? 16 : 12
     }
 
     // Interaction

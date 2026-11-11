@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import "../../Icons" as Symbols
 
 KosToolButton {
     id: root
@@ -12,15 +13,5 @@ KosToolButton {
     Accessible.name: targetWindow && targetWindow.sidebarExpanded ? qsTr("Collapse sidebar") : qsTr("Expand sidebar")
     KosToolTip { target: root; text: root.Accessible.name }
     onClicked: if (targetWindow) targetWindow.sidebarExpanded = !targetWindow.sidebarExpanded
-    contentItem: Item {
-        Rectangle {
-            anchors.centerIn: parent
-            width: 18; height: 15; radius: 4
-            color: "transparent"; border.width: 1.4; border.color: root.glyphColor
-            Rectangle {
-                x: 4; y: 3; width: 3; height: 9; radius: 1.5
-                color: root.glyphPaneColor
-            }
-        }
-    }
+    contentItem: Symbols.Icon { name: "sidebar_left"; color: root.glyphColor; size: 18 }
 }
