@@ -8,9 +8,9 @@ import "../foundation" as Foundation
 // 用法按四步取值，顺序固定：
 //   1) 材质  ：默认液态（悬浮在内容之上、采样背景折射）。
 //              嵌在内容之内的按钮设 materialForm: true 切换实色。
-//   2) 大小  ：按所在位置设 implicitHeight——
+//   2) 大小  ：工具栏设 toolbarAction: true，尺寸跟随 LiquidStyle；其他位置设 implicitHeight——
 //              正文文字旁行内按钮暂用 20 / 普通非液态 Dialog 底栏 24 /
-//              工具栏 26（图标按钮）/ 内容区独立操作 28 /
+//              工具栏 28（图标按钮）/ 内容区独立操作 28 /
 //              液态 Dialog 的实色底部按钮 30 / 浮层 28。
 //   3) 圆角  ：液态恒为胶囊，不要设置 cornerRadius。
 //              实色 28、30 也是胶囊；实色 26、24、20、18 必须显式 cornerRadius: 6。
@@ -22,6 +22,7 @@ import "../foundation" as Foundation
 //              覆盖 textColor/accentColor/surfaceColor 仅用于特殊场景，需在调用处注释原因。
 //
 // 常用属性：
+//   toolbarAction 工具栏规格：共享高度与图标大小；配合 iconOnly 使用方形按钮
 //   materialForm  实色开关（见上）
 //   secondary     次级样式（弱化底色）
 //   destructive   危险操作（红字）
@@ -48,13 +49,14 @@ Button {
     property real cornerRadius: stacked ? height / 2 : !materialForm ? height / 2
         : (Foundation.AppTheme.compactDesign && height < 28 ? 6 : height / 2)
     property bool iconOnly: false
+    property bool toolbarAction: false
     property bool stacked: false          // 图标在上、文字在下
     property string stackedText: ""
     property real stackedIconSize: 14
     property real stackedTextSize: 10
     property string iconName: ""
     property bool iconFilled: false
-    property real iconSize: 16
+    property real iconSize: toolbarAction ? LiquidStyle.toolbarIconSize : 16
     // 主操作（highlighted/checked）在强调色底上用白字，符合 macOS 惯例
     property color textColor: !enabled ? Foundation.AppTheme.disabledText
         : destructive ? Foundation.AppTheme.destructive
@@ -74,7 +76,8 @@ Button {
     readonly property real opticalMagnification: buttonGlass.magnification
     readonly property real opticalReflection: buttonGlass.reflectionStrength
     hoverEnabled: true
-    implicitHeight: stacked ? 38 : Foundation.AppTheme.compactDesign ? 28 : 36
+    implicitHeight: stacked ? 38 : (toolbarAction || !materialForm) ? LiquidStyle.toolbarButtonHeight
+        : Foundation.AppTheme.compactDesign ? 28 : 36
     font.weight: Font.Medium
     Binding {
         target: root; property: "font.pixelSize"
@@ -92,7 +95,8 @@ Button {
         restoreMode: Binding.RestoreBindingOrValue
     }
     implicitWidth: stacked ? Math.max(56, stackedTextItem.implicitWidth + 22)
-        : iconOnly ? implicitHeight : Math.max(76, contentItem.implicitWidth + leftPadding + rightPadding)
+        : iconOnly ? implicitHeight : Math.max(toolbarAction ? 2 * LiquidStyle.toolbarButtonHeight : 76,
+            contentItem.implicitWidth + leftPadding + rightPadding)
     leftPadding: stacked ? 0 : iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
     rightPadding: stacked ? 0 : iconOnly ? 0 : Foundation.AppTheme.compactDesign ? 12 : 14
     scale: Foundation.AppTheme.compactDesign || adaptiveGlass ? 1 : materialForm ? (down ? .98 : 1) : hovered ? 1.03 : 1

@@ -4,6 +4,18 @@
 
 [English](Components.md)
 
+## 通用工具栏按钮尺寸
+
+独立工具栏图标按钮使用 `LiquidActionButton { toolbarAction: true; iconOnly: true }`，
+连排按钮使用 `LiquidActionButtonGroup`。两者统一读取
+`LiquidStyle.toolbarButtonHeight`（28 逻辑像素）和 `LiquidStyle.toolbarIconSize`（16）。
+工具栏文字按钮也可以设 `toolbarAction: true`，宽度适应文字，最小为两个按钮格宽。
+应用不要覆盖尺寸或复制数值；外围布局高度、自定义工具栏图标也应绑定这两个共享属性。
+切换材质或 `AppTheme.compactDesign` 不改变工具栏尺寸。仍保留显式自定义尺寸和上下图文规格。
+
+当前目录按用途命名，没有 small/medium 枚举：工具栏 28、普通内容区操作 28、液态弹窗底部 30。
+液态操作按钮在非紧凑模式下也默认使用此共享高度；非紧凑实色按钮仍默认 36，上下图文按钮与弹窗底部按钮保留各自规格。
+
 设置表单统一使用 **SettingsGroup** 和 **SettingsItem**，字体层级、普通底板、
 紧凑行及可选说明遵循[设置分组与条目规范](Settings.zh-CN.md)。
 Gallery“设置分组与条目”和 `demo/settings-demo.qml` 使用同一个主题示例。

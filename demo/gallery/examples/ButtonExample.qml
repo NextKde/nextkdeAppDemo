@@ -11,7 +11,7 @@ import "../../Kos/Ui/controls" as Controls
 //
 // 四步定义，顺序固定，后一步依赖前一步的结论：
 //   01 材质：先判断按钮浮在什么上面（浮在内容之上=液态；嵌在内容之内=实色 materialForm）
-//   02 大小：正文旁行内按钮暂用 20 / 普通非液态 Dialog 底栏 24 / 工具栏 26 /
+//   02 大小：正文旁行内按钮暂用 20 / 普通非液态 Dialog 底栏 24 / 工具栏 28 /
 //            液态 Dialog 的实色底部按钮 30
 //   03 圆角：由 01 的材质 + 02 的大小共同决定（液态一律胶囊；实色 28、30 胶囊，26、24、20、18 用 6pt）
 //   04 颜色：最后按功能、主题、材质取色（主操作强调色底白字；普通控件底色；危险红字；禁用淡字）
@@ -124,11 +124,11 @@ ColumnLayout {
                 color: Ui.AppTheme.text; font.pixelSize: 15; font.weight: Font.DemiBold
             }
             Label {
-                text: example.tr("Three icon actions share one toolbar surface; each button is 26 high.", "三个图标按钮共用一块工具栏材质，每个按钮高 26。")
+                text: example.tr("Three icon actions share one toolbar surface; height follows LiquidStyle.toolbarButtonHeight (currently %1).",
+                                 "三个图标按钮共用一块工具栏材质，高度跟随 LiquidStyle.toolbarButtonHeight（当前 %1）。").arg(Controls.LiquidStyle.toolbarButtonHeight)
                 color: Ui.AppTheme.mutedText; font.pixelSize: 13
             }
             Controls.LiquidActionButtonGroup {
-                buttonSize: 26
                 icons: ["search", "grid", "more"]
                 labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
             }
@@ -175,7 +175,6 @@ ColumnLayout {
             Controls.LiquidActionButton { text: example.tr("Inline · 20 · 6pt", "行内 · 20 · 6 点"); materialForm: true; implicitHeight: 20 }
             Controls.LiquidActionButton { text: example.tr("Secondary Dialog · 24 · 6pt", "非主弹窗 · 24 · 6 点"); materialForm: true; implicitHeight: 24 }
             Controls.LiquidActionButtonGroup {
-                buttonSize: 26
                 icons: ["search", "grid", "more"]
                 labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
             }
@@ -195,7 +194,6 @@ ColumnLayout {
             Controls.LiquidActionButton { text: example.tr("Inline", "行内"); materialForm: true; implicitHeight: 20 }
             Controls.LiquidActionButton { text: example.tr("Secondary dialog", "非主弹窗"); materialForm: true; implicitHeight: 24 }
             Controls.LiquidActionButtonGroup {
-                buttonSize: 26
                 icons: ["search", "grid", "more"]
                 labels: [example.tr("Search", "搜索"), example.tr("View", "视图"), example.tr("More", "更多")]
             }
