@@ -133,7 +133,7 @@ Item {
         Item {
             Controls.LiquidNavBar {
                 anchors.centerIn: parent
-                model: [{id: "home", label: "Home", icon: "H"}, {id: "library", label: "Library", icon: "L"}]
+                model: [{id: "home", label: "Home", icon: "house"}, {id: "library", label: "Library", icon: "book"}]
                 size: "small"
                 currentIndex: 1
                 materialForm: false

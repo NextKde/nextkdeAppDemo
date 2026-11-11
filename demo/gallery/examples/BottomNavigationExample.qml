@@ -13,8 +13,8 @@ ColumnLayout {
     objectName: "reviewNav"
     property int destination: 0
     property int requestCount: 0
-    property var navigationItems: [{id: "home", label: "Home", icon: "H"},
-        {id: "search", label: "Search", icon: "S"}, {id: "library", label: "Library", icon: "L"}]
+    property var navigationItems: [{id: "home", label: "Home", icon: "house"},
+        {id: "search", label: "Search", icon: "search"}, {id: "library", label: "Library", icon: "book"}]
     property var sequenceFrames: []
     property var _pendingGrabs: []
     property string _directory: ""
