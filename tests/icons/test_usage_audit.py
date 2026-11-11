@@ -24,6 +24,8 @@ class UsageAudit(unittest.TestCase):
         self.assertEqual(self.findings('Symbols.Icon { name: action === "delete" ? "xmark" : "plus"; Accessible.name: "Delete entry" }'),[])
     def test_unknown_returned_name_is_reported(self):
         self.assertIn('missing_symbol',self.findings('Symbols.Icon { name: selected ? "checkmark" : "missing_symbol" }')[0]['reason'])
+    def test_missing_relative_svg_is_reported(self):
+        self.assertEqual(self.findings('Image { source: Qt.resolvedUrl("icons/old-check.svg") }')[0]['reason'], 'missing relative SVG asset')
     def test_content_item_and_path_text_are_not_glyph_fallbacks(self):
         self.assertEqual(self.findings('Item { ToolButton { text: "×"; contentItem: Symbols.Icon { name: "xmark" } }\n Text { text: entry.path.split("/").join(" › ") } }'),[])
 

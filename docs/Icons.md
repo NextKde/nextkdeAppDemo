@@ -77,7 +77,8 @@ The build never follows a floating branch or a workstation-specific path by defa
 
 In the VM, run `python3 tools/icons/audit_usage.py <checkout roots> --inventory`.
 The scan covers literal characters, conditional bindings, custom buttons, dynamic
-icon fields and glyph names. Review the Canvas/SVG inventory individually. Retain
+icon fields, glyph names and missing relative SVG assets. Review the Canvas and
+inline/file SVG inventory individually. Retain
 mathematical/dimension text, path separators, user avatars/covers/emoji, branding,
 weather scenes, data plots, material masks and cursors in instructional animations.
 `tests/icons/tst_hosts.qml` also exercises navigation, tab-model icons and window

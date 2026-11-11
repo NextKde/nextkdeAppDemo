@@ -27,7 +27,9 @@ def end_block(source, opening):
             i = len(source) if newline < 0 else newline
             continue
         elif source.startswith('/*', i):
-            i = source.find('*/', i + 2) + 2
+            comment_end = source.find('*/', i + 2)
+            if comment_end < 0: return len(source)
+            i = comment_end + 2
             continue
         elif ch in '\"\'`': quote = ch
         elif ch == '{': depth += 1
@@ -77,6 +79,13 @@ def inspect(root, known):
             if reason: findings.append({'file': str(rel), 'line':source.count('\n',0,match.start())+1, 'reason':reason, 'binding':match[0]})
         for match in re.finditer(r'\b(?:Canvas|ShapePath|PathSvg)\s*\{|data:image/svg',source):
             artwork.append({'file':str(rel),'line':source.count('\n',0,match.start())+1,'kind':match[0]})
+        for match in re.finditer(r'''["']([^"'\n]+\.svg)["']''', source):
+            line_start = source.rfind('\n', 0, match.start()) + 1
+            if '//' in source[line_start:match.start()]: continue
+            value = match[1]
+            artwork.append({'file':str(rel),'line':source.count('\n',0,match.start())+1,'kind':'SVG asset: '+value})
+            if re.search(r'Qt\.resolvedUrl\(\s*$', source[line_start:match.start()]) and ':' not in value and not (path.parent/value).exists():
+                findings.append({'file':str(rel),'line':source.count('\n',0,match.start())+1,'reason':'missing relative SVG asset','binding':value})
     return {'root':str(root),'qmlFiles':count,'findings':findings,'proceduralOrSvgArtwork':artwork}
 
 def main():
